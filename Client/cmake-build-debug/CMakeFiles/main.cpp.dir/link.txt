@@ -1,1 +1,0 @@
-/usr/bin/c++   -pthread -g   CMakeFiles/main.cpp.dir/TCP_Socket/Socket.cpp.o  -o main.cpp 

@@ -34,19 +34,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /snap/clion/121/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -E remove -f
+RM = /snap/clion/121/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/Scrivania/PDS_Project/Server
+CMAKE_SOURCE_DIR = /home/giuseppetoscano/Desktop/PDS_Project/Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/Scrivania/PDS_Project/Server/cmake-build-debug
+CMAKE_BINARY_DIR = /home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/PDS_Project_Server.dir/depend.make
@@ -59,42 +59,42 @@ include CMakeFiles/PDS_Project_Server.dir/flags.make
 
 CMakeFiles/PDS_Project_Server.dir/main.cpp.o: CMakeFiles/PDS_Project_Server.dir/flags.make
 CMakeFiles/PDS_Project_Server.dir/main.cpp.o: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PDS_Project_Server.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PDS_Project_Server.dir/main.cpp.o -c /root/Scrivania/PDS_Project/Server/main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/PDS_Project_Server.dir/main.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PDS_Project_Server.dir/main.cpp.o -c /home/giuseppetoscano/Desktop/PDS_Project/Server/main.cpp
 
 CMakeFiles/PDS_Project_Server.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PDS_Project_Server.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/Scrivania/PDS_Project/Server/main.cpp > CMakeFiles/PDS_Project_Server.dir/main.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/giuseppetoscano/Desktop/PDS_Project/Server/main.cpp > CMakeFiles/PDS_Project_Server.dir/main.cpp.i
 
 CMakeFiles/PDS_Project_Server.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PDS_Project_Server.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Scrivania/PDS_Project/Server/main.cpp -o CMakeFiles/PDS_Project_Server.dir/main.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/giuseppetoscano/Desktop/PDS_Project/Server/main.cpp -o CMakeFiles/PDS_Project_Server.dir/main.cpp.s
 
 CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o: CMakeFiles/PDS_Project_Server.dir/flags.make
 CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o: ../TCP_Socket/Socket.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o -c /root/Scrivania/PDS_Project/Server/TCP_Socket/Socket.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o -c /home/giuseppetoscano/Desktop/PDS_Project/Server/TCP_Socket/Socket.cpp
 
 CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/Scrivania/PDS_Project/Server/TCP_Socket/Socket.cpp > CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/giuseppetoscano/Desktop/PDS_Project/Server/TCP_Socket/Socket.cpp > CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.i
 
 CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Scrivania/PDS_Project/Server/TCP_Socket/Socket.cpp -o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/giuseppetoscano/Desktop/PDS_Project/Server/TCP_Socket/Socket.cpp -o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.s
 
 CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o: CMakeFiles/PDS_Project_Server.dir/flags.make
 CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o: ../TCP_Socket/SocketServer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o -c /root/Scrivania/PDS_Project/Server/TCP_Socket/SocketServer.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o -c /home/giuseppetoscano/Desktop/PDS_Project/Server/TCP_Socket/SocketServer.cpp
 
 CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/Scrivania/PDS_Project/Server/TCP_Socket/SocketServer.cpp > CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.i
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/giuseppetoscano/Desktop/PDS_Project/Server/TCP_Socket/SocketServer.cpp > CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.i
 
 CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Scrivania/PDS_Project/Server/TCP_Socket/SocketServer.cpp -o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.s
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/giuseppetoscano/Desktop/PDS_Project/Server/TCP_Socket/SocketServer.cpp -o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.s
 
 # Object files for target PDS_Project_Server
 PDS_Project_Server_OBJECTS = \
@@ -110,7 +110,7 @@ PDS_Project_Server: CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o
 PDS_Project_Server: CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o
 PDS_Project_Server: CMakeFiles/PDS_Project_Server.dir/build.make
 PDS_Project_Server: CMakeFiles/PDS_Project_Server.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable PDS_Project_Server"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable PDS_Project_Server"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/PDS_Project_Server.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -123,6 +123,6 @@ CMakeFiles/PDS_Project_Server.dir/clean:
 .PHONY : CMakeFiles/PDS_Project_Server.dir/clean
 
 CMakeFiles/PDS_Project_Server.dir/depend:
-	cd /root/Scrivania/PDS_Project/Server/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/Scrivania/PDS_Project/Server /root/Scrivania/PDS_Project/Server /root/Scrivania/PDS_Project/Server/cmake-build-debug /root/Scrivania/PDS_Project/Server/cmake-build-debug /root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles/PDS_Project_Server.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/giuseppetoscano/Desktop/PDS_Project/Server /home/giuseppetoscano/Desktop/PDS_Project/Server /home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug /home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug /home/giuseppetoscano/Desktop/PDS_Project/Server/cmake-build-debug/CMakeFiles/PDS_Project_Server.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/PDS_Project_Server.dir/depend
 

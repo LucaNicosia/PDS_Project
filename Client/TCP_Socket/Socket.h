@@ -31,6 +31,8 @@ class Socket {
 
      int __sock_fd(){ return sockfd; }
 
+    int sendFile(const char *filename);
+
      friend class ServerSocket;
 };
 

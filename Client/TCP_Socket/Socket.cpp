@@ -2,6 +2,7 @@
 // Created by giuseppetoscano on 13/06/20.
 //
 
+#include <fcntl.h>
 #include "Socket.h"
 
 Socket::Socket(int sockfd): sockfd(sockfd){
@@ -46,3 +47,24 @@ void Socket::connect(struct sockaddr_in *addr, unsigned int len){
     if (::connect(sockfd, reinterpret_cast<struct sockaddr*>(addr), len) != 0)
         throw std::runtime_error("Cannot connect to remote socket");
 }
+
+int Socket::sendFile(const char *filename){
+    int from;
+    from=open(filename,O_RDONLY);
+    if(from<0){
+        std::cout<<"Error opening file\n";
+        return 0;
+    }
+    int n=1;
+    int s;
+    char buf [1024];
+    while((n=::read(from,buf,sizeof(buf)))!=0) {
+        //s=send(fd2,buf,sizeof(buf),0);
+        s = write(buf, sizeof(buf), 0);
+        //s = write(this->sockfd, buf, n);
+        if (s < 0) {
+            std::cout << "error sending\n";
+            return 0;
+        }
+    }
+};

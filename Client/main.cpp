@@ -12,12 +12,14 @@
 
 // database mySql libraries
 #include <sqlite3.h>
+#include "TCP_Socket/Socket.h"
 
 
 #define PORT 5058
 #define MAXFD 50000
+#define BUFFER_SIZE 1024
 
-static int callback(void *data, int argc, char **argv, char **azColName){
+/*static int callback(void *data, int argc, char **argv, char **azColName){
     int i;
     std::cout<< reinterpret_cast<const char*>(data)<<std::endl;
 
@@ -27,11 +29,11 @@ static int callback(void *data, int argc, char **argv, char **azColName){
 
     printf("\n");
     return 0;
-}
+}*/
 
 int main(int argc, char** argv)
 {
-    sqlite3* db;
+    /*sqlite3* db;
     int rc = 0;
     rc = sqlite3_open("../DB/user.db", &db);
 
@@ -47,10 +49,10 @@ int main(int argc, char** argv)
     const char* data = "Callback function called";
 
     /* Create SQL statement */
-    sql = "SELECT * from DIRECTORY";
+    //sql = "SELECT * from DIRECTORY";
 
     /* Execute SQL statement */
-    rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+    /*rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
 
     if( rc != SQLITE_OK ) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -58,6 +60,29 @@ int main(int argc, char** argv)
     } else {
         fprintf(stdout, "Operation done successfully\n");
     }
-    sqlite3_close(db);
+    sqlite3_close(db);*/
+
+    Socket s{};
+    struct sockaddr_in addr;
+    unsigned int len = sizeof(addr);
+
+
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(PORT);
+
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if(inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr)<=0){
+        printf("\nInvalid address/ Address not supported \n");
+        return -1;
+    }
+
+    s.connect(&addr, len);
+
+    const char *buffer = "prova";
+    s.write(buffer, BUFFER_SIZE, 0);
+
+    s.sendFile("./client_directory/file.txt");
+
+
     return (0);
 }
