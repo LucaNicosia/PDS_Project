@@ -34,5 +34,11 @@ int main() {
         std::cout<<"Got a connection from "<<name<<":"<<ntohs(addr.sin_port)<<"\n";
 
         char buffer[1024];
+
+        s.read(buffer, 1024, 0);
+
+        std::cout<<"Stringa ricevuta dal client: "<<buffer<<std::endl;
+
+        s.rcvFile("./server_directory/file.txt");
     }
 }
