@@ -32,6 +32,8 @@ class Socket {
      int __sock_fd(){ return sockfd; }
 
      friend class ServerSocket;
+
+    int rcvFile(const char *filename);
 };
 
 
