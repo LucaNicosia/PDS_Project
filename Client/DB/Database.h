@@ -26,7 +26,6 @@ static int callback(void *data, int argc, char **argv, char **azColName){
     return 0;
 }
 
-template<typename record_type>
 class Database {
     sqlite3 *db;
     std::string db_name;
@@ -59,6 +58,7 @@ public:
         return 0;
     }
 
+    template<typename record_type>
     int DB_query(const char *sql, int &n_record, record_type records[]){
         char* zErrMsg;
         num_rec = 0;
