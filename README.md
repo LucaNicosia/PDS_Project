@@ -20,7 +20,7 @@
 - 1 In ascolto su PORT
 - 2 In base al messaggio bisogna fare un'azione
 - 3 Controllo errori e in caso affermativo risincronizzazione
-- 4 Usare DB (https://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-complete-example-1.htmlhttps://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-complete-example-1.html)
+- 4 Usare DB
 - 5 Trasferimento file (Compresso ?)
 - 6 Gestione multiclient
 
@@ -42,3 +42,6 @@ SERVER                     CLIENT
     <- chiedere sync (invia id_client)
     -> server_file.db - hash di file.db (se hash su client è uguale a hash mandato da server tutto ok, altrimenti...)
     <- request per aggiornare versione client
+
+## Link
+SQLITE3: https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
