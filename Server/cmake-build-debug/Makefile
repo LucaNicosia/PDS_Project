@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Lab05
+# Target rules for targets named PDS_Project_Server
 
 # Build rule for target.
-Lab05: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Lab05
-.PHONY : Lab05
+PDS_Project_Server: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 PDS_Project_Server
+.PHONY : PDS_Project_Server
 
 # fast build rule for target.
-Lab05/fast:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/build
-.PHONY : Lab05/fast
+PDS_Project_Server/fast:
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/build
+.PHONY : PDS_Project_Server/fast
 
 TCP_Socket/Socket.o: TCP_Socket/Socket.cpp.o
 
@@ -129,7 +129,7 @@ TCP_Socket/Socket.o: TCP_Socket/Socket.cpp.o
 
 # target to build an object file
 TCP_Socket/Socket.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.o
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o
 .PHONY : TCP_Socket/Socket.cpp.o
 
 TCP_Socket/Socket.i: TCP_Socket/Socket.cpp.i
@@ -138,7 +138,7 @@ TCP_Socket/Socket.i: TCP_Socket/Socket.cpp.i
 
 # target to preprocess a source file
 TCP_Socket/Socket.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.i
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.i
 .PHONY : TCP_Socket/Socket.cpp.i
 
 TCP_Socket/Socket.s: TCP_Socket/Socket.cpp.s
@@ -147,7 +147,7 @@ TCP_Socket/Socket.s: TCP_Socket/Socket.cpp.s
 
 # target to generate assembly for a file
 TCP_Socket/Socket.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.s
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.s
 .PHONY : TCP_Socket/Socket.cpp.s
 
 TCP_Socket/SocketServer.o: TCP_Socket/SocketServer.cpp.o
@@ -156,7 +156,7 @@ TCP_Socket/SocketServer.o: TCP_Socket/SocketServer.cpp.o
 
 # target to build an object file
 TCP_Socket/SocketServer.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/SocketServer.cpp.o
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o
 .PHONY : TCP_Socket/SocketServer.cpp.o
 
 TCP_Socket/SocketServer.i: TCP_Socket/SocketServer.cpp.i
@@ -165,7 +165,7 @@ TCP_Socket/SocketServer.i: TCP_Socket/SocketServer.cpp.i
 
 # target to preprocess a source file
 TCP_Socket/SocketServer.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/SocketServer.cpp.i
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.i
 .PHONY : TCP_Socket/SocketServer.cpp.i
 
 TCP_Socket/SocketServer.s: TCP_Socket/SocketServer.cpp.s
@@ -174,7 +174,7 @@ TCP_Socket/SocketServer.s: TCP_Socket/SocketServer.cpp.s
 
 # target to generate assembly for a file
 TCP_Socket/SocketServer.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/SocketServer.cpp.s
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.s
 .PHONY : TCP_Socket/SocketServer.cpp.s
 
 main.o: main.cpp.o
@@ -183,7 +183,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -192,7 +192,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -201,7 +201,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/PDS_Project_Server.dir/build.make CMakeFiles/PDS_Project_Server.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -212,7 +212,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... Lab05"
+	@echo "... PDS_Project_Server"
 	@echo "... TCP_Socket/Socket.o"
 	@echo "... TCP_Socket/Socket.i"
 	@echo "... TCP_Socket/Socket.s"

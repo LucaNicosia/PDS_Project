@@ -53,7 +53,7 @@ CMAKE_BINARY_DIR = /root/Scrivania/PDS_Project/Client/cmake-build-debug
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/Lab05.dir/all
+all: CMakeFiles/PDS_Progetto.dir/all
 
 .PHONY : all
 
@@ -63,36 +63,36 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/Lab05.dir/clean
+clean: CMakeFiles/PDS_Progetto.dir/clean
 
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/Lab05.dir
+# Target rules for target CMakeFiles/PDS_Progetto.dir
 
 # All Build rule for target.
-CMakeFiles/Lab05.dir/all:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/depend
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target Lab05"
-.PHONY : CMakeFiles/Lab05.dir/all
+CMakeFiles/PDS_Progetto.dir/all:
+	$(MAKE) -f CMakeFiles/PDS_Progetto.dir/build.make CMakeFiles/PDS_Progetto.dir/depend
+	$(MAKE) -f CMakeFiles/PDS_Progetto.dir/build.make CMakeFiles/PDS_Progetto.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles --progress-num=1,2,3 "Built target PDS_Progetto"
+.PHONY : CMakeFiles/PDS_Progetto.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/Lab05.dir/rule: cmake_check_build_system
+CMakeFiles/PDS_Progetto.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles 3
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Lab05.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/PDS_Progetto.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles 0
-.PHONY : CMakeFiles/Lab05.dir/rule
+.PHONY : CMakeFiles/PDS_Progetto.dir/rule
 
 # Convenience name for target.
-Lab05: CMakeFiles/Lab05.dir/rule
+PDS_Progetto: CMakeFiles/PDS_Progetto.dir/rule
 
-.PHONY : Lab05
+.PHONY : PDS_Progetto
 
 # clean rule for target.
-CMakeFiles/Lab05.dir/clean:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/clean
-.PHONY : CMakeFiles/Lab05.dir/clean
+CMakeFiles/PDS_Progetto.dir/clean:
+	$(MAKE) -f CMakeFiles/PDS_Progetto.dir/build.make CMakeFiles/PDS_Progetto.dir/clean
+.PHONY : CMakeFiles/PDS_Progetto.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

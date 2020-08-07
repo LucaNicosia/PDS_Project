@@ -10,7 +10,10 @@
 #include <atomic>
 #include <vector>
 #include <thread>
-#include "SocketServer.h"
+#include "./TCP_Socket/SocketServer.h"
+
+// DB
+#include <sqlite3.h>
 
 #define PORT 5058
 #define MAXFD 50000

@@ -1,0 +1,1 @@
+/usr/bin/c++   -pthread -g   CMakeFiles/PDS_Project_Server.dir/main.cpp.o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/Socket.cpp.o CMakeFiles/PDS_Project_Server.dir/TCP_Socket/SocketServer.cpp.o  -o PDS_Project_Server  -lsqlite3 
