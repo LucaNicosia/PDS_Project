@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/121/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/121/bin/cmake/linux/bin/cmake -E remove -f
+RM = /root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/giuseppetoscano/Desktop/PDS_Project/Client
+CMAKE_SOURCE_DIR = /root/Scrivania/PDS_Project/Client
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug
+CMAKE_BINARY_DIR = /root/Scrivania/PDS_Project/Client/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/clion/121/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/121/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/CMakeFiles /home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles /root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,33 +122,6 @@ PDS_Project_Client: cmake_check_build_system
 PDS_Project_Client/fast:
 	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/build
 .PHONY : PDS_Project_Client/fast
-
-DB/Database.o: DB/Database.cpp.o
-
-.PHONY : DB/Database.o
-
-# target to build an object file
-DB/Database.cpp.o:
-	$(MAKE) -f CMakeFiles/PDS_Progetto.dir/build.make CMakeFiles/PDS_Progetto.dir/DB/Database.cpp.o
-.PHONY : DB/Database.cpp.o
-
-DB/Database.i: DB/Database.cpp.i
-
-.PHONY : DB/Database.i
-
-# target to preprocess a source file
-DB/Database.cpp.i:
-	$(MAKE) -f CMakeFiles/PDS_Progetto.dir/build.make CMakeFiles/PDS_Progetto.dir/DB/Database.cpp.i
-.PHONY : DB/Database.cpp.i
-
-DB/Database.s: DB/Database.cpp.s
-
-.PHONY : DB/Database.s
-
-# target to generate assembly for a file
-DB/Database.cpp.s:
-	$(MAKE) -f CMakeFiles/PDS_Progetto.dir/build.make CMakeFiles/PDS_Progetto.dir/DB/Database.cpp.s
-.PHONY : DB/Database.cpp.s
 
 TCP_Socket/Socket.o: TCP_Socket/Socket.cpp.o
 
@@ -211,15 +184,8 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
-<<<<<<< HEAD
-	@echo "... PDS_Progetto"
-	@echo "... DB/Database.o"
-	@echo "... DB/Database.i"
-	@echo "... DB/Database.s"
-=======
 	@echo "... edit_cache"
 	@echo "... PDS_Project_Client"
->>>>>>> 4ffbad40d3272c88f66b169497836f937c247f70
 	@echo "... TCP_Socket/Socket.o"
 	@echo "... TCP_Socket/Socket.i"
 	@echo "... TCP_Socket/Socket.s"

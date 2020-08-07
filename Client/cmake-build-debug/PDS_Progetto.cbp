@@ -8,38 +8,38 @@
 		<Option virtualFolders="CMake Files\;"/>
 		<Build>
 			<Target title="all">
-				<Option working_dir="/root/Scrivania/PDS_Project/Client/cmake-build-debug"/>
+				<Option working_dir="/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="edit_cache">
-				<Option working_dir="/root/Scrivania/PDS_Project/Client/cmake-build-debug"/>
+				<Option working_dir="/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="rebuild_cache">
-				<Option working_dir="/root/Scrivania/PDS_Project/Client/cmake-build-debug"/>
+				<Option working_dir="/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug"/>
 				<Option type="4"/>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="PDS_Progetto">
-				<Option output="/root/Scrivania/PDS_Project/Client/cmake-build-debug/PDS_Progetto" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/root/Scrivania/PDS_Project/Client/cmake-build-debug"/>
+				<Option output="/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/PDS_Progetto" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -49,19 +49,20 @@
 					<Add directory="/usr/include/c++/9/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
 					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"/>
 					<Add directory="/usr/include/x86_64-linux-gnu"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 PDS_Progetto"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 PDS_Progetto"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 			<Target title="PDS_Progetto/fast">
-				<Option output="/root/Scrivania/PDS_Project/Client/cmake-build-debug/PDS_Progetto" prefix_auto="0" extension_auto="0"/>
-				<Option working_dir="/root/Scrivania/PDS_Project/Client/cmake-build-debug"/>
+				<Option output="/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/PDS_Progetto" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
 				<Option compiler="gcc"/>
@@ -71,33 +72,34 @@
 					<Add directory="/usr/include/c++/9/backward"/>
 					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include"/>
 					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/9/include-fixed"/>
 					<Add directory="/usr/include/x86_64-linux-gnu"/>
 					<Add directory="/usr/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 PDS_Progetto/fast"/>
-					<CompileFile command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
-					<Clean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
-					<DistClean command="/usr/bin/make -j4 -f &quot;/root/Scrivania/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<Build command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 PDS_Progetto/fast"/>
+					<CompileFile command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j4 -f &quot;/home/giuseppetoscano/Desktop/PDS_Project/Client/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/root/Scrivania/PDS_Project/Client/DB/Database.cpp">
+		<Unit filename="/home/giuseppetoscano/Desktop/PDS_Project/Client/DB/Database.cpp">
 			<Option target="PDS_Progetto"/>
 		</Unit>
-		<Unit filename="/root/Scrivania/PDS_Project/Client/DB/Database.h">
+		<Unit filename="/home/giuseppetoscano/Desktop/PDS_Project/Client/DB/Database.h">
 			<Option target="PDS_Progetto"/>
 		</Unit>
-		<Unit filename="/root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.cpp">
+		<Unit filename="/home/giuseppetoscano/Desktop/PDS_Project/Client/TCP_Socket/Socket.cpp">
 			<Option target="PDS_Progetto"/>
 		</Unit>
-		<Unit filename="/root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.h">
+		<Unit filename="/home/giuseppetoscano/Desktop/PDS_Project/Client/TCP_Socket/Socket.h">
 			<Option target="PDS_Progetto"/>
 		</Unit>
-		<Unit filename="/root/Scrivania/PDS_Project/Client/main.cpp">
+		<Unit filename="/home/giuseppetoscano/Desktop/PDS_Project/Client/main.cpp">
 			<Option target="PDS_Progetto"/>
 		</Unit>
-		<Unit filename="/root/Scrivania/PDS_Project/Client/CMakeLists.txt">
+		<Unit filename="/home/giuseppetoscano/Desktop/PDS_Project/Client/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
 	</Project>
