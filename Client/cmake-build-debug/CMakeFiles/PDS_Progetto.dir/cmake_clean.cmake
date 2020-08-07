@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/PDS_Progetto.dir/DB/Database.cpp.o"
   "CMakeFiles/PDS_Progetto.dir/TCP_Socket/Socket.cpp.o"
   "CMakeFiles/PDS_Progetto.dir/main.cpp.o"
   "PDS_Progetto"

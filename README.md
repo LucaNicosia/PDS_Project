@@ -1,6 +1,9 @@
 # PDS_Project
 - Tutti i pacchetti vanno mandati con TCP
 
+## entrambi
+- 1 classe Database per eseguire le funzioni sui DB
+
 ## Client
 - 1 Monitoraggio ricorsivo cartella in background
 - 2 Cartella di partenza
