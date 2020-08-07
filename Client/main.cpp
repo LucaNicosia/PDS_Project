@@ -10,12 +10,17 @@
 #include <vector>
 #include <thread>
 
+
 // database mySql libraries
 #include <sqlite3.h>
+#include "./DB/Database.h"
 
+// Socket
+#include "./TCP_Socket/Socket.h"
 
 #define PORT 5058
 #define MAXFD 50000
+#define BUFFER_SIZE 1000
 
 static int callback(void *data, int argc, char **argv, char **azColName){
     int i;
