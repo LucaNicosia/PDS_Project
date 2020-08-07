@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/PDS_Progetto.dir/main.cpp.o  -o PDS_Progetto 

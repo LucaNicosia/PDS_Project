@@ -1,0 +1,1 @@
+/usr/bin/c++   -pthread -g   CMakeFiles/Lab05.dir/main.cpp.o CMakeFiles/Lab05.dir/Socket.cpp.o CMakeFiles/Lab05.dir/SocketServer.cpp.o  -o Lab05 
