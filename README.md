@@ -22,7 +22,7 @@
 - 3 Controllo errori e in caso affermativo risincronizzazione
 - 4 Usare DB (https://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-complete-example-1.htmlhttps://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-complete-example-1.html)
 - 5 Trasferimento file (Compresso ?)
-- 6 Multiclient
+- 6 Gestione multiclient
 
 DATABASE
 
