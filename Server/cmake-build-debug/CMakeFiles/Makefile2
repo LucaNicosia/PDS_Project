@@ -44,10 +44,10 @@ RM = /root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/Scrivania/PDS-Progetto
+CMAKE_SOURCE_DIR = /root/Scrivania/PDS_Project/Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/Scrivania/PDS-Progetto/cmake-build-debug
+CMAKE_BINARY_DIR = /root/Scrivania/PDS_Project/Server/cmake-build-debug
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -74,14 +74,14 @@ clean: CMakeFiles/Lab05.dir/clean
 CMakeFiles/Lab05.dir/all:
 	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/depend
 	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target Lab05"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles --progress-num=1,2,3,4 "Built target Lab05"
 .PHONY : CMakeFiles/Lab05.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/Lab05.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Lab05.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles 0
 .PHONY : CMakeFiles/Lab05.dir/rule
 
 # Convenience name for target.

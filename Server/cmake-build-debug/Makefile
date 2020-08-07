@@ -48,10 +48,10 @@ RM = /root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/Scrivania/PDS-Progetto
+CMAKE_SOURCE_DIR = /root/Scrivania/PDS_Project/Server
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/Scrivania/PDS-Progetto/cmake-build-debug
+CMAKE_BINARY_DIR = /root/Scrivania/PDS_Project/Server/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles /root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles /root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

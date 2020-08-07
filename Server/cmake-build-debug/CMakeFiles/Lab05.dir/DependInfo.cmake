@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/root/Scrivania/PDS-Progetto/Socket.cpp" "/root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles/Lab05.dir/Socket.cpp.o"
-  "/root/Scrivania/PDS-Progetto/SocketServer.cpp" "/root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles/Lab05.dir/SocketServer.cpp.o"
-  "/root/Scrivania/PDS-Progetto/main.cpp" "/root/Scrivania/PDS-Progetto/cmake-build-debug/CMakeFiles/Lab05.dir/main.cpp.o"
+  "/root/Scrivania/PDS_Project/Server/Socket.cpp" "/root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles/Lab05.dir/Socket.cpp.o"
+  "/root/Scrivania/PDS_Project/Server/SocketServer.cpp" "/root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles/Lab05.dir/SocketServer.cpp.o"
+  "/root/Scrivania/PDS_Project/Server/main.cpp" "/root/Scrivania/PDS_Project/Server/cmake-build-debug/CMakeFiles/Lab05.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
