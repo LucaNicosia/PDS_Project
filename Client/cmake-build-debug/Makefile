@@ -123,33 +123,6 @@ PDS_Project_Client/fast:
 	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/build
 .PHONY : PDS_Project_Client/fast
 
-DB/Database.o: DB/Database.cpp.o
-
-.PHONY : DB/Database.o
-
-# target to build an object file
-DB/Database.cpp.o:
-	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/DB/Database.cpp.o
-.PHONY : DB/Database.cpp.o
-
-DB/Database.i: DB/Database.cpp.i
-
-.PHONY : DB/Database.i
-
-# target to preprocess a source file
-DB/Database.cpp.i:
-	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/DB/Database.cpp.i
-.PHONY : DB/Database.cpp.i
-
-DB/Database.s: DB/Database.cpp.s
-
-.PHONY : DB/Database.s
-
-# target to generate assembly for a file
-DB/Database.cpp.s:
-	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/DB/Database.cpp.s
-.PHONY : DB/Database.cpp.s
-
 TCP_Socket/Socket.o: TCP_Socket/Socket.cpp.o
 
 .PHONY : TCP_Socket/Socket.o
@@ -213,9 +186,6 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... PDS_Project_Client"
-	@echo "... DB/Database.o"
-	@echo "... DB/Database.i"
-	@echo "... DB/Database.s"
 	@echo "... TCP_Socket/Socket.o"
 	@echo "... TCP_Socket/Socket.i"
 	@echo "... TCP_Socket/Socket.s"

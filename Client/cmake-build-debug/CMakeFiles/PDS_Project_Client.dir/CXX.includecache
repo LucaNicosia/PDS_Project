@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/root/Scrivania/PDS_Project/Client/DB/Database.cpp
-Database.h
-/root/Scrivania/PDS_Project/Client/DB/Database.h
-
 /root/Scrivania/PDS_Project/Client/DB/Database.h
 sqlite3.h
 -
@@ -53,6 +49,8 @@ sqlite3.h
 -
 ./DB/Database.h
 /root/Scrivania/PDS_Project/Client/DB/Database.h
+TCP_Socket/Socket.h
+/root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.h
 ./TCP_Socket/Socket.h
 /root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.h
 
