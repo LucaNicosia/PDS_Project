@@ -2,27 +2,27 @@
 - Tutti i pacchetti vanno mandati con TCP
 
 ## Client
-1 Monitoraggio ricorsivo cartella in background
-2 Cartella di partenza
-3 Salvare in una struttura dati nome e hash di ogni file (usare old_map e new_map aggiornate ogni secondo o ogni modifica)
-4 Struttura ad albero per le directory
-5 Programma deve runnare in background
-6 Quando aggiungo un file o una directory modificare le strutture dati
-7 Quando old != new c'è stata una modifica nei file (delete o rename o modifica del contenuto o new)
-8 Quando old != new per modifica, bisogna rendere il file invalido e sincronizzarlo con il server per poi rimetterlo a valido
-9 Fare la push delle modifiche sul server
-10 Trasferimento file (Compresso ?)
-11 Trasferimento cartelle (es. mandare il messaggio "DIR /path/to/directory")
-12 Gestione errori (se pc o server non online mantenere l'elenco delle modifiche da mandare)
-13 Sincronizzazione all'avvio e creazione DB come su server
+- 1 Monitoraggio ricorsivo cartella in background
+- 2 Cartella di partenza
+- 3 Salvare in una struttura dati nome e hash di ogni file (usare old_map e new_map aggiornate ogni secondo o ogni modifica)
+- 4 Struttura ad albero per le directory
+- 5 Programma deve runnare in background
+- 6 Quando aggiungo un file o una directory modificare le strutture dati
+- 7 Quando old != new c'è stata una modifica nei file (delete o rename o modifica del contenuto o new)
+- 8 Quando old != new per modifica, bisogna rendere il file invalido e sincronizzarlo con il server per poi rimetterlo a valido
+- 9 Fare la push delle modifiche sul server
+- 10 Trasferimento file (Compresso ?)
+- 11 Trasferimento cartelle (es. mandare il messaggio "DIR /path/to/directory")
+- 12 Gestione errori (se pc o server non online mantenere l'elenco delle modifiche da mandare)
+- 13 Sincronizzazione all'avvio e creazione DB come su server
 
 ## Server
-1 In ascolto su PORT
-2 In base al messaggio bisogna fare un'azione
-3 Controllo errori e in caso affermativo risincronizzazione
-4 Usare DB (https://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-complete-example-1.htmlhttps://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-complete-example-1.html)
-5 Trasferimento file (Compresso ?)
-6 Multiclient
+- 1 In ascolto su PORT
+- 2 In base al messaggio bisogna fare un'azione
+- 3 Controllo errori e in caso affermativo risincronizzazione
+- 4 Usare DB (https://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-complete-example-1.htmlhttps://dev.mysql.com/doc/connector-cpp/1.1/en/connector-cpp-examples-complete-example-1.html)
+- 5 Trasferimento file (Compresso ?)
+- 6 Multiclient
 
 DATABASE
 
