@@ -10,16 +10,19 @@
 #include <vector>
 #include <thread>
 
+
 // database mySql libraries
 #include <sqlite3.h>
-#include "TCP_Socket/Socket.h"
+#include "./DB/Database.h"
 
+// Socket
+#include "./TCP_Socket/Socket.h"
 
 #define PORT 5058
 #define MAXFD 50000
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 1000
 
-/*static int callback(void *data, int argc, char **argv, char **azColName){
+static int callback(void *data, int argc, char **argv, char **azColName){
     int i;
     std::cout<< reinterpret_cast<const char*>(data)<<std::endl;
 
@@ -29,11 +32,45 @@
 
     printf("\n");
     return 0;
-}*/
+}
+
+class DIR{
+public:
+    int id;
+    std::string path;
+
+    void set(std::string ind, std::string value){
+        if(ind == "id"){
+            id = std::atoi(value.c_str());
+        }else{
+            path = value;
+        }
+    }
+};
+
+class _FILE{
+public:
+    int id;
+    int id_dir;
+    std::string nome;
+    std::string hash;
+
+    void set(std::string ind, std::string value){
+        if(ind == "id"){
+            id = std::atoi(value.c_str());
+        }else if(ind == "id_dir"){
+            id_dir = std::atoi(value.c_str());
+        }else if(ind == "nome"){
+            nome = value;
+        }else if(ind == "hash"){
+            hash = value;
+        }
+    }
+};
 
 int main(int argc, char** argv)
 {
-    /*sqlite3* db;
+    sqlite3* db;
     int rc = 0;
     rc = sqlite3_open("../DB/user.db", &db);
 
@@ -49,10 +86,10 @@ int main(int argc, char** argv)
     const char* data = "Callback function called";
 
     /* Create SQL statement */
-    //sql = "SELECT * from DIRECTORY";
+    sql = "SELECT * from DIRECTORY";
 
     /* Execute SQL statement */
-    /*rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
+    rc = sqlite3_exec(db, sql, callback, (void*)data, &zErrMsg);
 
     if( rc != SQLITE_OK ) {
         fprintf(stderr, "SQL error: %s\n", zErrMsg);
@@ -60,7 +97,24 @@ int main(int argc, char** argv)
     } else {
         fprintf(stdout, "Operation done successfully\n");
     }
-    sqlite3_close(db);*/
+    sqlite3_close(db);
+
+    Database DB("../DB/user.db");
+    DIR records[10];
+    _FILE files[10];
+    int n_rec,n_files;
+    DB.DB_open();
+    DB.DB_query("SELECT * FROM DIRECTORY",n_rec,records);
+    DB.DB_query("SELECT * FROM FILE",n_files,files);
+    DB.DB_close();
+
+    std::cout<<n_rec<<"\n";
+    for(int i=0;i<n_rec;i++){
+        std::cout<<"directory["<<i<<"]-> id: "<<records[i].id<<" path: "<<records[i].path<<std::endl;
+    }
+    for(int i=0;i<n_files;i++){
+        std::cout<<"files["<<i<<"]-> id: "<<files[i].id<<" id_dir: "<<files[i].id_dir<<" nome: "<<files[i].nome<<" hash: "<<files[i].hash<<std::endl;
+    }
 
     Socket s{};
     struct sockaddr_in addr;
@@ -82,7 +136,6 @@ int main(int argc, char** argv)
     s.write(buffer, BUFFER_SIZE, 0);
 
     s.sendFile("./client_directory/file.txt");
-
 
     return (0);
 }
