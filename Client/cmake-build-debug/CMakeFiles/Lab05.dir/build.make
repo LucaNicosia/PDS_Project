@@ -70,47 +70,32 @@ CMakeFiles/Lab05.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab05.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Scrivania/PDS_Project/Client/main.cpp -o CMakeFiles/Lab05.dir/main.cpp.s
 
-CMakeFiles/Lab05.dir/Socket.cpp.o: CMakeFiles/Lab05.dir/flags.make
-CMakeFiles/Lab05.dir/Socket.cpp.o: ../Socket.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Lab05.dir/Socket.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab05.dir/Socket.cpp.o -c /root/Scrivania/PDS_Project/Client/Socket.cpp
+CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.o: CMakeFiles/Lab05.dir/flags.make
+CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.o: ../TCP_Socket/Socket.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.o -c /root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.cpp
 
-CMakeFiles/Lab05.dir/Socket.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab05.dir/Socket.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/Scrivania/PDS_Project/Client/Socket.cpp > CMakeFiles/Lab05.dir/Socket.cpp.i
+CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.cpp > CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.i
 
-CMakeFiles/Lab05.dir/Socket.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab05.dir/Socket.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Scrivania/PDS_Project/Client/Socket.cpp -o CMakeFiles/Lab05.dir/Socket.cpp.s
-
-CMakeFiles/Lab05.dir/SocketServer.cpp.o: CMakeFiles/Lab05.dir/flags.make
-CMakeFiles/Lab05.dir/SocketServer.cpp.o: ../SocketServer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/Lab05.dir/SocketServer.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Lab05.dir/SocketServer.cpp.o -c /root/Scrivania/PDS_Project/Client/SocketServer.cpp
-
-CMakeFiles/Lab05.dir/SocketServer.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Lab05.dir/SocketServer.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/Scrivania/PDS_Project/Client/SocketServer.cpp > CMakeFiles/Lab05.dir/SocketServer.cpp.i
-
-CMakeFiles/Lab05.dir/SocketServer.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab05.dir/SocketServer.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Scrivania/PDS_Project/Client/SocketServer.cpp -o CMakeFiles/Lab05.dir/SocketServer.cpp.s
+CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.cpp -o CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.s
 
 # Object files for target Lab05
 Lab05_OBJECTS = \
 "CMakeFiles/Lab05.dir/main.cpp.o" \
-"CMakeFiles/Lab05.dir/Socket.cpp.o" \
-"CMakeFiles/Lab05.dir/SocketServer.cpp.o"
+"CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.o"
 
 # External object files for target Lab05
 Lab05_EXTERNAL_OBJECTS =
 
 Lab05: CMakeFiles/Lab05.dir/main.cpp.o
-Lab05: CMakeFiles/Lab05.dir/Socket.cpp.o
-Lab05: CMakeFiles/Lab05.dir/SocketServer.cpp.o
+Lab05: CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.o
 Lab05: CMakeFiles/Lab05.dir/build.make
 Lab05: CMakeFiles/Lab05.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable Lab05"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable Lab05"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Lab05.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

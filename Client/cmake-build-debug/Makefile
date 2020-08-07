@@ -123,59 +123,32 @@ Lab05/fast:
 	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/build
 .PHONY : Lab05/fast
 
-Socket.o: Socket.cpp.o
+TCP_Socket/Socket.o: TCP_Socket/Socket.cpp.o
 
-.PHONY : Socket.o
-
-# target to build an object file
-Socket.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/Socket.cpp.o
-.PHONY : Socket.cpp.o
-
-Socket.i: Socket.cpp.i
-
-.PHONY : Socket.i
-
-# target to preprocess a source file
-Socket.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/Socket.cpp.i
-.PHONY : Socket.cpp.i
-
-Socket.s: Socket.cpp.s
-
-.PHONY : Socket.s
-
-# target to generate assembly for a file
-Socket.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/Socket.cpp.s
-.PHONY : Socket.cpp.s
-
-SocketServer.o: SocketServer.cpp.o
-
-.PHONY : SocketServer.o
+.PHONY : TCP_Socket/Socket.o
 
 # target to build an object file
-SocketServer.cpp.o:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/SocketServer.cpp.o
-.PHONY : SocketServer.cpp.o
+TCP_Socket/Socket.cpp.o:
+	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.o
+.PHONY : TCP_Socket/Socket.cpp.o
 
-SocketServer.i: SocketServer.cpp.i
+TCP_Socket/Socket.i: TCP_Socket/Socket.cpp.i
 
-.PHONY : SocketServer.i
+.PHONY : TCP_Socket/Socket.i
 
 # target to preprocess a source file
-SocketServer.cpp.i:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/SocketServer.cpp.i
-.PHONY : SocketServer.cpp.i
+TCP_Socket/Socket.cpp.i:
+	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.i
+.PHONY : TCP_Socket/Socket.cpp.i
 
-SocketServer.s: SocketServer.cpp.s
+TCP_Socket/Socket.s: TCP_Socket/Socket.cpp.s
 
-.PHONY : SocketServer.s
+.PHONY : TCP_Socket/Socket.s
 
 # target to generate assembly for a file
-SocketServer.cpp.s:
-	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/SocketServer.cpp.s
-.PHONY : SocketServer.cpp.s
+TCP_Socket/Socket.cpp.s:
+	$(MAKE) -f CMakeFiles/Lab05.dir/build.make CMakeFiles/Lab05.dir/TCP_Socket/Socket.cpp.s
+.PHONY : TCP_Socket/Socket.cpp.s
 
 main.o: main.cpp.o
 
@@ -213,12 +186,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Lab05"
-	@echo "... Socket.o"
-	@echo "... Socket.i"
-	@echo "... Socket.s"
-	@echo "... SocketServer.o"
-	@echo "... SocketServer.i"
-	@echo "... SocketServer.s"
+	@echo "... TCP_Socket/Socket.o"
+	@echo "... TCP_Socket/Socket.i"
+	@echo "... TCP_Socket/Socket.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

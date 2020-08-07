@@ -82,16 +82,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/root/Scrivania/PDS_Project/Server/Socket.cpp">
+		<Unit filename="/root/Scrivania/PDS_Project/Server/TCP_Socket/Socket.cpp">
 			<Option target="Lab05"/>
 		</Unit>
-		<Unit filename="/root/Scrivania/PDS_Project/Server/Socket.h">
+		<Unit filename="/root/Scrivania/PDS_Project/Server/TCP_Socket/Socket.h">
 			<Option target="Lab05"/>
 		</Unit>
-		<Unit filename="/root/Scrivania/PDS_Project/Server/SocketServer.cpp">
+		<Unit filename="/root/Scrivania/PDS_Project/Server/TCP_Socket/SocketServer.cpp">
 			<Option target="Lab05"/>
 		</Unit>
-		<Unit filename="/root/Scrivania/PDS_Project/Server/SocketServer.h">
+		<Unit filename="/root/Scrivania/PDS_Project/Server/TCP_Socket/SocketServer.h">
 			<Option target="Lab05"/>
 		</Unit>
 		<Unit filename="/root/Scrivania/PDS_Project/Server/main.cpp">
