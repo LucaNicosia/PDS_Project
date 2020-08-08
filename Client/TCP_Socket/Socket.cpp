@@ -5,6 +5,8 @@
 #include <fcntl.h>
 #include "Socket.h"
 
+#define SIZE 1024
+
 Socket::Socket(int sockfd): sockfd(sockfd){
     std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
 }
@@ -48,23 +50,46 @@ void Socket::connect(struct sockaddr_in *addr, unsigned int len){
         throw std::runtime_error("Cannot connect to remote socket");
 }
 
-int Socket::sendFile(const char *filename){
+int Socket::sendMsg(const std::string msg){
+    return write(msg.c_str(), msg.size(), 0);
+}
+
+std::string Socket::rcvMsg(){
+    char msg [SIZE];
+    int size = read(msg, SIZE, 0);
+    msg[size] = '\0';
+    return std::string(msg);
+};
+
+int Socket::syncRequest(const std::string client){
+    // <- SYNC 'client'
+    return sendMsg(std::string ("SYNC "+client));
+}
+int Socket::sendDir(const std::string path){
+    // <- DIR 'path'
+    return sendMsg(std::string ("DIR "+path));
+}
+
+int Socket::sendFile(const std::string path){
+    // <- FILE 'path'
+    sendMsg(std::string ("FILE "+path));
+
+    //...file transfer...
     int from;
-    from=open(filename,O_RDONLY);
+    from=open(path.c_str(),O_RDONLY);
     if(from<0){
         std::cout<<"Error opening file\n";
         return 0;
     }
-    int n=1;
+    int size;
     int s;
     char buf [1024];
-    while((n=::read(from,buf,sizeof(buf)))!=0) {
-        //s=send(fd2,buf,sizeof(buf),0);
-        s = write(buf, sizeof(buf), 0);
-        //s = write(this->sockfd, buf, n);
+    while((size=::read(from,buf,sizeof(buf)))!=0) {
+        s = write(buf, size, 0);
         if (s < 0) {
-            std::cout << "error sending\n";
+            std::cout << "Error sending\n";
             return 0;
         }
     }
 };
+

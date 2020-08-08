@@ -2,8 +2,7 @@
 // Created by giuseppetoscano on 13/06/20.
 //
 
-#ifndef LAB05_SOCKET_H
-#define LAB05_SOCKET_H
+
 
 #include <stdexcept>
 #include <sys/socket.h>
@@ -33,8 +32,10 @@ class Socket {
 
      friend class ServerSocket;
 
-    int rcvFile(const char *filename);
+    std::string rcvMsg();
+    int sendMsg(const std::string msg);
+    int rcvFile(const char *path);
+    std::string rcvDir();
 };
 
 
-#endif //LAB05_SOCKET_H
