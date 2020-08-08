@@ -11,16 +11,20 @@
 #include <vector>
 #include <thread>
 #include "./TCP_Socket/SocketServer.h"
+#include "./FileManager/File.h"
+#include "./FileManager/Directory.h"
 
 // DB
 #include <sqlite3.h>
 
-#define PORT 5061
+#define PORT 5062
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
 
 int main() {
+    File f;
+    Directory d;
     pthread_t threads[100];
     while (true){
 
