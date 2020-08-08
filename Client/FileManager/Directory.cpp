@@ -103,6 +103,7 @@ std::shared_ptr<Directory> Directory::getDir (const std::string& name){
             return dSons[i];
         }
     }
+    return nullptr;
 }
 
 std::shared_ptr<File> Directory::getFile (const std::string& name){
@@ -111,6 +112,7 @@ std::shared_ptr<File> Directory::getFile (const std::string& name){
             return fSons[i];
         }
     }
+    return nullptr;
 }
 
 void Directory::set(std::string field, std::string value){

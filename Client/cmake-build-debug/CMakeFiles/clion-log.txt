@@ -1,4 +1,0 @@
-/root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /root/Scrivania/PDS_Project/Client
--- Configuring done
--- Generating done
--- Build files have been written to: /root/Scrivania/PDS_Project/Client/cmake-build-debug

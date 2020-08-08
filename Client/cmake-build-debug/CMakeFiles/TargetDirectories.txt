@@ -1,3 +1,0 @@
-/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/edit_cache.dir
-/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/PDS_Project_Client.dir
