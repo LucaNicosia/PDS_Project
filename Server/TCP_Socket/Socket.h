@@ -28,12 +28,9 @@ class Socket {
      ssize_t read(char *buffer, size_t len, int options);
      ssize_t write(const char *buffer, size_t len, int options);
      void connect(struct sockaddr_in *addr, unsigned int len);
-
      int __sock_fd(){ return sockfd; }
-
      friend class ServerSocket;
-
-    int rcvFile(const char *filename);
+     int rcvFile(const char *filename);
 };
 
 
