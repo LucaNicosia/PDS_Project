@@ -10,17 +10,16 @@
 #include <vector>
 #include <memory>
 #include "Directory.h"
-#include "Base.h"
+
 
 class Directory;
 
-class File: public Base {
+class File {
 
     uintmax_t size;
 
 public:
-    std::string path;
-    std::weak_ptr<Directory> dFather;
+
     //Costruttore
     File (std::string name, uintmax_t size, std::weak_ptr<Directory> dFather);
 

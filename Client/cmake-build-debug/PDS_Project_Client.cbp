@@ -82,6 +82,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/root/Scrivania/PDS_Project/Client/FileManager">
+			<Option target="PDS_Project_Client"/>
+		</Unit>
 		<Unit filename="/root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.cpp">
 			<Option target="PDS_Project_Client"/>
 		</Unit>

@@ -9,13 +9,12 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-#include "File.h"
-#include "Base.h"
+
 #include <typeinfo>
 
 class File;
 
-class Directory: public Base {
+class Directory {
 
     std::weak_ptr<Directory> dFather;
     std::weak_ptr<Directory> self;
