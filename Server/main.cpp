@@ -15,7 +15,7 @@
 // DB
 #include <sqlite3.h>
 
-#define PORT 5059
+#define PORT 5060
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
@@ -33,12 +33,15 @@ int main() {
         if (inet_ntop(AF_INET, &addr.sin_addr, name, sizeof(name)) == nullptr) throw std::runtime_error("Cannot convert");
         std::cout<<"Got a connection from "<<name<<":"<<ntohs(addr.sin_port)<<"\n";
 
-        char buffer[1024];
+        //TEST SYNC 'client'
+        std::cout<<"Stringa ricevuta dal client: "<<s.rcvMsg()<<std::endl;
+        s.sendMsg("OK");
 
-        s.read(buffer, 1024, 0);
+        //TEST DIR 'path'
+        std::cout<<"Stringa ricevuta dal client: "<<s.rcvDir()<<std::endl;
+        s.sendMsg("OK");
 
-        std::cout<<"Stringa ricevuta dal client: "<<buffer<<std::endl;
-
+        //TEST FILE 'path'
         s.rcvFile("./server_directory/file.txt");
     }
 }
