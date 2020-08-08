@@ -28,12 +28,15 @@ class Socket {
      ssize_t read(char *buffer, size_t len, int options);
      ssize_t write(const char *buffer, size_t len, int options);
      void connect(struct sockaddr_in *addr, unsigned int len);
-
      int __sock_fd(){ return sockfd; }
-
-    int sendFile(const char *filename);
-
      friend class ServerSocket;
+
+     int sendMsg(const std::string msg);
+     int syncRequest(const std::string client);
+     int sendDir(const std::string path);
+     int sendFile(const std::string path);
+     std::string rcvMsg();
+
 };
 
 
