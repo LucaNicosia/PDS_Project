@@ -2,8 +2,7 @@
 // Created by giuseppetoscano on 13/06/20.
 //
 
-#ifndef LAB05_SOCKET_H
-#define LAB05_SOCKET_H
+
 
 #include <stdexcept>
 #include <sys/socket.h>
@@ -40,4 +39,3 @@ class Socket {
 };
 
 
-#endif //LAB05_SOCKET_H

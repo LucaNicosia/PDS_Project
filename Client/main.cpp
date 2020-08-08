@@ -20,7 +20,7 @@
 // Socket
 #include "./TCP_Socket/Socket.h"
 
-#define PORT 5058
+#define PORT 5060
 #define MAXFD 50000
 #define BUFFER_SIZE 1000
 
@@ -93,10 +93,14 @@ int main(int argc, char** argv)
 
     s.connect(&addr, len);
 
-    const char *buffer = "prova";
-    s.write(buffer, BUFFER_SIZE, 0);
+    s.syncRequest("ciao");
+    std::cout<<"Stringa ricevuta dal server: "<<s.rcvMsg()<<std::endl;
+
+    s.sendDir("./client_directory/prova");
+    std::cout<<s.rcvMsg()<<std::endl;
 
     s.sendFile("./client_directory/file.txt");
+    std::cout<<s.rcvMsg()<<std::endl;
 
 
     return 0;

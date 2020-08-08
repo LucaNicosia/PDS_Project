@@ -1,3 +1,0 @@
-/home/giuseppetoscano/Desktop/PDS_project/Client/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/giuseppetoscano/Desktop/PDS_project/Client/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/giuseppetoscano/Desktop/PDS_project/Client/cmake-build-debug/CMakeFiles/PDS_Project_Client.dir

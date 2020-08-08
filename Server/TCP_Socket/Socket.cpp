@@ -74,6 +74,7 @@ int Socket::rcvFile(const char *path){
 };
 
 int Socket::sendMsg(const std::string msg){
+    std::cout<<"QUA"<<std::endl;
     return write(msg.c_str(), msg.size(), 0);
 }
 
