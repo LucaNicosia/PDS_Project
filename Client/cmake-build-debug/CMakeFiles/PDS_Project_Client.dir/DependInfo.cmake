@@ -4,6 +4,8 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
+  "/root/Scrivania/PDS_Project/Client/FileManager/Directory.cpp" "/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/PDS_Project_Client.dir/FileManager/Directory.cpp.o"
+  "/root/Scrivania/PDS_Project/Client/FileManager/File.cpp" "/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/PDS_Project_Client.dir/FileManager/File.cpp.o"
   "/root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.cpp" "/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/PDS_Project_Client.dir/TCP_Socket/Socket.cpp.o"
   "/root/Scrivania/PDS_Project/Client/main.cpp" "/root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/PDS_Project_Client.dir/main.cpp.o"
   )

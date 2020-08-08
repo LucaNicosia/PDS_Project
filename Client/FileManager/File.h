@@ -15,16 +15,40 @@
 class Directory;
 
 class File {
-
-    uintmax_t size;
+    int id;
+    int id_dir;
+    std::string name;
+    std::string hash;
+    std::weak_ptr<Directory> dFather;
 
 public:
 
     //Costruttore
-    File (std::string name, uintmax_t size, std::weak_ptr<Directory> dFather);
+    File ();
+    File (std::string &name, int id, int id_dir, std::string &hash, std::weak_ptr<Directory> dFather);
 
-    virtual int mType () const;
-    virtual void ls (int indent) const;
+    int getId() const;
+
+    void setId(int id);
+
+    int getIdDir() const;
+
+    void setIdDir(int idDir);
+
+    const std::string &getName() const;
+
+    void setName(const std::string &name);
+
+    const std::string &getHash() const;
+
+    void setHash(const std::string &hash);
+
+    const std::weak_ptr<Directory> &getDFather() const;
+
+    void setDFather(const std::weak_ptr<Directory> &dFather);
+
+    void set(std::string field, std::string value);
+
 };
 
 

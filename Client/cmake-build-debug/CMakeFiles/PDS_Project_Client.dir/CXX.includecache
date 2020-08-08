@@ -12,11 +12,29 @@ sqlite3.h
 iostream
 -
 
-/root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.cpp
-fcntl.h
+/root/Scrivania/PDS_Project/Client/FileManager/Directory.h
+string
 -
-Socket.h
-/root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.h
+iostream
+-
+vector
+-
+memory
+-
+typeinfo
+-
+
+/root/Scrivania/PDS_Project/Client/FileManager/File.h
+string
+-
+iostream
+-
+vector
+-
+memory
+-
+Directory.h
+/root/Scrivania/PDS_Project/Client/FileManager/Directory.h
 
 /root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.h
 stdexcept
@@ -51,6 +69,8 @@ sqlite3.h
 /root/Scrivania/PDS_Project/Client/DB/Database.h
 TCP_Socket/Socket.h
 /root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.h
-./TCP_Socket/Socket.h
-/root/Scrivania/PDS_Project/Client/TCP_Socket/Socket.h
+./FileManager/File.h
+/root/Scrivania/PDS_Project/Client/FileManager/File.h
+./FileManager/Directory.h
+/root/Scrivania/PDS_Project/Client/FileManager/Directory.h
 

@@ -17,8 +17,8 @@
 #include "./DB/Database.h"
 #include "TCP_Socket/Socket.h"
 
-// Socket
-#include "./TCP_Socket/Socket.h"
+#include "./FileManager/File.h"
+#include "./FileManager/Directory.h"
 
 #define PORT 5058
 #define MAXFD 50000
@@ -60,8 +60,8 @@ public:
 int main(int argc, char** argv)
 {
     Database DB("../DB/user.db");
-    DIR records[10];
-    _FILE files[10];
+    Directory records[10];
+    File files[10];
     int n_rec,n_files;
     DB.DB_open();
     DB.DB_query("SELECT * FROM DIRECTORY",n_rec,records);
@@ -71,12 +71,12 @@ int main(int argc, char** argv)
     printf("\n");
     std::cout<<n_rec<<"\n";
     for(int i=0;i<n_rec;i++){
-        std::cout<<"directory["<<i<<"]-> id: "<<records[i].id<<" path: "<<records[i].path<<std::endl;
+        std::cout<<"directory["<<i<<"]-> id: "<<records[i].getId()<<" path: "<<records[i].getPath()<<" name: "<<records[i].getName()<<std::endl;
     }
     for(int i=0;i<n_files;i++){
-        std::cout<<"files["<<i<<"]-> id: "<<files[i].id<<" id_dir: "<<files[i].id_dir<<" nome: "<<files[i].nome<<" hash: "<<files[i].hash<<std::endl;
+        std::cout<<"files["<<i<<"]-> id: "<<files[i].getId()<<" id_dir: "<<files[i].getIdDir()<<" nome: "<<files[i].getName()<<" hash: "<<files[i].getHash()<<std::endl;
     }
-
+    /*
     Socket s{};
     struct sockaddr_in addr;
     unsigned int len = sizeof(addr);
@@ -97,7 +97,7 @@ int main(int argc, char** argv)
     s.write(buffer, BUFFER_SIZE, 0);
 
     s.sendFile("./client_directory/file.txt");
-
+    */
 
     return 0;
 }

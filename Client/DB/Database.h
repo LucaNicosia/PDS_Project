@@ -9,6 +9,7 @@
 #include <sqlite3.h>
 #include <iostream>
 
+
 static int num_rec;
 
 template<typename record_type>

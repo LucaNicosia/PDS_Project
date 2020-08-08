@@ -3,150 +3,148 @@
 //
 
 #include "Directory.h"
+#include "File.h"
 #include <typeinfo>
 #include <filesystem>
 #include <fstream>
 
+#define DIR 0
+#define FILE 1
+
 namespace fs = std::filesystem;
 
-Directory::Directory():Base() {
-    //std::cout<<"Costruttore vuoto @ "<<this<<std::endl;
+Directory::Directory(){
+
 }
 
 Directory::~Directory() {
-    //std::cout<<"Distruttore vuoto @ "<<this<<std::endl;
-}
-
-
-void Directory::ls(int indent) const{
-    std::string spaces;
-
-    if (this != 0) {
-
-        for (int i = 0; i < indent; i++) {
-            spaces += " ";
-        }
-        std::cout << spaces + this->name << std::endl;
-
-        for (int i = 0; i < dSons.size(); i++) {
-            std::cout << spaces + "   " + this->dSons[i]->name << std::endl;
-        }
-        for (int i = 0; i < fSons.size(); i++) {
-            //std::cout<<"Dentro ls file "<<this->fSons[i]<<" fileName = "<<this->fSons[i]->getName()<<std::endl;
-            std::cout << spaces + "    " + this->fSons[i]->getName() << std::endl;
-        }
-    }
 
 }
 
-    std::shared_ptr<Base> Directory::get (const std::string& name){
-        if (name == "..")
-            return std::dynamic_pointer_cast<Base>(std::shared_ptr<Directory>(root));
+std::shared_ptr<Directory> Directory::addDirectory(std::string dName, int id){
 
-
-        if (name == ".")
-            return std::dynamic_pointer_cast<Base>( std::shared_ptr<Directory>(self));
-
-        for (int i = 0; i < fSons.size(); i++){
-            if (fSons[i]->getName() == name){
-                return std::dynamic_pointer_cast<Base>( std::shared_ptr<File>(fSons[i]));
-            }
-        }
-
-        for (int i = 0; i < dSons.size(); i++){
-            if (dSons[i]->name == name){
-                return std::dynamic_pointer_cast<Base>( std::shared_ptr<Directory>(dSons[i]));
-            }
-        }
-
-        return nullptr;
-        }
-
-    std::shared_ptr<Directory> Directory::addDirectory(std::string dName){
-
-        if (this != 0){
-            std::shared_ptr<Directory> newDir = makeDirectory(dName, self);
-            dSons.push_back(newDir);
-            fs::create_directories(newDir->path);
-            return newDir;
-        }else
-            return nullptr;
-    }
-
-    std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak_ptr<Directory> dFather){
-        std::shared_ptr<Directory> newDir = std::make_shared<Directory>();
-        newDir->name = dName;
-        newDir->dFather = dFather;
-        newDir->self = newDir;
-        newDir->dSons = std::vector<std::shared_ptr<Directory>>();
-        newDir->fSons = std::vector<std::shared_ptr<File>>();
-        if (dName != "stocazzo")
-            newDir->path = newDir->dFather.lock()->path+"/"+dName;
-        else
-            newDir->path = "stocazzo";
+    if (this != nullptr){
+        std::shared_ptr<Directory> newDir = makeDirectory(id, dName, self);
+        dSons.push_back(newDir);
+        fs::create_directories(newDir->path);
         return newDir;
-    }
+    }else
+        return nullptr;
+}
 
-    std::shared_ptr<Directory> Directory::getRoot(){
+std::shared_ptr<Directory> Directory::makeDirectory(int id, std::string dName, std::weak_ptr<Directory> dFather){
+    std::shared_ptr<Directory> newDir = std::make_shared<Directory>();
+    newDir->name = dName;
+    newDir->id = id;
+    newDir->dFather = dFather;
+    newDir->self = newDir;
+    newDir->dSons = std::vector<std::shared_ptr<Directory>>();
+    newDir->fSons = std::vector<std::shared_ptr<File>>();
+    if (dName != "root")
+        newDir->path = newDir->dFather.lock()->path+"/"+dName;
+    else
+        newDir->path = "root";
+    return newDir;
+}
 
-        if (root == std::shared_ptr<Directory>()) {
-                std::cout << "Entro" << std::endl;
-                root = makeDirectory("stocazzo", std::weak_ptr<Directory>());
-        }
-        return root;
-    }
+std::string Directory::toString(){
+    return "Il nome della cartella è "+name;
+}
 
-    std::string Directory::toString(){
-        return "Il nome della cartella è "+name;
-    }
+std::shared_ptr<File> Directory::addFile (const File& ifile){
 
-    std::shared_ptr<File> Directory::addFile (const std::string& name, uintmax_t size){
+    if (this != nullptr){
 
-        if (this != 0){
+        //File file {name, size, this->self};
+        //std::shared_ptr<File> tmp (&file);
+        std::shared_ptr<File> file = std::make_shared<File>(ifile);
+        fSons.push_back(file);
+        file->setDFather(this->self);
+        return file;
+    }else
+        return nullptr;
+}
 
-            //File file {name, size, this->self};
-            //std::shared_ptr<File> tmp (&file);
-            std::shared_ptr<File> file = std::make_shared<File>(name, size, this->self);
-            fSons.push_back(file);
-            file->path = file->dFather.lock()->path+"/"+name;
-            std::ofstream(file->path);
-            //std::cout<<"Dentro add file "<<this->fSons[0]<<" fileName = "<<this->fSons[0]->getName()<<std::endl;
-            return file;
-        }else
-            return nullptr;
-    }
-
-    bool Directory::remove (const std::string& name){
-        if (name == "..")
-            return false;
-        if (name == ".")
-            return false;
-
-        for (int i = 0; i < dSons.size(); i++){
-            if (name == dSons[i]->name){
-                dSons.erase(dSons.begin()+i);
-                return true;
-            }
-        }
-
-        for (int i = 0; i < fSons.size(); i++){
-            if (name == fSons[i]->getName()){
-                fSons.erase(fSons.begin()+i);
-                return true;
-            }
-        }
-
+bool Directory::removeDir (const std::string& name){
+    if (name == "..")
         return false;
+    if (name == ".")
+        return false;
+
+    for (int i = 0; i < dSons.size(); i++){
+        if (name == dSons[i]->name){
+            dSons.erase(dSons.begin()+i);
+            return true;
+        }
     }
 
-    int Directory::mType () const {
-        return DIRECTORY_TYPE;
+    return false;
+}
+
+bool Directory::removeFile (const std::string& name){
+    if (name == "..")
+        return false;
+    if (name == ".")
+        return false;
+
+    for (int i = 0; i < fSons.size(); i++){
+        if (name == fSons[i]->getName()){
+            fSons.erase(fSons.begin()+i);
+            return true;
+        }
     }
+
+    return false;
+}
 
 std::shared_ptr<Directory> Directory::getDir (const std::string& name){
-        return std::dynamic_pointer_cast<Directory>(get(name)) ;
+    for (int i = 0; i < dSons.size(); i++){
+        if (name == dSons[i]->name){
+            return dSons[i];
+        }
     }
+}
 
 std::shared_ptr<File> Directory::getFile (const std::string& name){
-    return std::dynamic_pointer_cast<File>(get(name)) ;
+    for (int i = 0; i < fSons.size(); i++){
+        if (name == fSons[i]->getName()){
+            return fSons[i];
+        }
+    }
+}
+
+void Directory::set(std::string field, std::string value){
+    if(field == "id"){
+        id = std::atoi(value.c_str());
+    }if(field == "path"){
+        path = value;
+    }if(field == "name"){
+        name = value;
+    }else{
+        std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE
+    }
+}
+
+const std::string &Directory::getPath() const {
+    return path;
+}
+
+void Directory::setPath(const std::string &path) {
+    Directory::path = path;
+}
+
+const std::string &Directory::getName() const {
+    return name;
+}
+
+void Directory::setName(const std::string &name) {
+    Directory::name = name;
+}
+
+int Directory::getId() const {
+    return id;
+}
+
+void Directory::setId(int id) {
+    Directory::id = id;
 }

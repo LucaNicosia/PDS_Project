@@ -123,6 +123,60 @@ PDS_Project_Client/fast:
 	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/build
 .PHONY : PDS_Project_Client/fast
 
+FileManager/Directory.o: FileManager/Directory.cpp.o
+
+.PHONY : FileManager/Directory.o
+
+# target to build an object file
+FileManager/Directory.cpp.o:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/Directory.cpp.o
+.PHONY : FileManager/Directory.cpp.o
+
+FileManager/Directory.i: FileManager/Directory.cpp.i
+
+.PHONY : FileManager/Directory.i
+
+# target to preprocess a source file
+FileManager/Directory.cpp.i:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/Directory.cpp.i
+.PHONY : FileManager/Directory.cpp.i
+
+FileManager/Directory.s: FileManager/Directory.cpp.s
+
+.PHONY : FileManager/Directory.s
+
+# target to generate assembly for a file
+FileManager/Directory.cpp.s:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/Directory.cpp.s
+.PHONY : FileManager/Directory.cpp.s
+
+FileManager/File.o: FileManager/File.cpp.o
+
+.PHONY : FileManager/File.o
+
+# target to build an object file
+FileManager/File.cpp.o:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/File.cpp.o
+.PHONY : FileManager/File.cpp.o
+
+FileManager/File.i: FileManager/File.cpp.i
+
+.PHONY : FileManager/File.i
+
+# target to preprocess a source file
+FileManager/File.cpp.i:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/File.cpp.i
+.PHONY : FileManager/File.cpp.i
+
+FileManager/File.s: FileManager/File.cpp.s
+
+.PHONY : FileManager/File.s
+
+# target to generate assembly for a file
+FileManager/File.cpp.s:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/File.cpp.s
+.PHONY : FileManager/File.cpp.s
+
 TCP_Socket/Socket.o: TCP_Socket/Socket.cpp.o
 
 .PHONY : TCP_Socket/Socket.o
@@ -186,6 +240,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... PDS_Project_Client"
+	@echo "... FileManager/Directory.o"
+	@echo "... FileManager/Directory.i"
+	@echo "... FileManager/Directory.s"
+	@echo "... FileManager/File.o"
+	@echo "... FileManager/File.i"
+	@echo "... FileManager/File.s"
 	@echo "... TCP_Socket/Socket.o"
 	@echo "... TCP_Socket/Socket.i"
 	@echo "... TCP_Socket/Socket.s"
