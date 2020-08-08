@@ -32,4 +32,4 @@
 *.app
 
 # Added By Luca Nicosia
-**/cmake-build-debug/CMakeCache.txt
+**/cmake-build-debug
