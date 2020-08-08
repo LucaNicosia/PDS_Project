@@ -39,19 +39,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /snap/clion/121/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -E remove -f
+RM = /snap/clion/121/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /root/Scrivania/PDS_Project/Client
+CMAKE_SOURCE_DIR = /home/giuseppetoscano/Desktop/PDS_project/Client
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /root/Scrivania/PDS_Project/Client/cmake-build-debug
+CMAKE_BINARY_DIR = /home/giuseppetoscano/Desktop/PDS_project/Client/cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -59,7 +59,7 @@ CMAKE_BINARY_DIR = /root/Scrivania/PDS_Project/Client/cmake-build-debug
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/clion/121/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -70,7 +70,7 @@ rebuild_cache/fast: rebuild_cache
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/root/.local/share/JetBrains/Toolbox/apps/CLion/ch-0/201.7223.86/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+	/snap/clion/121/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles /root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/giuseppetoscano/Desktop/PDS_project/Client/cmake-build-debug/CMakeFiles /home/giuseppetoscano/Desktop/PDS_project/Client/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/Scrivania/PDS_Project/Client/cmake-build-debug/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/giuseppetoscano/Desktop/PDS_project/Client/cmake-build-debug/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -122,6 +122,60 @@ PDS_Project_Client: cmake_check_build_system
 PDS_Project_Client/fast:
 	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/build
 .PHONY : PDS_Project_Client/fast
+
+FileManager/Directory.o: FileManager/Directory.cpp.o
+
+.PHONY : FileManager/Directory.o
+
+# target to build an object file
+FileManager/Directory.cpp.o:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/Directory.cpp.o
+.PHONY : FileManager/Directory.cpp.o
+
+FileManager/Directory.i: FileManager/Directory.cpp.i
+
+.PHONY : FileManager/Directory.i
+
+# target to preprocess a source file
+FileManager/Directory.cpp.i:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/Directory.cpp.i
+.PHONY : FileManager/Directory.cpp.i
+
+FileManager/Directory.s: FileManager/Directory.cpp.s
+
+.PHONY : FileManager/Directory.s
+
+# target to generate assembly for a file
+FileManager/Directory.cpp.s:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/Directory.cpp.s
+.PHONY : FileManager/Directory.cpp.s
+
+FileManager/File.o: FileManager/File.cpp.o
+
+.PHONY : FileManager/File.o
+
+# target to build an object file
+FileManager/File.cpp.o:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/File.cpp.o
+.PHONY : FileManager/File.cpp.o
+
+FileManager/File.i: FileManager/File.cpp.i
+
+.PHONY : FileManager/File.i
+
+# target to preprocess a source file
+FileManager/File.cpp.i:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/File.cpp.i
+.PHONY : FileManager/File.cpp.i
+
+FileManager/File.s: FileManager/File.cpp.s
+
+.PHONY : FileManager/File.s
+
+# target to generate assembly for a file
+FileManager/File.cpp.s:
+	$(MAKE) -f CMakeFiles/PDS_Project_Client.dir/build.make CMakeFiles/PDS_Project_Client.dir/FileManager/File.cpp.s
+.PHONY : FileManager/File.cpp.s
 
 TCP_Socket/Socket.o: TCP_Socket/Socket.cpp.o
 
@@ -186,6 +240,12 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... PDS_Project_Client"
+	@echo "... FileManager/Directory.o"
+	@echo "... FileManager/Directory.i"
+	@echo "... FileManager/Directory.s"
+	@echo "... FileManager/File.o"
+	@echo "... FileManager/File.i"
+	@echo "... FileManager/File.s"
 	@echo "... TCP_Socket/Socket.o"
 	@echo "... TCP_Socket/Socket.i"
 	@echo "... TCP_Socket/Socket.s"

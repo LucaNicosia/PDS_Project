@@ -14,7 +14,7 @@
 - 7 Quando old != new c'è stata una modifica nei file (delete o rename o modifica del contenuto o new)
 - 8 Quando old != new per modifica, bisogna rendere il file invalido e sincronizzarlo con il server per poi rimetterlo a valido
 - 9 Fare la push delle modifiche sul server
-- 10 Trasferimento file (Compresso ?)
+- 10 Trasferimento file (Compresso ?) ***OK (utilizzare le funzioni sendFile(percorso di origine) e rcvFile(percorso di destinazione) dentro Socket.cpp***
 - 11 Trasferimento cartelle (es. mandare il messaggio "DIR /path/to/directory")
 - 12 Gestione errori (se pc o server non online mantenere l'elenco delle modifiche da mandare)
 - 13 Sincronizzazione all'avvio e creazione DB come su server
@@ -23,8 +23,8 @@
 - 1 In ascolto su PORT
 - 2 In base al messaggio bisogna fare un'azione
 - 3 Controllo errori e in caso affermativo risincronizzazione
-- 4 Usare DB
-- 5 Trasferimento file (Compresso ?)
+- 4 Usare DB ***OK***
+- 5 Trasferimento file (Compresso ?) ***OK (utilizzare le funzioni sendFile(percorso di origine) e rcvFile(percorso di destinazione) dentro Socket.cpp*** 
 - 6 Gestione multiclient
 
 DATABASE
@@ -42,9 +42,30 @@ Una volta terminata la sincronizzazione, il client controlla la cartella vittima
 SERVER                     CLIENT
 
     
-    <- chiedere sync (invia id_client)
+    <- chiedere sync (invia id_client) 
     -> server_file.db - hash di file.db (se hash su client è uguale a hash mandato da server tutto ok, altrimenti...)
     <- request per aggiornare versione client
 
+
+    -----------------------------------------
+
+    <- sync 'client_name'
+    alt
+    -> ok (if the digest is the same)
+    
+    loop
+-> send (if the digest is different) 
+    alt
+    <- DIR 'path'
+    --------------
+    <- FILE 'path'
+rcvFile()    <- sendFile(path)
+    --------------
+    <- new db
+    -> end
+
 ## Link
 SQLITE3: https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
+HASH: http://www.cplusplus.com/reference/functional/hash/
+
+
