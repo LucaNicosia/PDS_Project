@@ -27,27 +27,31 @@
 #define PORT 5071
 #define MAXFD 50000
 
+auto modification_function = [](std::string file, FileStatus fs, FileType ft){
+    std::cout<<file;
+    if(ft == FileType::file)
+        std::cout<<" file";
+    else
+        std::cout<<" directory";
+    switch (fs) {
+        case FileStatus::created:
+            std::cout<<" created\n";
+            break;
+        case FileStatus::erased:
+            std::cout<<" erased\n";
+            break;
+        case FileStatus::modified:
+            std::cout<<" modified\n";
+            break;
+    }
+};
+
 int main(int argc, char** argv)
 {
     FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
-    FW.start([](std::string file, FileStatus fs, FileType ft){
-        std::cout<<file;
-        if(ft == FileType::file)
-            std::cout<<" file";
-        else
-            std::cout<<" directory";
-        switch (fs) {
-            case FileStatus::created:
-                std::cout<<" created\n";
-                break;
-            case FileStatus::erased:
-                std::cout<<" erased\n";
-                break;
-            case FileStatus::modified:
-                std::cout<<" modified\n";
-                break;
-        }
-    });
+
+
+    FW.start(modification_function);
     /*
     Database DB("../DB/user.db");
     Directory records[10];
