@@ -53,20 +53,38 @@ sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
 ## Client - Server protocol
 ```
 Client                    Server
+--- Syncronization ---
 SYN <username> (Socket::syncRequest) ->
 <- <hash di username.db> (Socket::rcvSyncRequest)
-*
+************ ALTERNATIVA A SOPRA ******************
 SYN <username> (Socket::syncRequest) ->
 <- SYN-OK / SYN-ERROR (se username errato)
 opt
     SYN-OK ->
     <- <hash di username.db> (Socket::rcvSyncRequest)
-*
+***************************************************
 alt (if hashServer == hashClient)
     DONE ->
     ------
-    <cercare file e directory che non sono giuste> aggiungere tempo modifica a file e directory su DB
+    <cercare file e directory che non sono giuste>
     loop
         opt (file o cartella non aggiornati)
-            alt (file)
+            <capire se è file o directory e che tipo di operazione bisogna fare>
+            CHANGE [FILE/DIR] <file/directory path> <operation> ->
+            //con directory non sono necessari altri passaggi
+            opt (se è un file ed è stato creato/modificato)
+                <- READY <file path> //
+                <mandare il file (Socket::sendFile)> ->
+            <- DONE <file/directory path>
+----------------------
+--- Normal usage -----
+<modifica rilevata>
+CHANGE [FILE/DIR] <file/directory path> <operation> ->
+//con directory non sono necessari altri passaggi
+opt (se è un file ed è stato creato/modificato)
+    <- READY <file path> //
+    <mandare il file (Socket::sendFile)> ->
+<- DONE <file/directory path>
+----------------------
+               
 ```
