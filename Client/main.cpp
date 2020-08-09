@@ -22,12 +22,33 @@
 
 #include "./FileManager/Directory.h"
 #include "./FileManager/File.h"
+#include "./FileManager/FileWatcher.h"
 
 #define PORT 5061
 #define MAXFD 50000
 
 int main(int argc, char** argv)
 {
+    FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
+    FW.start([](std::string file, FileStatus fs, FileType ft){
+        std::cout<<file;
+        if(ft == FileType::file)
+            std::cout<<" file";
+        else
+            std::cout<<" directory";
+        switch (fs) {
+            case FileStatus::created:
+                std::cout<<" created\n";
+                break;
+            case FileStatus::erased:
+                std::cout<<" erased\n";
+                break;
+            case FileStatus::modified:
+                std::cout<<" modified\n";
+                break;
+        }
+    });
+    /*
     Database DB("../DB/user.db");
     Directory records[10];
     File files[10];
@@ -70,7 +91,7 @@ int main(int argc, char** argv)
 
     s.sendFile("./client_directory/file.txt");
     std::cout<<s.rcvMsg()<<std::endl;
-
+    */
 
     return 0;
 }
