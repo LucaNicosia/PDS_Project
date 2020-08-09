@@ -5,27 +5,27 @@
 - 1 classe Database per eseguire le funzioni sui DB
 
 ## Client
-<span style="color:blue"> - 1 Monitoraggio ricorsivo cartella in background </span>
-- 2 Cartella di partenza
-- 3 Salvare in una struttura dati nome e hash di ogni file (usare old_map e new_map aggiornate ogni secondo o ogni modifica)
-- 4 Struttura ad albero per le directory
-- 5 Programma deve runnare in background
-- 6 Quando aggiungo un file o una directory modificare le strutture dati
-<span style="color:red">- 7 Quando old != new c'è stata una modifica nei file (delete o rename o modifica del contenuto o new) </span>
-<span style="color:red">- 8 Quando old != new per modifica, bisogna rendere il file invalido e sincronizzarlo con il server per poi rimetterlo a valido </span>
-- 9 Fare la push delle modifiche sul server
-<span style="color:blue">- 10 Trasferimento file (Compresso ?) </span>
-- 11 Trasferimento cartelle (es. mandare il messaggio "DIR /path/to/directory")
-- 12 Gestione errori (se pc o server non online mantenere l'elenco delle modifiche da mandare)
-- 13 Sincronizzazione all'avvio e creazione DB come su server
+- [x] Monitoraggio ricorsivo cartella in background
+- [ ] Cartella di partenza
+- [ ] Salvare in una struttura dati nome e hash di ogni file (usare old_map e new_map aggiornate ogni secondo o ogni modifica)
+- [ ] Struttura ad albero per le directory
+- [ ] Programma deve runnare in background
+- [ ] Quando aggiungo un file o una directory modificare le strutture dati
+- [ ] Quando old != new c'è stata una modifica nei file (delete o rename o modifica del contenuto o new) 
+- [ ] Quando old != new per modifica, bisogna rendere il file invalido e sincronizzarlo con il server per poi rimetterlo a valido 
+- [ ] Fare la push delle modifiche sul server
+- [ ] Trasferimento file (Compresso ?) 
+- [ ] Trasferimento cartelle (es. mandare il messaggio "DIR /path/to/directory")
+- [ ] Gestione errori (se pc o server non online mantenere l'elenco delle modifiche da mandare)
+- [ ] Sincronizzazione all'avvio e creazione DB come su server
 
 ## Server
-<span style="color:blue">- 1 In ascolto su PORT</span>
-- 2 In base al messaggio bisogna fare un'azione
-- 3 Controllo errori e in caso affermativo risincronizzazione
-<span style="color:blue">- 4 Usare DB</span>
-- 5 Trasferimento file (Compresso ?)
-- 6 Gestione multiclient
+- [ ] In ascolto su PORT
+- [ ] In base al messaggio bisogna fare un'azione
+- [ ] Controllo errori e in caso affermativo risincronizzazione
+- [ ] Usare DB
+- [ ] Trasferimento file (Compresso ?)
+- [ ] Gestione multiclient
 
 DATABASE
 
@@ -49,23 +49,22 @@ SHA: https://www.cryptopp.com/wiki/SHA
 
 ## Comandi
 sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
-
+ 
 ## Client - Server protocol
-Client                    Server
+Client                    Server <br>
 SYN <username> (Socket::syncRequest) ->
 <- <hash di username.db> (Socket::rcvSyncRequest)
-<span style="color:green">
+
 SYN <username> (Socket::syncRequest) ->
 <- SYN-OK / SYN-ERROR (se username errato)
 opt
     SYN-OK ->
     <- <hash di username.db> (Socket::rcvSyncRequest)
-</span>
+
 alt (if hashServer == hashClient)
     DONE ->
     ------
-    <cercare file e directory che non sono giuste> <span style="color:green">aggiungere tempo modifica a file e directory su DB</span>
+    <cercare file e directory che non sono giuste> aggiungere tempo modifica a file e directory su DB
     loop
         opt (file o cartella non aggiornati)
             alt (file)
-            
