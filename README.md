@@ -48,3 +48,7 @@ SERVER                     CLIENT
 
 ## Link
 SQLITE3: https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
+SHA: https://www.cryptopp.com/wiki/SHA
+
+## Comandi
+sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils

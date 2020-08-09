@@ -4,14 +4,13 @@
 
 #include "File.h"
 
-
 //Costruttore
 
 File::File() {}
 
-File::File(std::string &name, int id, int id_dir, std::string &hash, std::weak_ptr<Directory> dFather) {
+File::File(std::string &name, int id, int id_dir, std::string &digest, std::weak_ptr<Directory> dFather) {
     this->name = name;
-    this->hash = hash;
+    this->digest = digest;
     this->id = id;
     this->id_dir = id_dir;
     this->dFather = dFather;
@@ -41,12 +40,12 @@ void File::setName(const std::string &name) {
     File::name = name;
 }
 
-const std::string &File::getHash() const {
-    return hash;
+const std::string &File::getDigest() const {
+    return digest;
 }
 
-void File::setHash(const std::string &hash) {
-    File::hash = hash;
+void File::setDigest(const std::string &digest) {
+    this->digest = digest;
 }
 
 const std::weak_ptr<Directory> &File::getDFather() const {
@@ -65,8 +64,11 @@ void File::set(std::string field, std::string value) {
     }else if(field == "nome"){
         name = value;
     }else if(field == "hash"){
-        hash = value;
+        digest = value;
     }else{
         std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE
     }
 }
+
+
+

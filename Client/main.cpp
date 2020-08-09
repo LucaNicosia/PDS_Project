@@ -15,7 +15,7 @@
 #include <sqlite3.h>
 
 #include "./DB/Database.h"
-#include "TCP_Socket/Socket.h"
+
 
 // Socket
 #include "./TCP_Socket/Socket.h"
@@ -24,7 +24,7 @@
 #include "./FileManager/File.h"
 #include "./FileManager/FileWatcher.h"
 
-#define PORT 5061
+#define PORT 5071
 #define MAXFD 50000
 
 int main(int argc, char** argv)
@@ -84,7 +84,7 @@ int main(int argc, char** argv)
     s.connect(&addr, len);
 
     s.syncRequest("ciao");
-    std::cout<<"Stringa ricevuta dal server: "<<s.rcvMsg()<<std::endl;
+    s.compareDBDigest("./DB/ciao.txt");
 
     s.sendDir("./client_directory/prova");
     std::cout<<s.rcvMsg()<<std::endl;

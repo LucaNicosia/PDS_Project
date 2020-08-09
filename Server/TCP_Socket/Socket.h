@@ -32,10 +32,17 @@ class Socket {
 
      friend class ServerSocket;
 
-    std::string rcvMsg();
+     //COMMUNICATION BETWEEN CLIENT AND SERVER
     int sendMsg(const std::string msg);
+    std::string rcvMsg();
+    int syncRequest(const std::string client);
+    int rcvSyncRequest();
+    int sendFile(const std::string path);
     int rcvFile(const char *path);
+    int sendDir(const std::string path);
     std::string rcvDir();
+    bool compareDBDigest (const std::string dbPath);
+
 };
 
 
