@@ -51,6 +51,7 @@ SHA: https://www.cryptopp.com/wiki/SHA
 sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
  
 ## Client - Server protocol
+'''
 Client                    Server <br>
 SYN <username> (Socket::syncRequest) ->
 <- <hash di username.db> (Socket::rcvSyncRequest)
@@ -68,3 +69,4 @@ alt (if hashServer == hashClient)
     loop
         opt (file o cartella non aggiornati)
             alt (file)
+'''
