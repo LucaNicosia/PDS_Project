@@ -11,21 +11,20 @@
 #include <memory>
 #include "Directory.h"
 
-
 class Directory;
 
 class File {
     int id;
     int id_dir;
     std::string name;
-    std::string hash;
+    std::string digest;
     std::weak_ptr<Directory> dFather;
 
 public:
 
     //Costruttore
     File ();
-    File (std::string &name, int id, int id_dir, std::string &hash, std::weak_ptr<Directory> dFather);
+    File (std::string &name, int id, int id_dir, std::string &digest, std::weak_ptr<Directory> dFather);
 
     int getId() const;
 
@@ -39,9 +38,9 @@ public:
 
     void setName(const std::string &name);
 
-    const std::string &getHash() const;
+    const std::string &getDigest() const;
 
-    void setHash(const std::string &hash);
+    void setDigest(const std::string &digest);
 
     const std::weak_ptr<Directory> &getDFather() const;
 
