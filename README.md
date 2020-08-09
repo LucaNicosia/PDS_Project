@@ -52,16 +52,16 @@ sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
  
 ## Client - Server protocol
 ```
-Client                    Server <br>
+Client                    Server
 SYN <username> (Socket::syncRequest) ->
 <- <hash di username.db> (Socket::rcvSyncRequest)
-
+*
 SYN <username> (Socket::syncRequest) ->
 <- SYN-OK / SYN-ERROR (se username errato)
 opt
     SYN-OK ->
     <- <hash di username.db> (Socket::rcvSyncRequest)
-
+*
 alt (if hashServer == hashClient)
     DONE ->
     ------
