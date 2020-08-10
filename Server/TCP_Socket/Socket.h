@@ -43,6 +43,7 @@ class Socket {
     std::string rcvDir();
     bool compareDBDigest (const std::string dbPath);
 
+    void inizialize_and_connect(in_port_t port, sa_family_t family, const std::string &address);
 };
 
 

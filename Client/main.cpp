@@ -27,6 +27,25 @@
 #define PORT 5071
 #define MAXFD 50000
 
+auto modification_function = [](std::string file, FileStatus fs, FileType ft){
+    std::cout<<file;
+    if(ft == FileType::file)
+        std::cout<<" file";
+    else
+        std::cout<<" directory";
+    switch (fs) {
+        case FileStatus::created:
+            std::cout<<" created\n";
+            break;
+        case FileStatus::erased:
+            std::cout<<" erased\n";
+            break;
+        case FileStatus::modified:
+            std::cout<<" modified\n";
+            break;
+    }
+};
+
 int main(int argc, char** argv)
 {
     Socket s{};
@@ -49,24 +68,13 @@ int main(int argc, char** argv)
     s.compareDBDigest("./DB/ciao.txt");
 /*
     FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
-    FW.start([](std::string file, FileStatus fs, FileType ft){
-        std::cout<<file;
-        if(ft == FileType::file)
-            std::cout<<" file";
-        else
-            std::cout<<" directory";
-        switch (fs) {
-            case FileStatus::created:
-                std::cout<<" created\n";
-                break;
-            case FileStatus::erased:
-                std::cout<<" erased\n";
-                break;
-            case FileStatus::modified:
-                std::cout<<" modified\n";
-                break;
-        }
-    });
+    Socket s;
+
+    s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
+
+    // SYN with server completed, starting to monitor client directory
+    FW.start(modification_function);
+
     /*
     Database DB("../DB/user.db");
     Directory records[10];
