@@ -10,15 +10,16 @@
 #include <atomic>
 #include <vector>
 #include <thread>
-#include "./TCP_Socket/SocketServer.h"
 #include "./FileManager/File.h"
 #include "./FileManager/Directory.h"
-//#include "./Crypto/MyCryptoLibrary.cpp"
+
+// Communication
+#include "Communication/Communication.cpp"
 
 // DB
 #include <sqlite3.h>
 
-#define PORT 5071
+#define PORT 5072
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
@@ -40,8 +41,8 @@ int main() {
         std::cout<<"Got a connection from "<<name<<":"<<ntohs(addr.sin_port)<<"\n";
 
         //TEST SYNC 'client'
-        //s.sendMsg("OK");
-        s.rcvSyncRequest();
+        rcvSyncRequest(s);
+        rcvMsg(s);
 
         //TEST DIR 'path'
         //std::cout<<"Stringa ricevuta dal client: "<<s.rcvDir()<<std::endl;

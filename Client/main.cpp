@@ -16,15 +16,16 @@
 
 #include "./DB/Database.h"
 
+// Communication
+#include "Communication/Communication.cpp"
 
-// Socket
-#include "./TCP_Socket/Socket.h"
+#include "FileManager/Directory.h"
+#include "FileManager/File.h"
+#include "FileManager/FileWatcher.h"
 
-#include "./FileManager/Directory.h"
-#include "./FileManager/File.h"
-#include "./FileManager/FileWatcher.h"
 
-#define PORT 5071
+
+#define PORT 5072
 #define MAXFD 50000
 
 auto modification_function = [](std::string file, FileStatus fs, FileType ft){
@@ -49,7 +50,7 @@ auto modification_function = [](std::string file, FileStatus fs, FileType ft){
 int main(int argc, char** argv)
 {
     Socket s{};
-    struct sockaddr_in addr;
+    /*struct sockaddr_in addr;
     unsigned int len = sizeof(addr);
 
 
@@ -62,10 +63,28 @@ int main(int argc, char** argv)
         return -1;
     }
 
-    s.connect(&addr, len);
+    s.connect(&addr, len);*/
 
-    s.syncRequest("ciao");
-    s.compareDBDigest("./DB/ciao.txt");
+    s.inizialize_and_connect(PORT, AF_INET, "127.0.0.1");
+    std::string msg = syncRequest(s, "ciao");
+    if (msg == "SYNC-ERROR"){
+        std::cout<<"SYNC-ERROR"<<std::endl;
+    }else{
+        if (compareDigests(computeDigest("./DB/ciao.txt"), msg)){
+            //SAME DIGEST
+            std::cout<<"SAME DIGEST"<<std::endl;
+            sendMsg(s, "DONE");
+        }else{
+            //DIFFERENT DIGEST
+            std::cout<<"DIFFERENT DIGEST"<<std::endl;
+            //--------------
+            //---checkDB----
+            //--------------
+            //AT THE END
+            sendMsg(s, "DONE");
+        }
+    }
+
 /*
     FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
     Socket s;

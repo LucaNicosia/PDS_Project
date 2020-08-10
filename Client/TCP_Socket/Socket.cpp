@@ -4,9 +4,6 @@
 
 #include <fcntl.h>
 #include "Socket.h"
-#include "../Crypto/MyCryptoLibrary.cpp"
-
-#define SIZE 1024
 
 Socket::Socket(int sockfd): sockfd(sockfd){
     std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
@@ -68,97 +65,3 @@ void Socket::inizialize_and_connect(in_port_t port, sa_family_t family, const st
     this->connect(&addr, len);
 }
 
-//COMMUNICATION BETWEEN CLIENT AND SERVER
-int Socket::sendMsg(const std::string msg){
-    std::cout<<"QUA"<<std::endl;
-    return write(msg.c_str(), msg.size(), 0);
-}
-
-std::string Socket::rcvMsg(){
-    char msg [SIZE];
-    int size = read(msg, SIZE, 0);
-    msg[size] = '\0';
-    return std::string(msg);
-};
-
-int Socket::syncRequest(const std::string client){
-    // <- SYNC 'client'
-    return sendMsg(std::string ("SYNC "+client));
-}
-
-int Socket::rcvSyncRequest() {
-
-    std::string msg = rcvMsg();
-    std::cout<<"Stringa ricevuta dal client: "<<msg<<std::endl;
-    std::string delimiter = " ";
-    std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
-    //std::cout<<"client: "<<client<<std::endl;
-    std::string filePath = "./DB/"+client+".txt";
-    //std::cout<<"file path: -"<<filePath<<"-"<<std::endl;
-    sendMsg(computeDigest(filePath));
-    return 0;
-}
-
-int Socket::sendFile(const std::string path){
-    // <- FILE 'path'
-    sendMsg(std::string ("FILE "+path));
-
-    //...file transfer...
-    int from;
-    from=open(path.c_str(),O_RDONLY);
-    if(from<0){
-        std::cout<<"Error opening file\n";
-        return 0;
-    }
-    int size;
-    int s;
-    char buf [SIZE];
-    while((size=::read(from,buf,sizeof(buf)))!=0) {
-        s = write(buf, size, 0);
-        if (s < 0) {
-            std::cout << "Error sending\n";
-            return 0;
-        }
-    }
-    return -1;
-};
-
-
-int Socket::rcvFile(const char *path){
-
-    std::cout<<"Stringa ricevuta dal client: "<<rcvMsg()<<std::endl;
-    sendMsg("OK");
-    int rec;
-    char buf [1024];
-    int to;
-    to=creat(path,0777);
-    if(to<0){
-        std::cout<<"Error creating destination file\n";
-        return 0;
-    }
-    int w;
-    while(rec=read(buf,sizeof(buf),0)){
-        //std::cout<<buf<<std::endl;
-        if(rec<0){
-            std::cout<<"Error receiving\n";
-            return 0;
-        }
-        w=::write(to,buf,rec);
-    }
-    return -1;
-};
-
-int Socket::sendDir(const std::string path){
-    // <- DIR 'path'
-    return sendMsg(std::string ("DIR "+path));
-}
-
-std::string Socket::rcvDir(){
-    return rcvMsg();
-};
-
-bool Socket::compareDBDigest (const std::string dbPath){
-    std::string digest = rcvMsg();
-    std::cout<<"Stringa ricevuta dal server: "<<digest<<std::endl;
-    return compareDigests(computeDigest("./DB/ciao.txt"), digest);
-}

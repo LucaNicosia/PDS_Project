@@ -16,22 +16,20 @@ std::string computeDigest(std::string filePath){
     std::ifstream input( filePath );
     if (input.is_open()) {
         std::string line;
-        std::cout<<"PROVAAAA"<<std::endl;
         while (std::getline(input, line)) {
             // using printf() in all tests for consistency
-            std::cout<<line<<std::endl;
+            //std::cout<<line<<std::endl;
             hash.Update((const byte*)line.data(), line.size());
         }
         input.close();
     }else{
-        std::cout<<"PROVAAAA2"<<std::endl;
-        return std::string("Problema con il file");
+        return std::string("SYNC-ERROR");
     }
     digest.resize(hash.DigestSize());
     hash.Final((byte*)&digest[0]);
-    std::cout << "Digest: ";
+    /*std::cout << "Digest: ";
     CryptoPP::StringSource(digest, true, new CryptoPP::Redirector(encoder));
-    std::cout << std::endl;
+    std::cout << std::endl;*/
 
     return digest;
 }

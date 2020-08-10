@@ -3,7 +3,6 @@
 //
 
 
-
 #include <stdexcept>
 #include <sys/socket.h>
 #include <iostream>
@@ -27,23 +26,12 @@ class Socket {
      ssize_t read(char *buffer, size_t len, int options);
      ssize_t write(const char *buffer, size_t len, int options);
      void connect(struct sockaddr_in *addr, unsigned int len);
+     void inizialize_and_connect(in_port_t port, sa_family_t family, const std::string& address);
 
      int __sock_fd(){ return sockfd; }
 
      friend class ServerSocket;
 
-     //COMMUNICATION BETWEEN CLIENT AND SERVER
-    int sendMsg(const std::string msg);
-    std::string rcvMsg();
-    int syncRequest(const std::string client);
-    int rcvSyncRequest();
-    int sendFile(const std::string path);
-    int rcvFile(const char *path);
-    int sendDir(const std::string path);
-    std::string rcvDir();
-    bool compareDBDigest (const std::string dbPath);
-
-    void inizialize_and_connect(in_port_t port, sa_family_t family, const std::string& address);
 };
 
 
