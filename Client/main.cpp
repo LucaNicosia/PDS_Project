@@ -9,7 +9,7 @@
 #include <atomic>
 #include <vector>
 #include <thread>
-
+#include <filesystem>
 
 // database mySql libraries
 #include <sqlite3.h>
@@ -23,6 +23,7 @@
 #include "./FileManager/Directory.h"
 #include "./FileManager/File.h"
 #include "./FileManager/FileWatcher.h"
+
 #include "./Crypto/MyCryptoLibrary.cpp"
 
 #define PORT 5071
@@ -152,20 +153,41 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
 }
 
+void initialize_files_and_dirs(std::map<std::string, File>& files, std::map<std::string, Directory>& dirs, const std::string& path){
+    for(auto &it : std::filesystem::recursive_directory_iterator(path)) {
+        std::weak_ptr<Directory> file_father;
+        if(it.is_directory()){
+            Directory d;
+            std::weak_ptr<Directory> father;
+            if(it.path().has_parent_path()){
+                father = dirs[it.path().parent_path()].getSelf();
+            }
+            d.makeDirectory(0,it.path().string(),father); // id FORSE inutile
+            dirs[it.path().string()] = d;
+            file_father = d.getSelf();
+        } else {
+            files[it.path().string()] = File(it.path().string(),0,0,computeDigest(it.path().string()),file_father);
+        }
+    }
+}
 
 int main(int argc, char** argv)
 {
-    FileWatcher fw("./TestPath/",std::chrono::milliseconds(5000));
+    std::string path = "./TestPath/";
+    FileWatcher fw(path,std::chrono::milliseconds(5000));
     std::map<std::string, File> files; // <path,File>
     std::map<std::string, Directory> dirs; // <path, Directory>
 
-    //TODO: files and dir inizialize function
+    initialize_files_and_dirs(files,dirs,path);
+    for(auto it = files.begin(); it != files.end(); ++it){
+        std::cout<<"file: "<<it->second.getName()<<" "<<it->second.getPath()<<" "<<it->second.getHash()<<"\n";
+    }
 
-    s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
+    //s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
 
 
     // SYN with server completed, starting to monitor client directory
-    fw.start(modification_function);
+    //fw.start(modification_function);
 
     /*
     Database DB("../DB/user.db");

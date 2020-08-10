@@ -52,6 +52,10 @@ public:
     int getId() const;
 
     void setId(int id);
+
+    const std::weak_ptr<Directory> &getDFather() const;
+
+    const std::weak_ptr<Directory> &getSelf() const;
 };
 
 

@@ -150,3 +150,11 @@ int Directory::getId() const {
 void Directory::setId(int id) {
     Directory::id = id;
 }
+
+const std::weak_ptr<Directory> &Directory::getDFather() const {
+    return dFather;
+}
+
+const std::weak_ptr<Directory> &Directory::getSelf() const {
+    return self;
+}
