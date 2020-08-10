@@ -40,10 +40,12 @@ std::shared_ptr<Directory> Directory::makeDirectory(int id, std::string dName, s
     newDir->self = newDir;
     newDir->dSons = std::vector<std::shared_ptr<Directory>>();
     newDir->fSons = std::vector<std::shared_ptr<File>>();
+    /* TODO: controllare perchè non funziona
     if (dName != "root")
         newDir->path = newDir->dFather.lock()->path+"/"+dName;
     else
         newDir->path = "root";
+    */
     return newDir;
 }
 
@@ -149,4 +151,12 @@ int Directory::getId() const {
 
 void Directory::setId(int id) {
     Directory::id = id;
+}
+
+const std::weak_ptr<Directory> &Directory::getDFather() const {
+    return dFather;
+}
+
+const std::weak_ptr<Directory> &Directory::getSelf() const {
+    return self;
 }

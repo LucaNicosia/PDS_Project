@@ -4,6 +4,9 @@
 
 #include <fcntl.h>
 #include "Socket.h"
+//#include "../Crypto/MyCryptoLibrary.cpp"
+
+#define SIZE 1024
 
 Socket::Socket(int sockfd): sockfd(sockfd){
     std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
@@ -64,4 +67,3 @@ void Socket::inizialize_and_connect(in_port_t port, sa_family_t family, const st
 
     this->connect(&addr, len);
 }
-
