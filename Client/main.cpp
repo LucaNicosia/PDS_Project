@@ -15,19 +15,67 @@
 #include <sqlite3.h>
 
 #include "./DB/Database.h"
-#include "TCP_Socket/Socket.h"
+
 
 // Socket
 #include "./TCP_Socket/Socket.h"
 
 #include "./FileManager/Directory.h"
 #include "./FileManager/File.h"
+#include "./FileManager/FileWatcher.h"
 
-#define PORT 5061
+#define PORT 5071
 #define MAXFD 50000
+
+auto modification_function = [](std::string file, FileStatus fs, FileType ft){
+    std::cout<<file;
+    if(ft == FileType::file)
+        std::cout<<" file";
+    else
+        std::cout<<" directory";
+    switch (fs) {
+        case FileStatus::created:
+            std::cout<<" created\n";
+            break;
+        case FileStatus::erased:
+            std::cout<<" erased\n";
+            break;
+        case FileStatus::modified:
+            std::cout<<" modified\n";
+            break;
+    }
+};
 
 int main(int argc, char** argv)
 {
+    Socket s{};
+    struct sockaddr_in addr;
+    unsigned int len = sizeof(addr);
+
+
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(PORT);
+
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if(inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr)<=0){
+        printf("\nInvalid address/ Address not supported \n");
+        return -1;
+    }
+
+    s.connect(&addr, len);
+
+    s.syncRequest("ciao");
+    s.compareDBDigest("./DB/ciao.txt");
+/*
+    FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
+    Socket s;
+
+    s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
+
+    // SYN with server completed, starting to monitor client directory
+    FW.start(modification_function);
+
+    /*
     Database DB("../DB/user.db");
     Directory records[10];
     File files[10];
@@ -63,14 +111,14 @@ int main(int argc, char** argv)
     s.connect(&addr, len);
 
     s.syncRequest("ciao");
-    std::cout<<"Stringa ricevuta dal server: "<<s.rcvMsg()<<std::endl;
+    s.compareDBDigest("./DB/ciao.txt");
 
     s.sendDir("./client_directory/prova");
     std::cout<<s.rcvMsg()<<std::endl;
 
     s.sendFile("./client_directory/file.txt");
     std::cout<<s.rcvMsg()<<std::endl;
-
+    */
 
     return 0;
 }

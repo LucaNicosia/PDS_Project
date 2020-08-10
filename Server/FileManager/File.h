@@ -10,22 +10,44 @@
 #include <vector>
 #include <memory>
 #include "Directory.h"
-#include "Base.h"
 
 class Directory;
 
-class File: public Base {
-
-    uintmax_t size;
+class File {
+    int id;
+    int id_dir;
+    std::string name;
+    std::string digest;
+    std::weak_ptr<Directory> dFather;
 
 public:
-    std::string path;
-    std::weak_ptr<Directory> dFather;
-    //Costruttore
-    File (std::string name, uintmax_t size, std::weak_ptr<Directory> dFather);
 
-    virtual int mType () const;
-    virtual void ls (int indent) const;
+    //Costruttore
+    File ();
+    File (std::string &name, int id, int id_dir, std::string &digest, std::weak_ptr<Directory> dFather);
+
+    int getId() const;
+
+    void setId(int id);
+
+    int getIdDir() const;
+
+    void setIdDir(int idDir);
+
+    const std::string &getName() const;
+
+    void setName(const std::string &name);
+
+    const std::string &getDigest() const;
+
+    void setDigest(const std::string &digest);
+
+    const std::weak_ptr<Directory> &getDFather() const;
+
+    void setDFather(const std::weak_ptr<Directory> &dFather);
+
+    void set(std::string field, std::string value);
+
 };
 
 

@@ -118,9 +118,9 @@ std::shared_ptr<File> Directory::getFile (const std::string& name){
 void Directory::set(std::string field, std::string value){
     if(field == "id"){
         id = std::atoi(value.c_str());
-    }if(field == "path"){
+    }else if(field == "path"){
         path = value;
-    }if(field == "name"){
+    }else if(field == "name"){
         name = value;
     }else{
         std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE

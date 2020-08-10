@@ -2,8 +2,7 @@
 // Created by giuseppetoscano on 13/06/20.
 //
 
-#ifndef LAB05_SOCKET_H
-#define LAB05_SOCKET_H
+
 
 #include <stdexcept>
 #include <sys/socket.h>
@@ -28,16 +27,23 @@ class Socket {
      ssize_t read(char *buffer, size_t len, int options);
      ssize_t write(const char *buffer, size_t len, int options);
      void connect(struct sockaddr_in *addr, unsigned int len);
+
      int __sock_fd(){ return sockfd; }
+
      friend class ServerSocket;
 
-     int sendMsg(const std::string msg);
-     int syncRequest(const std::string client);
-     int sendDir(const std::string path);
-     int sendFile(const std::string path);
-     std::string rcvMsg();
+     //COMMUNICATION BETWEEN CLIENT AND SERVER
+    int sendMsg(const std::string msg);
+    std::string rcvMsg();
+    int syncRequest(const std::string client);
+    int rcvSyncRequest();
+    int sendFile(const std::string path);
+    int rcvFile(const char *path);
+    int sendDir(const std::string path);
+    std::string rcvDir();
+    bool compareDBDigest (const std::string dbPath);
 
+    void inizialize_and_connect(in_port_t port, sa_family_t family, const std::string& address);
 };
 
 
-#endif //LAB05_SOCKET_H

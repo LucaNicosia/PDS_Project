@@ -11,16 +11,22 @@
 #include <vector>
 #include <thread>
 #include "./TCP_Socket/SocketServer.h"
+#include "./FileManager/File.h"
+#include "./FileManager/Directory.h"
+//#include "./Crypto/MyCryptoLibrary.cpp"
 
 // DB
 #include <sqlite3.h>
 
-#define PORT 5061
+#define PORT 5071
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
 
 int main() {
+    File f;
+    File f2 {};
+    Directory d;
     pthread_t threads[100];
     while (true){
 
@@ -34,14 +40,22 @@ int main() {
         std::cout<<"Got a connection from "<<name<<":"<<ntohs(addr.sin_port)<<"\n";
 
         //TEST SYNC 'client'
-        std::cout<<"Stringa ricevuta dal client: "<<s.rcvMsg()<<std::endl;
-        s.sendMsg("OK");
+        //s.sendMsg("OK");
+        s.rcvSyncRequest();
 
         //TEST DIR 'path'
-        std::cout<<"Stringa ricevuta dal client: "<<s.rcvDir()<<std::endl;
-        s.sendMsg("OK");
+        //std::cout<<"Stringa ricevuta dal client: "<<s.rcvDir()<<std::endl;
+        //s.sendMsg("OK");
 
         //TEST FILE 'path'
-        s.rcvFile("./server_directory/file.txt");
+        //s.rcvFile("./server_directory/file.txt");
     }
+
+    /*f.setDigest(computeDigest("prova.txt"));
+    f2.setDigest(computeDigest("prova2.txt"));
+
+    compareDigests(f.getDigest(), f.getDigest());
+    compareDigests(f.getDigest(), f2.getDigest());*/
+
+
 }
