@@ -29,6 +29,25 @@
 
 int main(int argc, char** argv)
 {
+    Socket s{};
+    struct sockaddr_in addr;
+    unsigned int len = sizeof(addr);
+
+
+    addr.sin_family = AF_INET;
+    addr.sin_port = htons(PORT);
+
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if(inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr)<=0){
+        printf("\nInvalid address/ Address not supported \n");
+        return -1;
+    }
+
+    s.connect(&addr, len);
+
+    s.syncRequest("ciao");
+    s.compareDBDigest("./DB/ciao.txt");
+/*
     FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
     FW.start([](std::string file, FileStatus fs, FileType ft){
         std::cout<<file;
