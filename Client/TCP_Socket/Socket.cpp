@@ -51,6 +51,23 @@ void Socket::connect(struct sockaddr_in *addr, unsigned int len){
         throw std::runtime_error("Cannot connect to remote socket");
 }
 
+void Socket::inizialize_and_connect(in_port_t port, sa_family_t family, const std::string& address){
+    struct sockaddr_in addr;
+    unsigned int len = sizeof(addr);
+
+
+    addr.sin_family = family;
+    addr.sin_port = htons(port);
+
+    // Convert IPv4 and IPv6 addresses from text to binary form
+    if(inet_pton(family, address.c_str(), &addr.sin_addr)<=0){
+        printf("\nInvalid address/ Address not supported \n");
+        //return -1; // Exception
+    }
+
+    this->connect(&addr, len);
+}
+
 //COMMUNICATION BETWEEN CLIENT AND SERVER
 int Socket::sendMsg(const std::string msg){
     std::cout<<"QUA"<<std::endl;

@@ -49,9 +49,13 @@ auto modification_function = [](std::string file, FileStatus fs, FileType ft){
 int main(int argc, char** argv)
 {
     FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
+    Socket s;
 
+    s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
 
+    // SYN with server completed, starting to monitor client directory
     FW.start(modification_function);
+
     /*
     Database DB("../DB/user.db");
     Directory records[10];
