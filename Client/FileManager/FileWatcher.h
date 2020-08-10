@@ -13,7 +13,7 @@
 #include <functional>
 
 // Define available file changes
-enum class FileStatus {created, modified, erased};
+enum class FileStatus {created, modified, erased, none};
 enum class FileType {file, directory};
 
 class FileWatcher {
@@ -44,10 +44,15 @@ public:
         }
     }
 
+    ~FileWatcher(){
+        this->stop();
+    }
+
     void start(const std::function<void (std::string, FileStatus, FileType)> &action) {
         while(running) {
             // Wait for "delay" milliseconds
             std::this_thread::sleep_for(delay);
+            if(!running) return; // if when i wake up 'running' is 'false', don't do the 'action' function
             auto it = paths.begin();
             // check if a file was deleted
             while (it != paths.end()) {
@@ -76,6 +81,10 @@ public:
                 }
             }
         }
+    }
+
+    void stop(){
+        running = false;
     }
 
 };

@@ -49,6 +49,7 @@ public:
 
     void set(std::string field, std::string value);
 
+    std::string getPath();
 };
 
 

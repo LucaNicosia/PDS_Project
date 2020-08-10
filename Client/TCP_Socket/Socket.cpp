@@ -101,7 +101,7 @@ int Socket::rcvSyncRequest() {
 
 int Socket::sendFile(const std::string path){
     // <- FILE 'path'
-    sendMsg(std::string ("FILE "+path));
+    //sendMsg(std::string ("FILE "+path));
 
     //...file transfer...
     int from;

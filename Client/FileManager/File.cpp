@@ -70,3 +70,7 @@ void File::set(std::string field, std::string value) {
         std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE
     }
 }
+
+std::string File::getPath(){
+    return this->dFather.lock()->getPath() + this->name;
+}
