@@ -95,7 +95,7 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
 
 };
 
-void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::unordered_map<std::string,File>& files, std::unordered_map<std::string,Directory>& dirs){
+void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::unordered_map<std::string,std::shared_ptr<File>>& files, std::unordered_map<std::string,std::shared_ptr<Directory>>& dirs){
     Database userDB(userDB_name);
     Database serverDB(serverDB_name);
     std::unordered_map<std::string,FileStatus> fs_files; //<path,FileStatus>
@@ -118,10 +118,10 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
 
     // populate maps
     for(auto it = files.begin(); it != files.end(); ++it){
-        fs_files.insert(std::pair<std::string,FileStatus>(it->second.getPath(),FileStatus::none));
+        fs_files.insert(std::pair<std::string,FileStatus>(it->second->getPath(),FileStatus::none));
     }
     for(auto it = dirs.begin(); it != dirs.end(); ++it){
-        fs_dirs.insert(std::pair<std::string,FileStatus>(it->second.getPath(),FileStatus::none));
+        fs_dirs.insert(std::pair<std::string,FileStatus>(it->second->getPath(),FileStatus::none));
     }
 
     // find what is different
@@ -141,7 +141,7 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
         if(fs_files.count(it->getPath()) == 0){ // file not present in user, it has been erased
             modification_function(it->getPath(),FileStatus::erased,FileType::file); // send modification to server
         }else{
-            if(!compareDigests(it->getHash(),files[it->getPath()].getHash())){ // hash are different: it has been updated on client
+            if(!compareDigests(it->getHash(),files[it->getPath()]->getHash())){ // hash are different: it has been updated on client
                 modification_function(it->getPath(),FileStatus::modified,FileType::file);
                 fs_files[it->getPath()] = FileStatus::modified; // if at the end of the loop, there are still some 'fs_files' with state 'none', it means that they are new
             }
@@ -154,26 +154,22 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
 }
 
-void initialize_files_and_dirs(std::map<std::string, File>& files, std::map<std::string, Directory>& dirs, const std::string& path){
+void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, const std::string& path){
     for(auto &it : std::filesystem::recursive_directory_iterator(path)) {
-        std::weak_ptr<Directory> file_father;
-        std::cout<<it.path()<<"\n";
         if(it.is_directory()){
-            Directory d;
-            std::weak_ptr<Directory> father;
+            std::shared_ptr<Directory> d;
+            std::weak_ptr<Directory> father = std::weak_ptr<Directory>();
             if(it.path().has_parent_path()){
-                std::cout<<"sono dentro\n";
                 if(dirs.count(it.path().parent_path()) != 0)
-                    father = dirs[it.path().parent_path()].getSelf();
+                    father = dirs[it.path().parent_path()]->getSelf();
             }
-            std::cout<<"sono fuori\n";
-            d.makeDirectory(0,it.path().string(),father); // id FORSE inutile
-            std::cout<<"qui\n";
-            dirs[it.path().string()] = d;
-            std::cout<<"qui\n";
-            file_father = d.getSelf();
+            dirs[it.path().string()] = Directory::makeDirectory(0,it.path().string(),father); // id FORSE inutile;
         } else {
-            files[it.path().string()] = File(it.path().string(),0,0,computeDigest(it.path().string()),file_father);
+            std::weak_ptr<Directory> file_father;
+            if(it.path().has_parent_path() && dirs.count(it.path().parent_path().string())!=0){
+                file_father = dirs[it.path().parent_path().string()]->getSelf();
+            }
+            files[it.path().string()] = std::shared_ptr<File>(new File(it.path().string(),0,0,computeDigest(it.path().string()),file_father));
         }
     }
 }
@@ -182,12 +178,21 @@ int main(int argc, char** argv)
 {
     std::string path = "./TestPath/";
     FileWatcher fw(path,std::chrono::milliseconds(5000));
-    std::map<std::string, File> files; // <path,File>
-    std::map<std::string, Directory> dirs; // <path, Directory>
+    std::map<std::string, std::shared_ptr<File>> files; // <path,File>
+    std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 
     initialize_files_and_dirs(files,dirs,path);
-    for(auto it = files.begin(); it != files.end(); ++it){
-        std::cout<<"file: "<<it->second.getName()<<" "<<it->second.getPath()<<" "<<it->second.getHash()<<"\n";
+    int i=0;
+    for(auto it = files.begin(); it != files.end(); ++it,i++){
+        std::cout<<"cont: "<<i<<" "<<it->second->getPath()<<"\n";
+        std::cout<<"cont: "<<i<<" "<<it->second->getFatherPath()<<"\n";
+        std::cout<<"cont: "<<i<<" "<<it->second->getHash()<<"\n";
+        //std::cout<<"file: "<<it->second->getName()<<" "<<it->second->getPath()<<" "<<it->second->getHash()<<"\n";
+    }
+    i=0;
+    for(auto it = dirs.begin(); it != dirs.end(); ++it,i++){
+        std::cout<<"cont: "<<i<<" ";
+        std::cout<<it->second->toString()<<"\n";
     }
     /*struct sockaddr_in addr;
     unsigned int len = sizeof(addr);

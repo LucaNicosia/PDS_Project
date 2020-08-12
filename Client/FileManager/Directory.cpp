@@ -35,9 +35,10 @@ std::shared_ptr<Directory> Directory::addDirectory(std::string dName, int id){
 std::shared_ptr<Directory> Directory::makeDirectory(int id, std::string dName, std::weak_ptr<Directory> dFather){
     std::shared_ptr<Directory> newDir = std::make_shared<Directory>();
     newDir->name = dName;
+    newDir->path = dName;
     newDir->id = id;
     newDir->dFather = dFather;
-    newDir->self = newDir;
+    newDir->self = std::weak_ptr<Directory>(newDir);
     newDir->dSons = std::vector<std::shared_ptr<Directory>>();
     newDir->fSons = std::vector<std::shared_ptr<File>>();
     /* TODO: controllare perchè non funziona
@@ -90,7 +91,7 @@ bool Directory::removeFile (const std::string& name){
         return false;
 
     for (int i = 0; i < fSons.size(); i++){
-        if (name == fSons[i]->getName()){
+        if (name == fSons[i]->getPath()){
             fSons.erase(fSons.begin()+i);
             return true;
         }
@@ -110,7 +111,7 @@ std::shared_ptr<Directory> Directory::getDir (const std::string& name){
 
 std::shared_ptr<File> Directory::getFile (const std::string& name){
     for (int i = 0; i < fSons.size(); i++){
-        if (name == fSons[i]->getName()){
+        if (name == fSons[i]->getPath()){
             return fSons[i];
         }
     }

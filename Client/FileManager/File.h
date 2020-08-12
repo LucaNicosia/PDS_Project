@@ -17,7 +17,7 @@ class Directory;
 class File {
     int id;
     int id_dir;
-    std::string name;
+    std::string path;
     std::string hash;
     std::weak_ptr<Directory> dFather;
 
@@ -25,7 +25,7 @@ public:
 
     //Costruttore
     File ();
-    File (const std::string &name, int id, int id_dir, const std::string &hash, std::weak_ptr<Directory> dFather);
+    File (const std::string path, int id, int id_dir, const std::string &hash, std::weak_ptr<Directory> dFather);
 
     int getId() const;
 
@@ -35,9 +35,9 @@ public:
 
     void setIdDir(int idDir);
 
-    const std::string &getName() const;
+    const std::string &getPath() const;
 
-    void setName(const std::string &name);
+    void setPath(const std::string &path);
 
     const std::string &getHash() const;
 
@@ -49,7 +49,7 @@ public:
 
     void set(std::string field, std::string value);
 
-    std::string getPath();
+    std::string getFatherPath();
 };
 
 

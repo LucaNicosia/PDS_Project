@@ -9,8 +9,8 @@
 
 File::File() {}
 
-File::File(const std::string &name, int id, int id_dir, const std::string &hash, std::weak_ptr<Directory> dFather) {
-    this->name = name;
+File::File(const std::string path, int id, int id_dir, const std::string &hash, std::weak_ptr<Directory> dFather) {
+    this->path = path;
     this->hash = hash;
     this->id = id;
     this->id_dir = id_dir;
@@ -31,14 +31,6 @@ int File::getIdDir() const {
 
 void File::setIdDir(int idDir) {
     id_dir = idDir;
-}
-
-const std::string &File::getName() const {
-    return name;
-}
-
-void File::setName(const std::string &name) {
-    File::name = name;
 }
 
 const std::string &File::getHash() const {
@@ -63,7 +55,7 @@ void File::set(std::string field, std::string value) {
     }else if(field == "id_dir"){
         id_dir = std::atoi(value.c_str());
     }else if(field == "nome"){
-        name = value;
+        path = value;
     }else if(field == "hash"){
         hash = value;
     }else{
@@ -71,6 +63,16 @@ void File::set(std::string field, std::string value) {
     }
 }
 
-std::string File::getPath(){
-    return this->dFather.lock()->getPath() + this->name;
+std::string File::getFatherPath(){
+    if(this->dFather.expired())
+        return "";
+    return this->dFather.lock()->getPath();
+}
+
+const std::string &File::getPath() const {
+    return path;
+}
+
+void File::setPath(const std::string &path) {
+    File::path = path;
 }
