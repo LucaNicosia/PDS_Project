@@ -56,6 +56,8 @@ public:
     const std::weak_ptr<Directory> &getDFather() const;
 
     const std::weak_ptr<Directory> &getSelf() const;
+
+    static std::string getFatherFromPath(std::string path);
 };
 
 

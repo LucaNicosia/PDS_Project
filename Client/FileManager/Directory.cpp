@@ -161,3 +161,7 @@ const std::weak_ptr<Directory> &Directory::getDFather() const {
 const std::weak_ptr<Directory> &Directory::getSelf() const {
     return self;
 }
+
+std::string Directory::getFatherFromPath(std::string path){
+    return path.substr(0,path.find_last_of("/"));
+}

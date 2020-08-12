@@ -19,7 +19,7 @@
 // DB
 #include <sqlite3.h>
 
-#define PORT 5072
+#define PORT 5073
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
@@ -42,7 +42,10 @@ int main() {
 
         //TEST SYNC 'client'
         rcvSyncRequest(s);
-        rcvMsg(s);
+        while(1) {
+            rcvMsg(s);
+            sendMsg(s,"OK");
+        }
 
         //TEST DIR 'path'
         //std::cout<<"Stringa ricevuta dal client: "<<s.rcvDir()<<std::endl;

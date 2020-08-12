@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <map>
+#include <memory>
 #include <mutex>
 #include <atomic>
 #include <vector>
@@ -26,29 +27,64 @@
 #include "./FileManager/File.h"
 #include "./FileManager/FileWatcher.h"
 
-#define PORT 5071
+#define PORT 5073
 #define MAXFD 50000
 
 Socket s;
+std::map<std::string, std::shared_ptr<File>> files; // <path,File>
+std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
+std::string root;
+
+void stampaFilesEDirs(){
+    int i=0;
+    for(auto it = files.begin(); it != files.end(); ++it,i++){
+        std::cout<<"cont: "<<i<<" "<<it->second->getPath()<<"\n";
+        std::cout<<"cont: "<<i<<" "<<it->second->getFatherPath()<<"\n";
+        std::cout<<"cont: "<<i<<" "<<it->second->getHash()<<"\n";
+        //std::cout<<"file: "<<it->second->getName()<<" "<<it->second->getPath()<<" "<<it->second->getHash()<<"\n";
+    }
+    i=0;
+    for(auto it = dirs.begin(); it != dirs.end(); ++it,i++){
+        std::cout<<"cont: "<<i<<" ";
+        std::cout<<it->second->toString()<<"\n";
+    }
+}
 
 auto modification_function = [](const std::string file, FileStatus fs, FileType ft){
     std::string FT,FS,res;
-
 
     std::cout<<file;
     if(ft == FileType::file)
         std::cout<<" file";
     else
         std::cout<<" directory";
+    std::weak_ptr<Directory> father;
     switch (fs) {
         case FileStatus::created:
-            std::cout<<" created\n";
+            std::cout << " created\n";
+            if(Directory::getFatherFromPath(file) != root){
+                father = dirs[Directory::getFatherFromPath(file)]->getSelf();
+            }
+            if (ft == FileType::directory) {
+                dirs[file] = Directory::makeDirectory(0,file,father);
+            } else {// file
+                files[file] = std::make_shared<File>(file, 0, 0, computeDigest(file), father);
+            }
             break;
         case FileStatus::erased:
             std::cout<<" erased\n";
+            if (ft == FileType::directory) {
+                dirs.erase(file);
+            } else { // file
+                files.erase(file);
+            }
             break;
         case FileStatus::modified:
             std::cout<<" modified\n";
+            // file only: directories are modified when its content is modified. No action needed
+            if(ft == FileType::file){
+                files[file]->setHash(computeDigest(file));
+            }
             break;
     }
 
@@ -92,7 +128,7 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
     }
     // if all went good, the code is already returned
     // error routine
-
+    stampaFilesEDirs();
 };
 
 void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::unordered_map<std::string,std::shared_ptr<File>>& files, std::unordered_map<std::string,std::shared_ptr<Directory>>& dirs){
@@ -155,21 +191,26 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
 }
 
 void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, const std::string& path){
+    // if path is "./xxx/" will become "./xxx"
+    if(path.find_last_of("/") == path.size()-1){
+        root = path.substr(0,path.find_last_of("/"));
+    }else{
+        root = path;
+    }
+
     for(auto &it : std::filesystem::recursive_directory_iterator(path)) {
         if(it.is_directory()){
-            std::shared_ptr<Directory> d;
             std::weak_ptr<Directory> father = std::weak_ptr<Directory>();
-            if(it.path().has_parent_path()){
-                if(dirs.count(it.path().parent_path()) != 0)
-                    father = dirs[it.path().parent_path()]->getSelf();
+            if(it.path().has_parent_path() && it.path().parent_path() != root){
+                father = dirs[it.path().parent_path()]->getSelf();
             }
             dirs[it.path().string()] = Directory::makeDirectory(0,it.path().string(),father); // id FORSE inutile;
         } else {
             std::weak_ptr<Directory> file_father;
-            if(it.path().has_parent_path() && dirs.count(it.path().parent_path().string())!=0){
+            if(it.path().has_parent_path() && it.path().parent_path() != root){
                 file_father = dirs[it.path().parent_path().string()]->getSelf();
             }
-            files[it.path().string()] = std::shared_ptr<File>(new File(it.path().string(),0,0,computeDigest(it.path().string()),file_father));
+            files[it.path().string()] = std::make_shared<File>(it.path().string(),0,0,computeDigest(it.path().string()),file_father);
         }
     }
 }
@@ -178,22 +219,9 @@ int main(int argc, char** argv)
 {
     std::string path = "./TestPath/";
     FileWatcher fw(path,std::chrono::milliseconds(5000));
-    std::map<std::string, std::shared_ptr<File>> files; // <path,File>
-    std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 
     initialize_files_and_dirs(files,dirs,path);
-    int i=0;
-    for(auto it = files.begin(); it != files.end(); ++it,i++){
-        std::cout<<"cont: "<<i<<" "<<it->second->getPath()<<"\n";
-        std::cout<<"cont: "<<i<<" "<<it->second->getFatherPath()<<"\n";
-        std::cout<<"cont: "<<i<<" "<<it->second->getHash()<<"\n";
-        //std::cout<<"file: "<<it->second->getName()<<" "<<it->second->getPath()<<" "<<it->second->getHash()<<"\n";
-    }
-    i=0;
-    for(auto it = dirs.begin(); it != dirs.end(); ++it,i++){
-        std::cout<<"cont: "<<i<<" ";
-        std::cout<<it->second->toString()<<"\n";
-    }
+
     /*struct sockaddr_in addr;
     unsigned int len = sizeof(addr);
 
@@ -228,16 +256,15 @@ int main(int argc, char** argv)
             sendMsg(s, "DONE");
         }
     }
+*/
 
-/*
     FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
-    Socket s;
 
-    //s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
+    s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
 
 
     // SYN with server completed, starting to monitor client directory
-    //fw.start(modification_function);
+    fw.start(modification_function);
 
     /*
     Database DB("../DB/user.db");

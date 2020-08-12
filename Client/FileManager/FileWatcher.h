@@ -71,6 +71,7 @@ public:
 
                 if(!contains(file.path().string())) {
                     paths[file.path().string()].last_mod = current_file_last_write_time;
+                    paths[file.path().string()].type = (file.is_directory()) ? FileType::directory : FileType::file;
                     action(file.path().string(), FileStatus::created, (file.is_directory()) ? FileType::directory : FileType::file);
                 } else {
                     // File modification
