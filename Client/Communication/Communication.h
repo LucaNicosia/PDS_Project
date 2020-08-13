@@ -2,8 +2,11 @@
 // Created by giuseppetoscano on 10/08/20.
 //
 
+#ifndef PDS_PROJECT_CLIENT_COMMUNICATION_H
+#define PDS_PROJECT_CLIENT_COMMUNICATION_H
+
 #include "../TCP_Socket/Socket.h"
-#include "../Crypto/MyCryptoLibrary.cpp"
+#include "../Crypto/MyCryptoLibrary.h"
 #include <fcntl.h>
 #define SIZE 1024
 
@@ -120,3 +123,5 @@ int sendDir(Socket& s, const std::string path){
 std::string rcvDir(Socket& s){
     return rcvMsg(s);
 };
+
+#endif //PDS_PROJECT_CLIENT_COMMUNICATION_H

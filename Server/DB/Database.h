@@ -1,13 +1,14 @@
 //
-// Created by root on 07/08/20.
+// Created by root on 13/08/20.
 //
 
-#ifndef PDS_PROGETTO_DATABASE_H
-#define PDS_PROGETTO_DATABASE_H
+#ifndef PDS_PROJECT_SERVER_DATABASE_H
+#define PDS_PROJECT_SERVER_DATABASE_H
 
 // database mySql libraries
 #include <sqlite3.h>
 #include <iostream>
+#include <vector>
 
 
 static int num_rec;
@@ -93,5 +94,4 @@ public:
     }
 };
 
-
-#endif //PDS_PROGETTO_DATABASE_H
+#endif //PDS_PROJECT_SERVER_DATABASE_H

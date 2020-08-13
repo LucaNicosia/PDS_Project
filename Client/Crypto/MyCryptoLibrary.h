@@ -2,6 +2,8 @@
 // Created by giuseppetoscano on 09/08/20.
 //
 
+#ifndef PDS_PROJECT_CLIENT_CRYPTO_H
+#define PDS_PROJECT_CLIENT_CRYPTO_H
 
 #include "cryptopp/hex.h"
 #include "cryptopp/files.h"
@@ -45,3 +47,5 @@ bool compareDigests(std::string digest1, std::string digest2){
         std::cout << "Strings are equal"<<std::endl;
     return true;
 }
+
+#endif //PDS_PROJECT_CLIENT_CRYPTO_H

@@ -18,7 +18,7 @@
 #include "./DB/Database.h"
 
 // Communication
-#include "Communication/Communication.cpp"
+#include "Communication/Communication.h"
 
 // Socket
 //#include "./TCP_Socket/Socket.h"
@@ -27,7 +27,7 @@
 #include "./FileManager/File.h"
 #include "./FileManager/FileWatcher.h"
 
-#define PORT 5073
+#define PORT 5074
 #define MAXFD 50000
 
 Socket s;
@@ -128,11 +128,11 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
     }
     // if all went good, the code is already returned
     // error routine
-    stampaFilesEDirs();
+    //stampaFilesEDirs();
 };
 
-void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::unordered_map<std::string,std::shared_ptr<File>>& files, std::unordered_map<std::string,std::shared_ptr<Directory>>& dirs){
-    Database userDB(userDB_name);
+void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs){
+    //Database userDB(userDB_name);
     Database serverDB(serverDB_name);
     std::unordered_map<std::string,FileStatus> fs_files; //<path,FileStatus>
     std::unordered_map<std::string,FileStatus> fs_dirs;  //<path,FileStatus>
@@ -140,15 +140,22 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     std::vector<Directory> userDirs, serverDirs;
     int nUserFiles, nUserDirs, nServerFiles, nServerDirs;
 
-    userDB.DB_open();
-    serverDB.DB_open();
+    //userDB.DB_open();
+    serverDB.open();
 
     // user queries
     //userDB.DB_query("SELECT * FROM File",nUserFiles,userFiles.data());
     //userDB.DB_query("SELECT * FROM Directory",nUserDirs,userDirs.data());
     // server queries
-    serverDB.DB_query("SELECT * FROM File",nServerFiles,serverFiles.data());
-    serverDB.DB_query("SELECT * FROM Directory",nServerDirs,serverDirs.data());
+    serverDB.select("SELECT * FROM File",nServerFiles,serverFiles);
+    serverDB.select("SELECT * FROM Directory",nServerDirs,serverDirs);
+
+    for(int i=0;i<nServerFiles;i++){
+        std::cout<<serverFiles[i].getPath()<<"\n";
+    }
+    for(int i=0;i<nServerDirs;i++){
+        std::cout<<serverDirs[i].getPath()<<"\n";
+    }
 
 
 
@@ -165,9 +172,12 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     for(auto it = serverDirs.begin(); it != serverDirs.end(); ++it){
         if(fs_dirs.count(it->getPath()) == 0) // directory not present in user, it has been erased
             modification_function(it->getPath(),FileStatus::erased,FileType::directory); // send modification to server
+        else
+            fs_dirs[it->getPath()] = FileStatus::created; // if it is already in 'fs_dirs' it has been already present
+
     }
     for(auto it = fs_dirs.begin(); it != fs_dirs.end(); ++it){
-        if(it->second == FileStatus::none){ // take a look at the comment above
+        if(it->second == FileStatus::none){ // 'none' records are those directories that where present on client but not on the DB
             modification_function(it->first,FileStatus::created,FileType::directory);
         }
     }
@@ -222,95 +232,17 @@ int main(int argc, char** argv)
 
     initialize_files_and_dirs(files,dirs,path);
 
-    /*struct sockaddr_in addr;
-    unsigned int len = sizeof(addr);
-
-
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(PORT);
-
-    // Convert IPv4 and IPv6 addresses from text to binary form
-    if(inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr)<=0){
-        printf("\nInvalid address/ Address not supported \n");
-        return -1;
-    }
-
-    s.connect(&addr, len);*/
-/*
-    s.inizialize_and_connect(PORT, AF_INET, "127.0.0.1");
-    std::string msg = syncRequest(s, "ciao");
-    if (msg == "SYNC-ERROR"){
-        std::cout<<"SYNC-ERROR"<<std::endl;
-    }else{
-        if (compareDigests(computeDigest("./DB/ciao.txt"), msg)){
-            //SAME DIGEST
-            std::cout<<"SAME DIGEST"<<std::endl;
-            sendMsg(s, "DONE");
-        }else{
-            //DIFFERENT DIGEST
-            std::cout<<"DIFFERENT DIGEST"<<std::endl;
-            //--------------
-            //---checkDB----
-            //--------------
-            //AT THE END
-            sendMsg(s, "DONE");
-        }
-    }
-*/
-
     FileWatcher FW("./TestPath/",std::chrono::milliseconds(5000));
 
     s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
 
+    checkDB("","../DB/user.db",files,dirs);
+
+    std::cout<<"--- checkDB ended ---\n";
 
     // SYN with server completed, starting to monitor client directory
     fw.start(modification_function);
-
-    /*
-    Database DB("../DB/user.db");
-    Directory records[10];
-    File files[10];
-    int n_rec,n_files;
-    DB.DB_open();
-    DB.DB_query("SELECT * FROM DIRECTORY",n_rec,records);
-    DB.DB_query("SELECT * FROM FILE",n_files,files);
-    DB.DB_close();
-
-    printf("\n");
-    std::cout<<n_rec<<"\n";
-    for(int i=0;i<n_rec;i++){
-        std::cout<<"directory["<<i<<"]-> id: "<<records[i].getId()<<" path: "<<records[i].getPath()<<std::endl;
-    }
-    for(int i=0;i<n_files;i++){
-        std::cout<<"files["<<i<<"]-> id: "<<files[i].getId()<<" id_dir: "<<files[i].getIdDir()<<" nome: "<<files[i].getName()<<" hash: "<<files[i].getHash()<<std::endl;
-    }
-
-    Socket s{};
-    struct sockaddr_in addr;
-    unsigned int len = sizeof(addr);
-
-
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(PORT);
-
-    // Convert IPv4 and IPv6 addresses from text to binary form
-    if(inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr)<=0){
-        printf("\nInvalid address/ Address not supported \n");
-        return -1;
-    }
-
-    s.connect(&addr, len);
-
-    s.syncRequest("ciao");
-    s.compareDBDigest("./DB/ciao.txt");
-
-    s.sendDir("./client_directory/prova");
-    std::cout<<s.rcvMsg()<<std::endl;
-
-    s.sendFile("./client_directory/file.txt");
-    std::cout<<s.rcvMsg()<<std::endl;
-    */
-
+    /**/
     return 0;
 }
 

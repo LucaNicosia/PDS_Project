@@ -26,6 +26,8 @@ public:
     //Costruttore
     File ();
     File (const std::string path, int id, int id_dir, const std::string &hash, std::weak_ptr<Directory> dFather);
+    File (const File& other);
+    File& operator=(const File& in);
 
     int getId() const;
 
@@ -47,9 +49,11 @@ public:
 
     void setDFather(const std::weak_ptr<Directory> &dFather);
 
-    void set(std::string field, std::string value);
+    void set(const std::string& field, const std::string& value);
 
     std::string getFatherPath();
+
+    std::string toString();
 };
 
 

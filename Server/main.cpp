@@ -19,7 +19,7 @@
 // DB
 #include <sqlite3.h>
 
-#define PORT 5073
+#define PORT 5074
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
