@@ -2,6 +2,9 @@
 // Created by giuseppetoscano on 09/08/20.
 //
 
+#ifndef PDS_PROJECT_SERVER_CRYPTO_H
+#define PDS_PROJECT_SERVER_CRYPTO_H
+
 #include "cryptopp/hex.h"
 #include "cryptopp/files.h"
 #include "cryptopp/sha.h"
@@ -38,10 +41,11 @@ std::string computeDigest(std::string filePath){
 bool compareDigests(std::string digest1, std::string digest2){
     int compare = digest1.compare(digest2);
     if (compare != 0){
-        std::cout << digest1 << " is not equal to "<< digest2 << std::endl;
         return false;
     }
     else if(compare == 0)
         std::cout << "Strings are equal"<<std::endl;
     return true;
 }
+
+#endif //PDS_PROJECT_SERVER_CRYPTO_H

@@ -43,12 +43,12 @@ public:
         rc = sqlite3_open(db_name.c_str(), &db);
 
 
-        if (rc) {
+        if (rc < 0) {
             std::cerr << "Error open DB " << sqlite3_errmsg(db) << std::endl;
             return (-1);
         }
         else
-            std::cout << "Opened Database Successfully!" << std::endl;
+            std::cout << "Opened Database "<<db_name<<" Successfully!" << std::endl;
         status = rc;
         return rc;
     }
@@ -59,7 +59,7 @@ public:
     }
 
     template<typename record_type>
-    int select(std::string sql, int &n_record, std::vector<record_type>& records){
+    int select(std::string sql, int &n_record, std::vector<record_type>& records){ // 'select' funtion needs a class that contains 'set' function
         n_record = 0;
         records.clear();
         sqlite3_stmt* stmt;

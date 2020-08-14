@@ -2,6 +2,8 @@
 // Created by giuseppetoscano on 13/06/20.
 //
 
+#ifndef SOCKET_CLIENT_H
+#define SOCKET_CLIENT_H
 
 #include <stdexcept>
 #include <sys/socket.h>
@@ -34,4 +36,4 @@ class Socket {
 
 };
 
-
+#endif

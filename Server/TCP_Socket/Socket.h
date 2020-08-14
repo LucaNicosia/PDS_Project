@@ -11,6 +11,9 @@
 #include <stdio.h>
 #include <unistd.h>
 
+#ifndef SOCKET_SERVER_H
+#define SOCKET_SERVER_H
+
 class Socket {
      int sockfd;
 
@@ -36,3 +39,4 @@ class Socket {
 };
 
 
+#endif

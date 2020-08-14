@@ -6,7 +6,7 @@
 #include "Socket.h"
 //#include "../Crypto/MyCryptoLibrary.cpp"
 
-#define SIZE 1024
+#define SIZE 2048
 
 Socket::Socket(int sockfd): sockfd(sockfd){
     std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
