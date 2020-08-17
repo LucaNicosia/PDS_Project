@@ -106,15 +106,16 @@ int rcvSyncRequest(Socket& s, std::string& username) {
     }
 }
 
+
 int sendFile(Socket& s, const std::string path){
     // <- FILE 'path'
     sendMsg(s, std::string ("FILE "+path));
     if(rcvMsg(s) != "OK"){
         //error
     }
-    sendMsg(s,"START");
     //...file transfer...
     int from;
+    //std::ifstream myFile(path,std::ios::in);
     from=open(path.c_str(),O_RDONLY);
     if(from<0){
         std::cout<<"Error opening file\n";
@@ -134,7 +135,6 @@ int sendFile(Socket& s, const std::string path){
     std::cout<<"fine"<<std::endl;
     return -1;
 };
-
 
 int rcvFile(Socket& s, const char *path){
 
@@ -156,18 +156,11 @@ int rcvFile(Socket& s, const char *path){
         }
         //std::cout<<buf<<std::endl;
         cont++;
-        std::string appo(buf);
-        char* write = buf;
         if(cont==1){
-            std::cout<<"sono dentro"<<std::endl;
-            // first message contains "START<file>"
-            appo = appo.substr(std::string("START").size());
-            write = const_cast<char *>(appo.c_str()); // eliminate "START"
-            rec -= std::string("START").size();
             sendMsg(s,"OK");
         }
-        w=::write(to,write,rec);
-        std::cout<<write<<std::endl;
+        w=::write(to,buf,rec);
+        //std::cout<<write<<std::endl;
     }
     std::cout<<"fine"<<std::endl;
     return -1;

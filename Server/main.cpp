@@ -51,7 +51,7 @@ int main() {
         msg = rcvMsg(s);
         if(msg == "GET-DB"){ // client asks for server.db database version
             sendFile(s,"../DB/"+username+".db");
-        } else if(msg == "Database u    p to date"){
+        } else if(msg == "Database up to date"){
             //ok
         } else {
             // error

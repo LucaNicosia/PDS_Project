@@ -104,37 +104,6 @@ int rcvSyncRequest(Socket& s, std::string& username) {
         return -1;
     }
 }
-
-int sendFile(Socket& s, const std::string path){
-    // <- FILE 'path'
-    sendMsg(s, std::string ("FILE "+path));
-    if(rcvMsg(s) != "OK"){
-        //error
-    }
-    sendMsg(s,"START");
-    //...file transfer...
-    int from;
-    from=open(path.c_str(),O_RDONLY);
-    if(from<0){
-        std::cout<<"Error opening file\n";
-        return 0;
-    }
-    int size;
-    int x;
-    char buf [SIZE];
-    while((size=::read(from,buf,sizeof(buf)))!=0) {
-        x = s.write(buf, size, 0);
-        if (x < 0) {
-            std::cout << "Error sending\n";
-            return 0;
-        }
-        std::cout<<buf<<std::endl;
-    }
-    std::cout<<"fine"<<std::endl;
-    return -1;
-};
-
-
 int rcvFile(Socket& s, const char *path){
 
     std::cout<<"Stringa ricevuta dal client: "<<rcvMsg(s)<<std::endl;
@@ -155,18 +124,41 @@ int rcvFile(Socket& s, const char *path){
         }
         //std::cout<<buf<<std::endl;
         cont++;
-        std::string appo(buf);
-        char* write = buf;
         if(cont==1){
-            std::cout<<"sono dentro"<<std::endl;
-            // first message contains "START<file>"
-            appo = appo.substr(std::string("START").size());
-            write = const_cast<char *>(appo.c_str()); // eliminate "START"
-            rec -= std::string("START").size();
             sendMsg(s,"OK");
         }
-        w=::write(to,write,rec);
+        w=::write(to,buf,rec);
         //std::cout<<write<<std::endl;
+    }
+    std::cout<<"fine"<<std::endl;
+    return -1;
+};
+
+
+int sendFile(Socket& s, const std::string path){
+    // <- FILE 'path'
+    sendMsg(s, std::string ("FILE "+path));
+    if(rcvMsg(s) != "OK"){
+        //error
+    }
+    //...file transfer...
+    int from;
+    //std::ifstream myFile(path,std::ios::in);
+    from=open(path.c_str(),O_RDONLY);
+    if(from<0){
+        std::cout<<"Error opening file\n";
+        return 0;
+    }
+    int size;
+    int x;
+    char buf [SIZE];
+    while((size=::read(from,buf,sizeof(buf)))!=0) {
+        x = s.write(buf, size, 0);
+        if (x < 0) {
+            std::cout << "Error sending\n";
+            return 0;
+        }
+        std::cout<<buf<<std::endl;
     }
     std::cout<<"fine"<<std::endl;
     return -1;
