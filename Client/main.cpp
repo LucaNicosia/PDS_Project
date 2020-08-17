@@ -52,9 +52,9 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
                 father = dirs[Directory::getFatherFromPath(file)]->getSelf();
             }
             if (ft == FileType::directory) {
-                dirs[file] = Directory::makeDirectory(0,file,father);
+                dirs[file] = Directory::makeDirectory(file,father);
             } else {// file
-                files[file] = std::make_shared<File>(file, 0, 0, computeDigest(file), father);
+                files[file] = std::make_shared<File>(file,computeDigest(file), father);
             }
             break;
         case FileStatus::erased:

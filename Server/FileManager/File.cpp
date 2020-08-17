@@ -4,48 +4,26 @@
 
 #include "File.h"
 
+
 //Costruttore
 
-File::File() {}
+File::File() {
+    path = "";
+    hash = "";
+}
 
-File::File(std::string &name, int id, int id_dir, std::string &digest, std::weak_ptr<Directory> dFather) {
-    this->name = name;
-    this->digest = digest;
-    this->id = id;
-    this->id_dir = id_dir;
+File::File(const std::string path, const std::string &hash, std::weak_ptr<Directory> dFather) {
+    this->path = path;
+    this->hash = hash;
     this->dFather = dFather;
 }
 
-int File::getId() const {
-    return id;
+const std::string &File::getHash() const {
+    return hash;
 }
 
-void File::setId(int id) {
-    File::id = id;
-}
-
-int File::getIdDir() const {
-    return id_dir;
-}
-
-void File::setIdDir(int idDir) {
-    id_dir = idDir;
-}
-
-const std::string &File::getName() const {
-    return name;
-}
-
-void File::setName(const std::string &name) {
-    File::name = name;
-}
-
-const std::string &File::getDigest() const {
-    return digest;
-}
-
-void File::setDigest(const std::string &digest) {
-    this->digest = digest;
+void File::setHash(const std::string &hash) {
+    File::hash = hash;
 }
 
 const std::weak_ptr<Directory> &File::getDFather() const {
@@ -56,19 +34,48 @@ void File::setDFather(const std::weak_ptr<Directory> &dFather) {
     File::dFather = dFather;
 }
 
-void File::set(std::string field, std::string value) {
-    if(field == "id"){
-        id = std::atoi(value.c_str());
-    }else if(field == "id_dir"){
-        id_dir = std::atoi(value.c_str());
+File& File::operator=(const File& in){
+    if(&in != this){
+        path = in.getPath();
+        hash = in.getHash();
+    }
+    return *this;
+}
+
+void File::set(const std::string& field, const std::string& value) {
+    if(field == "id" || field == "id_dir"){
+        return; // id are not saved on File
     }else if(field == "nome"){
-        name = value;
+        path = value;
     }else if(field == "hash"){
-        digest = value;
+        hash = value;
     }else{
         std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE
     }
 }
 
+std::string File::getFatherPath(){
+    if(this->dFather.expired())
+        return "";
+    return this->dFather.lock()->getPath();
+}
 
+const std::string &File::getPath() const {
+    return path;
+}
 
+void File::setPath(const std::string &path) {
+    File::path = path;
+}
+
+File::File(const File &other) {
+    if(&other != this){
+        path = other.getPath();
+        hash = other.getHash();
+    }
+}
+
+std::string File::toString() {
+    std::string str = path+" "+hash;
+    return str;
+}

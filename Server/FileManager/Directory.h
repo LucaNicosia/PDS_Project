@@ -22,7 +22,6 @@ class Directory {
     std::vector<std::shared_ptr<File>> fSons;
     std::string path;
     std::string name;
-    int id;
 
 public:
     //Costruttore
@@ -31,8 +30,8 @@ public:
     ~Directory();
 
     std::string toString();
-    std::shared_ptr<Directory> addDirectory(std::string dName, int id);
-    static std::shared_ptr<Directory> makeDirectory(int id, std::string dName, std::weak_ptr<Directory> dFather);
+    std::shared_ptr<Directory> addDirectory(std::string dName);
+    static std::shared_ptr<Directory> makeDirectory( std::string dName, std::weak_ptr<Directory> dFather);
     std::shared_ptr<File> addFile (const File& file);
     bool removeDir (const std::string& nome);
     bool removeFile (const std::string& nome);
@@ -49,9 +48,11 @@ public:
 
     void setName(const std::string &name);
 
-    int getId() const;
+    const std::weak_ptr<Directory> &getDFather() const;
 
-    void setId(int id);
+    const std::weak_ptr<Directory> &getSelf() const;
+
+    static std::string getFatherFromPath(std::string path);
 };
 
 

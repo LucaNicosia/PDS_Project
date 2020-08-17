@@ -112,13 +112,13 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
             if(it.path().has_parent_path() && it.path().parent_path() != root){
                 father = dirs[it.path().parent_path()]->getSelf();
             }
-            dirs[it.path().string()] = Directory::makeDirectory(0,it.path().string(),father); // id FORSE inutile;
+            dirs[it.path().string()] = Directory::makeDirectory(it.path().string(),father); // id FORSE inutile;
         } else {
             std::weak_ptr<Directory> file_father;
             if(it.path().has_parent_path() && it.path().parent_path() != root){
                 file_father = dirs[it.path().parent_path().string()]->getSelf();
             }
-            files[it.path().string()] = std::make_shared<File>(it.path().string(),0,0,computeDigest(it.path().string()),file_father);
+            files[it.path().string()] = std::make_shared<File>(it.path().string(),computeDigest(it.path().string()),file_father);
         }
     }
 }

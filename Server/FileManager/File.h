@@ -11,43 +11,39 @@
 #include <memory>
 #include "Directory.h"
 
+
 class Directory;
 
 class File {
-    int id;
-    int id_dir;
-    std::string name;
-    std::string digest;
+    std::string path;
+    std::string hash;
     std::weak_ptr<Directory> dFather;
 
 public:
 
     //Costruttore
     File ();
-    File (std::string &name, int id, int id_dir, std::string &digest, std::weak_ptr<Directory> dFather);
+    File (const std::string path, const std::string &hash, std::weak_ptr<Directory> dFather);
+    File (const File& other);
+    File& operator=(const File& in);
 
-    int getId() const;
+    const std::string &getPath() const;
 
-    void setId(int id);
+    void setPath(const std::string &path);
 
-    int getIdDir() const;
+    const std::string &getHash() const;
 
-    void setIdDir(int idDir);
-
-    const std::string &getName() const;
-
-    void setName(const std::string &name);
-
-    const std::string &getDigest() const;
-
-    void setDigest(const std::string &digest);
+    void setHash(const std::string &hash);
 
     const std::weak_ptr<Directory> &getDFather() const;
 
     void setDFather(const std::weak_ptr<Directory> &dFather);
 
-    void set(std::string field, std::string value);
+    void set(const std::string& field, const std::string& value);
 
+    std::string getFatherPath();
+
+    std::string toString();
 };
 
 

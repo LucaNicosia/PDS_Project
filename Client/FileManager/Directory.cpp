@@ -21,10 +21,10 @@ Directory::~Directory() {
 
 }
 
-std::shared_ptr<Directory> Directory::addDirectory(std::string dName, int id){
+std::shared_ptr<Directory> Directory::addDirectory(std::string dName){
 
     if (this != nullptr){
-        std::shared_ptr<Directory> newDir = makeDirectory(id, dName, self);
+        std::shared_ptr<Directory> newDir = makeDirectory(dName, self);
         dSons.push_back(newDir);
         fs::create_directories(newDir->path);
         return newDir;
@@ -32,21 +32,14 @@ std::shared_ptr<Directory> Directory::addDirectory(std::string dName, int id){
         return nullptr;
 }
 
-std::shared_ptr<Directory> Directory::makeDirectory(int id, std::string dName, std::weak_ptr<Directory> dFather){
+std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak_ptr<Directory> dFather){
     std::shared_ptr<Directory> newDir = std::make_shared<Directory>();
     newDir->name = dName;
     newDir->path = dName;
-    newDir->id = id;
     newDir->dFather = dFather;
     newDir->self = std::weak_ptr<Directory>(newDir);
     newDir->dSons = std::vector<std::shared_ptr<Directory>>();
     newDir->fSons = std::vector<std::shared_ptr<File>>();
-    /* TODO: controllare perchè non funziona
-    if (dName != "root")
-        newDir->path = newDir->dFather.lock()->path+"/"+dName;
-    else
-        newDir->path = "root";
-    */
     return newDir;
 }
 
@@ -120,7 +113,7 @@ std::shared_ptr<File> Directory::getFile (const std::string& name){
 
 void Directory::set(std::string field, std::string value){
     if(field == "id"){
-        id = std::atoi(value.c_str());
+        return; // id is not stored
     }else if(field == "path"){
         path = value;
     }else if(field == "name"){
@@ -144,14 +137,6 @@ const std::string &Directory::getName() const {
 
 void Directory::setName(const std::string &name) {
     Directory::name = name;
-}
-
-int Directory::getId() const {
-    return id;
-}
-
-void Directory::setId(int id) {
-    Directory::id = id;
 }
 
 const std::weak_ptr<Directory> &Directory::getDFather() const {
