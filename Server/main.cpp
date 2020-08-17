@@ -63,9 +63,11 @@ int main() {
             } else if(msg.find("DIR") == 0){
                 //dirs modification handler
             } else {
+                std::cout<<"sono in else"<<std::endl;
                 //error
-                return -1;
+                //return -1;
             }
+            sendMsg(s,"OK da server");
         }
 
 

@@ -106,16 +106,53 @@ int rcvSyncRequest(Socket& s, std::string& username) {
     }
 }
 
+int rcvFile(Socket& s, const char *path){
+
+    std::string fileData = rcvMsg(s); // FILE <path> <length>
+    int length = std::stoi(fileData.substr(fileData.find_last_of(" ")));
+    sendMsg(s, "OK");
+    int rec;
+    char buf [SIZE];
+    int to;
+    to=creat(path,0777);
+    if(to<0){
+        std::cout<<"Error creating destination file\n";
+        return 0;
+    }
+    int w,cont=0;
+    while(length > 0){
+        rec = s.read(buf,sizeof(buf),0);
+        if(rec<0){
+            std::cout<<"Error receiving\n";
+            return 0;
+        }
+        length -= rec;
+        //std::cout<<buf<<std::endl;
+        cont++;
+        if(cont==1){
+            //sendMsg(s,"OK");
+        }
+        w=::write(to,buf,rec);
+        //std::cout<<write<<std::endl;
+    }
+    sendMsg(s,"DONE");
+    std::cout<<"fine"<<std::endl;
+    return -1;
+};
+
 
 int sendFile(Socket& s, const std::string path){
     // <- FILE 'path'
-    sendMsg(s, std::string ("FILE "+path));
+    std::ifstream myFile(path,std::ios::in);
+    myFile.seekg(0,myFile.end);
+    int length = myFile.tellg();
+    myFile.close();
+    sendMsg(s, std::string ("FILE "+path+" "+std::to_string(length)));
     if(rcvMsg(s) != "OK"){
         //error
     }
     //...file transfer...
     int from;
-    //std::ifstream myFile(path,std::ios::in);
     from=open(path.c_str(),O_RDONLY);
     if(from<0){
         std::cout<<"Error opening file\n";
@@ -132,36 +169,7 @@ int sendFile(Socket& s, const std::string path){
         }
         std::cout<<buf<<std::endl;
     }
-    std::cout<<"fine"<<std::endl;
-    return -1;
-};
-
-int rcvFile(Socket& s, const char *path){
-
-    std::cout<<"Stringa ricevuta dal client: "<<rcvMsg(s)<<std::endl;
-    sendMsg(s, "OK");
-    int rec;
-    char buf [SIZE];
-    int to;
-    to=creat(path,0777);
-    if(to<0){
-        std::cout<<"Error creating destination file\n";
-        return 0;
-    }
-    int w,cont=0;
-    while(rec=s.read(buf,sizeof(buf),0)){
-        if(rec<0){
-            std::cout<<"Error receiving\n";
-            return 0;
-        }
-        //std::cout<<buf<<std::endl;
-        cont++;
-        if(cont==1){
-            sendMsg(s,"OK");
-        }
-        w=::write(to,buf,rec);
-        //std::cout<<write<<std::endl;
-    }
+    rcvMsg(s);
     std::cout<<"fine"<<std::endl;
     return -1;
 };

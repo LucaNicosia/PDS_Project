@@ -112,6 +112,7 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
         if(res == "DONE") // file sended correctly
             return;
     }
+    std::cout<<"modification function ended"<<std::endl;
     // if all went good, the code is already returned
     // error routine
     //stampaFilesEDirs();
