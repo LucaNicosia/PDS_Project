@@ -1,9 +1,9 @@
 //
-// Created by root on 13/08/20.
+// Created by root on 07/08/20.
 //
 
-#ifndef PDS_PROJECT_SERVER_DATABASE_H
-#define PDS_PROJECT_SERVER_DATABASE_H
+#ifndef PDS_PROGETTO_DATABASE_H
+#define PDS_PROGETTO_DATABASE_H
 
 // database mySql libraries
 #include <sqlite3.h>
@@ -44,12 +44,12 @@ public:
         rc = sqlite3_open(db_name.c_str(), &db);
 
 
-        if (rc) {
+        if (rc < 0) {
             std::cerr << "Error open DB " << sqlite3_errmsg(db) << std::endl;
             return (-1);
         }
         else
-            std::cout << "Opened Database Successfully!" << std::endl;
+            std::cout << "Opened Database "<<db_name<<" Successfully!" << std::endl;
         status = rc;
         return rc;
     }
@@ -59,8 +59,18 @@ public:
         return 0;
     }
 
+    int exec(std::string sql){
+        char* zErrMsg;
+        int rc = sqlite3_exec(db,sql.c_str(), nullptr, 0, &zErrMsg);
+        if( rc != SQLITE_OK ) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+        return rc;
+    }
+
     template<typename record_type>
-    int select(std::string sql, int &n_record, std::vector<record_type>& records){
+    int select(std::string sql, int &n_record, std::vector<record_type>& records){ // 'select' funtion needs a class that contains 'set' function
         n_record = 0;
         records.clear();
         sqlite3_stmt* stmt;
@@ -94,4 +104,5 @@ public:
     }
 };
 
-#endif //PDS_PROJECT_SERVER_DATABASE_H
+
+#endif //PDS_PROGETTO_DATABASE_H

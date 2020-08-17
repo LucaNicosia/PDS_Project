@@ -8,7 +8,7 @@
 // database mySql libraries
 #include <sqlite3.h>
 #include <iostream>
-
+#include <vector>
 
 static int num_rec;
 
@@ -56,6 +56,17 @@ public:
         if(status == SQLITE_OK)
             sqlite3_close(db);
         return 0;
+    }
+
+    int exec(std::string sql){
+        std::cout<<"sql: "<<sql<<std::endl;
+        char* zErrMsg;
+        int rc = sqlite3_exec(db,sql.c_str(), nullptr, 0, &zErrMsg);
+        if( rc != SQLITE_OK ) {
+            fprintf(stderr, "SQL error: %s\n", zErrMsg);
+            sqlite3_free(zErrMsg);
+        }
+        return rc;
     }
 
     template<typename record_type>

@@ -34,7 +34,6 @@ std::shared_ptr<Directory> Directory::addDirectory(std::string dName){
 
 std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak_ptr<Directory> dFather){
     std::shared_ptr<Directory> newDir = std::make_shared<Directory>();
-    newDir->name = dName;
     newDir->path = dName;
     newDir->dFather = dFather;
     newDir->self = std::weak_ptr<Directory>(newDir);
@@ -44,7 +43,7 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
 }
 
 std::string Directory::toString(){
-    return "Il nome della cartella è "+name;
+    return "Il nome della cartella è "+path;
 }
 
 std::shared_ptr<File> Directory::addFile (const File& ifile){
@@ -68,7 +67,7 @@ bool Directory::removeDir (const std::string& name){
         return false;
 
     for (int i = 0; i < dSons.size(); i++){
-        if (name == dSons[i]->name){
+        if (name == dSons[i]->path){
             dSons.erase(dSons.begin()+i);
             return true;
         }
@@ -95,7 +94,7 @@ bool Directory::removeFile (const std::string& name){
 
 std::shared_ptr<Directory> Directory::getDir (const std::string& name){
     for (int i = 0; i < dSons.size(); i++){
-        if (name == dSons[i]->name){
+        if (name == dSons[i]->path){
             return dSons[i];
         }
     }
@@ -116,8 +115,6 @@ void Directory::set(std::string field, std::string value){
         return; // id is not stored
     }else if(field == "path"){
         path = value;
-    }else if(field == "name"){
-        name = value;
     }else{
         std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE
     }
@@ -129,14 +126,6 @@ const std::string &Directory::getPath() const {
 
 void Directory::setPath(const std::string &path) {
     Directory::path = path;
-}
-
-const std::string &Directory::getName() const {
-    return name;
-}
-
-void Directory::setName(const std::string &name) {
-    Directory::name = name;
 }
 
 const std::weak_ptr<Directory> &Directory::getDFather() const {

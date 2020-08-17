@@ -45,7 +45,7 @@ File& File::operator=(const File& in){
 void File::set(const std::string& field, const std::string& value) {
     if(field == "id" || field == "id_dir"){
         return; // id are not saved on File
-    }else if(field == "nome"){
+    }else if(field == "path"){
         path = value;
     }else if(field == "hash"){
         hash = value;

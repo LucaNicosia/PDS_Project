@@ -21,7 +21,6 @@ class Directory {
     std::vector <std::shared_ptr<Directory>> dSons;
     std::vector<std::shared_ptr<File>> fSons;
     std::string path;
-    std::string name;
 
 public:
     //Costruttore
@@ -43,10 +42,6 @@ public:
     const std::string &getPath() const;
 
     void setPath(const std::string &path);
-
-    const std::string &getName() const;
-
-    void setName(const std::string &name);
 
     const std::weak_ptr<Directory> &getDFather() const;
 

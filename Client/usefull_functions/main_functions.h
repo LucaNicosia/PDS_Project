@@ -88,6 +88,8 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
             if(!compareDigests(it->getHash(),files[it->getPath()]->getHash())){ // hash are different: it has been updated on client
                 modification_function(it->getPath(),FileStatus::modified,FileType::file);
                 fs_files[it->getPath()] = FileStatus::modified; // if at the end of the loop, there are still some 'fs_files' with state 'none', it means that they are new
+            } else {
+                fs_files[it->getPath()] = FileStatus::created;
             }
         }
     }
@@ -98,8 +100,31 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
 }
 
-void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, const std::string& path, std::string& root){
+void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, const std::string& path, std::string& root, const std::string& path_to_db){
     // if path is "./xxx/" will become "./xxx"
+    std::ifstream db_file(path_to_db,std::ios::in);
+    Database db(path_to_db);
+    bool is_db_new = false;
+    if(!db_file){
+        is_db_new = true;
+        // user database doesn't exits, create it
+        std::cout<<"Database doesn't exists"<<std::endl;
+
+        db.open();
+        db.exec("CREATE TABLE \"DIRECTORY\" ("
+                "\"id\" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "\"path\" TEXT NOT NULL UNIQUE"
+                ")");
+        db.exec("CREATE TABLE \"FILE\" ("
+                "\"id\" INTEGER PRIMARY KEY AUTOINCREMENT, "
+                "\"path\" TEXT NOT NULL UNIQUE, "
+                "\"hash\" TEXT NOT NULL"
+                ")");
+    } else {
+        // database already exists
+        std::cout<<"Database alredy exists"<<std::endl;
+        db_file.close();
+    }
     if(path.find_last_of("/") == path.size()-1){
         root = path.substr(0,path.find_last_of("/"));
     }else{
@@ -107,20 +132,93 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     }
 
     for(auto &it : std::filesystem::recursive_directory_iterator(path)) {
+        std::cout<<"\telem: "<<it.path().string()<<std::endl;
         if(it.is_directory()){
             std::weak_ptr<Directory> father = std::weak_ptr<Directory>();
             if(it.path().has_parent_path() && it.path().parent_path() != root){
                 father = dirs[it.path().parent_path()]->getSelf();
             }
-            dirs[it.path().string()] = Directory::makeDirectory(it.path().string(),father); // id FORSE inutile;
+            dirs[it.path().string()] = Directory::makeDirectory(it.path().string(),father);
+            if(is_db_new){
+                db.exec("INSERT INTO DIRECTORY(path)\n"
+                        "VALUES (\""+it.path().string()+"\")");
+            }
         } else {
             std::weak_ptr<Directory> file_father;
             if(it.path().has_parent_path() && it.path().parent_path() != root){
                 file_father = dirs[it.path().parent_path().string()]->getSelf();
             }
             files[it.path().string()] = std::make_shared<File>(it.path().string(),computeDigest(it.path().string()),file_father);
+            if(is_db_new){
+                db.exec("INSERT INTO FILE (path, hash)\n"
+                        "VALUES (\""+it.path().string()+"\",\""+computeDigest(it.path().string())+"\")");
+            }
         }
     }
+}
+
+int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+    std::vector<File> db_Files;
+    std::vector<Directory> db_Dirs;
+    int n_record;
+
+    if(!db_file){
+        // a file that doesn't exits
+        return -1;
+    }
+    db.open();
+
+    db.select("SELECT * FROM FILE",n_record,db_Files);
+    db.select("SELECT * FROM DIRECTORY",n_record,db_Dirs);
+
+    for(auto it = files.begin(); it != files.end(); ++it){
+        bool found = false;
+        auto it2 = db_Files.begin();
+        for(it2; it2 != db_Files.end(); ++it2){
+            if(it2->getPath() == it->second->getPath()) {
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            db.exec("INSERT INTO FILE (path,hash) VALUES (\""+it->second->getPath()+"\",\""+it->second->getHash()+"\")");
+2;      } else {
+            if(!compareDigests(it2->getHash(),it->second->getHash())){
+                db.exec("UPDATE FILE SET hash = \""+it->second->getHash()+"\" WHERE path = \""+it->second->getPath()+"\"");
+            }
+            db_Files.erase(it2); // delete from the vector
+        }
+    }
+    if(!db_Files.empty()){
+        for(auto it=db_Files.begin();it!=db_Files.end();++it){
+            db.exec("DELETE FROM FILE WHERE path = \""+it->getPath()+"\"");
+        }
+    }
+    for(auto it = dirs.begin(); it != dirs.end(); ++it){
+        bool found = false;
+        auto it2 = db_Dirs.begin();
+        for(it2; it2 != db_Dirs.end(); ++it2) {
+            if(it2->getPath() == it->second->getPath()) {
+                found = true;
+                break;
+            }
+        }
+        if(!found){
+            db.exec("INSERT INTO DIRECTORY (path) VALUES (\""+it->second->getPath()+"\")");
+        } else {
+            db_Dirs.erase(it2);
+        }
+    }
+    if(!db_Dirs.empty()){
+        for(auto it=db_Dirs.begin();it!=db_Dirs.end();++it){
+            db.exec("DELETE FROM DIRECTORY WHERE path = \""+it->getPath()+"\"");
+        }
+    }
+
+    db.close();
+    return 0;
 }
 
 #endif //PDS_PROJECT_CLIENT_MAIN_FUNCTIONS_H

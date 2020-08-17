@@ -35,6 +35,7 @@ Socket s;
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string root;
+std::string db_path = "../DB/user.db";
 
 auto modification_function = [](const std::string file, FileStatus fs, FileType ft){
     std::string FT,FS,res;
@@ -125,7 +126,8 @@ int main(int argc, char** argv)
     std::string path = "./TestPath/";
     FileWatcher fw(path,std::chrono::milliseconds(5000));
     // inizialization of data structures
-    initialize_files_and_dirs(files,dirs,path,root);
+    initialize_files_and_dirs(files,dirs,path,root,db_path);
+    updateDB(db_path,files,dirs);
     // connect to the remote server
     s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
     // sync with the server
