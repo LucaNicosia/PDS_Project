@@ -18,6 +18,7 @@ class File {
     std::string path;
     std::string hash;
     std::weak_ptr<Directory> dFather;
+    std::string name;
 
 public:
 
@@ -35,6 +36,8 @@ public:
 
     void setHash(const std::string &hash);
 
+    const std::string &getName() const;
+
     const std::weak_ptr<Directory> &getDFather() const;
 
     void setDFather(const std::weak_ptr<Directory> &dFather);
@@ -44,6 +47,8 @@ public:
     std::string getFatherPath();
 
     std::string toString();
+
+    void ls (int indent) const;
 };
 
 

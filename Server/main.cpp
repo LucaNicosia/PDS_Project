@@ -21,7 +21,7 @@
 // DB
 #include <sqlite3.h>
 
-#define PORT 5074
+#define PORT 5076
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
@@ -31,6 +31,32 @@ int main() {
     File f2 {};
     Directory d;
     pthread_t threads[100];
+
+    std::shared_ptr<Directory> my_root = Directory::getRoot();
+    my_root->addFile("file.txt", "AAA");
+    std::shared_ptr<Directory> dir = my_root->addDirectory("prova5");
+    std::shared_ptr<File> file = dir->addFile("file3.txt", "BBB");
+    dir->addDirectory("prova7");
+    my_root->addDirectory("prova6");
+    if (dir->removeDir("prova7"))
+        std::cout<<"Cartella cancellata correttamente"<<std::endl;
+    else
+        std::cout<<"Problema nel cancellare la cartella"<<std::endl;
+
+    my_root->ls(4);
+
+    if (my_root->renameDir("prova5", "provaRename"))
+        std::cout<<"Cartella rinominata correttamente"<<std::endl;
+    else
+        std::cout<<"Problema nel rinominare la cartella"<<std::endl;
+
+    if (dir->renameFile("file3.txt", "fileRename.txt"))
+        std::cout<<"File rinominato correttamente"<<std::endl;
+    else
+        std::cout<<"Problema nel rinominare il file"<<std::endl;
+
+    my_root->ls(4);
+
     while (true){
 
         struct sockaddr_in addr;

@@ -88,3 +88,41 @@ opt (se è un file ed è stato creato/modificato)
 ----------------------
                
 ```
+
+***ESEMPIO DI GESTIONE DIRECTORIES E FILES***
+
+```
+
+std::shared_ptr<Directory> my_root = Directory::getRoot();
+my_root->addFile("file.txt", "AAA");
+std::shared_ptr<Directory> dir = my_root->addDirectory("prova5");
+std::shared_ptr<File> file = dir->addFile("file3.txt", "BBB");
+dir->addDirectory("prova7");
+my_root->addDirectory("prova6");
+if (dir->removeDir("prova7"))
+     std::cout<<"Cartella cancellata correttamente"<<std::endl;
+else
+     std::cout<<"Problema nel cancellare la cartella"<<std::endl;
+
+if (my_root->renameDir("prova5", "provaRename"))
+    std::cout<<"Cartella rinominata correttamente"<<std::endl;
+else
+    std::cout<<"Problema nel rinominare la cartella"<<std::endl;
+    
+if (dir->renameFile("file3.txt", "fileRename.txt"))
+    std::cout<<"File rinominato correttamente"<<std::endl;
+else
+    std::cout<<"Problema nel rinominare il file"<<std::endl;
+
+my_root->ls(4);
+
+----------------------
+               
+```
+
+- Directory::getRoot() -> ritorna il puntatore alla directory di nome ROOT (costante definita dentro directory.cpp)
+- dir->addDirectory("name")/dir->addFile("name.txt", "Ha$h") -> aggiungono rispettivamente una directory o un file della cartella dir e ne ritornano il puntatore. Entrambe richiamano i relativi costruttori di directory (makeDirectory (...)) e di file (File(...)).
+- dir->removeDir("name")/dir->removeFile("name.txt") -> rimuovono rispettivamente una directory o un file dalla cartella dir e ritornano true se l'operazione è andata con successo, false altrimenti
+- dir->removeDir("name")/dir->removeFile("name.txt") -> rinominano rispettivamente una directory o un file dalla cartella dir e ritornano true se l'operazione è andata con successo, false altrimenti
+- dir->ls(indent) -> stampa ricorsiva (con intendazione indent) a partire dalla cartella dir
+    

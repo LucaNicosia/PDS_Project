@@ -28,7 +28,7 @@
 #include "./FileManager/FileWatcher.h"
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5074
+#define PORT 5076
 #define MAXFD 50000
 
 Socket s;

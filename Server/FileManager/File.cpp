@@ -14,12 +14,18 @@ File::File() {
 
 File::File(const std::string path, const std::string &hash, std::weak_ptr<Directory> dFather) {
     this->path = path;
+    std::size_t found = path.find_last_of("/");
+    this->name = this->path.substr(found+1);
     this->hash = hash;
     this->dFather = dFather;
 }
 
 const std::string &File::getHash() const {
     return hash;
+}
+
+const std::string &File::getName() const {
+    return name;
 }
 
 void File::setHash(const std::string &hash) {
@@ -66,12 +72,15 @@ const std::string &File::getPath() const {
 
 void File::setPath(const std::string &path) {
     File::path = path;
+    std::size_t found = path.find_last_of("/");
+    this->name = this->path.substr(found+1);
 }
 
 File::File(const File &other) {
     if(&other != this){
         path = other.getPath();
         hash = other.getHash();
+        dFather = other.getDFather();
     }
 }
 
@@ -79,3 +88,16 @@ std::string File::toString() {
     std::string str = path+" "+hash;
     return str;
 }
+
+void File::ls (int indent) const{
+
+    std::string spaces;
+
+    if (this != 0) {
+
+        for (int i = 0; i < indent; i++) {
+            spaces += " ";
+        }
+        std::cout << spaces + this->name << std::endl;
+    }
+};
