@@ -91,6 +91,8 @@ opt (se è un file ed è stato creato/modificato)
 
 ***ESEMPIO DI GESTIONE DIRECTORIES E FILES***
 
+```
+
 std::shared_ptr<Directory> my_root = Directory::getRoot();
 my_root->addFile("file.txt", "AAA");
 std::shared_ptr<Directory> dir = my_root->addDirectory("prova5");
@@ -113,6 +115,10 @@ else
     std::cout<<"Problema nel rinominare il file"<<std::endl;
 
 my_root->ls(4);
+
+----------------------
+               
+```
 
 - Directory::getRoot() -> ritorna il puntatore alla directory di nome ROOT (costante definita dentro directory.cpp)
 - dir->addDirectory("name")/dir->addFile("name.txt", "Ha$h") -> aggiungono rispettivamente una directory o un file della cartella dir e ne ritornano il puntatore. Entrambe richiamano i relativi costruttori di directory (makeDirectory (...)) e di file (File(...)).
