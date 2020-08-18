@@ -11,7 +11,6 @@
 #define DIR 0
 #define FILE 1
 
-#define ROOT "server_directory"
 
 namespace fs = std::filesystem;
 
@@ -23,12 +22,13 @@ Directory::~Directory() {
 
 }
 
-std::shared_ptr<Directory> Directory::addDirectory(std::string dName){
+std::shared_ptr<Directory> Directory::addDirectory(std::string dName, const bool& create_flag){
 
     if (this != nullptr){
         std::shared_ptr<Directory> newDir = makeDirectory(dName, self);
         dSons.push_back(newDir);
-        fs::create_directories(newDir->path);
+        if(create_flag) // create only when flag is true
+            fs::create_directories(newDir->path);
         return newDir;
     }else{
         return nullptr;
@@ -43,28 +43,26 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
     newDir->self = newDir;
     newDir->dSons = std::vector<std::shared_ptr<Directory>>();
     newDir->fSons = std::vector<std::shared_ptr<File>>();
-    if (dName != ROOT)
+    if(dFather.expired()) {
+        newDir->path = dName;
+        return newDir;
+    }
+    if (dName != root->getName())
         newDir->path = newDir->dFather.lock()->path+"/"+dName;
     else
-        newDir->path = ROOT;
+        newDir->path = root->getName();
     return newDir;
 }
 
-std::shared_ptr<File> Directory::addFile (const std::string name, const std::string &hash){
+std::shared_ptr<File> Directory::addFile (const std::string name, const std::string &hash, const bool& create_flag){
 
     if (this != 0){
 
-        //File file {name, size, this->self};
-        //std::shared_ptr<File> tmp (&file);
         std::shared_ptr<File> file = std::make_shared<File>(path+"/"+name, hash, std::weak_ptr<Directory>(self));
         fSons.push_back(file);
-        if (this->name != ROOT)
-        file->setPath(file->getDFather().lock()->path+"/"+file->getPath());
-        else {
-            file->setPath(file->getFatherPath()+"/"+file->getPath());
-        }
-        //std::ofstream(file->getPath());
-        //std::cout<<"Dentro add file "<<this->fSons[0]<<" fileName = "<<this->fSons[0]->getName()<<std::endl;
+        std::cout<<"Directory::addFile -> "<<file->getPath()<<"\n";
+        if(create_flag) // only when 'create_flag == true' the file is actually created
+            std::ofstream(file->getPath());
         return file;
     }else
         return nullptr;
@@ -169,7 +167,7 @@ void Directory::set(std::string field, std::string value){
     }else if(field == "name"){
         name = value;
     }else{
-        std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE
+        std::cout<<"Directory: Invalid field! ("<<field<<")\n"; // QUI CI VUOLE UNA ECCEZIONE
     }
 }
 
@@ -202,8 +200,17 @@ std::string Directory::getFatherFromPath(std::string path){
 }
 
 std::shared_ptr<Directory> Directory::getRoot() {
-    if (root == std::shared_ptr<Directory>())
-        root = makeDirectory(ROOT, std::weak_ptr<Directory>());
+    return root;
+}
+
+std::shared_ptr<Directory> Directory::setRoot(std::string root_name){
+    // TODO: da far funzionare questo if
+    /*if (root != std::shared_ptr<Directory>()){
+        // errore
+        std::cout<<"errore in setRoot\n";
+    }*/
+    root = makeDirectory(root_name, std::weak_ptr<Directory>());
+    std::cout<<root->getName()<<std::endl;
     return root;
 }
 
@@ -215,7 +222,7 @@ void Directory::ls(int indent) const{
         for (int i = 0; i < indent; i++) {
             spaces += " ";
         }
-        if (this->name == ROOT)
+        if (this->name == root->getName())
          std::cout << spaces + this->name << std::endl;
 
         for (int i = 0; i < dSons.size(); i++) {

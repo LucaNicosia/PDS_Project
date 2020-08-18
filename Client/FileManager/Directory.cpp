@@ -11,6 +11,7 @@
 #define DIR 0
 #define FILE 1
 
+
 namespace fs = std::filesystem;
 
 Directory::Directory(){
@@ -21,43 +22,87 @@ Directory::~Directory() {
 
 }
 
-std::shared_ptr<Directory> Directory::addDirectory(std::string dName){
+std::shared_ptr<Directory> Directory::addDirectory(std::string dName, const bool& create_flag){
 
     if (this != nullptr){
         std::shared_ptr<Directory> newDir = makeDirectory(dName, self);
         dSons.push_back(newDir);
-        fs::create_directories(newDir->path);
+        if(create_flag) // create only when flag is true
+            fs::create_directories(newDir->path);
         return newDir;
-    }else
+    }else{
         return nullptr;
+    }
+
 }
 
 std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak_ptr<Directory> dFather){
     std::shared_ptr<Directory> newDir = std::make_shared<Directory>();
-    newDir->path = dName;
+    newDir->name = dName;
     newDir->dFather = dFather;
-    newDir->self = std::weak_ptr<Directory>(newDir);
+    newDir->self = newDir;
     newDir->dSons = std::vector<std::shared_ptr<Directory>>();
     newDir->fSons = std::vector<std::shared_ptr<File>>();
+    if(dFather.expired()) {
+        newDir->path = dName;
+        return newDir;
+    }
+    if (dName != root->getName())
+        newDir->path = newDir->dFather.lock()->path+"/"+dName;
+    else
+        newDir->path = root->getName();
     return newDir;
 }
 
-std::string Directory::toString(){
-    return "Il nome della cartella è "+path;
-}
+std::shared_ptr<File> Directory::addFile (const std::string name, const std::string &hash, const bool& create_flag){
 
-std::shared_ptr<File> Directory::addFile (const File& ifile){
+    if (this != 0){
 
-    if (this != nullptr){
-
-        //File file {name, size, this->self};
-        //std::shared_ptr<File> tmp (&file);
-        std::shared_ptr<File> file = std::make_shared<File>(ifile);
+        std::shared_ptr<File> file = std::make_shared<File>(path+"/"+name, hash, std::weak_ptr<Directory>(self));
         fSons.push_back(file);
-        file->setDFather(this->self);
+        std::cout<<"Directory::addFile -> "<<file->getPath()<<"\n";
+        if(create_flag) // only when 'create_flag == true' the file is actually created
+            std::ofstream(file->getPath());
         return file;
     }else
         return nullptr;
+
+}
+
+bool Directory::renameDir (const std::string& oldName, const std::string& newName){
+    if (oldName == ".." || newName == "..")
+        return false;
+    if (oldName == "." || newName == ".")
+        return false;
+
+    for (int i = 0; i < dSons.size(); i++){
+        if (oldName == dSons[i]->name){
+            dSons[i]->name = newName;
+            dSons[i]->path = dSons[i]->dFather.lock()->path+"/"+newName;
+            fs::rename(dSons[i]->dFather.lock()->path+"/"+oldName, dSons[i]->path);
+            return true;
+        }
+    }
+
+    return false;
+}
+
+bool Directory::renameFile (const std::string& oldName, const std::string& newName){
+    if (oldName == ".." || newName == "..")
+        return false;
+    if (oldName == "." || newName == ".")
+        return false;
+
+    for (int i = 0; i < fSons.size(); i++){
+        if (oldName == fSons[i]->getName()){
+            fSons[i]->setPath(fSons[i]->getDFather().lock()->path+"/"+newName);
+            fs::rename(fSons[i]->getDFather().lock()->path+"/"+oldName, fSons[i]->getPath());
+            return true;
+        }
+    }
+
+    return false;
+
 }
 
 bool Directory::removeDir (const std::string& name){
@@ -67,7 +112,9 @@ bool Directory::removeDir (const std::string& name){
         return false;
 
     for (int i = 0; i < dSons.size(); i++){
-        if (name == dSons[i]->path){
+        if (name == dSons[i]->name){
+            std::uintmax_t n = fs::remove_all(dSons[i]->getPath());
+            std::cout << "Deleted " << n << " files or directories"<<std::endl;
             dSons.erase(dSons.begin()+i);
             return true;
         }
@@ -84,6 +131,8 @@ bool Directory::removeFile (const std::string& name){
 
     for (int i = 0; i < fSons.size(); i++){
         if (name == fSons[i]->getPath()){
+            std::uintmax_t n = fs::remove_all(fSons[i]->getPath());
+            std::cout << "Deleted " << n << " files"<<std::endl;
             fSons.erase(fSons.begin()+i);
             return true;
         }
@@ -94,7 +143,7 @@ bool Directory::removeFile (const std::string& name){
 
 std::shared_ptr<Directory> Directory::getDir (const std::string& name){
     for (int i = 0; i < dSons.size(); i++){
-        if (name == dSons[i]->path){
+        if (name == dSons[i]->name){
             return dSons[i];
         }
     }
@@ -115,8 +164,10 @@ void Directory::set(std::string field, std::string value){
         return; // id is not stored
     }else if(field == "path"){
         path = value;
+    }else if(field == "name"){
+        name = value;
     }else{
-        std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE
+        std::cout<<"Directory: Invalid field! ("<<field<<")\n"; // QUI CI VUOLE UNA ECCEZIONE
     }
 }
 
@@ -126,6 +177,14 @@ const std::string &Directory::getPath() const {
 
 void Directory::setPath(const std::string &path) {
     Directory::path = path;
+}
+
+const std::string &Directory::getName() const {
+    return name;
+}
+
+void Directory::setName(const std::string &name) {
+    Directory::name = name;
 }
 
 const std::weak_ptr<Directory> &Directory::getDFather() const {
@@ -138,4 +197,42 @@ const std::weak_ptr<Directory> &Directory::getSelf() const {
 
 std::string Directory::getFatherFromPath(std::string path){
     return path.substr(0,path.find_last_of("/"));
+}
+
+std::shared_ptr<Directory> Directory::getRoot() {
+    return root;
+}
+
+std::shared_ptr<Directory> Directory::setRoot(std::string root_name){
+    // TODO: da far funzionare questo if
+    /*if (root != std::shared_ptr<Directory>()){
+        // errore
+        std::cout<<"errore in setRoot\n";
+    }*/
+    root = makeDirectory(root_name, std::weak_ptr<Directory>());
+    std::cout<<root->getName()<<std::endl;
+    return root;
+}
+
+void Directory::ls(int indent) const{
+    std::string spaces;
+
+    if (this != 0) {
+
+        for (int i = 0; i < indent; i++) {
+            spaces += " ";
+        }
+        if (this->name == root->getName())
+         std::cout << spaces + this->name << std::endl;
+
+        for (int i = 0; i < dSons.size(); i++) {
+            std::cout << spaces + "   " + this->dSons[i]->name << std::endl;
+            this->dSons[i]->ls(indent+4);
+        }
+        for (int i = 0; i < fSons.size(); i++) {
+            //std::cout<<"Dentro ls file "<<this->fSons[i]<<" fileName = "<<this->fSons[i]->getName()<<std::endl;
+            std::cout << spaces + "   " + this->fSons[i]->getName() << std::endl;
+        }
+    }
+
 }

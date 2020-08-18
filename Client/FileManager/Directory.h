@@ -21,6 +21,7 @@ class Directory {
     std::vector <std::shared_ptr<Directory>> dSons;
     std::vector<std::shared_ptr<File>> fSons;
     std::string path;
+    std::string name;
 
 public:
     //Costruttore
@@ -28,10 +29,11 @@ public:
 
     ~Directory();
 
-    std::string toString();
-    std::shared_ptr<Directory> addDirectory(std::string dName);
+    std::shared_ptr<Directory> addDirectory(std::string dName, const bool& create_flag);
     static std::shared_ptr<Directory> makeDirectory( std::string dName, std::weak_ptr<Directory> dFather);
-    std::shared_ptr<File> addFile (const File& file);
+    std::shared_ptr<File> addFile (const std::string name, const std::string &hash, const bool& create_flag);
+    bool renameDir (const std::string& oldName, const std::string& newName);
+    bool renameFile (const std::string& oldName, const std::string& newName);
     bool removeDir (const std::string& nome);
     bool removeFile (const std::string& nome);
     std::shared_ptr<Directory> getDir (const std::string& name);
@@ -43,12 +45,21 @@ public:
 
     void setPath(const std::string &path);
 
+    const std::string &getName() const;
+
+    void setName(const std::string &name);
+
     const std::weak_ptr<Directory> &getDFather() const;
 
     const std::weak_ptr<Directory> &getSelf() const;
 
     static std::string getFatherFromPath(std::string path);
+    static std::shared_ptr<Directory> getRoot();
+    void ls(int indent) const;
+
+    static std::shared_ptr<Directory> setRoot(std::string root_name);
 };
 
+static std::shared_ptr<Directory> root;
 
 #endif

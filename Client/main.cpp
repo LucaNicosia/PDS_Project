@@ -28,13 +28,12 @@
 #include "./FileManager/FileWatcher.h"
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5076
+#define PORT 5077
 #define MAXFD 50000
 
 Socket s;
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
-std::string root;
 std::string db_path = "../DB/user.db";
 
 auto modification_function = [](const std::string file, FileStatus fs, FileType ft){
@@ -49,7 +48,7 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
     switch (fs) {
         case FileStatus::created:
             std::cout << " created\n";
-            if(Directory::getFatherFromPath(file) != root){
+            if(Directory::getFatherFromPath(file) != Directory::getRoot()->getPath()){
                 father = dirs[Directory::getFatherFromPath(file)]->getSelf();
             }
             if (ft == FileType::directory) {
@@ -123,10 +122,10 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
 int main(int argc, char** argv)
 {
     std::string username = "user";
-    std::string path = "./TestPath/";
+    std::string path = "TestPath/";
     FileWatcher fw(path,std::chrono::milliseconds(5000));
     // inizialization of data structures
-    initialize_files_and_dirs(files,dirs,path,root,db_path);
+    initialize_files_and_dirs(files, dirs, path, db_path);
     updateDB(db_path,files,dirs);
     // connect to the remote server
     s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
@@ -146,7 +145,11 @@ int main(int argc, char** argv)
         sendMsg(s,"Database up to date");
     }
     // SYN with server completed, starting to monitor client directory
-    fw.start(modification_function);
+    std::thread t1([&fw]() { fw.start(modification_function); });
+    std::cout<<"--- System ready ---\n";
+    std::this_thread::sleep_for(std::chrono::seconds(30));
+    fw.stop();
+    t1.join();
     /**/
     return 0;
 }

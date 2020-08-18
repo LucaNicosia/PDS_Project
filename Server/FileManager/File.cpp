@@ -13,6 +13,7 @@ File::File() {
 }
 
 File::File(const std::string path, const std::string &hash, std::weak_ptr<Directory> dFather) {
+    std::cout<<"File: "<<path<<"\n";
     this->path = path;
     std::size_t found = path.find_last_of("/");
     this->name = this->path.substr(found+1);
@@ -51,18 +52,18 @@ File& File::operator=(const File& in){
 void File::set(const std::string& field, const std::string& value) {
     if(field == "id" || field == "id_dir"){
         return; // id are not saved on File
-    }else if(field == "nome"){
+    }else if(field == "path"){
         path = value;
     }else if(field == "hash"){
         hash = value;
     }else{
-        std::cout<<"Invalid field!\n"; // QUI CI VUOLE UNA ECCEZIONE
+        std::cout<<"File: Invalid field! ("<<field<<")\n"; // QUI CI VUOLE UNA ECCEZIONE
     }
 }
 
 std::string File::getFatherPath(){
     if(this->dFather.expired())
-        return "";
+        return "./";
     return this->dFather.lock()->getPath();
 }
 

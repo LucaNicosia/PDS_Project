@@ -13,22 +13,6 @@
 #include "../DB/Database.h"
 #include <map>
 
-void stampaFilesEDirs(std::map<std::string,std::shared_ptr<File>> files, std::map<std::string,std::shared_ptr<Directory>> dirs){
-    int i=0;
-    for(auto it = files.begin(); it != files.end(); ++it,i++){
-        std::cout<<"cont: "<<i<<" "<<it->second->getPath()<<"\n";
-        std::cout<<"cont: "<<i<<" "<<it->second->getFatherPath()<<"\n";
-        std::cout<<"cont: "<<i<<" "<<it->second->getHash()<<"\n";
-        //std::cout<<"file: "<<it->second->getName()<<" "<<it->second->getPath()<<" "<<it->second->getHash()<<"\n";
-    }
-    i=0;
-    for(auto it = dirs.begin(); it != dirs.end(); ++it,i++){
-        std::cout<<"cont: "<<i<<" ";
-        std::cout<<it->second->toString()<<"\n";
-    }
-}
-
-
 void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs, const std::function<void (std::string, FileStatus, FileType)> &modification_function){
     //Database userDB(userDB_name);
     Database serverDB(serverDB_name);
@@ -62,6 +46,8 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
         fs_files.insert(std::pair<std::string,FileStatus>(it->second->getPath(),FileStatus::none));
     }
     for(auto it = dirs.begin(); it != dirs.end(); ++it){
+        if(it->second->getPath() == Directory::getRoot()->getPath())
+            continue; // root is not added to fs_dirs and DB
         fs_dirs.insert(std::pair<std::string,FileStatus>(it->second->getPath(),FileStatus::none));
     }
 
@@ -76,6 +62,7 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
     for(auto it = fs_dirs.begin(); it != fs_dirs.end(); ++it){
         if(it->second == FileStatus::none){ // 'none' records are those directories that where present on client but not on the DB
+            std::cout<<"it->first: "<<it->first<<"\n";
             modification_function(it->first,FileStatus::created,FileType::directory);
         }
     }
@@ -100,7 +87,7 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
 }
 
-void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, const std::string& path, std::string& root, const std::string& path_to_db){
+void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, const std::string& path, const std::string& path_to_db){
     // if path is "./xxx/" will become "./xxx"
     std::ifstream db_file(path_to_db,std::ios::in);
     Database db(path_to_db);
@@ -113,7 +100,8 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         db.open();
         db.exec("CREATE TABLE \"DIRECTORY\" ("
                 "\"id\" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                "\"path\" TEXT NOT NULL UNIQUE"
+                "\"path\" TEXT NOT NULL UNIQUE,"
+                "\"name\" TEXT NOT NULL"
                 ")");
         db.exec("CREATE TABLE \"FILE\" ("
                 "\"id\" INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -126,35 +114,41 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         db_file.close();
     }
     if(path.find_last_of("/") == path.size()-1){
-        root = path.substr(0,path.find_last_of("/"));
+        Directory::setRoot(path.substr(0,path.find_last_of("/")));
     }else{
-        root = path;
+        Directory::setRoot(path);
     }
+    dirs[Directory::getRoot()->getPath()] = Directory::getRoot(); // root is needed in dirs
 
-    for(auto &it : std::filesystem::recursive_directory_iterator(path)) {
-        std::cout<<"\telem: "<<it.path().string()<<std::endl;
+    for(auto &it : std::filesystem::recursive_directory_iterator(Directory::getRoot()->getPath())) {
         if(it.is_directory()){
             std::weak_ptr<Directory> father = std::weak_ptr<Directory>();
-            if(it.path().has_parent_path() && it.path().parent_path() != root){
-                father = dirs[it.path().parent_path()]->getSelf();
+            if(it.path().has_parent_path()/* && it.path().parent_path().string() != Directory::getRoot()->getPath()*/){
+                father = dirs[it.path().parent_path().string()]->getSelf();
+                dirs[it.path().string()] = father.lock()->addDirectory(it.path().filename().string(),false);
+            } else {
+                // error handling
             }
-            dirs[it.path().string()] = Directory::makeDirectory(it.path().string(),father);
             if(is_db_new){
-                db.exec("INSERT INTO DIRECTORY(path)\n"
-                        "VALUES (\""+it.path().string()+"\")");
+                db.exec("INSERT INTO DIRECTORY(path,name)\n"
+                        "VALUES (\""+dirs[it.path().string()]->getPath()+"\", \""+dirs[it.path().string()]->getName()+"\")");
             }
         } else {
-            std::weak_ptr<Directory> file_father;
-            if(it.path().has_parent_path() && it.path().parent_path() != root){
-                file_father = dirs[it.path().parent_path().string()]->getSelf();
+            std::weak_ptr<Directory> dir_father;
+            if(it.path().has_parent_path()/* && it.path().parent_path().string() != Directory::getRoot()->getPath()*/){
+                dir_father = dirs[it.path().parent_path().string()]->getSelf();
+                files[it.path().string()] = dir_father.lock()->addFile(it.path().filename().string(),computeDigest(it.path().string()),false);
             }
-            files[it.path().string()] = std::make_shared<File>(it.path().string(),computeDigest(it.path().string()),file_father);
+            else{
+                // error handling
+            }
             if(is_db_new){
                 db.exec("INSERT INTO FILE (path, hash)\n"
-                        "VALUES (\""+it.path().string()+"\",\""+computeDigest(it.path().string())+"\")");
+                        "VALUES (\""+it.path().string()+"\", \""+computeDigest(it.path().string())+"\")");
             }
         }
     }
+    Directory::getRoot()->ls(4);
 }
 
 int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
@@ -197,6 +191,10 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
         }
     }
     for(auto it = dirs.begin(); it != dirs.end(); ++it){
+        if(it->second->getPath() == dirs[Directory::getRoot()->getPath()]->getPath()){
+            // root is not added to DB
+            continue;
+        }
         bool found = false;
         auto it2 = db_Dirs.begin();
         for(it2; it2 != db_Dirs.end(); ++it2) {
@@ -206,7 +204,7 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
             }
         }
         if(!found){
-            db.exec("INSERT INTO DIRECTORY (path) VALUES (\""+it->second->getPath()+"\")");
+            db.exec("INSERT INTO DIRECTORY (path,name) VALUES (\""+it->second->getPath()+"\", "+"\""+it->second->getName()+"\")");
         } else {
             db_Dirs.erase(it2);
         }
