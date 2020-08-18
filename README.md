@@ -6,25 +6,28 @@
 
 ## Client
 - [x] Monitoraggio ricorsivo cartella in background
-- [ ] Cartella di partenza
-- [ ] Salvare in una struttura dati nome e hash di ogni file (usare old_map e new_map aggiornate ogni secondo o ogni modifica)
-- [ ] Struttura ad albero per le directory
+- [ ] Qualsiasi cartella di partenza
+- [x] Salvare in una struttura dati nome e hash di ogni file
+- [x] Struttura ad albero per le directory
 - [ ] Programma deve runnare in background
-- [ ] Quando aggiungo un file o una directory modificare le strutture dati
-- [ ] Quando old != new c'è stata una modifica nei file (delete o rename o modifica del contenuto o new) 
+- [x] Quando aggiungo un file o una directory modificare le strutture dati
+- [x] Quando old != new c'è stata una modifica nei file (delete o rename o modifica del contenuto o new) 
 - [ ] Quando old != new per modifica, bisogna rendere il file invalido e sincronizzarlo con il server per poi rimetterlo a valido 
 - [ ] Fare la push delle modifiche sul server
-- [ ] Trasferimento file (Compresso ?) 
+- [x] Trasferimento file (Compresso ?) 
 - [ ] Trasferimento cartelle (es. mandare il messaggio "DIR /path/to/directory")
 - [ ] Gestione errori (se pc o server non online mantenere l'elenco delle modifiche da mandare)
 - [ ] Sincronizzazione all'avvio e creazione DB come su server
+- [ ] Timeout sui socket
+- [ ] Verificare che "../../" non dia errori
 
 ## Server
-- [ ] In ascolto su PORT
+- [ ] Timeout sui socket
+- [x] In ascolto su PORT
 - [ ] In base al messaggio bisogna fare un'azione
 - [ ] Controllo errori e in caso affermativo risincronizzazione
-- [ ] Usare DB
-- [ ] Trasferimento file (Compresso ?)
+- [x] Usare DB
+- [x] Trasferimento file (Compresso ?)
 - [ ] Gestione multiclient
 
 DATABASE

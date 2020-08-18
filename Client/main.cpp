@@ -122,7 +122,7 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
 int main(int argc, char** argv)
 {
     std::string username = "user";
-    std::string path = "TestPath/";
+    std::string path = "../../";
     FileWatcher fw(path,std::chrono::milliseconds(5000));
     // inizialization of data structures
     initialize_files_and_dirs(files, dirs, path, db_path);
