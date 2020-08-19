@@ -12,11 +12,10 @@ File::File() {
     hash = "";
 }
 
-File::File(const std::string path, const std::string &hash, std::weak_ptr<Directory> dFather) {
-    std::cout<<"File: "<<path<<"\n";
-    this->path = path;
-    std::size_t found = path.find_last_of("/");
-    this->name = this->path.substr(found+1);
+File::File(const std::string name, const std::string &hash, std::weak_ptr<Directory> dFather) {
+    std::cout<<"File: "<<name<<"\n";
+    this->name = name;
+    this->path = dFather.lock()->getPath()+"/"+name;
     this->hash = hash;
     this->dFather = dFather;
 }
@@ -85,11 +84,6 @@ File::File(const File &other) {
     }
 }
 
-std::string File::toString() {
-    std::string str = path+" "+hash;
-    return str;
-}
-
 void File::ls (int indent) const{
 
     std::string spaces;
@@ -102,3 +96,11 @@ void File::ls (int indent) const{
         std::cout << spaces + this->name << std::endl;
     }
 };
+
+std::string File::toString (){
+    return "PATH = "+path+" NAME = "+name;
+}
+
+std::string File::getFatherFromPath(std::string path){
+    return path.substr(0,path.find_last_of("/"));
+}

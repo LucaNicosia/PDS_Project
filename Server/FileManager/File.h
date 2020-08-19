@@ -49,6 +49,7 @@ public:
     std::string toString();
 
     void ls (int indent) const;
+    static std::string getFatherFromPath(std::string path);
 };
 
 

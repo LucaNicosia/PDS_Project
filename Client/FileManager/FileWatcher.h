@@ -48,7 +48,7 @@ public:
         this->stop();
     }
 
-    void start(const std::function<void (std::string, FileStatus, FileType)> &action) {
+    void start(const std::function<void (std::string, std::string, FileStatus, FileType)> &action) {
         while(running) {
             // Wait for "delay" milliseconds
             std::this_thread::sleep_for(delay);
@@ -57,7 +57,7 @@ public:
             // check if a file was deleted
             while (it != paths.end()) {
                 if (!std::filesystem::exists(it->first)) {
-                    action(it->first, FileStatus::erased,it->second.type); // mando se è directory o file
+                    action(it->first, it->first, FileStatus::erased,it->second.type); // mando se è directory o file
                     it = paths.erase(it);
                     }
                 else {
@@ -72,12 +72,12 @@ public:
                 if(!contains(file.path().string())) {
                     paths[file.path().string()].last_mod = current_file_last_write_time;
                     paths[file.path().string()].type = (file.is_directory()) ? FileType::directory : FileType::file;
-                    action(file.path().string(), FileStatus::created, (file.is_directory()) ? FileType::directory : FileType::file);
+                    action(file.path().filename().string(), file.path().string(), FileStatus::created, (file.is_directory()) ? FileType::directory : FileType::file);
                 } else {
                     // File modification
                     if(paths[file.path().string()].last_mod != current_file_last_write_time) {
                         paths[file.path().string()].last_mod = current_file_last_write_time;
-                        action(file.path().string(), FileStatus::modified, (file.is_directory()) ? FileType::directory : FileType::file);
+                        action(file.path().filename().string(), file.path().string(), FileStatus::modified, (file.is_directory()) ? FileType::directory : FileType::file);
                     }
                 }
             }

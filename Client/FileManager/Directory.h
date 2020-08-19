@@ -58,6 +58,8 @@ public:
     void ls(int indent) const;
 
     static std::shared_ptr<Directory> setRoot(std::string root_name);
+
+    std::string toString ();
 };
 
 static std::shared_ptr<Directory> root;

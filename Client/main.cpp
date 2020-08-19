@@ -28,15 +28,31 @@
 #include "./FileManager/FileWatcher.h"
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5077
+#define PORT 5091
 #define MAXFD 50000
+
 
 Socket s;
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path = "../DB/user.db";
 
-auto modification_function = [](const std::string file, FileStatus fs, FileType ft){
+void stampaFilesEDirs(void){
+
+    std::cout<<"***DIRECTORIES***"<<std::endl;
+    for (const auto& x : dirs) {
+        std::cout << x.first << ": " << x.second->toString()<< std::endl;
+    }
+
+
+    std::cout<<"***FILES***"<<std::endl;
+    for (const auto& x : files) {
+        std::cout << x.first << ": " << x.second->toString()<< std::endl;
+    }
+
+}
+
+auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){
     std::string FT,FS,res;
 
     std::cout<<file;
@@ -48,28 +64,49 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
     switch (fs) {
         case FileStatus::created:
             std::cout << " created\n";
-            if(Directory::getFatherFromPath(file) != Directory::getRoot()->getPath()){
-                father = dirs[Directory::getFatherFromPath(file)]->getSelf();
-            }
+            std::cout<<"qui"<<std::endl;
+            father = dirs[Directory::getFatherFromPath(filePath)]->getSelf();
             if (ft == FileType::directory) {
-                dirs[file] = Directory::makeDirectory(file,father);
+                dirs[filePath] = Directory::makeDirectory(file,father);
+                if (insertDirectoryIntoDB(db_path, dirs[filePath]))
+                    std::cout<<"Directory inserita correttamente sul DB"<<std::endl;
+                else
+                    std::cout<<"Problema nell'inserire la directory sul DB"<<std::endl;
             } else {// file
-                files[file] = std::make_shared<File>(file,computeDigest(file), father);
+                files[filePath] = std::make_shared<File>(file,computeDigest(filePath), father);
+                if(insertFileIntoDB(db_path, files[filePath]))
+                    std::cout<<"File inserito correttamente sul DB"<<std::endl;
+                else
+                    std::cout<<"Problema nell'inserire il file sul DB"<<std::endl;
             }
             break;
         case FileStatus::erased:
             std::cout<<" erased\n";
             if (ft == FileType::directory) {
-                dirs.erase(file);
+                if(deleteDirectoryFromDB(db_path, dirs[filePath]))
+                    std::cout<<"Directory cancellata correttamente sul DB"<<std::endl;
+                else
+                    std::cout<<"Problema nel cancellare la directory sul DB"<<std::endl;
+                dirs.erase(filePath);
             } else { // file
-                files.erase(file);
+                stampaFilesEDirs();
+                std::cout<<"STO CANCELLATO IL FILE CON TALE PERCORSO "<<filePath<<std::endl;
+                if (deleteFileFromDB(db_path, files[filePath]))
+                    std::cout<<"File cancellato correttamente sul DB"<<std::endl;
+                else
+                    std::cout<<"Problema nel cancellare il file sul DB"<<std::endl;
+                files.erase(filePath);
             }
             break;
         case FileStatus::modified:
             std::cout<<" modified\n";
             // file only: directories are modified when its content is modified. No action needed
             if(ft == FileType::file){
-                files[file]->setHash(computeDigest(file));
+                files[filePath]->setHash(computeDigest(filePath));
+                if(updateFileDB(db_path, files[filePath]))
+                    std::cout<<"File aggiornato correttamente sul DB"<<std::endl;
+                else
+                    std::cout<<"Problema nell'aggiornare il file sul DB"<<std::endl;
             }
             break;
     }
@@ -115,14 +152,14 @@ auto modification_function = [](const std::string file, FileStatus fs, FileType 
     std::cout<<"modification function ended"<<std::endl;
     // if all went good, the code is already returned
     // error routine
-    //stampaFilesEDirs();
+    stampaFilesEDirs();
 };
 
 
 int main(int argc, char** argv)
 {
     std::string username = "user";
-    std::string path = "../../";
+    std::string path = "TestPath";
     FileWatcher fw(path,std::chrono::milliseconds(5000));
     // inizialization of data structures
     initialize_files_and_dirs(files, dirs, path, db_path);
@@ -147,7 +184,7 @@ int main(int argc, char** argv)
     // SYN with server completed, starting to monitor client directory
     std::thread t1([&fw]() { fw.start(modification_function); });
     std::cout<<"--- System ready ---\n";
-    std::this_thread::sleep_for(std::chrono::seconds(30));
+    std::this_thread::sleep_for(std::chrono::seconds(5000));
     fw.stop();
     t1.join();
     /**/

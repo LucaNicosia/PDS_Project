@@ -13,7 +13,7 @@
 #include "../DB/Database.h"
 #include <map>
 
-void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs, const std::function<void (std::string, FileStatus, FileType)> &modification_function){
+void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs, const std::function<void (std::string, std::string, FileStatus, FileType)> &modification_function){
     //Database userDB(userDB_name);
     Database serverDB(serverDB_name);
     std::unordered_map<std::string,FileStatus> fs_files; //<path,FileStatus>
@@ -55,7 +55,7 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     // in directories
     for(auto it = serverDirs.begin(); it != serverDirs.end(); ++it){
         if(fs_dirs.count(it->getPath()) == 0) // directory not present in user, it has been erased
-            modification_function(it->getPath(),FileStatus::erased,FileType::directory); // send modification to server
+            modification_function(it->getName(), it->getPath(),FileStatus::erased,FileType::directory); // send modification to server
         else
             fs_dirs[it->getPath()] = FileStatus::created; // if it is already in 'fs_dirs' it has been already present
 
@@ -63,17 +63,17 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     for(auto it = fs_dirs.begin(); it != fs_dirs.end(); ++it){
         if(it->second == FileStatus::none){ // 'none' records are those directories that where present on client but not on the DB
             std::cout<<"it->first: "<<it->first<<"\n";
-            modification_function(it->first,FileStatus::created,FileType::directory);
+            modification_function(it->first,it->first,FileStatus::created,FileType::directory);
         }
     }
 
     // in files
     for(auto it = serverFiles.begin(); it != serverFiles.end(); ++it){
         if(fs_files.count(it->getPath()) == 0){ // file not present in user, it has been erased
-            modification_function(it->getPath(),FileStatus::erased,FileType::file); // send modification to server
+            modification_function(it->getName(), it->getPath(),FileStatus::erased,FileType::file); // send modification to server
         }else{
             if(!compareDigests(it->getHash(),files[it->getPath()]->getHash())){ // hash are different: it has been updated on client
-                modification_function(it->getPath(),FileStatus::modified,FileType::file);
+                modification_function(it->getName(), it->getPath(),FileStatus::modified,FileType::file);
                 fs_files[it->getPath()] = FileStatus::modified; // if at the end of the loop, there are still some 'fs_files' with state 'none', it means that they are new
             } else {
                 fs_files[it->getPath()] = FileStatus::created;
@@ -82,7 +82,7 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
     for(auto it = fs_files.begin(); it != fs_files.end(); ++it){
         if(it->second == FileStatus::none){ // take a look at the comment above
-            modification_function(it->first,FileStatus::created,FileType::file);
+            modification_function(it->first, it->first,FileStatus::created,FileType::file);
         }
     }
 }
@@ -217,6 +217,89 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
 
     db.close();
     return 0;
+}
+
+bool insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+
+    std::cout<<"INSERISCO DIR "<<dir->toString()<<std::endl;
+
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("INSERT INTO DIRECTORY (path,name) VALUES (\""+dir->getPath()+"\", "+"\""+dir->getName()+"\")");
+
+    db.close();
+}
+bool deleteDirectoryFromDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+
+    std::cout<<"CANCELLO DIR "<<dir->toString()<<std::endl;
+
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("DELETE FROM DIRECTORY WHERE path = \""+dir->getPath()+"\"");
+
+    db.close();
+}
+//bool updateDirectoryDB(const std::string& db_path, std::shared_ptr<Directory>& dir){}
+
+bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+
+    std::cout<<"INSERISCO FILE "<<file->toString()<<std::endl;
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("INSERT INTO FILE (path,hash) VALUES (\""+file->getPath()+"\",\""+file->getHash()+"\")");
+
+    db.close();
+}
+bool deleteFileFromDB(const std::string& db_path, std::shared_ptr<File>& file){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+    std::cout<<"QUI"<<std::endl;
+
+    std::cout<<"CANCELLO FILE "<<file->toString()<<std::endl;
+
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("DELETE FROM FILE WHERE path = \""+file->getPath()+"\"");
+
+    db.close();
+}
+bool updateFileDB(const std::string& db_path, std::shared_ptr<File>& file){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+
+    std::cout<<"AGGIORNO FILE "<<file->toString()<<std::endl;
+
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("UPDATE FILE SET hash = \""+file->getHash()+"\" WHERE path = \""+file->getPath()+"\"");
+
+    db.close();
 }
 
 #endif //PDS_PROJECT_CLIENT_MAIN_FUNCTIONS_H
