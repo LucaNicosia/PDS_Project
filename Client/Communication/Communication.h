@@ -105,7 +105,7 @@ int rcvSyncRequest(Socket& s, std::string& username) {
         return -1;
     }
 }
-int rcvFile(Socket& s, const char *path){
+int rcvFile(Socket& s, const std::string path){
 
     std::string fileData = rcvMsg(s); // FILE <path> <length>
     int length = std::stoi(fileData.substr(fileData.find_last_of(" ")));
@@ -113,7 +113,7 @@ int rcvFile(Socket& s, const char *path){
     int rec;
     char buf [SIZE];
     int to;
-    to=creat(path,0777);
+    to=creat(path.c_str(),0777);
     if(to<0){
         std::cout<<"Error creating destination file\n";
         return 0;
@@ -166,11 +166,9 @@ int sendFile(Socket& s, const std::string path){
             std::cout << "Error sending\n";
             return 0;
         }
-        std::cout<<buf<<std::endl;
     }
     rcvMsg(s);
-    std::cout<<"fine"<<std::endl;
-    return -1;
+    return 0;
 };
 
 int sendDir(Socket& s, const std::string path){

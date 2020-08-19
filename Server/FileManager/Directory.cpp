@@ -44,7 +44,6 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
     newDir->dSons = std::vector<std::shared_ptr<Directory>>();
     newDir->fSons = std::vector<std::shared_ptr<File>>();
     if(dFather.expired()) {
-        std::cout<<"padre scaduto"<<std::endl;
         newDir->path = dName;
         return newDir;
     }
@@ -61,7 +60,6 @@ std::shared_ptr<File> Directory::addFile (const std::string name, const std::str
 
         std::shared_ptr<File> file = std::make_shared<File>(name, hash, std::weak_ptr<Directory>(self));
         fSons.push_back(file);
-        std::cout<<"Directory::addFile -> "<<file->getPath()<<"\n";
         if(create_flag) // only when 'create_flag == true' the file is actually created
             std::ofstream(file->getPath());
         return file;
@@ -115,7 +113,6 @@ bool Directory::removeDir (const std::string& name){
     for (int i = 0; i < dSons.size(); i++){
         if (name == dSons[i]->name){
             std::uintmax_t n = fs::remove_all(dSons[i]->getPath());
-            std::cout << "Deleted " << n << " files or directories"<<std::endl;
             dSons.erase(dSons.begin()+i);
             return true;
         }
@@ -133,7 +130,6 @@ bool Directory::removeFile (const std::string& name){
     for (int i = 0; i < fSons.size(); i++){
         if (name == fSons[i]->getPath()){
             std::uintmax_t n = fs::remove_all(fSons[i]->getPath());
-            std::cout << "Deleted " << n << " files"<<std::endl;
             fSons.erase(fSons.begin()+i);
             return true;
         }

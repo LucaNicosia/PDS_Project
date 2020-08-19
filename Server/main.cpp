@@ -17,22 +17,77 @@
 
 // Communication
 #include "Communication/Communication.h"
+#include "DB/Database.h"
 
 // DB
 #include <sqlite3.h>
 
-#define PORT 5091
+#include <filesystem>
+
+#define PORT 5104
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
+std::map<std::string, std::shared_ptr<File>> files; // <path,File>
+std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
+std::string db_path;
+
+void stampaFilesEDirs(void){
+    std::cout<<"***DIRECTORIES***"<<std::endl;
+    for (const auto& x : dirs) {
+        std::cout << x.first << ": " << x.second->toString()<< std::endl;
+    }
+
+    std::cout<<"***FILES***"<<std::endl;
+    for (const auto& x : files) {
+        std::cout << x.first << ": " << x.second->toString()<< std::endl;
+    }
+}
+
+void initialize_files_and_dirs(/*std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs, */std::string path, std::string db_path){
+
+    Database db(db_path);
+    int nFiles, nDirs;
+    std::vector<File> queryFiles;
+    std::vector<Directory> queryDirs;
+
+    Directory::setRoot(path);
+    std::shared_ptr<Directory> root = Directory::getRoot();
+    dirs[root->getPath()] = root;
+
+    db.open();
+
+    db.select("SELECT * FROM File",nFiles,queryFiles);
+    db.select("SELECT * FROM Directory",nDirs,queryDirs);
+
+
+    for (int i = 0; i < nDirs; i++){
+        std::weak_ptr<Directory> father;
+        father = dirs[Directory::getFatherFromPath(queryDirs[i].getPath())]->getSelf();
+        std::shared_ptr<Directory> dir = father.lock()->addDirectory(queryDirs[i].getName(), false);
+        dirs[dir->getPath()] = dir;
+    }
+
+    for (int i = 0; i < nFiles; i++){
+        std::size_t found = queryFiles[i].getPath().find_last_of("/");
+        queryFiles[i].setName(queryFiles[i].getPath().substr(found+1));
+        std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
+        std::shared_ptr<File> file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(), false);
+        files[file->getPath()] = file;
+    }
+
+    stampaFilesEDirs();
+    root->ls(4);
+}
 
 int main() {
     File f;
     File f2 {};
     Directory d;
     pthread_t threads[100];
+    std::string path = "TestPath";
 
-    std::shared_ptr<Directory> my_root = Directory::setRoot("server_directory");
+    /*std::shared_ptr<Directory> my_root = Directory::setRoot("server_directory");
     my_root->addFile("file.txt", "AAA",true);
     std::shared_ptr<Directory> dir = my_root->addDirectory("prova5",true);
     std::shared_ptr<File> file = dir->addFile("file3.txt", "BBB",true);
@@ -72,16 +127,22 @@ int main() {
         // SYNC 'client'
         if(rcvSyncRequest(s,username) != 0){
             std::cout<<"Errore\n";
+        }else{
+            db_path = "../DB/"+username+".db";
         }
         std::string msg;
         msg = rcvMsg(s);
         if(msg == "GET-DB"){ // client asks for server.db database version
-            sendFile(s,"../DB/"+username+".db");
+            sendFile(s,db_path);
         } else if(msg == "Database up to date"){
-            //ok
+            //OK
         } else {
             // error
         }
+
+        //Populate files and dirs
+        initialize_files_and_dirs(/*files, dirs, */path, db_path);
+
         while(1) {
             msg = rcvMsg(s);
             if(msg.find("FILE") == 0){

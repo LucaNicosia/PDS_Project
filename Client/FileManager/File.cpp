@@ -13,7 +13,6 @@ File::File() {
 }
 
 File::File(const std::string name, const std::string &hash, std::weak_ptr<Directory> dFather) {
-    std::cout<<"File: "<<name<<"\n";
     this->name = name;
     this->path = dFather.lock()->getPath()+"/"+name;
     this->hash = hash;
@@ -30,6 +29,10 @@ const std::string &File::getName() const {
 
 void File::setHash(const std::string &hash) {
     File::hash = hash;
+}
+
+void File::setName(const std::string &name) {
+    File::name = name;
 }
 
 const std::weak_ptr<Directory> &File::getDFather() const {

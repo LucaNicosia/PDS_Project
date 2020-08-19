@@ -28,7 +28,7 @@
 #include "./FileManager/FileWatcher.h"
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5091
+#define PORT 5104
 #define MAXFD 50000
 
 
@@ -38,18 +38,15 @@ std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path = "../DB/user.db";
 
 void stampaFilesEDirs(void){
-
     std::cout<<"***DIRECTORIES***"<<std::endl;
     for (const auto& x : dirs) {
         std::cout << x.first << ": " << x.second->toString()<< std::endl;
     }
 
-
     std::cout<<"***FILES***"<<std::endl;
     for (const auto& x : files) {
         std::cout << x.first << ": " << x.second->toString()<< std::endl;
     }
-
 }
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){
@@ -64,7 +61,6 @@ auto modification_function = [](const std::string file, const std::string filePa
     switch (fs) {
         case FileStatus::created:
             std::cout << " created\n";
-            std::cout<<"qui"<<std::endl;
             father = dirs[Directory::getFatherFromPath(filePath)]->getSelf();
             if (ft == FileType::directory) {
                 dirs[filePath] = Directory::makeDirectory(file,father);
@@ -89,8 +85,6 @@ auto modification_function = [](const std::string file, const std::string filePa
                     std::cout<<"Problema nel cancellare la directory sul DB"<<std::endl;
                 dirs.erase(filePath);
             } else { // file
-                stampaFilesEDirs();
-                std::cout<<"STO CANCELLATO IL FILE CON TALE PERCORSO "<<filePath<<std::endl;
                 if (deleteFileFromDB(db_path, files[filePath]))
                     std::cout<<"File cancellato correttamente sul DB"<<std::endl;
                 else

@@ -43,8 +43,8 @@ bool compareDigests(std::string digest1, std::string digest2){
     if (compare != 0){
         return false;
     }
-    else if(compare == 0)
-        std::cout << "Strings are equal"<<std::endl;
+    /*else if(compare == 0)
+        std::cout << "Strings are equal"<<std::endl;*/
     return true;
 }
 

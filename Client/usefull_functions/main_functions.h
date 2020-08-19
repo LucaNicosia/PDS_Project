@@ -62,7 +62,6 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
     for(auto it = fs_dirs.begin(); it != fs_dirs.end(); ++it){
         if(it->second == FileStatus::none){ // 'none' records are those directories that where present on client but not on the DB
-            std::cout<<"it->first: "<<it->first<<"\n";
             modification_function(it->first,it->first,FileStatus::created,FileType::directory);
         }
     }
@@ -223,8 +222,6 @@ bool insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory
     Database db(db_path);
     std::ifstream db_file(db_path);
 
-    std::cout<<"INSERISCO DIR "<<dir->toString()<<std::endl;
-
     if(!db_file){
         // a file that doesn't exits
         return false;
@@ -238,8 +235,6 @@ bool insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory
 bool deleteDirectoryFromDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
     Database db(db_path);
     std::ifstream db_file(db_path);
-
-    std::cout<<"CANCELLO DIR "<<dir->toString()<<std::endl;
 
     if(!db_file){
         // a file that doesn't exits
@@ -256,8 +251,6 @@ bool deleteDirectoryFromDB(const std::string& db_path, std::shared_ptr<Directory
 bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
     std::ifstream db_file(db_path);
-
-    std::cout<<"INSERISCO FILE "<<file->toString()<<std::endl;
     if(!db_file){
         // a file that doesn't exits
         return false;
@@ -271,9 +264,6 @@ bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
 bool deleteFileFromDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
     std::ifstream db_file(db_path);
-    std::cout<<"QUI"<<std::endl;
-
-    std::cout<<"CANCELLO FILE "<<file->toString()<<std::endl;
 
     if(!db_file){
         // a file that doesn't exits
@@ -288,8 +278,6 @@ bool deleteFileFromDB(const std::string& db_path, std::shared_ptr<File>& file){
 bool updateFileDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
     std::ifstream db_file(db_path);
-
-    std::cout<<"AGGIORNO FILE "<<file->toString()<<std::endl;
 
     if(!db_file){
         // a file that doesn't exits
