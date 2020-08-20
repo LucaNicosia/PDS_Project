@@ -2,8 +2,8 @@
 // Created by giuseppetoscano on 10/08/20.
 //
 
-#ifndef PDS_PROJECT_CLIENT_COMMUNICATION_H
-#define PDS_PROJECT_CLIENT_COMMUNICATION_H
+#ifndef PDS_PROJECT_SERVER_COMMUNICATION_H
+#define PDS_PROJECT_SERVER_COMMUNICATION_H
 
 #include "../TCP_Socket/Socket.h"
 #include "../Crypto/MyCryptoLibrary.h"
@@ -14,7 +14,7 @@
 #include <boost/archive/iterators/ostream_iterator.hpp>
 #include <fcntl.h>
 #include <sstream>
-#include <stdlib.h>
+
 #define SIZE 2048
 
 std::string b64_encode(std::string digest){
@@ -105,6 +105,7 @@ int rcvSyncRequest(Socket& s, std::string& username) {
         return -1;
     }
 }
+
 int rcvFile(Socket& s, const std::string path){
 
     std::string fileData = rcvMsg(s); // FILE <path> <length>
@@ -134,8 +135,6 @@ int rcvFile(Socket& s, const std::string path){
         w=::write(to,buf,rec);
         //std::cout<<write<<std::endl;
     }
-    sendMsg(s,"DONE");
-    std::cout<<"fine"<<std::endl;
     return -1;
 };
 
@@ -167,7 +166,6 @@ int sendFile(Socket& s, const std::string path){
             return 0;
         }
     }
-    rcvMsg(s);
     return 0;
 };
 
@@ -180,4 +178,4 @@ std::string rcvDir(Socket& s){
     return rcvMsg(s);
 };
 
-#endif //PDS_PROJECT_CLIENT_COMMUNICATION_H
+#endif //PDS_PROJECT_SERVER_COMMUNICATION_H

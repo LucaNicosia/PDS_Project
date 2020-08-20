@@ -87,31 +87,6 @@ int main() {
     pthread_t threads[100];
     std::string path = "TestPath";
 
-    /*std::shared_ptr<Directory> my_root = Directory::setRoot("server_directory");
-    my_root->addFile("file.txt", "AAA",true);
-    std::shared_ptr<Directory> dir = my_root->addDirectory("prova5",true);
-    std::shared_ptr<File> file = dir->addFile("file3.txt", "BBB",true);
-    dir->addDirectory("prova7",true);
-    my_root->addDirectory("prova6",true);
-    if (dir->removeDir("prova7"))
-        std::cout<<"Cartella cancellata correttamente"<<std::endl;
-    else
-        std::cout<<"Problema nel cancellare la cartella"<<std::endl;
-
-    my_root->ls(4);
-/*
-    if (my_root->renameDir("prova5", "provaRename"))
-        std::cout<<"Cartella rinominata correttamente"<<std::endl;
-    else
-        std::cout<<"Problema nel rinominare la cartella"<<std::endl;
-
-    if (dir->renameFile("file3.txt", "fileRename.txt"))
-        std::cout<<"File rinominato correttamente"<<std::endl;
-    else
-        std::cout<<"Problema nel rinominare il file"<<std::endl;
-
-    my_root->ls(4);
-*/
     while (true){
 
         struct sockaddr_in addr;
@@ -145,16 +120,74 @@ int main() {
 
         while(1) {
             msg = rcvMsg(s);
-            if(msg.find("FILE") == 0){
+            const char* delimiter = " ";
+            char* token = std::strtok(const_cast<char*>(msg.c_str()), delimiter);
+            int i = 0;
+            std::string path;
+            std::string name;
+            std::string type;
+            std::string operation;
+            while (token != NULL){
+                if (i == 0) type = std::string(token);
+                if (i == 1) path = std::string(token);
+                if (i == 2) operation = std::string(token);
+                token = std::strtok(NULL, delimiter);
+                i++;
+            }
+
+            name = path.substr(path.find("/")+1, path.size());
+            std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(path)];
+            if(type == "FILE"){
                 // file modification handler
-            } else if(msg.find("DIR") == 0){
+
+                if (operation == "created"){
+
+                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
+                    files[file->getPath()] = file;
+                    sendMsg(s, "READY");
+                    rcvFile(s, file->getPath());
+                    sendMsg(s, "DONE");
+                }else if (operation == "erased"){
+                    //TODO: non funziona
+                    father.lock()->removeFile(name);
+                    files.erase(path);
+                    sendMsg(s, "DONE");
+                }else if (operation == "modified"){
+                    father.lock()->removeFile(name);
+                    files.erase(path);
+                    sendMsg(s, "READY");
+                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
+                    files[file->getPath()] = file;
+                    rcvFile(s, file->getPath());
+                    sendMsg(s, "DONE");
+                }else{
+                    //errore
+                    std::cout<<"Stringa non ricevuta correttamente"<<std::endl;
+                    sendMsg(s, "ERROR");
+                }
+            } else if(type == "DIR"){
                 //dirs modification handler
+
+                if (operation == "created"){
+                    std::shared_ptr<Directory> dir = father.lock()->addDirectory(name, true);
+                    dirs[dir->getPath()] = dir;
+                    sendMsg(s,"DONE");
+                }else if (operation == "erased"){
+                    father.lock()->removeDir(name);
+                    dirs.erase(path);
+                    sendMsg(s,"DONE");
+                }else{
+                    //errore
+                    std::cout<<"Stringa non ricevuta correttamente"<<std::endl;
+                    sendMsg(s, "ERROR");
+                }
             } else {
                 std::cout<<"sono in else"<<std::endl;
                 //error
+                //sendMsg(s, "ERROR");
                 //return -1;
             }
-            sendMsg(s,"OK da server");
+
         }
 
 

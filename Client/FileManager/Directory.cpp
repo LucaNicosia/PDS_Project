@@ -27,6 +27,7 @@ std::shared_ptr<Directory> Directory::addDirectory(std::string dName, const bool
     if (this != nullptr){
         std::shared_ptr<Directory> newDir = makeDirectory(dName, self);
         dSons.push_back(newDir);
+        std::cout<<"Creo la cartella con path"<<newDir->path<<std::endl;
         if(create_flag) // create only when flag is true
             fs::create_directories(newDir->path);
         return newDir;
@@ -112,7 +113,8 @@ bool Directory::removeDir (const std::string& name){
 
     for (int i = 0; i < dSons.size(); i++){
         if (name == dSons[i]->name){
-            std::uintmax_t n = fs::remove_all(dSons[i]->getPath());
+            std::cout<<"Cancello la cartella con path"<<dSons[i]->path<<std::endl;
+            fs::remove_all(dSons[i]->getPath());
             dSons.erase(dSons.begin()+i);
             return true;
         }

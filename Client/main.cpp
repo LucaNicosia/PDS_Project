@@ -128,7 +128,7 @@ auto modification_function = [](const std::string file, const std::string filePa
         default:
             std::cout<<"unknown FileStatus\n"; // exception
     }
-    sendMsg(s,FT+" "+file+" "+FS); // FILE ./xx/yyy/zz.txt created
+    sendMsg(s,FT+" "+filePath+" "+FS); // FILE ./xx/yyy/zz.txt created
     res = rcvMsg(s);
     if(res.find("ERROR") == 0){ // example message: "ERROR <error info>"
         //error routine
@@ -138,7 +138,7 @@ auto modification_function = [](const std::string file, const std::string filePa
     if(res == "DONE" && fs == FileStatus::erased) // file or directory cancellation needs only a "DONE" message
         return;
     if(res == "READY" && ft == FileType::file){
-        sendFile(s,file);
+        sendFile(s,filePath);
         res = rcvMsg(s);
         if(res == "DONE") // file sended correctly
             return;

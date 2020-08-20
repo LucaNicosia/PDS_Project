@@ -135,8 +135,6 @@ int rcvFile(Socket& s, const std::string path){
         w=::write(to,buf,rec);
         //std::cout<<write<<std::endl;
     }
-    sendMsg(s,"DONE");
-    std::cout<<"fine"<<std::endl;
     return -1;
 };
 
@@ -168,7 +166,6 @@ int sendFile(Socket& s, const std::string path){
             return 0;
         }
     }
-    rcvMsg(s);
     return 0;
 };
 
