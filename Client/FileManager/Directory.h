@@ -50,7 +50,8 @@ public:
     void setName(const std::string &name);
 
     const std::weak_ptr<Directory> &getDFather() const;
-
+    const std::vector <std::shared_ptr<Directory>> &getDSons() const;
+    const std::vector <std::shared_ptr<File>> &getFSons() const;
     const std::weak_ptr<Directory> &getSelf() const;
 
     static std::string getFatherFromPath(std::string path);

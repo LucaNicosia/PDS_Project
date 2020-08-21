@@ -24,6 +24,8 @@
 
 #include <filesystem>
 
+#include "usefull_functions/main_functions.h"
+
 #define PORT 5104
 #define MAXFD 50000
 
@@ -32,53 +34,7 @@ std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path;
 
-void stampaFilesEDirs(void){
-    std::cout<<"***DIRECTORIES***"<<std::endl;
-    for (const auto& x : dirs) {
-        std::cout << x.first << ": " << x.second->toString()<< std::endl;
-    }
 
-    std::cout<<"***FILES***"<<std::endl;
-    for (const auto& x : files) {
-        std::cout << x.first << ": " << x.second->toString()<< std::endl;
-    }
-}
-
-void initialize_files_and_dirs(/*std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs, */std::string path, std::string db_path){
-
-    Database db(db_path);
-    int nFiles, nDirs;
-    std::vector<File> queryFiles;
-    std::vector<Directory> queryDirs;
-
-    Directory::setRoot(path);
-    std::shared_ptr<Directory> root = Directory::getRoot();
-    dirs[root->getPath()] = root;
-
-    db.open();
-
-    db.select("SELECT * FROM File",nFiles,queryFiles);
-    db.select("SELECT * FROM Directory",nDirs,queryDirs);
-
-
-    for (int i = 0; i < nDirs; i++){
-        std::weak_ptr<Directory> father;
-        father = dirs[Directory::getFatherFromPath(queryDirs[i].getPath())]->getSelf();
-        std::shared_ptr<Directory> dir = father.lock()->addDirectory(queryDirs[i].getName(), false);
-        dirs[dir->getPath()] = dir;
-    }
-
-    for (int i = 0; i < nFiles; i++){
-        std::size_t found = queryFiles[i].getPath().find_last_of("/");
-        queryFiles[i].setName(queryFiles[i].getPath().substr(found+1));
-        std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
-        std::shared_ptr<File> file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(), false);
-        files[file->getPath()] = file;
-    }
-
-    stampaFilesEDirs();
-    root->ls(4);
-}
 
 int main() {
     File f;
@@ -116,7 +72,7 @@ int main() {
         }
 
         //Populate files and dirs
-        initialize_files_and_dirs(/*files, dirs, */path, db_path);
+        initialize_files_and_dirs(files, dirs, path, db_path);
 
         while(1) {
             msg = rcvMsg(s);
@@ -135,7 +91,7 @@ int main() {
                 i++;
             }
 
-            name = path.substr(path.find("/")+1, path.size());
+            name = path.substr(path.find_last_of("/")+1, path.size());
             std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(path)];
             if(type == "FILE"){
                 // file modification handler
@@ -148,7 +104,6 @@ int main() {
                     rcvFile(s, file->getPath());
                     sendMsg(s, "DONE");
                 }else if (operation == "erased"){
-                    //TODO: non funziona
                     father.lock()->removeFile(name);
                     files.erase(path);
                     sendMsg(s, "DONE");
@@ -185,9 +140,9 @@ int main() {
                 std::cout<<"sono in else"<<std::endl;
                 //error
                 //sendMsg(s, "ERROR");
-                //return -1;
+                return -1;
             }
-
+            stampaFilesEDirs(files, dirs);
         }
 
 

@@ -128,10 +128,9 @@ bool Directory::removeFile (const std::string& name){
         return false;
     if (name == ".")
         return false;
-
     for (int i = 0; i < fSons.size(); i++){
-        if (name == fSons[i]->getPath()){
-            std::uintmax_t n = fs::remove_all(fSons[i]->getPath());
+        if (name == fSons[i]->getName()){
+            fs::remove_all(fSons[i]->getPath());
             fSons.erase(fSons.begin()+i);
             return true;
         }
@@ -188,6 +187,14 @@ void Directory::setName(const std::string &name) {
 
 const std::weak_ptr<Directory> &Directory::getDFather() const {
     return dFather;
+}
+
+const std::vector <std::shared_ptr<Directory>> &Directory::getDSons() const {
+    return dSons;
+}
+
+const std::vector <std::shared_ptr<File>> &Directory::getFSons() const {
+    return fSons;
 }
 
 const std::weak_ptr<Directory> &Directory::getSelf() const {

@@ -13,6 +13,18 @@
 #include "../DB/Database.h"
 #include <map>
 
+void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs){
+    std::cout<<"***DIRECTORIES***"<<std::endl;
+    for (const auto& x : dirs) {
+        std::cout << x.first << ": " << x.second->toString()<< std::endl;
+    }
+
+    std::cout<<"***FILES***"<<std::endl;
+    for (const auto& x : files) {
+        std::cout << x.first << ": " << x.second->toString()<< std::endl;
+    }
+}
+
 void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs, const std::function<void (std::string, std::string, FileStatus, FileType)> &modification_function){
     //Database userDB(userDB_name);
     Database serverDB(serverDB_name);
@@ -62,7 +74,7 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
     for(auto it = fs_dirs.begin(); it != fs_dirs.end(); ++it){
         if(it->second == FileStatus::none){ // 'none' records are those directories that where present on client but not on the DB
-            modification_function(it->first,it->first,FileStatus::created,FileType::directory);
+            modification_function(it->first.substr(it->first.find_last_of("/")+1, it->first.size()),it->first,FileStatus::created,FileType::directory);
         }
     }
 
@@ -81,7 +93,7 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
     for(auto it = fs_files.begin(); it != fs_files.end(); ++it){
         if(it->second == FileStatus::none){ // take a look at the comment above
-            modification_function(it->first, it->first,FileStatus::created,FileType::file);
+            modification_function(it->first.substr(it->first.find_last_of("/")+1, it->first.size()), it->first,FileStatus::created,FileType::file);
         }
     }
 }
@@ -218,36 +230,6 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
     return 0;
 }
 
-bool insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
-    Database db(db_path);
-    std::ifstream db_file(db_path);
-
-    if(!db_file){
-        // a file that doesn't exits
-        return false;
-    }
-    db.open();
-
-    db.exec("INSERT INTO DIRECTORY (path,name) VALUES (\""+dir->getPath()+"\", "+"\""+dir->getName()+"\")");
-
-    db.close();
-}
-bool deleteDirectoryFromDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
-    Database db(db_path);
-    std::ifstream db_file(db_path);
-
-    if(!db_file){
-        // a file that doesn't exits
-        return false;
-    }
-    db.open();
-
-    db.exec("DELETE FROM DIRECTORY WHERE path = \""+dir->getPath()+"\"");
-
-    db.close();
-}
-//bool updateDirectoryDB(const std::string& db_path, std::shared_ptr<Directory>& dir){}
-
 bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
     std::ifstream db_file(db_path);
@@ -261,7 +243,7 @@ bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
 
     db.close();
 }
-bool deleteFileFromDB(const std::string& db_path, std::shared_ptr<File>& file){
+bool deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& file){
     Database db(db_path);
     std::ifstream db_file(db_path);
 
@@ -289,5 +271,42 @@ bool updateFileDB(const std::string& db_path, std::shared_ptr<File>& file){
 
     db.close();
 }
+
+bool insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("INSERT INTO DIRECTORY (path,name) VALUES (\""+dir->getPath()+"\", "+"\""+dir->getName()+"\")");
+
+    db.close();
+}
+bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Directory>& dir){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("DELETE FROM DIRECTORY WHERE path = \""+dir->getPath()+"\"");
+
+    for (int i = 0; i < dir->getDSons().size(); i++) {
+        deleteDirectoryFromDB(db_path, dir->getDSons()[i]);
+    }
+    for (int i = 0; i < dir->getFSons().size(); i++) {
+        deleteFileFromDB(db_path, dir->getFSons()[i]);
+    }
+
+    db.close();
+}
+//bool updateDirectoryDB(const std::string& db_path, std::shared_ptr<Directory>& dir){}
 
 #endif //PDS_PROJECT_CLIENT_MAIN_FUNCTIONS_H
