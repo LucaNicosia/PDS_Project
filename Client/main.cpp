@@ -28,7 +28,7 @@
 #include "./FileManager/FileWatcher.h"
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5104
+#define PORT 5106
 #define MAXFD 50000
 
 

@@ -26,7 +26,7 @@
 
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5104
+#define PORT 5106
 #define MAXFD 50000
 
 ServerSocket ss(PORT);
@@ -49,7 +49,7 @@ int main() {
         socklen_t len = sizeof(addr);
         std::cout<<"Waiting for incoming connections at port "<<PORT<<"..."<<std::endl;
         Socket s = ss.accept(&addr, len);
-        std::string username;
+        std::string username, userDirPath;
 
         char name[16];
         if (inet_ntop(AF_INET, &addr.sin_addr, name, sizeof(name)) == nullptr) throw std::runtime_error("Cannot convert");
@@ -60,6 +60,7 @@ int main() {
             std::cout<<"Errore\n";
         }else{
             db_path = "../DB/"+username+".db";
+            userDirPath = "server_directory/"+username;
         }
         std::string msg;
         msg = rcvMsg(s);
@@ -72,7 +73,7 @@ int main() {
         }
 
         //Populate files and dirs
-        initialize_files_and_dirs(files, dirs, path, db_path);
+        initialize_files_and_dirs(files, dirs, userDirPath, db_path);
 
         while(1) {
             msg = rcvMsg(s);
@@ -97,12 +98,15 @@ int main() {
                 // file modification handler
 
                 if (operation == "created"){
-
+                    // TODO: compute digest su file non creato?
+                    //std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
+                    //files[file->getPath()] = file;
+                    sendMsg(s, "READY");
+                    //rcvFile(s, file->getPath());
+                    rcvFile(s,path);
+                    sendMsg(s, "DONE");
                     std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
                     files[file->getPath()] = file;
-                    sendMsg(s, "READY");
-                    rcvFile(s, file->getPath());
-                    sendMsg(s, "DONE");
                 }else if (operation == "erased"){
                     father.lock()->removeFile(name);
                     files.erase(path);
@@ -124,6 +128,7 @@ int main() {
                 //dirs modification handler
 
                 if (operation == "created"){
+                    std::cout<<"\t sto per creare una cartella\n";
                     std::shared_ptr<Directory> dir = father.lock()->addDirectory(name, true);
                     dirs[dir->getPath()] = dir;
                     sendMsg(s,"DONE");
@@ -142,7 +147,7 @@ int main() {
                 //sendMsg(s, "ERROR");
                 return -1;
             }
-            stampaFilesEDirs(files, dirs);
+            //stampaFilesEDirs(files, dirs);
         }
 
 

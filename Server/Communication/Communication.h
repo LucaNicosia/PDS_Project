@@ -116,10 +116,11 @@ int rcvFile(Socket& s, const std::string path){
     int to;
     to=creat(path.c_str(),0777);
     if(to<0){
-        std::cout<<"Error creating destination file\n";
+        std::cout<<"Error creating destination file at "<<path<<"\n";
         return 0;
     }
     int w,cont=0;
+    std::cout<<"rcvFile length: "<<length<<"\n";
     while(length > 0){
         rec = s.read(buf,sizeof(buf),0);
         if(rec<0){
