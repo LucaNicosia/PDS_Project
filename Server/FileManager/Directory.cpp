@@ -76,6 +76,7 @@ std::shared_ptr<File> Directory::addFile (const std::string name, const std::str
 
 }
 
+//TODO: modificare renameFile/Dir
 bool Directory::renameDir (const std::string& oldName, const std::string& newName){
     if (oldName == ".." || newName == "..")
         return false;
@@ -121,7 +122,7 @@ bool Directory::removeDir (const std::string& name){
     for (int i = 0; i < dSons.size(); i++){
         if (name == dSons[i]->name){
             std::cout<<"Cancello la cartella con path"<<dSons[i]->path<<std::endl;
-            fs::remove_all(dSons[i]->getPath());
+            fs::remove_all(root->getName()+"/"+dSons[i]->getPath());
             dSons.erase(dSons.begin()+i);
             return true;
         }
@@ -137,7 +138,7 @@ bool Directory::removeFile (const std::string& name){
         return false;
     for (int i = 0; i < fSons.size(); i++){
         if (name == fSons[i]->getName()){
-            fs::remove_all(fSons[i]->getPath());
+            fs::remove_all(root->getName()+"/"+fSons[i]->getPath());
             fSons.erase(fSons.begin()+i);
             return true;
         }
