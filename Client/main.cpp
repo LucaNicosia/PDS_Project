@@ -38,9 +38,9 @@ std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path = "../DB/user.db";
 bool synchronized = false;
 
-auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){
+auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
     std::string FT,FS,res;
-
+    std::string cleaned_path = cleanPath(filePath);
     std::cout<<file;
     if(ft == FileType::file)
         std::cout<<" file";
@@ -50,18 +50,18 @@ auto modification_function = [](const std::string file, const std::string filePa
     switch (fs) {
         case FileStatus::created:
             std::cout << " created\n";
-            father = dirs[Directory::getFatherFromPath(filePath)]->getSelf();
+            father = dirs[Directory::getFatherFromPath(cleaned_path)]->getSelf();
             if (ft == FileType::directory) {
-                dirs[filePath] = Directory::makeDirectory(file,father);
+                dirs[cleaned_path] = Directory::makeDirectory(file,father);
                 if (synchronized)
-                if (insertDirectoryIntoDB(db_path, dirs[filePath]))
+                if (insertDirectoryIntoDB(db_path, dirs[cleaned_path]))
                     std::cout<<"Directory inserita correttamente sul DB"<<std::endl;
                 else
                     std::cout<<"Problema nell'inserire la directory sul DB"<<std::endl;
             } else {// file
-                files[filePath] = std::make_shared<File>(file,computeDigest(filePath), father);
+                files[cleaned_path] = std::make_shared<File>(file,computeDigest(filePath), father);
                 if (synchronized)
-                if(insertFileIntoDB(db_path, files[filePath]))
+                if(insertFileIntoDB(db_path, files[cleaned_path]))
                     std::cout<<"File inserito correttamente sul DB"<<std::endl;
                 else
                     std::cout<<"Problema nell'inserire il file sul DB"<<std::endl;
@@ -71,27 +71,27 @@ auto modification_function = [](const std::string file, const std::string filePa
             std::cout<<" erased\n";
             if (ft == FileType::directory) {
                 if (synchronized)
-                if(deleteDirectoryFromDB(db_path, dirs[filePath]))
+                if(deleteDirectoryFromDB(db_path, dirs[cleaned_path]))
                     std::cout<<"Directory cancellata correttamente sul DB"<<std::endl;
                 else
                     std::cout<<"Problema nel cancellare la directory sul DB"<<std::endl;
-                dirs.erase(filePath);
+                dirs.erase(cleaned_path);
             } else { // file
                 if (synchronized)
-                if (deleteFileFromDB(db_path, files[filePath]))
+                if (deleteFileFromDB(db_path, files[cleaned_path]))
                     std::cout<<"File cancellato correttamente sul DB"<<std::endl;
                 else
                     std::cout<<"Problema nel cancellare il file sul DB"<<std::endl;
-                files.erase(filePath);
+                files.erase(cleaned_path);
             }
             break;
         case FileStatus::modified:
             std::cout<<" modified\n";
             // file only: directories are modified when its content is modified. No action needed
             if(ft == FileType::file){
-                files[filePath]->setHash(computeDigest(filePath));
+                files[cleaned_path]->setHash(computeDigest(filePath));
                 if (synchronized)
-                if(updateFileDB(db_path, files[filePath]))
+                if(updateFileDB(db_path, files[cleaned_path]))
                     std::cout<<"File aggiornato correttamente sul DB"<<std::endl;
                 else
                     std::cout<<"Problema nell'aggiornare il file sul DB"<<std::endl;
@@ -122,7 +122,7 @@ auto modification_function = [](const std::string file, const std::string filePa
         default:
             std::cout<<"unknown FileStatus\n"; // exception
     }
-    sendMsg(s,FT+" "+filePath+" "+FS); // FILE ./xx/yyy/zz.txt created
+    sendMsg(s,FT+" "+cleaned_path+" "+FS); // FILE ./xx/yyy/zz.txt created
     res = rcvMsg(s);
     if(res.find("ERROR") == 0){ // example message: "ERROR <error info>"
         //error routine
@@ -132,7 +132,7 @@ auto modification_function = [](const std::string file, const std::string filePa
     if(res == "DONE" && fs == FileStatus::erased) // file or directory cancellation needs only a "DONE" message
         return;
     if(res == "READY" && ft == FileType::file){
-        sendFile(s,filePath);
+        sendFile(s,filePath,cleaned_path);
         res = rcvMsg(s);
         if(res == "DONE") // file sended correctly
             return;
@@ -152,6 +152,7 @@ int main(int argc, char** argv)
     // inizialization of data structures
     initialize_files_and_dirs(files, dirs, path, db_path);
     updateDB(db_path,files,dirs);
+    stampaFilesEDirs(files,dirs);
     // connect to the remote server
     s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
     // sync with the server
@@ -163,7 +164,7 @@ int main(int argc, char** argv)
         sendMsg(s,"GET-DB");
         rcvFile(s,"../DB/server.db");
         // check which files and directories aren't updated
-        checkDB("","../DB/server.db",files,dirs,modification_function);
+        checkDB(path,"","../DB/server.db",files,dirs,modification_function);
         std::cout<<"--- checkDB ended ---\n";
     } else {
         std::cout<<"server DB is updated\n";

@@ -140,13 +140,13 @@ int rcvFile(Socket& s, const std::string path){
 };
 
 
-int sendFile(Socket& s, const std::string path){
+int sendFile(Socket& s, const std::string path, const std::string path_to_send){
     // <- FILE 'path'
     std::ifstream myFile(path,std::ios::in);
     myFile.seekg(0,myFile.end);
     int length = myFile.tellg();
     myFile.close();
-    sendMsg(s, std::string ("FILE "+path+" "+std::to_string(length)));
+    sendMsg(s, std::string ("FILE "+path_to_send+" "+std::to_string(length)));
     if(rcvMsg(s) != "OK"){
         //error
     }

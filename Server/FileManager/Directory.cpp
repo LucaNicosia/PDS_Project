@@ -29,7 +29,7 @@ std::shared_ptr<Directory> Directory::addDirectory(std::string dName, const bool
         dSons.push_back(newDir);
         std::cout<<"Creo la cartella con path"<<newDir->path<<std::endl;
         if(create_flag) // create only when flag is true
-            fs::create_directories(newDir->path);
+            fs::create_directories(root->getName()+"/"+newDir->path);
         return newDir;
     }else{
         return nullptr;
@@ -45,11 +45,18 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
     newDir->dSons = std::vector<std::shared_ptr<Directory>>();
     newDir->fSons = std::vector<std::shared_ptr<File>>();
     if(dFather.expired()) {
-        newDir->path = dName;
+        //newDir->path = dName;
+        newDir->path = "";
         return newDir;
     }
-    if (dName != root->getName())
-        newDir->path = newDir->dFather.lock()->path+"/"+dName;
+    if (dName != root->getName()) {
+        std::string path = newDir->dFather.lock()->path + "/" + dName;
+        if (path.find_first_of("/") == 0) {
+            newDir->path = path.substr(1); // delete the "/" at the beginning
+        }else{
+            newDir->path = path;
+        }
+    }
     else
         newDir->path = root->getName();
     return newDir;
@@ -62,7 +69,7 @@ std::shared_ptr<File> Directory::addFile (const std::string name, const std::str
         std::shared_ptr<File> file = std::make_shared<File>(name, hash, std::weak_ptr<Directory>(self));
         fSons.push_back(file);
         if(create_flag) // only when 'create_flag == true' the file is actually created
-            std::ofstream(file->getPath());
+            std::ofstream(root->getName()+"/"+file->getPath());
         return file;
     }else
         return nullptr;
@@ -202,7 +209,7 @@ const std::weak_ptr<Directory> &Directory::getSelf() const {
 }
 
 std::string Directory::getFatherFromPath(std::string path){
-    return path.substr(0,path.find_last_of("/"));
+    return (path.find("/") == std::string::npos)?"":path.substr(0,path.find_last_of("/"));
 }
 
 std::shared_ptr<Directory> Directory::getRoot() {

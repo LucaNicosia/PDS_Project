@@ -28,7 +28,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
 
     Directory::setRoot(path);
     std::shared_ptr<Directory> root = Directory::getRoot();
-    dirs[root->getPath()] = root;
+    dirs[""] = root;
     std::cout<<dirs[root->getPath()]->getPath()<<std::endl;
 
     db.open();
@@ -41,16 +41,15 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         std::string server_path = path + "/" + queryDirs[i].getPath();
         std::cout<<server_path<<" --- "<<Directory::getFatherFromPath(server_path)<<"\n";
         std::weak_ptr<Directory> father;
-        father = dirs[Directory::getFatherFromPath(server_path)]->getSelf();
+        father = dirs[Directory::getFatherFromPath(queryDirs[i].getPath())]->getSelf();
         std::shared_ptr<Directory> dir = father.lock()->addDirectory(queryDirs[i].getName(), !std::filesystem::is_directory(server_path)); // if it is already a directory, it is not created
         dirs[dir->getPath()] = dir;
     }
 
     for (int i = 0; i < nFiles; i++){
-        std::string server_path = path + "/" + queryFiles[i].getPath();
         std::size_t found = queryFiles[i].getPath().find_last_of("/");
         queryFiles[i].setName(queryFiles[i].getPath().substr(found+1));
-        std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(server_path)]->getSelf();
+        std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
         std::shared_ptr<File> file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(), false);
         files[file->getPath()] = file;
     }

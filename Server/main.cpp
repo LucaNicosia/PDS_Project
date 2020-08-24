@@ -43,30 +43,31 @@ int main() {
     pthread_t threads[100];
     std::string path = "TestPath";
 
-    while (true){
+    while (true) {
 
         struct sockaddr_in addr;
         socklen_t len = sizeof(addr);
-        std::cout<<"Waiting for incoming connections at port "<<PORT<<"..."<<std::endl;
+        std::cout << "Waiting for incoming connections at port " << PORT << "..." << std::endl;
         Socket s = ss.accept(&addr, len);
         std::string username, userDirPath;
 
         char name[16];
-        if (inet_ntop(AF_INET, &addr.sin_addr, name, sizeof(name)) == nullptr) throw std::runtime_error("Cannot convert");
-        std::cout<<"Got a connection from "<<name<<":"<<ntohs(addr.sin_port)<<"\n";
+        if (inet_ntop(AF_INET, &addr.sin_addr, name, sizeof(name)) == nullptr)
+            throw std::runtime_error("Cannot convert");
+        std::cout << "Got a connection from " << name << ":" << ntohs(addr.sin_port) << "\n";
 
         // SYNC 'client'
-        if(rcvSyncRequest(s,username) != 0){
-            std::cout<<"Errore\n";
-        }else{
-            db_path = "../DB/"+username+".db";
-            userDirPath = "server_directory/"+username;
+        if (rcvSyncRequest(s, username) != 0) {
+            std::cout << "Errore\n";
+        } else {
+            db_path = "../DB/" + username + ".db";
+            userDirPath = "server_directory/" + username;
         }
         std::string msg;
         msg = rcvMsg(s);
-        if(msg == "GET-DB"){ // client asks for server.db database version
-            sendFile(s,db_path);
-        } else if(msg == "Database up to date"){
+        if (msg == "GET-DB") { // client asks for server.db database version
+            sendFile(s, db_path, db_path);
+        } else if (msg == "Database up to date") {
             //OK
         } else {
             // error
@@ -75,16 +76,16 @@ int main() {
         //Populate files and dirs
         initialize_files_and_dirs(files, dirs, userDirPath, db_path);
 
-        while(1) {
+        while (1) {
             msg = rcvMsg(s);
-            const char* delimiter = " ";
-            char* token = std::strtok(const_cast<char*>(msg.c_str()), delimiter);
+            const char *delimiter = " ";
+            char *token = std::strtok(const_cast<char *>(msg.c_str()), delimiter);
             int i = 0;
             std::string path;
             std::string name;
             std::string type;
             std::string operation;
-            while (token != NULL){
+            while (token != NULL) {
                 if (i == 0) type = std::string(token);
                 if (i == 1) path = std::string(token);
                 if (i == 2) operation = std::string(token);
@@ -92,78 +93,58 @@ int main() {
                 i++;
             }
 
-            name = path.substr(path.find_last_of("/")+1, path.size());
+            name = path.substr(path.find_last_of("/") + 1, path.size());
             std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(path)];
-            if(type == "FILE"){
+            if (type == "FILE") {
                 // file modification handler
 
-                if (operation == "created"){
-                    // TODO: compute digest su file non creato?
-                    //std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
-                    //files[file->getPath()] = file;
+                if (operation == "created") {
                     sendMsg(s, "READY");
-                    //rcvFile(s, file->getPath());
-                    rcvFile(s,path);
+                    rcvFile(s, userDirPath + "/" + path);
                     sendMsg(s, "DONE");
                     std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
                     files[file->getPath()] = file;
-                }else if (operation == "erased"){
+                } else if (operation == "erased") {
                     father.lock()->removeFile(name);
                     files.erase(path);
                     sendMsg(s, "DONE");
-                }else if (operation == "modified"){
+                } else if (operation == "modified") {
                     father.lock()->removeFile(name);
                     files.erase(path);
                     sendMsg(s, "READY");
                     std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
                     files[file->getPath()] = file;
-                    rcvFile(s, file->getPath());
+                    rcvFile(s, userDirPath + "/" + file->getPath());
                     sendMsg(s, "DONE");
-                }else{
+                } else {
                     //errore
-                    std::cout<<"Stringa non ricevuta correttamente"<<std::endl;
+                    std::cout << "Stringa non ricevuta correttamente" << std::endl;
                     sendMsg(s, "ERROR");
                 }
-            } else if(type == "DIR"){
+            } else if (type == "DIR") {
                 //dirs modification handler
 
-                if (operation == "created"){
-                    std::cout<<"\t sto per creare una cartella\n";
+                if (operation == "created") {
+                    std::cout << "\t sto per creare una cartella\n";
                     std::shared_ptr<Directory> dir = father.lock()->addDirectory(name, true);
                     dirs[dir->getPath()] = dir;
-                    sendMsg(s,"DONE");
-                }else if (operation == "erased"){
+                    sendMsg(s, "DONE");
+                } else if (operation == "erased") {
                     father.lock()->removeDir(name);
                     dirs.erase(path);
-                    sendMsg(s,"DONE");
-                }else{
+                    sendMsg(s, "DONE");
+                } else {
                     //errore
-                    std::cout<<"Stringa non ricevuta correttamente"<<std::endl;
+                    std::cout << "Stringa non ricevuta correttamente" << std::endl;
                     sendMsg(s, "ERROR");
                 }
             } else {
-                std::cout<<"sono in else"<<std::endl;
+                std::cout << "sono in else" << std::endl;
                 //error
                 //sendMsg(s, "ERROR");
                 return -1;
             }
             //stampaFilesEDirs(files, dirs);
         }
-
-
-        //TEST DIR 'path'
-        //std::cout<<"Stringa ricevuta dal client: "<<s.rcvDir()<<std::endl;
-        //s.sendMsg("OK");
-
-        //TEST FILE 'path'
-        //s.rcvFile("./server_directory/file.txt");
     }
-
-    /*f.setDigest(computeDigest("prova.txt"));
-    f2.setDigest(computeDigest("prova2.txt"));
-
-    compareDigests(f.getDigest(), f.getDigest());
-    compareDigests(f.getDigest(), f2.getDigest());*/
-
-
 }

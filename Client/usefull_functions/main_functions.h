@@ -13,6 +13,10 @@
 #include "../DB/Database.h"
 #include <map>
 
+std::string cleanPath(const std::string & path){ // es. "TestPath/ciao.txt" -> "ciao.txt"
+    return path.substr(path.find_first_of("/")+1);
+}
+
 void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs){
     std::cout<<"***DIRECTORIES***"<<std::endl;
     for (const auto& x : dirs) {
@@ -25,11 +29,11 @@ void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::m
     }
 }
 
-void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs, const std::function<void (std::string, std::string, FileStatus, FileType)> &modification_function){
+void checkDB(const std::string& dir_path, const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs, const std::function<void (std::string, std::string, FileStatus, FileType)> &modification_function){
     //Database userDB(userDB_name);
     Database serverDB(serverDB_name);
-    std::unordered_map<std::string,FileStatus> fs_files; //<path,FileStatus>
-    std::unordered_map<std::string,FileStatus> fs_dirs;  //<path,FileStatus>
+    std::map<std::string,FileStatus> fs_files; //<path,FileStatus>
+    std::map<std::string,FileStatus> fs_dirs;  //<path,FileStatus>
     std::vector<File> userFiles, serverFiles;
     std::vector<Directory> userDirs, serverDirs;
     int nUserFiles, nUserDirs, nServerFiles, nServerDirs;
@@ -45,10 +49,10 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     serverDB.select("SELECT * FROM Directory",nServerDirs,serverDirs);
 
     for(int i=0;i<nServerFiles;i++){
-        std::cout<<serverFiles[i].getPath()<<"\n";
+        std::cout<<"\t"<<serverFiles[i].getPath()<<"\n";
     }
     for(int i=0;i<nServerDirs;i++){
-        std::cout<<serverDirs[i].getPath()<<"\n";
+        std::cout<<"\t"<<serverDirs[i].getPath()<<"\n";
     }
 
 
@@ -62,29 +66,35 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
             continue; // root is not added to fs_dirs and DB
         fs_dirs.insert(std::pair<std::string,FileStatus>(it->second->getPath(),FileStatus::none));
     }
+    for(auto it : fs_files){
+        std::cout<<"\t"<<it.first<<"\n";
+    }
+    for(auto it : fs_dirs){
+        std::cout<<"\t"<<it.first<<"\n";
+    }
 
     // find what is different
     // in directories
     for(auto it = serverDirs.begin(); it != serverDirs.end(); ++it){
         if(fs_dirs.count(it->getPath()) == 0) // directory not present in user, it has been erased
-            modification_function(it->getName(), it->getPath(),FileStatus::erased,FileType::directory); // send modification to server
+            modification_function(it->getName(), dir_path + "/" + it->getPath(),FileStatus::erased,FileType::directory); // send modification to server
         else
             fs_dirs[it->getPath()] = FileStatus::created; // if it is already in 'fs_dirs' it has been already present
 
     }
     for(auto it = fs_dirs.begin(); it != fs_dirs.end(); ++it){
         if(it->second == FileStatus::none){ // 'none' records are those directories that where present on client but not on the DB
-            modification_function(it->first.substr(it->first.find_last_of("/")+1, it->first.size()),it->first,FileStatus::created,FileType::directory);
+            modification_function(it->first.substr(it->first.find_last_of("/")+1),dir_path+"/"+it->first,FileStatus::created,FileType::directory);
         }
     }
 
     // in files
     for(auto it = serverFiles.begin(); it != serverFiles.end(); ++it){
         if(fs_files.count(it->getPath()) == 0){ // file not present in user, it has been erased
-            modification_function(it->getName(), it->getPath(),FileStatus::erased,FileType::file); // send modification to server
+            modification_function(it->getName(),dir_path+"/"+it->getPath(),FileStatus::erased,FileType::file); // send modification to server
         }else{
             if(!compareDigests(it->getHash(),files[it->getPath()]->getHash())){ // hash are different: it has been updated on client
-                modification_function(it->getName(), it->getPath(),FileStatus::modified,FileType::file);
+                modification_function(it->getName(),dir_path+"/"+it->getPath(),FileStatus::modified,FileType::file);
                 fs_files[it->getPath()] = FileStatus::modified; // if at the end of the loop, there are still some 'fs_files' with state 'none', it means that they are new
             } else {
                 fs_files[it->getPath()] = FileStatus::created;
@@ -93,7 +103,7 @@ void checkDB(const std::string& userDB_name, const std::string& serverDB_name,  
     }
     for(auto it = fs_files.begin(); it != fs_files.end(); ++it){
         if(it->second == FileStatus::none){ // take a look at the comment above
-            modification_function(it->first.substr(it->first.find_last_of("/")+1, it->first.size()), it->first,FileStatus::created,FileType::file);
+            modification_function(it->first.substr(it->first.find_last_of("/")+1),dir_path+"/"+it->first,FileStatus::created,FileType::file);
         }
     }
 }
@@ -124,38 +134,46 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         std::cout<<"Database alredy exists"<<std::endl;
         db_file.close();
     }
+    /*
     if(path.find_last_of("/") == path.size()-1){
-        Directory::setRoot(path.substr(0,path.find_last_of("/")));
+        Directory::setRoot(cleanPath(path.substr(0,path.find_last_of("/"))));
     }else{
-        Directory::setRoot(path);
-    }
-    dirs[Directory::getRoot()->getPath()] = Directory::getRoot(); // root is needed in dirs
+        Directory::setRoot(cleanPath(path));
+    }*/
+    //dirs[cleanPath(Directory::getRoot()->getPath())] = Directory::getRoot(); // root is needed in dirs
+    Directory::setRoot("");
+    dirs[""] = Directory::getRoot();
+    std::cout<<"Directory::getRoot()->getPath(): "<<dirs[""]->getPath()<<"\n";
 
-    for(auto &it : std::filesystem::recursive_directory_iterator(Directory::getRoot()->getPath())) {
+    for(auto &it : std::filesystem::recursive_directory_iterator(path)) {
+        std::string this_path = cleanPath(it.path().string());
+        std::string father_path = (cleanPath(it.path().parent_path().string()) == path)?"":cleanPath(it.path().parent_path().string()); // if the father of this element is "root" set it as ""
+        std::cout<<"cleanPath(it.path().string(): "<<this_path<<"\n";
+        std::cout<<"cleanPath(it.path().parent_path().string()): "<<father_path<<"\n";
         if(it.is_directory()){
             std::weak_ptr<Directory> father = std::weak_ptr<Directory>();
             if(it.path().has_parent_path()/* && it.path().parent_path().string() != Directory::getRoot()->getPath()*/){
-                father = dirs[it.path().parent_path().string()]->getSelf();
-                dirs[it.path().string()] = father.lock()->addDirectory(it.path().filename().string(),false);
+                father = dirs[father_path]->getSelf();
+                dirs[this_path] = father.lock()->addDirectory(it.path().filename().string(),false);
             } else {
                 // error handling
             }
             if(is_db_new){
                 db.exec("INSERT INTO DIRECTORY(path,name)\n"
-                        "VALUES (\""+dirs[it.path().string()]->getPath()+"\", \""+dirs[it.path().string()]->getName()+"\")");
+                        "VALUES (\""+dirs[this_path]->getPath()+"\", \""+dirs[this_path]->getName()+"\")");
             }
         } else {
             std::weak_ptr<Directory> dir_father;
             if(it.path().has_parent_path()/* && it.path().parent_path().string() != Directory::getRoot()->getPath()*/){
-                dir_father = dirs[it.path().parent_path().string()]->getSelf();
-                files[it.path().string()] = dir_father.lock()->addFile(it.path().filename().string(),computeDigest(it.path().string()),false);
+                dir_father = dirs[father_path]->getSelf();
+                files[this_path] = dir_father.lock()->addFile(it.path().filename().string(),computeDigest(it.path().string()),false);
             }
             else{
                 // error handling
             }
             if(is_db_new){
                 db.exec("INSERT INTO FILE (path, hash)\n"
-                        "VALUES (\""+it.path().string()+"\", \""+computeDigest(it.path().string())+"\")");
+                        "VALUES (\""+this_path+"\", \""+computeDigest(it.path().string())+"\")");
             }
         }
     }

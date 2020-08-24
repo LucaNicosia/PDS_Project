@@ -14,7 +14,11 @@ File::File() {
 
 File::File(const std::string name, const std::string &hash, std::weak_ptr<Directory> dFather) {
     this->name = name;
-    this->path = dFather.lock()->getPath()+"/"+name;
+    std::string path = dFather.lock()->getPath()+"/"+name;
+    if(path.find_first_of("/") == 0)
+        this->path = path.substr(1);
+    else
+        this->path = path;
     this->hash = hash;
     this->dFather = dFather;
 }
