@@ -27,7 +27,7 @@ std::shared_ptr<Directory> Directory::addDirectory(std::string dName, const bool
     if (this != nullptr){
         std::shared_ptr<Directory> newDir = makeDirectory(dName, self);
         dSons.push_back(newDir);
-        std::cout<<"Creo la cartella con path: "<<newDir->path<<std::endl;
+        std::cout<<"Creo la cartella con path"<<newDir->path<<std::endl;
         if(create_flag) // create only when flag is true
             fs::create_directories(root->getName()+"/"+newDir->path);
         return newDir;
@@ -51,7 +51,7 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
     }
     if (dName != root->getName()) {
         std::string path = newDir->dFather.lock()->path + "/" + dName;
-        if(path.find_first_of("/")==0) {
+        if (path.find_first_of("/") == 0) {
             newDir->path = path.substr(1); // delete the "/" at the beginning
         }else{
             newDir->path = path;
@@ -76,6 +76,7 @@ std::shared_ptr<File> Directory::addFile (const std::string name, const std::str
 
 }
 
+//TODO: modificare renameFile/Dir
 bool Directory::renameDir (const std::string& oldName, const std::string& newName){
     if (oldName == ".." || newName == "..")
         return false;
@@ -121,7 +122,7 @@ bool Directory::removeDir (const std::string& name){
     for (int i = 0; i < dSons.size(); i++){
         if (name == dSons[i]->name){
             std::cout<<"Cancello la cartella con path"<<dSons[i]->path<<std::endl;
-            fs::remove_all(dSons[i]->getPath());
+            fs::remove_all(root->getName()+"/"+dSons[i]->getPath());
             dSons.erase(dSons.begin()+i);
             return true;
         }
@@ -137,7 +138,7 @@ bool Directory::removeFile (const std::string& name){
         return false;
     for (int i = 0; i < fSons.size(); i++){
         if (name == fSons[i]->getName()){
-            fs::remove_all(fSons[i]->getPath());
+            fs::remove_all(root->getName()+"/"+fSons[i]->getPath());
             fSons.erase(fSons.begin()+i);
             return true;
         }
