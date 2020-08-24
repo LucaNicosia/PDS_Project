@@ -29,7 +29,7 @@ std::shared_ptr<Directory> Directory::addDirectory(std::string dName, const bool
         dSons.push_back(newDir);
         std::cout<<"Creo la cartella con path"<<newDir->path<<std::endl;
         if(create_flag) // create only when flag is true
-            fs::create_directories(root->getName()+"/"+newDir->path);
+            fs::create_directories(root.lock()->getName()+"/"+newDir->path);
         return newDir;
     }else{
         return nullptr;
@@ -46,19 +46,20 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
     newDir->fSons = std::vector<std::shared_ptr<File>>();
     if(dFather.expired()) {
         //newDir->path = dName;
-        newDir->path = "";
+        newDir->path = ""; //TODO: SE SI ROMPE, QUESTO E' IL PROBLEMA
+        newDir->root = newDir->self;
         return newDir;
     }
-    if (dName != root->getName()) {
-        std::string path = newDir->dFather.lock()->path + "/" + dName;
-        if (path.find_first_of("/") == 0) {
-            newDir->path = path.substr(1); // delete the "/" at the beginning
-        }else{
-            newDir->path = path;
-        }
+
+    std::string path = newDir->dFather.lock()->path + "/" + dName;
+    if (path.find_first_of("/") == 0) {
+        newDir->path = path.substr(1); // delete the "/" at the beginning
+    }else{
+        newDir->path = path;
     }
-    else
-        newDir->path = root->getName();
+
+    newDir->root = dFather.lock()->getRoot();
+
     return newDir;
 }
 
@@ -69,7 +70,7 @@ std::shared_ptr<File> Directory::addFile (const std::string name, const std::str
         std::shared_ptr<File> file = std::make_shared<File>(name, hash, std::weak_ptr<Directory>(self));
         fSons.push_back(file);
         if(create_flag) // only when 'create_flag == true' the file is actually created
-            std::ofstream(root->getName()+"/"+file->getPath());
+            std::ofstream(root.lock()->getName()+"/"+file->getPath());
         return file;
     }else
         return nullptr;
@@ -77,7 +78,7 @@ std::shared_ptr<File> Directory::addFile (const std::string name, const std::str
 }
 
 //TODO: modificare renameFile/Dir
-bool Directory::renameDir (const std::string& oldName, const std::string& newName){
+/*bool Directory::renameDir (const std::string& oldName, const std::string& newName){
     if (oldName == ".." || newName == "..")
         return false;
     if (oldName == "." || newName == ".")
@@ -111,7 +112,7 @@ bool Directory::renameFile (const std::string& oldName, const std::string& newNa
 
     return false;
 
-}
+}*/
 
 bool Directory::removeDir (const std::string& name){
     if (name == "..")
@@ -122,7 +123,7 @@ bool Directory::removeDir (const std::string& name){
     for (int i = 0; i < dSons.size(); i++){
         if (name == dSons[i]->name){
             std::cout<<"Cancello la cartella con path"<<dSons[i]->path<<std::endl;
-            fs::remove_all(root->getName()+"/"+dSons[i]->getPath());
+            fs::remove_all(root.lock()->getName()+"/"+dSons[i]->getPath());
             dSons.erase(dSons.begin()+i);
             return true;
         }
@@ -138,7 +139,7 @@ bool Directory::removeFile (const std::string& name){
         return false;
     for (int i = 0; i < fSons.size(); i++){
         if (name == fSons[i]->getName()){
-            fs::remove_all(root->getName()+"/"+fSons[i]->getPath());
+            fs::remove_all(root.lock()->getName()+"/"+fSons[i]->getPath());
             fSons.erase(fSons.begin()+i);
             return true;
         }
@@ -213,21 +214,6 @@ std::string Directory::getFatherFromPath(std::string path){
     return (path.find("/") == std::string::npos)?"":path.substr(0,path.find_last_of("/"));
 }
 
-std::shared_ptr<Directory> Directory::getRoot() {
-    return root;
-}
-
-std::shared_ptr<Directory> Directory::setRoot(std::string root_name){
-    // TODO: da far funzionare questo if
-    /*if (root != std::shared_ptr<Directory>()){
-        // errore
-        std::cout<<"errore in setRoot\n";
-    }*/
-    root = makeDirectory(root_name, std::weak_ptr<Directory>());
-    std::cout<<root->getName()<<std::endl;
-    return root;
-}
-
 void Directory::ls(int indent) const{
     std::string spaces;
 
@@ -236,7 +222,7 @@ void Directory::ls(int indent) const{
         for (int i = 0; i < indent; i++) {
             spaces += " ";
         }
-        if (this->name == root->getName())
+        if (this->name == root.lock()->getName())
          std::cout << spaces + this->name << std::endl;
 
         for (int i = 0; i < dSons.size(); i++) {
@@ -253,4 +239,19 @@ void Directory::ls(int indent) const{
 
 std::string Directory::toString (){
     return "PATH = "+path+" NAME = "+name;
+}
+
+std::weak_ptr<Directory> Directory::getRoot() {
+    return root;
+}
+
+std::weak_ptr<Directory> Directory::setRoot(std::string root_name){
+    // TODO: da far funzionare questo if
+    /*if (root != std::shared_ptr<Directory>()){
+        // errore
+        std::cout<<"errore in setRoot\n";
+    }*/
+    root = makeDirectory(root_name, std::weak_ptr<Directory>());
+    std::cout<<root.lock()->getName()<<std::endl;
+    return root;
 }

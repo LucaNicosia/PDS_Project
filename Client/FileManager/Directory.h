@@ -23,6 +23,9 @@ class Directory {
     std::string path;
     std::string name;
 
+    //ROOT
+    std::weak_ptr<Directory> root;
+
 public:
     //Costruttore
     Directory();
@@ -55,14 +58,14 @@ public:
     const std::weak_ptr<Directory> &getSelf() const;
 
     static std::string getFatherFromPath(std::string path);
-    static std::shared_ptr<Directory> getRoot();
     void ls(int indent) const;
 
-    static std::shared_ptr<Directory> setRoot(std::string root_name);
+    std::weak_ptr<Directory> getRoot();
+    std::weak_ptr<Directory> setRoot(std::string root_name);
 
     std::string toString ();
 };
 
-static std::shared_ptr<Directory> root;
+//static std::shared_ptr<Directory> root;
 
 #endif

@@ -37,7 +37,7 @@ void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::m
     }
 }
 
-void checkDB(const std::string& dir_path, const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs, const std::function<void (std::string, std::string, FileStatus, FileType)> &modification_function){
+void checkDB(const std::string& dir_path, const std::string& userDB_name, const std::string& serverDB_name,  std::map<std::string,std::shared_ptr<File>>& files, std::map<std::string,std::shared_ptr<Directory>>& dirs, const std::function<void (std::string, std::string, FileStatus, FileType)> &modification_function, std::shared_ptr<Directory>& root){
     //Database userDB(userDB_name);
     Database serverDB(serverDB_name);
     std::map<std::string,FileStatus> fs_files; //<path,FileStatus>
@@ -70,7 +70,7 @@ void checkDB(const std::string& dir_path, const std::string& userDB_name, const 
         fs_files.insert(std::pair<std::string,FileStatus>(it->second->getPath(),FileStatus::none));
     }
     for(auto it = dirs.begin(); it != dirs.end(); ++it){
-        if(it->second->getPath() == Directory::getRoot()->getPath())
+        if(it->second->getPath() == root->getPath())
             continue; // root is not added to fs_dirs and DB
         fs_dirs.insert(std::pair<std::string,FileStatus>(it->second->getPath(),FileStatus::none));
     }
@@ -116,7 +116,7 @@ void checkDB(const std::string& dir_path, const std::string& userDB_name, const 
     }
 }
 
-void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, const std::string& path, const std::string& path_to_db){
+void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string& path, const std::string& path_to_db, std::shared_ptr<Directory>& root){
     // if path is "./xxx/" will become "./xxx"
     std::ifstream db_file(path_to_db,std::ios::in);
     Database db(path_to_db);
@@ -140,7 +140,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
                 ")");
     } else {
         // database already exists
-        std::cout<<"Database alredy exists"<<std::endl;
+        std::cout<<"Database already exists"<<std::endl;
         db_file.close();
     }
     /*
@@ -150,8 +150,8 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         Directory::setRoot(cleanPath(path));
     }*/
     //dirs[cleanPath(Directory::getRoot()->getPath())] = Directory::getRoot(); // root is needed in dirs
-    Directory::setRoot(path);
-    dirs[""] = Directory::getRoot();
+
+    dirs[""] = root;
 
     for(auto &it : std::filesystem::recursive_directory_iterator(path)) {
         std::string this_path = cleanPath(it.path().string(),path);
@@ -183,10 +183,10 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
             }
         }
     }
-    Directory::getRoot()->ls(4);
+    root->ls(4);
 }
 
-int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
+int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::shared_ptr<Directory>& root){
     Database db(db_path);
     std::ifstream db_file(db_path);
     std::vector<File> db_Files;
@@ -226,7 +226,7 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
         }
     }
     for(auto it = dirs.begin(); it != dirs.end(); ++it){
-        if(it->second->getPath() == dirs[Directory::getRoot()->getPath()]->getPath()){
+        if(it->second->getPath() == dirs[root->getPath()]->getPath()){
             // root is not added to DB
             continue;
         }
@@ -244,6 +244,7 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
             db_Dirs.erase(it2);
         }
     }
+    std::cout<<"QUA"<<std::endl;
     if(!db_Dirs.empty()){
         for(auto it=db_Dirs.begin();it!=db_Dirs.end();++it){
             db.exec("DELETE FROM DIRECTORY WHERE path = \""+it->getPath()+"\"");

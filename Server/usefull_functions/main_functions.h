@@ -136,16 +136,13 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
     }
 }
 
-void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string path, std::string db_path){
+void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string path, std::string db_path, std::shared_ptr<Directory> root){
     Database db(db_path);
     int nFiles, nDirs;
     std::vector<File> queryFiles;
     std::vector<Directory> queryDirs;
 
-    Directory::setRoot(path);
-    std::shared_ptr<Directory> root = Directory::getRoot();
     dirs[""] = root;
-    std::cout<<dirs[root->getPath()]->getPath()<<std::endl;
 
     db.open();
 

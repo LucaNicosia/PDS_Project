@@ -33,6 +33,8 @@
 
 
 Socket s;
+Directory root;
+std::shared_ptr<Directory> root_ptr;
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path = "../DB/user.db";
@@ -54,7 +56,7 @@ auto modification_function = [](const std::string file, const std::string filePa
             std::cout << " created\n";
             father = dirs[Directory::getFatherFromPath(cleaned_path)]->getSelf();
             if (ft == FileType::directory) {
-                dirs[cleaned_path] = Directory::makeDirectory(file,father);
+                dirs[cleaned_path] = father.lock()->addDirectory(file, false);
                 if (synchronized)
                 if (insertDirectoryIntoDB(db_path, dirs[cleaned_path]))
                     std::cout<<"Directory inserita correttamente sul DB"<<std::endl;
@@ -149,11 +151,14 @@ auto modification_function = [](const std::string file, const std::string filePa
 int main(int argc, char** argv)
 {
 
+    //ROOT INITIALIZATION
+    root_ptr = root.makeDirectory(path, std::weak_ptr<Directory>());
+
     std::string username = "user";
     FileWatcher fw(path,std::chrono::milliseconds(5000));
     // inizialization of data structures
-    initialize_files_and_dirs(files, dirs, path, db_path);
-    updateDB(db_path,files,dirs);
+    initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
+    updateDB(db_path,files,dirs, root_ptr);
     stampaFilesEDirs(files,dirs);
     // connect to the remote server
     s.setTimeoutSecs(20);
@@ -162,6 +167,7 @@ int main(int argc, char** argv)
     // sync with the server
     int cont = 0;
     std::string server_digest;
+
     while(true) {
         try {
             server_digest = syncRequest(s, username);
@@ -182,7 +188,7 @@ int main(int argc, char** argv)
         sendMsg(s,"GET-DB");
         rcvFile(s,"../DB/server.db");
         // check which files and directories aren't updated
-        checkDB(path,"","../DB/server.db",files,dirs,modification_function);
+        checkDB(path,"","../DB/server.db",files,dirs,modification_function, root_ptr);
         std::cout<<"--- checkDB ended ---\n";
     } else {
         std::cout<<"server DB is updated\n";
