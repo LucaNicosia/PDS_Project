@@ -190,8 +190,8 @@ int main(int argc, char** argv)
     synchronized = true;
     std::thread t1([&fw]() { fw.start(modification_function); });
     std::cout<<"--- System ready ---\n";
-    std::this_thread::sleep_for(std::chrono::seconds(5000));
-    fw.stop();
+    //std::this_thread::sleep_for(std::chrono::seconds(5000));
+    //fw.stop();
     t1.join();
     /**/
     return 0;

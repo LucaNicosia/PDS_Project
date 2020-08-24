@@ -93,6 +93,7 @@ public:
                 action(it.file, it.filePath, it.fs, it.ft);
             }
             t.clear();
+            std::vector<struct tmp> d;
             // Check if a file was created or modified
             for(auto &file : std::filesystem::recursive_directory_iterator(path_to_watch)) {
                 auto current_file_last_write_time = std::filesystem::last_write_time(file);
@@ -102,7 +103,13 @@ public:
                     paths[file.path().string()].last_mod = current_file_last_write_time;
                     paths[file.path().string()].type = (file.is_directory()) ? FileType::directory : FileType::file;
                     if (paths[file.path().string()].type == FileType::directory){
-                        action(file.path().filename().string(), file.path().string(), FileStatus::created, (file.is_directory()) ? FileType::directory : FileType::file);
+                        /*struct tmp x;
+                        x.file = file.path().filename().string();
+                        x.filePath = file.path().string();
+                        x.fs = FileStatus::created;
+                        x.ft = FileType::directory;
+                        d.push_back(x);*/
+                        action(file.path().filename().string(), file.path().string(), FileStatus::created, FileType::directory);
                     }else{
                         struct tmp x;
                         x.file = file.path().filename().string();
@@ -120,6 +127,12 @@ public:
                     }
                 }
             }
+
+            // send directory backwords
+            /*
+            for(auto it = d.end(); it != d.begin(); it--){
+                action(it->file, it->filePath, it->fs, it->ft);
+            }*/
 
             // At the end send all created files
             for (auto it:t){
