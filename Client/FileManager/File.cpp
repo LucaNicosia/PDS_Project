@@ -10,6 +10,7 @@
 File::File() {
     path = "";
     hash = "";
+    name = "";
 }
 
 File::File(const std::string name, const std::string &hash, std::weak_ptr<Directory> dFather) {
@@ -62,6 +63,8 @@ void File::set(const std::string& field, const std::string& value) {
         path = value;
     }else if(field == "hash"){
         hash = value;
+    }else if(field == "name"){
+        name = value;
     }else{
         std::cout<<"File: Invalid field! ("<<field<<")\n"; // QUI CI VUOLE UNA ECCEZIONE
     }
