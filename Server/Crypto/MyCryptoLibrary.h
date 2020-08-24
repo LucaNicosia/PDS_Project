@@ -26,7 +26,7 @@ std::string computeDigest(std::string filePath){
         }
         input.close();
     }else{
-        return std::string("SYNC-ERROR");
+        return std::string("DIGEST-ERROR");
     }
     digest.resize(hash.DigestSize());
     hash.Final((byte*)&digest[0]);

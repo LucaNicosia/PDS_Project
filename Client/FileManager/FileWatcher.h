@@ -8,7 +8,7 @@
 #include <filesystem>
 #include <chrono>
 #include <thread>
-#include <unordered_map>
+#include <map>
 #include <string>
 #include <functional>
 
@@ -27,7 +27,7 @@ class FileWatcher {
     };
     std::string path_to_watch;
     std::chrono::duration<int, std::milli> delay;
-    std::unordered_map<std::string, FileStruct> paths;
+    std::map<std::string, FileStruct> paths;
     bool running;
 
     // Check if "paths" contains a given key
@@ -49,30 +49,69 @@ public:
     }
 
     void start(const std::function<void (std::string, std::string, FileStatus, FileType)> &action) {
+        struct tmp {
+            std::string file;
+            std::string filePath;
+            FileStatus fs;
+            FileType ft;
+        };
+        std::vector<struct tmp> t;
         while(running) {
             // Wait for "delay" milliseconds
             std::this_thread::sleep_for(delay);
             if(!running) return; // if when i wake up 'running' is 'false', don't do the 'action' function
             auto it = paths.begin();
             // check if a file was deleted
-            while (it != paths.end()) {
-                if (!std::filesystem::exists(it->first)) {
-                    action(it->first, it->first, FileStatus::erased,it->second.type); // mando se è directory o file
-                    it = paths.erase(it);
+            while (it != paths.end() ) {
+                //send files
+                //std::ifstream file (it->first);
+                if (!std::filesystem::exists(std::filesystem::status(it->first))){
+                    if (paths[it->first].type == FileType::file) {
+
+                        std::cout<<"F it->first = "<<it->first<<std::endl;
+                        action(it->first, it->first, FileStatus::erased, it->second.type); // mando se è file
+                        it = paths.erase(it);
                     }
+                    else {
+                        //preparing directories to send at the end
+                        std::cout<<"D it->first = "<<it->first<<std::endl;
+                        struct tmp x;
+                        x.file = it->first;
+                        x.filePath = it->first;
+                        x.fs = FileStatus::erased;
+                        x.ft = it->second.type;
+                        t.push_back(x);
+                        it = paths.erase(it);
+                    }
+                }
+
                 else {
                     it++;
                 }
             }
+            for (auto it:t){
+                action(it.file, it.filePath, it.fs, it.ft);
+            }
+            t.clear();
             // Check if a file was created or modified
             for(auto &file : std::filesystem::recursive_directory_iterator(path_to_watch)) {
                 auto current_file_last_write_time = std::filesystem::last_write_time(file);
                 // File creation
-
+                // First send all created directories
                 if(!contains(file.path().string())) {
                     paths[file.path().string()].last_mod = current_file_last_write_time;
                     paths[file.path().string()].type = (file.is_directory()) ? FileType::directory : FileType::file;
-                    action(file.path().filename().string(), file.path().string(), FileStatus::created, (file.is_directory()) ? FileType::directory : FileType::file);
+                    if (paths[file.path().string()].type == FileType::directory){
+                        action(file.path().filename().string(), file.path().string(), FileStatus::created, (file.is_directory()) ? FileType::directory : FileType::file);
+                    }else{
+                        struct tmp x;
+                        x.file = file.path().filename().string();
+                        x.filePath = file.path().string();
+                        x.fs = FileStatus::created;
+                        x.ft = FileType::file;
+                        t.push_back(x);
+                    }
+
                 } else {
                     // File modification
                     if(paths[file.path().string()].last_mod != current_file_last_write_time) {
@@ -81,6 +120,12 @@ public:
                     }
                 }
             }
+
+            // At the end send all created files
+            for (auto it:t){
+                action(it.file, it.filePath, it.fs, it.ft);
+            }
+            t.clear();
         }
     }
 

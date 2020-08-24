@@ -102,20 +102,36 @@ int main() {
                     sendMsg(s, "READY");
                     rcvFile(s, userDirPath + "/" + path);
                     sendMsg(s, "DONE");
-                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
+                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(userDirPath + "/"+path), false);
                     files[file->getPath()] = file;
+                    if(insertFileIntoDB(db_path, file))
+                        std::cout<<"File inserito correttamente sul DB"<<std::endl;
+                    else
+                        std::cout<<"Problema nell'inserire il file sul DB"<<std::endl;
                 } else if (operation == "erased") {
+                    if (deleteFileFromDB(db_path, files[path]))
+                        std::cout<<"File cancellato correttamente sul DB"<<std::endl;
+                    else
+                        std::cout<<"Problema nel cancellare il file sul DB"<<std::endl;
                     father.lock()->removeFile(name);
                     files.erase(path);
                     sendMsg(s, "DONE");
                 } else if (operation == "modified") {
+                    if (deleteFileFromDB(db_path, files[path]))
+                        std::cout<<"File cancellato correttamente sul DB"<<std::endl;
+                    else
+                        std::cout<<"Problema nel cancellare il file sul DB"<<std::endl;
                     father.lock()->removeFile(name);
                     files.erase(path);
                     sendMsg(s, "READY");
-                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(path), false);
-                    files[file->getPath()] = file;
-                    rcvFile(s, userDirPath + "/" + file->getPath());
+                    rcvFile(s, userDirPath + "/" + path);
                     sendMsg(s, "DONE");
+                    std::shared_ptr<File> file = father.lock()->addFile(name, userDirPath + "/"+path, false);
+                    files[file->getPath()] = file;
+                    if(insertFileIntoDB(db_path, file))
+                        std::cout<<"File inserito correttamente sul DB"<<std::endl;
+                    else
+                        std::cout<<"Problema nell'inserire il file sul DB"<<std::endl;
                 } else {
                     //errore
                     std::cout << "Stringa non ricevuta correttamente" << std::endl;
@@ -128,8 +144,17 @@ int main() {
                     std::cout << "\t sto per creare una cartella\n";
                     std::shared_ptr<Directory> dir = father.lock()->addDirectory(name, true);
                     dirs[dir->getPath()] = dir;
+                    if (insertDirectoryIntoDB(db_path, dir))
+                        std::cout<<"Directory inserita correttamente sul DB"<<std::endl;
+                    else
+                        std::cout<<"Problema nell'inserire la directory sul DB"<<std::endl;
                     sendMsg(s, "DONE");
                 } else if (operation == "erased") {
+                    if(deleteDirectoryFromDB(db_path, dirs[path]))
+                        std::cout<<"Directory cancellata correttamente sul DB"<<std::endl;
+                    else
+                        std::cout<<"Problema nel cancellare la directory sul DB"<<std::endl;
+
                     father.lock()->removeDir(name);
                     dirs.erase(path);
                     sendMsg(s, "DONE");
