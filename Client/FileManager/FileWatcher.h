@@ -64,7 +64,6 @@ public:
             // check if a file was deleted
             while (it != paths.end() ) {
                 //send files
-                //std::ifstream file (it->first);
                 if (!std::filesystem::exists(std::filesystem::status(it->first))){
                     if (paths[it->first].type == FileType::file) {
 
@@ -89,11 +88,12 @@ public:
                     it++;
                 }
             }
-            for (auto it:t){
-                action(it.file, it.filePath, it.fs, it.ft);
+            for (int i = t.size()-1; i >= 0; i--){
+                //std::cout<<"*****"<<t[i].filePath<<"*****"<<std::endl;
+                action(t[i].file, t[i].filePath, t[i].fs, t[i].ft);
             }
             t.clear();
-            std::vector<struct tmp> d;
+            std::map<std::string, struct tmp> d;
             // Check if a file was created or modified
             for(auto &file : std::filesystem::recursive_directory_iterator(path_to_watch)) {
                 auto current_file_last_write_time = std::filesystem::last_write_time(file);
@@ -103,12 +103,7 @@ public:
                     paths[file.path().string()].last_mod = current_file_last_write_time;
                     paths[file.path().string()].type = (file.is_directory()) ? FileType::directory : FileType::file;
                     if (paths[file.path().string()].type == FileType::directory){
-                        /*struct tmp x;
-                        x.file = file.path().filename().string();
-                        x.filePath = file.path().string();
-                        x.fs = FileStatus::created;
-                        x.ft = FileType::directory;
-                        d.push_back(x);*/
+
                         action(file.path().filename().string(), file.path().string(), FileStatus::created, FileType::directory);
                     }else{
                         struct tmp x;
@@ -127,12 +122,6 @@ public:
                     }
                 }
             }
-
-            // send directory backwords
-            /*
-            for(auto it = d.end(); it != d.begin(); it--){
-                action(it->file, it->filePath, it->fs, it->ft);
-            }*/
 
             // At the end send all created files
             for (auto it:t){
