@@ -37,10 +37,12 @@ std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path = "../DB/user.db";
 bool synchronized = false;
+std::string path = "TestPath";
+
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
     std::string FT,FS,res;
-    std::string cleaned_path = cleanPath(filePath);
+    std::string cleaned_path = cleanPath(filePath,path);
     std::cout<<file;
     if(ft == FileType::file)
         std::cout<<" file";
@@ -146,8 +148,8 @@ auto modification_function = [](const std::string file, const std::string filePa
 
 int main(int argc, char** argv)
 {
+
     std::string username = "user";
-    std::string path = "TestPath";
     FileWatcher fw(path,std::chrono::milliseconds(5000));
     // inizialization of data structures
     initialize_files_and_dirs(files, dirs, path, db_path);
@@ -156,7 +158,21 @@ int main(int argc, char** argv)
     // connect to the remote server
     s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
     // sync with the server
-    std::string server_digest = syncRequest(s,username);
+    int cont = 0;
+    std::string server_digest;
+    while(true) {
+        try {
+            server_digest = syncRequest(s, username);
+            if(server_digest == "SYNC-ERROR")
+                throw 20;
+            break;
+        } catch (int p) {
+            if (++cont == 3) {
+                std::cout << "stop! some error\n";
+                exit(-1);
+            }
+        }
+    }
     // check if the DB is updated
     if(!compareDigests(server_digest,b64_encode(computeDigest("../DB/"+username+".db")))){
         std::cout<<"server DB is not updated\n";

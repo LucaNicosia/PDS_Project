@@ -13,8 +13,16 @@
 #include "../DB/Database.h"
 #include <map>
 
-std::string cleanPath(const std::string & path){ // es. "TestPath/ciao.txt" -> "ciao.txt"
-    return path.substr(path.find_first_of("/")+1);
+std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
+    std::string head = path;
+    std::string tail;
+    //std::cout<<"rubbish: "<<rubbish<<"\npath: "<<path<<"\n";
+    while(rubbish != head){
+        tail = path.substr(head.find_last_of("/")+1);
+        head = head.substr(0, head.find_last_of("/"));
+        //std::cout<<"head: "<<head<<"\ntail: "<<tail<<"\n";
+    }
+    return tail;
 }
 
 void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs){
@@ -127,6 +135,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         db.exec("CREATE TABLE \"FILE\" ("
                 "\"id\" INTEGER PRIMARY KEY AUTOINCREMENT, "
                 "\"path\" TEXT NOT NULL UNIQUE, "
+                "\"name\" TEXT NOT NULL,"
                 "\"hash\" TEXT NOT NULL"
                 ")");
     } else {
@@ -141,15 +150,12 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         Directory::setRoot(cleanPath(path));
     }*/
     //dirs[cleanPath(Directory::getRoot()->getPath())] = Directory::getRoot(); // root is needed in dirs
-    Directory::setRoot("");
+    Directory::setRoot(path);
     dirs[""] = Directory::getRoot();
-    std::cout<<"Directory::getRoot()->getPath(): "<<dirs[""]->getPath()<<"\n";
 
     for(auto &it : std::filesystem::recursive_directory_iterator(path)) {
-        std::string this_path = cleanPath(it.path().string());
-        std::string father_path = (cleanPath(it.path().parent_path().string()) == path)?"":cleanPath(it.path().parent_path().string()); // if the father of this element is "root" set it as ""
-        std::cout<<"cleanPath(it.path().string(): "<<this_path<<"\n";
-        std::cout<<"cleanPath(it.path().parent_path().string()): "<<father_path<<"\n";
+        std::string this_path = cleanPath(it.path().string(),path);
+        std::string father_path = (cleanPath(it.path().parent_path().string(),path) == path)?"":cleanPath(it.path().parent_path().string(),path); // if the father of this element is "root" set it as ""
         if(it.is_directory()){
             std::weak_ptr<Directory> father = std::weak_ptr<Directory>();
             if(it.path().has_parent_path()/* && it.path().parent_path().string() != Directory::getRoot()->getPath()*/){
@@ -172,8 +178,8 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
                 // error handling
             }
             if(is_db_new){
-                db.exec("INSERT INTO FILE (path, hash)\n"
-                        "VALUES (\""+this_path+"\", \""+computeDigest(it.path().string())+"\")");
+                db.exec("INSERT INTO FILE (path, hash, name)\n"
+                        "VALUES (\""+this_path+"\", \""+computeDigest(it.path().string())+"\",\""+it.path().filename().string()+"\")");
             }
         }
     }
@@ -206,7 +212,7 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
             }
         }
         if(!found){
-            db.exec("INSERT INTO FILE (path,hash) VALUES (\""+it->second->getPath()+"\",\""+it->second->getHash()+"\")");
+            db.exec("INSERT INTO FILE (path,hash,name) VALUES (\""+it->second->getPath()+"\",\""+it->second->getHash()+"\",\""+it->second->getName()+"\")");
 2;      } else {
             if(!compareDigests(it2->getHash(),it->second->getHash())){
                 db.exec("UPDATE FILE SET hash = \""+it->second->getHash()+"\" WHERE path = \""+it->second->getPath()+"\"");
@@ -257,7 +263,7 @@ bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     }
     db.open();
 
-    db.exec("INSERT INTO FILE (path,hash) VALUES (\""+file->getPath()+"\",\""+file->getHash()+"\")");
+    db.exec("INSERT INTO FILE (path,hash,name) VALUES (\""+file->getPath()+"\",\""+file->getHash()+"\",\""+file->getName()+"\")");
 
     db.close();
 }

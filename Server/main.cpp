@@ -55,13 +55,25 @@ int main() {
         if (inet_ntop(AF_INET, &addr.sin_addr, name, sizeof(name)) == nullptr)
             throw std::runtime_error("Cannot convert");
         std::cout << "Got a connection from " << name << ":" << ntohs(addr.sin_port) << "\n";
-
         // SYNC 'client'
-        if (rcvSyncRequest(s, username) != 0) {
-            std::cout << "Errore\n";
-        } else {
-            db_path = "../DB/" + username + ".db";
-            userDirPath = "server_directory/" + username;
+        int cont = 0;
+        while(true) {
+            try{
+                if (rcvSyncRequest(s, username) != 0) {
+                    std::cout << "Errore in SYNC\n";
+                    throw 20;
+                } else {
+                    db_path = "../DB/" + username + ".db";
+                    userDirPath = "server_directory/" + username;
+                    break;
+                }
+
+            } catch (...) {
+                if(++cont == 3) exit(-1);
+                db_path = "../DB/" + username + ".db";
+                userDirPath = "server_directory/" + username;
+                check_user_data(userDirPath, db_path);
+            }
         }
         std::string msg;
         msg = rcvMsg(s);
