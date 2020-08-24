@@ -26,8 +26,7 @@
 
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5106
-#define MAXFD 50000
+#define PORT 5108
 
 ServerSocket ss(PORT);
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
@@ -51,10 +50,12 @@ int main() {
         Socket s = ss.accept(&addr, len);
         std::string username, userDirPath;
 
+
         char name[16];
         if (inet_ntop(AF_INET, &addr.sin_addr, name, sizeof(name)) == nullptr)
             throw std::runtime_error("Cannot convert");
         std::cout << "Got a connection from " << name << ":" << ntohs(addr.sin_port) << "\n";
+
         // SYNC 'client'
         int cont = 0;
         while(true) {

@@ -16,6 +16,9 @@
 
 class Socket {
      int sockfd;
+     int maxfd;
+     int timeout_secs;
+     int timeout_usecs;
 
      Socket(int sockfd);
 
@@ -31,7 +34,13 @@ class Socket {
      ssize_t write(const char *buffer, size_t len, int options);
      void connect(struct sockaddr_in *addr, unsigned int len);
 
-     int __sock_fd(){ return sockfd; }
+    void setMaxfd(int maxfd);
+
+    void setTimeoutSecs(int timeoutSecs);
+
+    void setTimeoutUsecs(int timeoutUsecs);
+
+    int __sock_fd(){ return sockfd; }
 
      friend class ServerSocket;
 
