@@ -8,42 +8,10 @@
 #include "../TCP_Socket/Socket.h"
 #include "../Crypto/MyCryptoLibrary.h"
 //#include <boost/beast/core/string.hpp>
-#include <boost/archive/iterators/base64_from_binary.hpp>
-#include <boost/archive/iterators/insert_linebreaks.hpp>
-#include <boost/archive/iterators/transform_width.hpp>
-#include <boost/archive/iterators/ostream_iterator.hpp>
 #include <fcntl.h>
 #include <sstream>
 
 #define SIZE 2048
-
-std::string b64_encode(std::string digest){
-    using namespace boost::archive::iterators;
-
-    std::stringstream os;
-    typedef
-    insert_linebreaks<         // insert line breaks every 72 characters
-            base64_from_binary<    // convert binary values to base64 characters
-                    transform_width<   // retrieve 6 bit integers from a sequence of 8 bit bytes
-                            const char *,
-                            6,
-                            8
-                    >
-            >
-            ,72
-    >
-            base64_text; // compose all the above operations in to a new iterator
-
-    std::copy(
-            base64_text(digest.c_str()),
-            base64_text(digest.c_str() + digest.size()),
-            ostream_iterator<char>(os)
-    );
-
-    return os.str();
-}
-
-
 
 //COMMUNICATION BETWEEN CLIENT AND SERVER
 int sendMsg(Socket& s, const std::string msg){
@@ -168,6 +136,7 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
             return 0;
         }
     }
+    close(from);
     return 0;
 };
 

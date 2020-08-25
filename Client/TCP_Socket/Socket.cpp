@@ -54,7 +54,6 @@ ssize_t Socket::read(char *buffer, size_t len, int options){
 
     FD_ZERO(&rfds);
     FD_SET(sockfd,&rfds);
-
     int select_ret = select(maxfd+1,&rfds,NULL,NULL,(timeout_secs >= 0)?&tv:NULL); // if timeout_secs < 0 -> wait forever
     if(select_ret == 0){
         // timeout expired

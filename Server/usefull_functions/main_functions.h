@@ -5,6 +5,8 @@
 #ifndef PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
 #define PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
 
+#include "../Crypto/MyCryptoLibrary.h"
+
 bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
     std::ifstream db_file(db_path);
@@ -239,7 +241,7 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
             std::cout<<root->getName()<<std::endl;
             check_user_data(root->getName(),db_path);
             initialize_files_and_dirs(files,dirs,db_path,root);
-            std::string digest = b64_encode(computeDigest(db_path));
+            std::string digest = computeDigest(db_path);
             std::cout<<"digest: "<<digest<<std::endl;
             sendMsg(s,"DIGEST "+digest);
         }else{

@@ -183,7 +183,7 @@ int main(int argc, char** argv)
         }
     }
     // check if the DB is updated
-    if(!compareDigests(server_digest,b64_encode(computeDigest("../DB/"+username+".db")))){
+    if(!compareDigests(server_digest,computeDigest("../DB/"+username+".db"))){
         std::cout<<"server DB is not updated\n";
         // get DB from server
         sendMsg(s,"GET-DB");
