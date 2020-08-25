@@ -26,57 +26,8 @@ std::string rcvMsg(Socket& s){
     std::cout<<"Stringa ricevuta: "<<std::string(msg)<<" msg-size: "<<size<<std::endl;
     return std::string(msg);
 };
-/*
-std::string syncRequest(Socket& s, const std::string client){
-    // <- SYNC 'client'
-    sendMsg(s, std::string ("SYNC "+client));
-    std::string msg = rcvMsg(s);
-    if (msg == "SYNC-ERROR"){
-        //SYNC-ERROR
-        sendMsg(s, "SYNC-ERROR");
-        return std::string("SYNC-ERROR");
-    }else{
-        //SYNC-OK
-        sendMsg(s, "SYNC-OK");
-        std::string digest = rcvMsg(s);
-        if(digest.find("DIGEST") == 0) // ok
-            return std::string (digest.substr(digest.find(" ")+1));
-        else
-            return "SYNC-ERROR";
-    }
-}*/
-
-/*
-int rcvSyncRequest(Socket& s, std::string& username) {
-
-    std::string msg = rcvMsg(s);
-    std::string delimiter = " ";
-    std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
-    username = client;
-    //std::cout<<"client: "<<client<<std::endl;
-    std::string filePath = "../DB/"+client+".db";
-    //std::cout<<"file path: -"<<filePath<<"-"<<std::endl;
-
-    std::ifstream input(filePath);
-    if (input.is_open()){
-        sendMsg(s, "SYNC-OK");
-        std::string msg = rcvMsg(s);
-        if (msg == "SYNC-OK"){
-            std::string digest = b64_encode(computeDigest(filePath));
-            sendMsg(s,"DIGEST "+digest);
-        }else{
-            //ERRORE
-            std::cout<<"ERRORE"<<std::endl;
-        }
-        return 0;
-    }else{
-        sendMsg(s, "SYNC-ERROR");
-        return -1;
-    }
-} */
 
 int rcvFile(Socket& s, const std::string path){
-
     std::string fileData = rcvMsg(s); // FILE <path> <length>
     int length = std::stoi(fileData.substr(fileData.find_last_of(" ")));
     sendMsg(s, "OK");
@@ -105,6 +56,7 @@ int rcvFile(Socket& s, const std::string path){
         w=::write(to,buf,rec);
         //std::cout<<write<<std::endl;
     }
+    close(to);
     return -1;
 };
 

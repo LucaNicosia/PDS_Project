@@ -4,6 +4,8 @@
 
 #include <fcntl.h>
 #include "Socket.h"
+#include <errno.h>
+#include <sys/select.h>
 
 #define SIZE 2048
 #define MAXFD 50000
@@ -61,7 +63,7 @@ ssize_t Socket::read(char *buffer, size_t len, int options){
     }
     if(select_ret < 0){
         // some error accours
-        throw std::runtime_error("error in select");
+        throw std::runtime_error("error in select ("+std::to_string(errno)+")");
     }
     ssize_t res = recv(sockfd, buffer, len, options);
     if (res < 0) throw std::runtime_error("Cannot read from socket");
@@ -85,7 +87,7 @@ ssize_t Socket::write(const char *buffer, size_t len, int options){
     }
     if(select_ret < 0){
         // some error accours
-        throw std::runtime_error("error in select");
+        throw std::runtime_error("error in select: "+std::to_string(errno));
     }
     ssize_t res = send(sockfd, buffer, len, options);
     if (res < 0) throw std::runtime_error("Cannot write to socket");

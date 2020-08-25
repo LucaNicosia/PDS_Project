@@ -26,7 +26,7 @@
 
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5109
+#define PORT 5108
 
 ServerSocket ss(PORT);
 std::shared_ptr<Directory> root;
@@ -98,21 +98,31 @@ int main() {
         while (1) {
             msg = rcvMsg(s);
             const char *delimiter = " ";
-            char *token = std::strtok(const_cast<char *>(msg.c_str()), delimiter);
-            int i = 0;
+            //char *token = std::strtok(const_cast<char *>(msg.c_str()), delimiter);
+            //int i = 0;
             std::string path;
             std::string name;
             std::string type;
             std::string operation;
-            while (token != NULL) {
+            /*while (token != NULL) {
                 if (i == 0) type = std::string(token);
                 if (i == 1) path = std::string(token);
                 if (i == 2) operation = std::string(token);
                 token = std::strtok(NULL, delimiter);
                 i++;
-            }
+            }*/
+            // DIR marco marco created
+            std::cout<<"msg: "<<msg<<std::endl;
+            operation = msg.substr(msg.find_last_of(" ")+1); // created
+            msg = msg.substr(0, msg.find_last_of(" ")); // DIR marco marco
+            type = msg.substr(0,msg.find_first_of(" ")); // DIR
+            msg = msg.substr(msg.find_first_of(" ")+1); // marco marco
+            //path = msg.substr(msg.find_first_of(" ")+1, msg.find_last_of(" ")); // marco marco
+            path = msg;
 
-            name = path.substr(path.find_last_of("/") + 1, path.size());
+            std::cout<<"computed: path: "<<path<<" op: "<<operation<<" type: "<<type<<std::endl;
+
+            name = path.substr(path.find_last_of("/") + 1);
             std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(path)];
             if (type == "FILE") {
                 // file modification handler

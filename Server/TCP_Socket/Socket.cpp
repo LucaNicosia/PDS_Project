@@ -10,8 +10,6 @@
 #define SIZE 2048
 #define MAXFD 50000
 
-int n_message = 0;
-
 Socket::Socket(int sockfd): sockfd(sockfd), maxfd(MAXFD), timeout_secs(-1){
     // default timeout = -1 -> unlimited
     std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
@@ -58,7 +56,6 @@ ssize_t Socket::read(char *buffer, size_t len, int options){
 
     FD_ZERO(&rfds);
     FD_SET(sockfd,&rfds);
-    n_message++;
     int select_ret = select(maxfd+1,&rfds,NULL,NULL,(timeout_secs >= 0)?&tv:NULL); // if timeout_secs < 0 -> wait forever
     if(select_ret == 0){
         // timeout expired
@@ -66,8 +63,7 @@ ssize_t Socket::read(char *buffer, size_t len, int options){
     }
     if(select_ret < 0){
         // some error accours
-        std::cout<<"sockfd: "<<sockfd<<std::endl;
-        throw std::runtime_error("error in select ("+std::to_string(errno)+") after "+std::to_string(n_message)+" messages");
+        throw std::runtime_error("error in select ("+std::to_string(errno)+")");
     }
     ssize_t res = recv(sockfd, buffer, len, options);
     if (res < 0) throw std::runtime_error("Cannot read from socket");
