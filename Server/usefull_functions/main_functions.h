@@ -113,6 +113,7 @@ void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::m
 }
 
 void check_user_data(const std::string& username_dir, const std::string& db_path){
+    std::cout<<username_dir<<std::endl;
     if(!std::filesystem::is_directory(username_dir)){
         // username directory doesn't exists, create it
         std::filesystem::create_directories(username_dir);
@@ -136,12 +137,14 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
     }
 }
 
-void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory> root){
+void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory>& root){
     Database db(db_path);
     int nFiles, nDirs;
     std::vector<File> queryFiles;
     std::vector<Directory> queryDirs;
+    std::cout<<"ciao"<<std::endl;
     std::string path = root->getName();
+    std::cout<<path<<std::endl;
 
     dirs[""] = root;
 
@@ -215,12 +218,13 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     root->ls(4);
 }
 
-int rcvSyncRequest(Socket& s, std::string& username, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
+int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
 
     std::string msg = rcvMsg(s);
     std::string delimiter = " ";
     std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
     username = client;
+    root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
     //std::cout<<"client: "<<client<<std::endl;
     std::string db_path = "../DB/"+client+".db";
     //std::cout<<"file path: -"<<filePath<<"-"<<std::endl;
@@ -231,9 +235,12 @@ int rcvSyncRequest(Socket& s, std::string& username, std::shared_ptr<Directory>&
         std::string msg = rcvMsg(s);
         if (msg == "SYNC-OK"){
             // TODO: queste 2 operazioni potrebbero andare in un thread
-            check_user_data(root->getName()+"/"+username,db_path);
+            std::cout<<"ciao"<<std::endl;
+            std::cout<<root->getName()<<std::endl;
+            check_user_data(root->getName(),db_path);
             initialize_files_and_dirs(files,dirs,db_path,root);
             std::string digest = b64_encode(computeDigest(db_path));
+            std::cout<<"digest: "<<digest<<std::endl;
             sendMsg(s,"DIGEST "+digest);
         }else{
             //ERRORE

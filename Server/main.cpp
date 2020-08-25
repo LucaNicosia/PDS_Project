@@ -29,8 +29,7 @@
 #define PORT 5109
 
 ServerSocket ss(PORT);
-Directory root;
-std::shared_ptr<Directory> root_ptr;
+std::shared_ptr<Directory> root;
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path;
@@ -61,27 +60,29 @@ int main() {
         int cont = 0;
         while(true) {
             try{
-                if (rcvSyncRequest(s,username,root_ptr,files,dirs) != 0) {
+                if (rcvSyncRequest(s,username,root_path,root,files,dirs) != 0) {
                     std::cout << "Errore in SYNC\n";
                     throw 20;
                 } else {
                     db_path = "../DB/" + username + ".db";
                     userDirPath = root_path + "/" + username;
                     //ROOT INITIALIZATION
-                    root_ptr = root.makeDirectory(userDirPath, std::weak_ptr<Directory>());
+                    //root_ptr->setName(userDirPath); // set the root as root_path/<username>
                     break;
                 }
 
             } catch (...) {
                 //TODO: da rifare la catch
+                if(username == ""){
+                    // invalid username -> throw
+                    throw std::runtime_error("error during sync: invalid username");
+                }
                 if(++cont == 3) exit(-1);
                 db_path = "../DB/" + username + ".db";
                 userDirPath = root_path + "/" + username;
-
+                check_user_data(userDirPath, db_path); // try to create db and directory
                 //ROOT INITIALIZATION
-                root_ptr = root.makeDirectory(userDirPath, std::weak_ptr<Directory>());
-
-                check_user_data(userDirPath, db_path);
+                //root_ptr->setName(userDirPath); // set the root as root_path/<username>
             }
         }
         std::string msg;
