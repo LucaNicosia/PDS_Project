@@ -26,7 +26,7 @@
 
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5108
+#define PORT 5109
 
 ServerSocket ss(PORT);
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
@@ -76,6 +76,8 @@ int main() {
                 check_user_data(userDirPath, db_path);
             }
         }
+        if(cont == 0) // check_user_data isn't done until now
+            check_user_data(userDirPath,db_path);
         std::string msg;
         msg = rcvMsg(s);
         if (msg == "GET-DB") { // client asks for server.db database version

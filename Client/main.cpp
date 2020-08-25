@@ -28,7 +28,7 @@
 #include "./FileManager/FileWatcher.h"
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5108
+#define PORT 5109
 #define MAXFD 50000
 
 
@@ -145,6 +145,7 @@ auto modification_function = [](const std::string file, const std::string filePa
     stampaFilesEDirs(files, dirs);
 };
 
+//TODO: rifare la sync
 
 int main(int argc, char** argv)
 {
