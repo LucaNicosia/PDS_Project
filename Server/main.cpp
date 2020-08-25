@@ -26,7 +26,7 @@
 
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5108
+#define PORT 5109
 
 ServerSocket ss(PORT);
 Directory root;
@@ -42,7 +42,6 @@ int main() {
     File f2 {};
     Directory d;
     pthread_t threads[100];
-//    std::string path = "TestPath";
 
     while (true) {
 
@@ -50,7 +49,7 @@ int main() {
         socklen_t len = sizeof(addr);
         std::cout << "Waiting for incoming connections at port " << PORT << "..." << std::endl;
         Socket s = ss.accept(&addr, len);
-        std::string username, root_path;
+        std::string username, root_path = "server_directory", userDirPath;
 
 
         char name[16];
@@ -62,26 +61,27 @@ int main() {
         int cont = 0;
         while(true) {
             try{
-                if (rcvSyncRequest(s, username) != 0) {
+                if (rcvSyncRequest(s,username,root_ptr,files,dirs) != 0) {
                     std::cout << "Errore in SYNC\n";
                     throw 20;
                 } else {
                     db_path = "../DB/" + username + ".db";
-                    root_path = "server_directory/" + username;
+                    userDirPath = root_path + "/" + username;
                     //ROOT INITIALIZATION
-                    root_ptr = root.makeDirectory(root_path, std::weak_ptr<Directory>());
+                    root_ptr = root.makeDirectory(userDirPath, std::weak_ptr<Directory>());
                     break;
                 }
 
             } catch (...) {
+                //TODO: da rifare la catch
                 if(++cont == 3) exit(-1);
                 db_path = "../DB/" + username + ".db";
-                root_path = "server_directory/" + username;
+                userDirPath = root_path + "/" + username;
 
                 //ROOT INITIALIZATION
-                root_ptr = root.makeDirectory(root_path, std::weak_ptr<Directory>());
+                root_ptr = root.makeDirectory(userDirPath, std::weak_ptr<Directory>());
 
-                check_user_data(root_path, db_path);
+                check_user_data(userDirPath, db_path);
             }
         }
         std::string msg;
@@ -93,9 +93,6 @@ int main() {
         } else {
             // error
         }
-
-        //Populate files and dirs
-        initialize_files_and_dirs(files, dirs, root_path, db_path, root_ptr);
 
         while (1) {
             msg = rcvMsg(s);
@@ -121,9 +118,9 @@ int main() {
 
                 if (operation == "created") {
                     sendMsg(s, "READY");
-                    rcvFile(s, root_path + "/" + path);
+                    rcvFile(s, userDirPath+"/"+path);
                     sendMsg(s, "DONE");
-                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(root_path + "/"+path), false);
+                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(userDirPath + "/"+path), false);
                     files[file->getPath()] = file;
                     if(insertFileIntoDB(db_path, file))
                         std::cout<<"File inserito correttamente sul DB"<<std::endl;
@@ -145,9 +142,9 @@ int main() {
                     father.lock()->removeFile(name);
                     files.erase(path);
                     sendMsg(s, "READY");
-                    rcvFile(s, root_path + "/" + path);
+                    rcvFile(s, userDirPath + "/" + path);
                     sendMsg(s, "DONE");
-                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(root_path + "/"+path), false);
+                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(userDirPath + "/"+path), false);
                     files[file->getPath()] = file;
                     if(insertFileIntoDB(db_path, file))
                         std::cout<<"File inserito correttamente sul DB"<<std::endl;

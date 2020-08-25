@@ -136,11 +136,12 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
     }
 }
 
-void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string path, std::string db_path, std::shared_ptr<Directory> root){
+void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory> root){
     Database db(db_path);
     int nFiles, nDirs;
     std::vector<File> queryFiles;
     std::vector<Directory> queryDirs;
+    std::string path = root->getName();
 
     dirs[""] = root;
 
@@ -152,7 +153,6 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     db.close();
     for (int i = 0; i < nDirs; i++){
         std::string server_path = path + "/" + queryDirs[i].getPath();
-        std::cout<<server_path<<" --- "<<Directory::getFatherFromPath(server_path)<<"\n";
         std::weak_ptr<Directory> father;
         father = dirs[Directory::getFatherFromPath(queryDirs[i].getPath())]->getSelf();
         std::shared_ptr<Directory> dir = father.lock()->addDirectory(queryDirs[i].getName(), !std::filesystem::is_directory(server_path)); // if it is already a directory, it is not created
@@ -160,12 +160,25 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     }
 
     for (int i = 0; i < nFiles; i++){
+        std::string server_path = path + "/" + queryFiles[i].getPath();
         std::size_t found = queryFiles[i].getPath().find_last_of("/");
         queryFiles[i].setName(queryFiles[i].getPath().substr(found+1));
         std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
-        std::shared_ptr<File> file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(), false);
+        std::shared_ptr<File> file;
+        if(!std::filesystem::exists(std::filesystem::status(server_path))){
+            std::cout<<"file "<<server_path<<" doesn't exists, creating it\n";
+            file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(),true); // if doesn't exists, create it empty and set 'hash' = ""
+            file->setHash(computeDigest(server_path));
+            updateFileDB(db_path,file);
+        }
+        else{
+            file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(),false);
+        }
         files[file->getPath()] = file;
     }
+
+    std::cout<<">> files and dirs del DB\n";
+    stampaFilesEDirs(files,dirs);
 
     // files and dirs contains only db data. Check if data actually stored is right
     
@@ -182,20 +195,55 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     // if they are on db but not in memory, delete from db
     for(auto it : files){
         if(!std::filesystem::exists(std::filesystem::status(path + "/" + it.second->getPath()))){
+            std::cout<<"\tfile "<<it.second->getPath()<<" doesn't exits\n";
             deleteFileFromDB(db_path,it.second);
             it.second->getDFather().lock()->removeFile(it.second->getName());
             files.erase(it.first);
         }
     }
     for(auto it : dirs){
-        if(!std::filesystem::exists(std::filesystem::status(path + "/" + it.second->getPath()))){
+        if(!std::filesystem::is_directory(path + "/" + it.second->getPath())){
+            std::cout<<"\tdir "<<it.second->getPath()<<" doesn't exits\n";
             deleteDirectoryFromDB(db_path,it.second);
             it.second->getDFather().lock()->removeDir(it.second->getName());
             dirs.erase(it.first);
         }
     }
+
+    std::cout<<">> files e dirs dopo\n";
     stampaFilesEDirs(files, dirs);
     root->ls(4);
+}
+
+int rcvSyncRequest(Socket& s, std::string& username, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
+
+    std::string msg = rcvMsg(s);
+    std::string delimiter = " ";
+    std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
+    username = client;
+    //std::cout<<"client: "<<client<<std::endl;
+    std::string db_path = "../DB/"+client+".db";
+    //std::cout<<"file path: -"<<filePath<<"-"<<std::endl;
+
+    std::ifstream input(db_path);
+    if (input.is_open()){
+        sendMsg(s, "SYNC-OK");
+        std::string msg = rcvMsg(s);
+        if (msg == "SYNC-OK"){
+            // TODO: queste 2 operazioni potrebbero andare in un thread
+            check_user_data(root->getName()+"/"+username,db_path);
+            initialize_files_and_dirs(files,dirs,db_path,root);
+            std::string digest = b64_encode(computeDigest(db_path));
+            sendMsg(s,"DIGEST "+digest);
+        }else{
+            //ERRORE
+            std::cout<<"ERRORE"<<std::endl;
+        }
+        return 0;
+    }else{
+        sendMsg(s, "SYNC-ERROR");
+        return -1;
+    }
 }
 
 #endif //PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H

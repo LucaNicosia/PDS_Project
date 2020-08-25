@@ -58,7 +58,7 @@ std::string rcvMsg(Socket& s){
     std::cout<<"Stringa ricevuta: "<<std::string(msg)<<" msg-size: "<<size<<std::endl;
     return std::string(msg);
 };
-
+/*
 std::string syncRequest(Socket& s, const std::string client){
     // <- SYNC 'client'
     sendMsg(s, std::string ("SYNC "+client));
@@ -76,8 +76,9 @@ std::string syncRequest(Socket& s, const std::string client){
         else
             return "SYNC-ERROR";
     }
-}
+}*/
 
+/*
 int rcvSyncRequest(Socket& s, std::string& username) {
 
     std::string msg = rcvMsg(s);
@@ -104,7 +105,7 @@ int rcvSyncRequest(Socket& s, std::string& username) {
         sendMsg(s, "SYNC-ERROR");
         return -1;
     }
-}
+} */
 
 int rcvFile(Socket& s, const std::string path){
 

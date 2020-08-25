@@ -34,3 +34,4 @@
 # Added By Luca Nicosia
 **/cmake-build-debug/*
 **/workspace.xml
+*.db

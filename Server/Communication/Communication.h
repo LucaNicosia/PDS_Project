@@ -59,6 +59,8 @@ std::string rcvMsg(Socket& s){
     return std::string(msg);
 };
 
+/*
+
 std::string syncRequest(Socket& s, const std::string client){
     // <- SYNC 'client'
     sendMsg(s, std::string ("SYNC "+client));
@@ -105,7 +107,7 @@ int rcvSyncRequest(Socket& s, std::string& username) {
         return -1;
     }
 }
-
+*/
 int rcvFile(Socket& s, const std::string path){
 
     std::string fileData = rcvMsg(s); // FILE <path> <length>
