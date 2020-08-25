@@ -139,7 +139,7 @@ int main() {
                     sendMsg(s, "READY");
                     rcvFile(s, userDirPath + "/" + path);
                     sendMsg(s, "DONE");
-                    std::shared_ptr<File> file = father.lock()->addFile(name, userDirPath + "/"+path, false);
+                    std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(userDirPath + "/"+path), false);
                     files[file->getPath()] = file;
                     if(insertFileIntoDB(db_path, file))
                         std::cout<<"File inserito correttamente sul DB"<<std::endl;

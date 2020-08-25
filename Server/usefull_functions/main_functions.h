@@ -17,6 +17,7 @@ bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     db.exec("INSERT INTO FILE (path,hash,name) VALUES (\""+file->getPath()+"\",\""+file->getHash()+"\",\""+file->getName()+"\")");
 
     db.close();
+    return true;
 }
 bool deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& file){
     Database db(db_path);
@@ -31,6 +32,7 @@ bool deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& f
     db.exec("DELETE FROM FILE WHERE path = \""+file->getPath()+"\"");
 
     db.close();
+    return true;
 }
 bool updateFileDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
@@ -45,6 +47,7 @@ bool updateFileDB(const std::string& db_path, std::shared_ptr<File>& file){
     db.exec("UPDATE FILE SET hash = \""+file->getHash()+"\" WHERE path = \""+file->getPath()+"\"");
 
     db.close();
+    return true;
 }
 
 bool insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
@@ -60,6 +63,7 @@ bool insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory
     db.exec("INSERT INTO DIRECTORY (path,name) VALUES (\""+dir->getPath()+"\", "+"\""+dir->getName()+"\")");
 
     db.close();
+    return true;
 }
 bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Directory>& dir){
     Database db(db_path);
@@ -81,8 +85,8 @@ bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dir
     }
 
     db.close();
+    return true;
 }
-
 
 std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
     std::string head = path;
