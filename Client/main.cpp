@@ -156,6 +156,8 @@ int main(int argc, char** argv)
     updateDB(db_path,files,dirs);
     stampaFilesEDirs(files,dirs);
     // connect to the remote server
+    s.setTimeoutSecs(-1);
+    s.setTimeoutUsecs(0);
     s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
     // sync with the server
     int cont = 0;

@@ -13,7 +13,10 @@
 #include <unistd.h>
 
 class Socket {
-     int sockfd;
+    int sockfd;
+    int maxfd;
+    int timeout_secs;
+    int timeout_usecs;
 
      Socket(int sockfd);
 
@@ -29,6 +32,12 @@ class Socket {
      ssize_t write(const char *buffer, size_t len, int options);
      void connect(struct sockaddr_in *addr, unsigned int len);
      void inizialize_and_connect(in_port_t port, sa_family_t family, const std::string& address);
+
+    void setMaxfd(int maxfd);
+
+    void setTimeoutSecs(int timeoutSecs);
+
+    void setTimeoutUsecs(int timeoutUsecs);
 
      int __sock_fd(){ return sockfd; }
 
