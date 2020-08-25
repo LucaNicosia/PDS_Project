@@ -336,6 +336,26 @@ bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dir
     db.close();
     return true;
 }
+
+std::string syncRequest(Socket& s, const std::string client){
+    // <- SYNC 'client'
+    sendMsg(s, std::string ("SYNC "+client));
+    std::string msg = rcvMsg(s);
+    if (msg == "SYNC-ERROR"){
+        //SYNC-ERROR
+        //sendMsg(s, "SYNC-ERROR");
+        return std::string("SYNC-ERROR");
+    }else{
+        //SYNC-OK
+        sendMsg(s, "SYNC-OK");
+        std::string digest = rcvMsg(s);
+        if(digest.find("DIGEST") == 0) // ok
+            return std::string (digest.substr(digest.find(" ")+1));
+        else
+            return "SYNC-ERROR";
+    }
+}
+
 //bool updateDirectoryDB(const std::string& db_path, std::shared_ptr<Directory>& dir){}
 
 #endif //PDS_PROJECT_CLIENT_MAIN_FUNCTIONS_H

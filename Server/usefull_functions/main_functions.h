@@ -217,4 +217,35 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     root->ls(4);
 }
 
+int rcvSyncRequest(Socket& s, std::string& username, std::string& path, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
+
+    std::string msg = rcvMsg(s);
+    std::string delimiter = " ";
+    std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
+    username = client;
+    //std::cout<<"client: "<<client<<std::endl;
+    std::string db_path = "../DB/"+client+".db";
+    //std::cout<<"file path: -"<<filePath<<"-"<<std::endl;
+
+    std::ifstream input(db_path);
+    if (input.is_open()){
+        sendMsg(s, "SYNC-OK");
+        std::string msg = rcvMsg(s);
+        if (msg == "SYNC-OK"){
+            // TODO: queste 2 operazioni potrebbero andare in un thread
+            check_user_data(path+"/"+username,db_path);
+            initialize_files_and_dirs(files,dirs,path,db_path);
+            std::string digest = b64_encode(computeDigest(db_path));
+            sendMsg(s,"DIGEST "+digest);
+        }else{
+            //ERRORE
+            std::cout<<"ERRORE"<<std::endl;
+        }
+        return 0;
+    }else{
+        sendMsg(s, "SYNC-ERROR");
+        return -1;
+    }
+}
+
 #endif //PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H

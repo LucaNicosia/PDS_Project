@@ -60,7 +60,7 @@ int main() {
         int cont = 0;
         while(true) {
             try{
-                if (rcvSyncRequest(s, username) != 0) {
+                if (rcvSyncRequest(s, username, path,files,dirs) != 0) {
                     std::cout << "Errore in SYNC\n";
                     throw 20;
                 } else {
@@ -70,6 +70,7 @@ int main() {
                 }
 
             } catch (...) {
+                //TODO: da rifare la catch
                 if(++cont == 3) exit(-1);
                 db_path = "../DB/" + username + ".db";
                 userDirPath = "server_directory/" + username;
