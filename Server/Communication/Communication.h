@@ -36,19 +36,19 @@ int rcvFile(Socket& s, const std::string path){
     to=creat(path.c_str(),0777);
     if(to<0){
         std::cout<<"Error creating destination file at "<<path<<"\n";
-        return 0;
+        return -1;
     }
     while(length > 0){
         rec = s.read(buf,sizeof(buf),0);
         if(rec<0){
             std::cout<<"Error receiving\n";
-            return 0;
+            return -1;
         }
         length -= rec;
         ::write(to,buf,rec);
     }
     close(to);
-    return -1;
+    return 0;
 };
 
 
@@ -59,7 +59,12 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
     int length = myFile.tellg();
     myFile.close();
     sendMsg(s, std::string ("FILE "+path_to_send+" "+std::to_string(length)));
-    if(rcvMsg(s) != "OK"){
+    std::string msg = rcvMsg(s);
+    if(msg == "OKDONE" && length == 0) {
+        // no data to tranfer,return
+        return 1;
+    }
+    if(msg != "OK"){
         std::cout<<"error in sendFile\n";
         return -1;
     }

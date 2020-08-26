@@ -123,10 +123,17 @@ auto modification_function = [](const std::string file, const std::string filePa
     if(res == "DONE" && fs == FileStatus::erased) // file or directory cancellation needs only a "DONE" message
         return;
     if(res == "READY" && ft == FileType::file){
-        sendFile(s,filePath,cleaned_path);
-        res = rcvMsg(s);
-        if(res == "DONE") // file sended correctly
-            return;
+        int ret = sendFile(s,filePath,cleaned_path);
+        if(ret < 0){
+            // error handling
+        }
+        if(ret == 0) {
+            res = rcvMsg(s);
+            if (res != "DONE") { // file sended correctly
+                //error handling
+            }
+        }
+        return;
     }
     // if all went good, the code is already returned
     // error routine
