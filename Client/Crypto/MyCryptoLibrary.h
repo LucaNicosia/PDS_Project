@@ -12,9 +12,10 @@
 #include "cryptopp/filters.h"
 #include "cryptopp/base64.h"
 
+CryptoPP::SHA1 hash_to_append;
+
 //Hash a file, which path is given.
 std::string computeDigest(std::string filePath){
-    CryptoPP::HexEncoder encoder(new CryptoPP::FileSink(std::cout));
     std::string digest;
     CryptoPP::SHA1 hash;
     std::ifstream input( filePath );
@@ -22,15 +23,14 @@ std::string computeDigest(std::string filePath){
         std::string line;
         while (std::getline(input, line)) {
             // using printf() in all tests for consistency
-            //std::cout<<line<<std::endl;
-            hash.Update((const byte*)line.data(), line.size());
+            hash.Update(reinterpret_cast<const byte*>(line.data()), line.size());
         }
         input.close();
     }else{
         return std::string("DIGEST-ERROR");
     }
     digest.resize(hash.DigestSize());
-    hash.Final((byte*)&digest[0]);
+    hash.Final(reinterpret_cast<byte*>(&digest[0]));
     std::string encoded;
     CryptoPP::StringSource(digest, true, new CryptoPP::Base64Encoder(new CryptoPP::StringSink(encoded)));
     encoded = encoded.substr(0,encoded.size()-1); // remove "\n" at the end
@@ -38,9 +38,23 @@ std::string computeDigest(std::string filePath){
     return encoded;
 }
 
+void appendDigest(const std::string& str){
+    hash_to_append.Update(reinterpret_cast<const byte*>(str.c_str()),str.size());
+}
+
+std::string getAppendedDigest(){
+    std::string digest,encoded;
+    digest.resize(hash_to_append.DigestSize());
+    hash_to_append.Final(reinterpret_cast<byte*>(&digest[0]));
+    hash_to_append.Restart();
+    CryptoPP::StringSource(digest, true, new CryptoPP::Base64Encoder(new CryptoPP::StringSink(encoded)));
+    encoded = encoded.substr(0,encoded.size()-1); // remove "\n" at the end
+    return encoded;
+}
+
 
 bool compareDigests(std::string digest1, std::string digest2){
-    return (digest1.compare(digest2)!=0)?false:true;
+    return digest1.compare(digest2) == 0;
 }
 
 #endif //PDS_PROJECT_CLIENT_CRYPTO_H

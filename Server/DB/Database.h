@@ -54,8 +54,11 @@ public:
         return rc;
     }
     int close(){
-        if(status == SQLITE_OK)
+        if(status == SQLITE_OK) {
+            status = -1;
             sqlite3_close(db);
+            std::cout<<"Database "<<db_name<<" closed"<<std::endl;
+        }
         return 0;
     }
 

@@ -205,6 +205,20 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     }
 }
 
+// server and client may have different order on db, compute the digest manually
+std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
+    // files and dirs contains data of db and also stored in memory
+    for(auto it : files){
+        appendDigest(it.second->toString());
+    }
+    for(auto it : dirs){
+        if(it.second->getPath() == "") // root is not included in db
+            continue;
+        appendDigest(it.second->toString());
+    }
+    return getAppendedDigest();
+}
+
 int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
 
     std::string msg = rcvMsg(s);
@@ -221,7 +235,7 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
         if (msg == "SYNC-OK"){
             check_user_data(root->getName(),db_path);
             initialize_files_and_dirs(files,dirs,db_path,root);
-            std::string digest = computeDigest(db_path);
+            std::string digest = compute_db_digest(files,dirs);
             sendMsg(s,"DIGEST "+digest);
         }else{
             //ERRORE

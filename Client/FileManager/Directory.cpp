@@ -195,7 +195,7 @@ void Directory::ls(int indent) const{
 }
 
 std::string Directory::toString (){
-    return "PATH = "+path+" NAME = "+name+" ROOT_PATH = "+root.lock()->getPath()+" ROOT_NAME = "+root.lock()->getName();
+    return "PATH = "+path+" NAME = "+name;
 }
 
 std::weak_ptr<Directory> Directory::getRoot() {

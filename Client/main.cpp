@@ -143,6 +143,7 @@ int main(int argc, char** argv)
     // inizialization of data structures
     initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
     updateDB(db_path,files,dirs, root_ptr);
+
     // connect to the remote server
     s.setTimeoutSecs(20);
     s.setTimeoutUsecs(0);
@@ -150,7 +151,7 @@ int main(int argc, char** argv)
     // sync with the server
     int cont = 0;
     std::string server_digest;
-    std::cout<<"client db digest: "<<computeDigest(db_path);
+    std::string client_digest = compute_db_digest(files,dirs);
 
     while(true) {
         try {
@@ -166,7 +167,7 @@ int main(int argc, char** argv)
         }
     }
     // check if the DB is updated
-    if(!compareDigests(server_digest,computeDigest(db_path))){
+    if(!compareDigests(server_digest,client_digest)){
         std::cout<<"server DB is not updated\n";
         // get DB from server
         sendMsg(s,"GET-DB");
@@ -180,7 +181,7 @@ int main(int argc, char** argv)
     }
     // SYN with server completed, starting to monitor client directory
     synchronized = true;
-    std::thread t1([&fw]() { fw.start(modification_function); });
+    std::thread t1([&fw]() { fw.start(modification_function);});
     std::cout<<"--- System ready ---\n";
     //std::this_thread::sleep_for(std::chrono::seconds(5000));
     //fw.stop();

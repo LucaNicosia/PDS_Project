@@ -86,7 +86,7 @@ int main() {
         std::string msg;
         msg = rcvMsg(s);
         if (msg == "GET-DB") { // client asks for server.db database version
-            sendFile(s, db_path, db_path);
+            sendFile(s, db_path, cleanPath(db_path,"../DB"));
         } else if (msg == "Database up to date") {
             //OK
         } else {

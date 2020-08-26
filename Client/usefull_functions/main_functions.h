@@ -342,4 +342,18 @@ std::string syncRequest(Socket& s, const std::string client){
     }
 }
 
+// server and client may have different order on db, compute the digest manually
+std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
+    // files and dirs contains data of db and also stored in memory
+    for(auto it : files){
+        appendDigest(it.second->toString());
+    }
+    for(auto it : dirs){
+        if(it.second->getPath() == "") // root is not included in db
+            continue;
+        appendDigest(it.second->toString());
+    }
+    return getAppendedDigest();
+}
+
 #endif //PDS_PROJECT_CLIENT_MAIN_FUNCTIONS_H
