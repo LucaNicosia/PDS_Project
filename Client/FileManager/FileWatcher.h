@@ -66,14 +66,11 @@ public:
                 //send files
                 if (!std::filesystem::exists(std::filesystem::status(it->first))){
                     if (paths[it->first].type == FileType::file) {
-
-                        std::cout<<"F it->first = "<<it->first<<std::endl;
                         action(it->first, it->first, FileStatus::erased, it->second.type); // mando se è file
                         it = paths.erase(it);
                     }
                     else {
                         //preparing directories to send at the end
-                        std::cout<<"D it->first = "<<it->first<<std::endl;
                         struct tmp x;
                         x.file = it->first;
                         x.filePath = it->first;
@@ -89,7 +86,6 @@ public:
                 }
             }
             for (int i = t.size()-1; i >= 0; i--){
-                //std::cout<<"*****"<<t[i].filePath<<"*****"<<std::endl;
                 action(t[i].file, t[i].filePath, t[i].fs, t[i].ft);
             }
             t.clear();
@@ -103,7 +99,6 @@ public:
                     paths[file.path().string()].last_mod = current_file_last_write_time;
                     paths[file.path().string()].type = (file.is_directory()) ? FileType::directory : FileType::file;
                     if (paths[file.path().string()].type == FileType::directory){
-
                         action(file.path().filename().string(), file.path().string(), FileStatus::created, FileType::directory);
                     }else{
                         struct tmp x;
@@ -113,7 +108,6 @@ public:
                         x.ft = FileType::file;
                         t.push_back(x);
                     }
-
                 } else {
                     // File modification
                     if(paths[file.path().string()].last_mod != current_file_last_write_time) {

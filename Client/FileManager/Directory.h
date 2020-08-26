@@ -35,8 +35,6 @@ public:
     std::shared_ptr<Directory> addDirectory(std::string dName, const bool& create_flag);
     static std::shared_ptr<Directory> makeDirectory( std::string dName, std::weak_ptr<Directory> dFather);
     std::shared_ptr<File> addFile (const std::string name, const std::string &hash, const bool& create_flag);
-    bool renameDir (const std::string& oldName, const std::string& newName);
-    bool renameFile (const std::string& oldName, const std::string& newName);
     bool removeDir (const std::string& nome);
     bool removeFile (const std::string& nome);
     std::shared_ptr<Directory> getDir (const std::string& name);
@@ -61,11 +59,9 @@ public:
     void ls(int indent) const;
 
     std::weak_ptr<Directory> getRoot();
-    std::weak_ptr<Directory> setRoot(std::string root_name);
+    std::weak_ptr<Directory> setRoot(std::weak_ptr<Directory> root);
 
     std::string toString ();
 };
-
-//static std::shared_ptr<Directory> root;
 
 #endif

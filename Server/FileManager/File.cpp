@@ -10,6 +10,7 @@
 File::File() {
     path = "";
     hash = "";
+    name = "";
 }
 
 File::File(const std::string name, const std::string &hash, std::weak_ptr<Directory> dFather) {
@@ -107,7 +108,7 @@ void File::ls (int indent) const{
 };
 
 std::string File::toString (){
-    return "PATH = "+path+" NAME = "+name;
+    return "PATH = "+path+" NAME = "+name+" HASH = "+hash;
 }
 
 std::string File::getFatherFromPath(std::string path){

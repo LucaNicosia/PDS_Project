@@ -27,7 +27,6 @@ std::shared_ptr<Directory> Directory::addDirectory(std::string dName, const bool
     if (this != nullptr){
         std::shared_ptr<Directory> newDir = makeDirectory(dName, self);
         dSons.push_back(newDir);
-        std::cout<<"Creo la cartella con path"<<newDir->path<<std::endl;
         if(create_flag) // create only when flag is true
             fs::create_directories(root.lock()->getName()+"/"+newDir->path);
         return newDir;
@@ -45,8 +44,7 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
     newDir->dSons = std::vector<std::shared_ptr<Directory>>();
     newDir->fSons = std::vector<std::shared_ptr<File>>();
     if(dFather.expired()) {
-        //newDir->path = dName;
-        newDir->path = ""; //TODO: SE SI ROMPE, QUESTO E' IL PROBLEMA
+        newDir->path = "";
         newDir->root = newDir->self;
         return newDir;
     }
@@ -57,9 +55,7 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
     }else{
         newDir->path = path;
     }
-
     newDir->root = dFather.lock()->getRoot();
-
     return newDir;
 }
 
@@ -77,43 +73,6 @@ std::shared_ptr<File> Directory::addFile (const std::string name, const std::str
 
 }
 
-//TODO: modificare renameFile/Dir
-/*bool Directory::renameDir (const std::string& oldName, const std::string& newName){
-    if (oldName == ".." || newName == "..")
-        return false;
-    if (oldName == "." || newName == ".")
-        return false;
-
-    for (int i = 0; i < dSons.size(); i++){
-        if (oldName == dSons[i]->name){
-            dSons[i]->name = newName;
-            dSons[i]->path = dSons[i]->dFather.lock()->path+"/"+newName;
-            fs::rename(dSons[i]->dFather.lock()->path+"/"+oldName, dSons[i]->path);
-            return true;
-        }
-    }
-
-    return false;
-}
-
-bool Directory::renameFile (const std::string& oldName, const std::string& newName){
-    if (oldName == ".." || newName == "..")
-        return false;
-    if (oldName == "." || newName == ".")
-        return false;
-
-    for (int i = 0; i < fSons.size(); i++){
-        if (oldName == fSons[i]->getName()){
-            fSons[i]->setPath(fSons[i]->getDFather().lock()->path+"/"+newName);
-            fs::rename(fSons[i]->getDFather().lock()->path+"/"+oldName, fSons[i]->getPath());
-            return true;
-        }
-    }
-
-    return false;
-
-}*/
-
 bool Directory::removeDir (const std::string& name){
     if (name == "..")
         return false;
@@ -122,7 +81,6 @@ bool Directory::removeDir (const std::string& name){
 
     for (int i = 0; i < dSons.size(); i++){
         if (name == dSons[i]->name){
-            std::cout<<"Cancello la cartella con path"<<dSons[i]->path<<std::endl;
             fs::remove_all(root.lock()->getName()+"/"+dSons[i]->getPath());
             dSons.erase(dSons.begin()+i);
             return true;
@@ -223,14 +181,13 @@ void Directory::ls(int indent) const{
             spaces += " ";
         }
         if (this->name == root.lock()->getName())
-         std::cout << spaces + this->name << std::endl;
+            std::cout << spaces + this->name << std::endl;
 
         for (int i = 0; i < dSons.size(); i++) {
             std::cout << spaces + "   " + this->dSons[i]->name << std::endl;
             this->dSons[i]->ls(indent+4);
         }
         for (int i = 0; i < fSons.size(); i++) {
-            //std::cout<<"Dentro ls file "<<this->fSons[i]<<" fileName = "<<this->fSons[i]->getName()<<std::endl;
             std::cout << spaces + "   " + this->fSons[i]->getName() << std::endl;
         }
     }
@@ -238,20 +195,14 @@ void Directory::ls(int indent) const{
 }
 
 std::string Directory::toString (){
-    return "PATH = "+path+" NAME = "+name;
+    return "PATH = "+path+" NAME = "+name+" ROOT_PATH = "+root.lock()->getPath()+" ROOT_NAME = "+root.lock()->getName();
 }
 
 std::weak_ptr<Directory> Directory::getRoot() {
     return root;
 }
 
-std::weak_ptr<Directory> Directory::setRoot(std::string root_name){
-    // TODO: da far funzionare questo if
-    /*if (root != std::shared_ptr<Directory>()){
-        // errore
-        std::cout<<"errore in setRoot\n";
-    }*/
-    root = makeDirectory(root_name, std::weak_ptr<Directory>());
-    std::cout<<root.lock()->getName()<<std::endl;
+std::weak_ptr<Directory> Directory::setRoot(std::weak_ptr<Directory> root){
+    this->root = root;
     return root;
 }

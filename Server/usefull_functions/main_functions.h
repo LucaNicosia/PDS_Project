@@ -93,11 +93,9 @@ bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dir
 std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
     std::string head = path;
     std::string tail;
-    //std::cout<<"rubbish: "<<rubbish<<"\npath: "<<path<<"\n";
     while(rubbish != head){
         tail = path.substr(head.find_last_of("/")+1);
         head = head.substr(0, head.find_last_of("/"));
-        //std::cout<<"head: "<<head<<"\ntail: "<<tail<<"\n";
     }
     return tail;
 }
@@ -126,13 +124,11 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
         // database doesn't exists
         db.open();
         db.exec("CREATE TABLE \"DIRECTORY\" ("
-                "\"id\" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                "\"path\" TEXT NOT NULL UNIQUE,"
+                "\"path\" TEXT PRIMARY KEY NOT NULL UNIQUE,"
                 "\"name\" TEXT NOT NULL"
                 ")");
         db.exec("CREATE TABLE \"FILE\" ("
-                "\"id\" INTEGER PRIMARY KEY AUTOINCREMENT, "
-                "\"path\" TEXT NOT NULL UNIQUE, "
+                "\"path\" TEXT PRIMARY KEY NOT NULL UNIQUE, "
                 "\"name\" TEXT NOT NULL,"
                 "\"hash\" TEXT NOT NULL"
                 ")");
@@ -144,7 +140,6 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     int nFiles, nDirs;
     std::vector<File> queryFiles;
     std::vector<Directory> queryDirs;
-    std::cout<<"ciao"<<std::endl;
     std::string path = root->getName();
     std::cout<<path<<std::endl;
 
@@ -171,8 +166,8 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
         std::shared_ptr<File> file;
         if(!std::filesystem::exists(std::filesystem::status(server_path))){
-            std::cout<<"file "<<server_path<<" doesn't exists, creating it\n";
-            file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(),true); // if doesn't exists, create it empty and set 'hash' = ""
+            // file doesn't exists, create it empty
+            file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(),true);
             file->setHash(computeDigest(server_path));
             updateFileDB(db_path,file);
         }
@@ -181,12 +176,8 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         }
         files[file->getPath()] = file;
     }
-
-    std::cout<<">> files and dirs del DB\n";
-    stampaFilesEDirs(files,dirs);
-
-    // files and dirs contains only db data. Check if data actually stored is right
-    
+    // until now, files and dirs contains only db data. Check if data actually stored is right
+    // if in memory but not on db, delete from memory
     std::vector<std::string> path_to_delete;
     for(auto it : std::filesystem::recursive_directory_iterator(path)){
         if(dirs.count(cleanPath(it.path().string(),path)) == 0 && files.count(cleanPath(it.path().string(),path)) == 0){ // if it is not stored in db, delete it
@@ -200,7 +191,6 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     // if they are on db but not in memory, delete from db
     for(auto it : files){
         if(!std::filesystem::exists(std::filesystem::status(path + "/" + it.second->getPath()))){
-            std::cout<<"\tfile "<<it.second->getPath()<<" doesn't exits\n";
             deleteFileFromDB(db_path,it.second);
             it.second->getDFather().lock()->removeFile(it.second->getName());
             files.erase(it.first);
@@ -208,16 +198,11 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     }
     for(auto it : dirs){
         if(!std::filesystem::is_directory(path + "/" + it.second->getPath())){
-            std::cout<<"\tdir "<<it.second->getPath()<<" doesn't exits\n";
             deleteDirectoryFromDB(db_path,it.second);
             it.second->getDFather().lock()->removeDir(it.second->getName());
             dirs.erase(it.first);
         }
     }
-
-    std::cout<<">> files e dirs dopo\n";
-    stampaFilesEDirs(files, dirs);
-    root->ls(4);
 }
 
 int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
@@ -227,26 +212,21 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
     std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
     username = client;
     root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
-    //std::cout<<"client: "<<client<<std::endl;
     std::string db_path = "../DB/"+client+".db";
-    //std::cout<<"file path: -"<<filePath<<"-"<<std::endl;
 
     std::ifstream input(db_path);
     if (input.is_open()){
         sendMsg(s, "SYNC-OK");
         std::string msg = rcvMsg(s);
         if (msg == "SYNC-OK"){
-            // TODO: queste 2 operazioni potrebbero andare in un thread
-            std::cout<<"ciao"<<std::endl;
-            std::cout<<root->getName()<<std::endl;
             check_user_data(root->getName(),db_path);
             initialize_files_and_dirs(files,dirs,db_path,root);
             std::string digest = computeDigest(db_path);
-            std::cout<<"digest: "<<digest<<std::endl;
             sendMsg(s,"DIGEST "+digest);
         }else{
             //ERRORE
             std::cout<<"ERRORE"<<std::endl;
+            return -1;
         }
         return 0;
     }else{

@@ -7,7 +7,6 @@
 
 #include "../TCP_Socket/Socket.h"
 #include "../Crypto/MyCryptoLibrary.h"
-//#include <boost/beast/core/string.hpp>
 #include <fcntl.h>
 #include <sstream>
 
@@ -39,8 +38,6 @@ int rcvFile(Socket& s, const std::string path){
         std::cout<<"Error creating destination file at "<<path<<"\n";
         return 0;
     }
-    int w,cont=0;
-    std::cout<<"rcvFile length: "<<length<<"\n";
     while(length > 0){
         rec = s.read(buf,sizeof(buf),0);
         if(rec<0){
@@ -48,13 +45,7 @@ int rcvFile(Socket& s, const std::string path){
             return 0;
         }
         length -= rec;
-        //std::cout<<buf<<std::endl;
-        cont++;
-        if(cont==1){
-            //sendMsg(s,"OK");
-        }
-        w=::write(to,buf,rec);
-        //std::cout<<write<<std::endl;
+        ::write(to,buf,rec);
     }
     close(to);
     return -1;
@@ -69,14 +60,15 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
     myFile.close();
     sendMsg(s, std::string ("FILE "+path_to_send+" "+std::to_string(length)));
     if(rcvMsg(s) != "OK"){
-        //error
+        std::cout<<"error in sendFile\n";
+        return -1;
     }
     //...file transfer...
     int from;
     from=open(path.c_str(),O_RDONLY);
     if(from<0){
         std::cout<<"Error opening file\n";
-        return 0;
+        return -1;
     }
     int size;
     int x;
@@ -85,7 +77,7 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
         x = s.write(buf, size, 0);
         if (x < 0) {
             std::cout << "Error sending\n";
-            return 0;
+            return -1;
         }
     }
     close(from);

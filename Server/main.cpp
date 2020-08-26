@@ -66,8 +66,6 @@ int main() {
                 } else {
                     db_path = "../DB/" + username + ".db";
                     userDirPath = root_path + "/" + username;
-                    //ROOT INITIALIZATION
-                    //root_ptr->setName(userDirPath); // set the root as root_path/<username>
                     break;
                 }
 
@@ -93,63 +91,46 @@ int main() {
             //OK
         } else {
             // error
+            std::cout<<"error in main\n";
         }
 
         while (1) {
             msg = rcvMsg(s);
-            const char *delimiter = " ";
-            //char *token = std::strtok(const_cast<char *>(msg.c_str()), delimiter);
-            //int i = 0;
             std::string path;
             std::string name;
             std::string type;
             std::string operation;
-            /*while (token != NULL) {
-                if (i == 0) type = std::string(token);
-                if (i == 1) path = std::string(token);
-                if (i == 2) operation = std::string(token);
-                token = std::strtok(NULL, delimiter);
-                i++;
-            }*/
-            // DIR marco marco created
-            std::cout<<"msg: "<<msg<<std::endl;
-            operation = msg.substr(msg.find_last_of(" ")+1); // created
-            msg = msg.substr(0, msg.find_last_of(" ")); // DIR marco marco
-            type = msg.substr(0,msg.find_first_of(" ")); // DIR
-            msg = msg.substr(msg.find_first_of(" ")+1); // marco marco
-            //path = msg.substr(msg.find_first_of(" ")+1, msg.find_last_of(" ")); // marco marco
+            // get data from message 'msg'
+            operation = msg.substr(msg.find_last_of(" ")+1);
+            msg = msg.substr(0, msg.find_last_of(" "));
+            type = msg.substr(0,msg.find_first_of(" "));
+            msg = msg.substr(msg.find_first_of(" ")+1);
             path = msg;
-
-            std::cout<<"computed: path: "<<path<<" op: "<<operation<<" type: "<<type<<std::endl;
-
             name = path.substr(path.find_last_of("/") + 1);
+
             std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(path)];
             if (type == "FILE") {
                 // file modification handler
-
                 if (operation == "created") {
                     sendMsg(s, "READY");
                     rcvFile(s, userDirPath+"/"+path);
                     sendMsg(s, "DONE");
                     std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(userDirPath + "/"+path), false);
                     files[file->getPath()] = file;
-                    if(insertFileIntoDB(db_path, file))
-                        std::cout<<"File inserito correttamente sul DB"<<std::endl;
-                    else
-                        std::cout<<"Problema nell'inserire il file sul DB"<<std::endl;
+                    if(!insertFileIntoDB(db_path, file)) {
+                        std::cout << "Problema nell'inserire il file sul DB" << std::endl;
+                    }
                 } else if (operation == "erased") {
-                    if (deleteFileFromDB(db_path, files[path]))
-                        std::cout<<"File cancellato correttamente sul DB"<<std::endl;
-                    else
-                        std::cout<<"Problema nel cancellare il file sul DB"<<std::endl;
+                    if (!deleteFileFromDB(db_path, files[path])) {
+                        std::cout << "Problema nel cancellare il file sul DB" << std::endl;
+                    }
                     father.lock()->removeFile(name);
                     files.erase(path);
                     sendMsg(s, "DONE");
                 } else if (operation == "modified") {
-                    if (deleteFileFromDB(db_path, files[path]))
-                        std::cout<<"File cancellato correttamente sul DB"<<std::endl;
-                    else
-                        std::cout<<"Problema nel cancellare il file sul DB"<<std::endl;
+                    if (!deleteFileFromDB(db_path, files[path])) {
+                        std::cout << "Problema nel cancellare il file sul DB" << std::endl;
+                    }
                     father.lock()->removeFile(name);
                     files.erase(path);
                     sendMsg(s, "READY");
@@ -157,10 +138,9 @@ int main() {
                     sendMsg(s, "DONE");
                     std::shared_ptr<File> file = father.lock()->addFile(name, computeDigest(userDirPath + "/"+path), false);
                     files[file->getPath()] = file;
-                    if(insertFileIntoDB(db_path, file))
-                        std::cout<<"File inserito correttamente sul DB"<<std::endl;
-                    else
-                        std::cout<<"Problema nell'inserire il file sul DB"<<std::endl;
+                    if(!insertFileIntoDB(db_path, file)) {
+                        std::cout << "Problema nell'inserire il file sul DB" << std::endl;
+                    }
                 } else {
                     //errore
                     std::cout << "Stringa non ricevuta correttamente" << std::endl;
@@ -168,22 +148,17 @@ int main() {
                 }
             } else if (type == "DIR") {
                 //dirs modification handler
-
                 if (operation == "created") {
-                    std::cout << "\t sto per creare una cartella\n";
                     std::shared_ptr<Directory> dir = father.lock()->addDirectory(name, true);
                     dirs[dir->getPath()] = dir;
-                    if (insertDirectoryIntoDB(db_path, dir))
-                        std::cout<<"Directory inserita correttamente sul DB"<<std::endl;
-                    else
-                        std::cout<<"Problema nell'inserire la directory sul DB"<<std::endl;
+                    if (!insertDirectoryIntoDB(db_path, dir)) {
+                        std::cout << "Problema nell'inserire la directory sul DB" << std::endl;
+                    }
                     sendMsg(s, "DONE");
                 } else if (operation == "erased") {
-                    if(deleteDirectoryFromDB(db_path, dirs[path]))
-                        std::cout<<"Directory cancellata correttamente sul DB"<<std::endl;
-                    else
-                        std::cout<<"Problema nel cancellare la directory sul DB"<<std::endl;
-
+                    if(!deleteDirectoryFromDB(db_path, dirs[path])) {
+                        std::cout << "Problema nel cancellare la directory sul DB" << std::endl;
+                    }
                     father.lock()->removeDir(name);
                     dirs.erase(path);
                     sendMsg(s, "DONE");
@@ -193,12 +168,11 @@ int main() {
                     sendMsg(s, "ERROR");
                 }
             } else {
-                std::cout << "sono in else" << std::endl;
+                std::cout << "unknown message type" << std::endl;
                 //error
                 //sendMsg(s, "ERROR");
                 return -1;
             }
-            //stampaFilesEDirs(files, dirs);
         }
     }
 }

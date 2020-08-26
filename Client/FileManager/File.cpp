@@ -108,7 +108,7 @@ void File::ls (int indent) const{
 };
 
 std::string File::toString (){
-    return "PATH = "+path+" NAME = "+name;
+    return "PATH = "+path+" NAME = "+name+" HASH = "+hash;
 }
 
 std::string File::getFatherFromPath(std::string path){
