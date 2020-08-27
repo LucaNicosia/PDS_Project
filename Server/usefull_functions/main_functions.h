@@ -142,7 +142,6 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     std::vector<Directory> queryDirs;
     std::string path = root->getName();
     std::cout<<path<<std::endl;
-
     dirs[""] = root;
 
     db.open();
@@ -228,12 +227,15 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
     root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
     std::string db_path = "../DB/"+client+".db";
 
+    std::cout<<"***DB PATH = "<<db_path<<std::endl;
     std::ifstream input(db_path);
-    if (input.is_open()){
+    if (input.good()){
+        std::cout<<"QUA"<<std::endl;
         sendMsg(s, "SYNC-OK");
         std::string msg = rcvMsg(s);
         if (msg == "SYNC-OK"){
             check_user_data(root->getName(),db_path);
+            std::cout<<"EHIII"<<std::endl;
             initialize_files_and_dirs(files,dirs,db_path,root);
             std::string digest = compute_db_digest(files,dirs);
             sendMsg(s,"DIGEST "+digest);
@@ -244,9 +246,13 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
         }
         return 0;
     }else{
+        //TODO:perché entra qua???
+        std::cout<<"O QUA"<<std::endl;
         sendMsg(s, "SYNC-ERROR");
         return -1;
     }
 }
+
+
 
 #endif //PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H

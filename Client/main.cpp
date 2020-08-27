@@ -28,7 +28,7 @@
 #include "./FileManager/FileWatcher.h"
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5108
+#define PORT 5100
 #define MAXFD 50000
 
 
@@ -37,9 +37,9 @@ Directory root;
 std::shared_ptr<Directory> root_ptr;
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
-std::string db_path = "../DB/user.db";
 bool synchronized = false;
-std::string path = "TestPath";
+std::string path;
+std::string db_path;
 
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
@@ -144,8 +144,11 @@ int main(int argc, char** argv)
 
     //ROOT INITIALIZATION
     root_ptr = root.makeDirectory(path, std::weak_ptr<Directory>());
-
-    std::string username = "user";
+    std::string username;
+    std::cout<<"Enter your username: ";
+    std::cin>>username;
+    db_path = "../DB/"+username+".db";
+    path = username;
     FileWatcher fw(path,std::chrono::milliseconds(5000));
     // inizialization of data structures
     initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
@@ -178,7 +181,7 @@ int main(int argc, char** argv)
         std::cout<<"server DB is not updated\n";
         // get DB from server
         sendMsg(s,"GET-DB");
-        rcvFile(s,"../DB/server.db");
+        rcvFile(s,"../DB/"+username+"_server.db");
         // check which files and directories aren't updated
         checkDB(path,"","../DB/server.db",files,dirs,modification_function, root_ptr);
         std::cout<<"--- checkDB ended ---\n";
