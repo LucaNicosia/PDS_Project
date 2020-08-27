@@ -40,12 +40,22 @@ std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path = "../DB/user.db";
 bool synchronized = false;
 std::string path = "TestPath";
+FileWatcher fw(path,std::chrono::milliseconds(5000));
+std::string username = "user";
 
+void connect_to_remote_server();
+void action_on_server();
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
     std::string FT,FS,res;
     std::string cleaned_path = cleanPath(filePath,path);
     std::weak_ptr<Directory> father;
+
+    action_on_server(); // before anything, check connection with server
+
+    if(ft == FileType::directory && fs == FileStatus::modified) // in this case, nothing to do: dir modification means a creation or cancellation of a sub directory
+        return;
+
     switch (fs) {
         case FileStatus::created:
             father = dirs[Directory::getFatherFromPath(cleaned_path)]->getSelf();
@@ -145,13 +155,36 @@ int main(int argc, char** argv)
     //ROOT INITIALIZATION
     root_ptr = root.makeDirectory(path, std::weak_ptr<Directory>());
 
-    std::string username = "user";
-    FileWatcher fw(path,std::chrono::milliseconds(5000));
     // inizialization of data structures
     initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
     updateDB(db_path,files,dirs, root_ptr);
 
+    // connect to server
+    connect_to_remote_server();
+
+    // SYN with server completed, starting to monitor client directory
+    synchronized = true;
+    std::thread t1([]() { fw.start(modification_function);});
+    std::cout<<"--- System ready ---\n";
+    //std::this_thread::sleep_for(std::chrono::seconds(5000));
+    //fw.stop();
+    std::thread t2([](){
+        while(true) {
+            // every seconds check if there are some work to do or not
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            if(!fw.isRunning()) return;
+            action_on_server();
+        }
+    });
+    t1.join();
+    t2.join();
+    /**/
+    return 0;
+}
+
+void connect_to_remote_server(){
     // connect to the remote server
+    s = Socket();
     s.setTimeoutSecs(20);
     s.setTimeoutUsecs(0);
     s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
@@ -185,15 +218,26 @@ int main(int argc, char** argv)
     } else {
         std::cout<<"server DB is updated\n";
         sendMsg(s,"Database up to date");
+        if(rcvMsg(s) != "server_db_ok"){
+            std::cout<<"error in db response on 'server_db_ok'\n";
+            exit(-1);
+        }
     }
-    // SYN with server completed, starting to monitor client directory
-    synchronized = true;
-    std::thread t1([&fw]() { fw.start(modification_function);});
-    std::cout<<"--- System ready ---\n";
-    //std::this_thread::sleep_for(std::chrono::seconds(5000));
-    //fw.stop();
-    t1.join();
-    /**/
-    return 0;
 }
 
+void action_on_server(){
+    FileWatcher_state last, cur;
+    fw.getAllState(last,cur);
+    if(cur == FileWatcher_state::in_progress) { // nothing to do
+        std::cout<<">> action -> nothing\n";
+        return;
+    }
+    if(cur == FileWatcher_state::mod_found && last == FileWatcher_state::in_progress){ // first modification found, open the socket
+        std::cout<<">> action -> open\n";
+        connect_to_remote_server();
+    }
+    if(cur == FileWatcher_state::ended || cur == FileWatcher_state::ready && last == FileWatcher_state::ended){
+        //std::cout<<">> action -> close\n";
+        s.close();
+    }
+}

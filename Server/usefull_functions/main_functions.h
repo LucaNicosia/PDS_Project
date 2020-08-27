@@ -244,6 +244,7 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
         }
         return 0;
     }else{
+        check_user_data(root->getName(),db_path);
         sendMsg(s, "SYNC-ERROR");
         return -1;
     }

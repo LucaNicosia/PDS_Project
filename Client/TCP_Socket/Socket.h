@@ -43,6 +43,7 @@ class Socket {
 
      friend class ServerSocket;
 
+    void close();
 };
 
 #endif

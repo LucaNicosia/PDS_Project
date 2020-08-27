@@ -24,10 +24,7 @@ Socket::Socket(){
 }
 
 Socket::~Socket(){
-    if (sockfd != 0){
-        std::cout<<"Socket "<<sockfd<<" closed"<<std::endl;
-        close(sockfd);
-    }
+    this->close();
 }
 
 Socket::Socket(Socket &&other): sockfd(other.sockfd), maxfd(other.maxfd){
@@ -37,7 +34,7 @@ Socket::Socket(Socket &&other): sockfd(other.sockfd), maxfd(other.maxfd){
 }
 
 Socket & Socket::operator=(Socket &&other){
-    if (sockfd != 0) close(sockfd);
+    if (sockfd != 0) ::close(sockfd);
     sockfd = other.sockfd;
     maxfd = other.maxfd;
     timeout_secs = other.timeout_secs;
@@ -125,4 +122,12 @@ void Socket::setTimeoutSecs(int timeoutSecs) {
 
 void Socket::setTimeoutUsecs(int timeoutUsecs) {
     timeout_usecs = timeoutUsecs;
+}
+
+void Socket::close(){
+    if (sockfd != 0){
+        std::cout<<"Socket "<<sockfd<<" closed"<<std::endl;
+        ::close(sockfd);
+        sockfd = 0;
+    }
 }

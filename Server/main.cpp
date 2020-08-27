@@ -43,7 +43,7 @@ int main() {
     pthread_t threads[100];
 
     while (true) {
-
+restart:
         struct sockaddr_in addr;
         socklen_t len = sizeof(addr);
         std::cout << "Waiting for incoming connections at port " << PORT << "..." << std::endl;
@@ -58,31 +58,12 @@ int main() {
 
         // SYNC 'client'
         int cont = 0;
-        while(true) {
-            try{
-                if (rcvSyncRequest(s,username,root_path,root,files,dirs) != 0) {
-                    std::cout << "Errore in SYNC\n";
-                    throw 20;
-                } else {
-                    db_path = "../DB/" + username + ".db";
-                    userDirPath = root_path + "/" + username;
-                    break;
-                }
-
-            } catch (...) {
-                //TODO: da rifare la catch
-                if(username == ""){
-                    // invalid username -> throw
-                    throw std::runtime_error("error during sync: invalid username");
-                }
-                if(++cont == 3) exit(-1);
-                db_path = "../DB/" + username + ".db";
-                userDirPath = root_path + "/" + username;
-                check_user_data(userDirPath, db_path); // try to create db and directory
-                //ROOT INITIALIZATION
-                //root_ptr->setName(userDirPath); // set the root as root_path/<username>
-            }
+        while(rcvSyncRequest(s,username,root_path,root,files,dirs) != 0) {
+            std::cout << "Errore in SYNC\n";
         }
+        db_path = "../DB/" + username + ".db";
+        userDirPath = root_path + "/" + username;
+
         std::string msg;
         msg = rcvMsg(s);
         if (msg == "GET-DB") { // client asks for server.db database version
@@ -91,6 +72,7 @@ int main() {
             }
         } else if (msg == "Database up to date") {
             //OK
+            sendMsg(s,"server_db_ok");
         } else {
             // error
             std::cout<<"error in main\n";
@@ -145,7 +127,7 @@ int main() {
                     }
                 } else {
                     //errore
-                    std::cout << "Stringa non ricevuta correttamente" << std::endl;
+                    std::cout << "Stringa non ricevuta correttamente ("<<type<<" "<<path<<" "<<operation<<")"<< std::endl;
                     sendMsg(s, "ERROR");
                 }
             } else if (type == "DIR") {
@@ -164,16 +146,19 @@ int main() {
                     father.lock()->removeDir(name);
                     dirs.erase(path);
                     sendMsg(s, "DONE");
+                } else if(operation == "modified"){
+                  // nothing to do
                 } else {
                     //errore
-                    std::cout << "Stringa non ricevuta correttamente" << std::endl;
+                    std::cout << "Stringa non ricevuta correttamente ("<<type<<" "<<path<<" "<<operation<<")"<< std::endl;
                     sendMsg(s, "ERROR");
                 }
             } else {
                 std::cout << "unknown message type" << std::endl;
                 //error
                 //sendMsg(s, "ERROR");
-                return -1;
+                //return -1;
+                goto restart;
             }
         }
     }
