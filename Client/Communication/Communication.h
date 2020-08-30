@@ -14,7 +14,7 @@
 
 //COMMUNICATION BETWEEN CLIENT AND SERVER
 int sendMsg(Socket& s, const std::string msg){
-    std::cout<<"Stringa Mandata: "<<std::string(msg)<<" msg-size: "<<msg.size()<<std::endl;
+    std::cout<<"Stringa Mandata: "<<std::string(msg)<<" msg-size: "<<msg.size()<<" sul socket "<<s.__sock_fd()<<std::endl;
     return s.write(msg.c_str(), msg.size(), 0);
 }
 
@@ -22,7 +22,7 @@ std::string rcvMsg(Socket& s){
     char msg [SIZE];
     int size = s.read(msg, SIZE, 0);
     msg[size] = '\0';
-    std::cout<<"Stringa ricevuta: "<<std::string(msg)<<" msg-size: "<<size<<std::endl;
+    std::cout<<"Stringa ricevuta: "<<std::string(msg)<<" msg-size: "<<size<<" sul socket "<<s.__sock_fd()<<std::endl;
     return std::string(msg);
 };
 

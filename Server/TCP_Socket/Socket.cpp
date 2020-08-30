@@ -20,7 +20,7 @@ Socket::Socket(){
     maxfd = MAXFD;
     timeout_secs = -1;
     if (sockfd < 0) throw std::runtime_error("Cannot create socket");
-    std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
+    std::cout<<"Socket "<<sockfd<<" created with empty constructor"<<std::endl;
 }
 
 Socket::~Socket(){

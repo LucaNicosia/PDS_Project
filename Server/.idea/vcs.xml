@@ -3,5 +3,14 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/prova/via" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/prova/via/cane" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/prova/via/cane/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/prova/via/cane/prova" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/prova/via/cane/prova/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone" vcs="Git" />
   </component>
 </project>
