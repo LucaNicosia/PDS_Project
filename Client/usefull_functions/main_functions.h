@@ -12,6 +12,7 @@
 #include "../FileManager/FileWatcher.h"
 #include "../DB/Database.h"
 #include <map>
+#include <queue>
 
 std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
     std::string head = path;
@@ -107,6 +108,8 @@ bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dir
 
     db.exec("DELETE FROM DIRECTORY WHERE path = \""+dir->getPath()+"\"");
 
+    db.close();
+
     for (int i = 0; i < dir->getDSons().size(); i++) {
         deleteDirectoryFromDB(db_path, dir->getDSons()[i]);
     }
@@ -114,7 +117,6 @@ bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dir
         deleteFileFromDB(db_path, dir->getFSons()[i]);
     }
 
-    db.close();
     return true;
 }
 
@@ -126,6 +128,7 @@ void checkDB(const std::string& dir_path, const std::string& userDB_name, const 
     std::vector<File> userFiles, serverFiles;
     std::vector<Directory> userDirs, serverDirs;
     int nUserFiles, nUserDirs, nServerFiles, nServerDirs;
+    std::vector<struct action_data> dirs_er;
 
     //userDB.DB_open();
     serverDB.open();
@@ -150,10 +153,17 @@ void checkDB(const std::string& dir_path, const std::string& userDB_name, const 
     // find what is different
     // in directories
     for(auto it = serverDirs.begin(); it != serverDirs.end(); ++it){
-        if(fs_dirs.count(it->getPath()) == 0) // directory not present in user, it has been erased
-            modification_function(it->getName(), dir_path + "/" + it->getPath(),FileStatus::erased,FileType::directory); // send modification to server
+        if(fs_dirs.count(it->getPath()) == 0) { // directory not present in user, it has been erased
+            //modification_function(it->getName(), dir_path + "/" + it->getPath(), FileStatus::erased,FileType::directory); // send modification to server
+            struct action_data x;
+            x.filePath = dir_path + "/" + it->getPath();
+            x.file = it->getName();
+            x.fs = FileStatus::erased;
+            x.ft = FileType::directory;
+            dirs_er.push_back(x);
+        }
         else
-            fs_dirs[it->getPath()] = FileStatus::created; // if it is already in 'fs_dirs' it has been already present
+            fs_dirs[it->getPath()] = FileStatus::created; // if it is already in 'fs_dirs' it has been already created
 
     }
     for(auto it = fs_dirs.begin(); it != fs_dirs.end(); ++it){
@@ -179,6 +189,12 @@ void checkDB(const std::string& dir_path, const std::string& userDB_name, const 
         if(it->second == FileStatus::none){ // take a look at the comment above
             modification_function(it->first.substr(it->first.find_last_of("/")+1),dir_path+"/"+it->first,FileStatus::created,FileType::file);
         }
+    }
+
+    // after i deleted all the files, delete also directories
+    for(int i=dirs_er.size()-1; i>=0; i--){
+        struct action_data x = dirs_er[i];
+        modification_function(x.file,x.filePath,x.fs,x.ft);
     }
 }
 
@@ -334,7 +350,8 @@ std::string syncRequest(Socket& s, const std::string client){
     }else{
         //SYNC-OK
         sendMsg(s, "SYNC-OK");
-        std::string digest = rcvMsg(s);
+        std::string digest;
+        while((digest = rcvMsg(s)) == "updating database"); // while he receive "updating database" he keeps waiting
         if(digest.find("DIGEST") == 0) // ok
             return std::string (digest.substr(digest.find(" ")+1));
         else

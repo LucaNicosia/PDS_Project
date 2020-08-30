@@ -24,7 +24,9 @@ Socket::Socket(){
 }
 
 Socket::~Socket(){
-    this->close();
+    if (sockfd != 0){
+        this->close();
+    }
 }
 
 Socket::Socket(Socket &&other): sockfd(other.sockfd), maxfd(other.maxfd){
@@ -34,7 +36,7 @@ Socket::Socket(Socket &&other): sockfd(other.sockfd), maxfd(other.maxfd){
 }
 
 Socket & Socket::operator=(Socket &&other){
-    if (sockfd != 0) ::close(sockfd);
+    if (sockfd != 0) this->close();
     sockfd = other.sockfd;
     maxfd = other.maxfd;
     timeout_secs = other.timeout_secs;
@@ -130,4 +132,8 @@ void Socket::close(){
         ::close(sockfd);
         sockfd = 0;
     }
+}
+
+bool Socket::is_open(){
+    return sockfd != 0;
 }

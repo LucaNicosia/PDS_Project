@@ -28,7 +28,7 @@
 #include "./FileManager/FileWatcher.h"
 #include "usefull_functions/main_functions.h"
 
-#define PORT 5108
+//#define PORT 5108
 #define MAXFD 50000
 
 
@@ -40,18 +40,20 @@ std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
 std::string db_path = "../DB/user.db";
 bool synchronized = false;
 std::string path = "TestPath";
-FileWatcher fw(path,std::chrono::milliseconds(5000));
+FileWatcher fw(path,std::chrono::milliseconds(1000));
 std::string username = "user";
+int port;
+std::mutex action_server_mutex;
 
 void connect_to_remote_server();
-void action_on_server();
+void action_on_server(std::string str);
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
     std::string FT,FS,res;
     std::string cleaned_path = cleanPath(filePath,path);
     std::weak_ptr<Directory> father;
 
-    action_on_server(); // before anything, check connection with server
+    action_on_server("mod func"); // before anything, check connection with server
 
     if(ft == FileType::directory && fs == FileStatus::modified) // in this case, nothing to do: dir modification means a creation or cancellation of a sub directory
         return;
@@ -151,6 +153,10 @@ auto modification_function = [](const std::string file, const std::string filePa
 
 int main(int argc, char** argv)
 {
+    port = std::atoi(argv[1]);
+
+    std::cout<<"> Inserisci username: ";
+    std::cin>>username;
 
     //ROOT INITIALIZATION
     root_ptr = root.makeDirectory(path, std::weak_ptr<Directory>());
@@ -173,7 +179,7 @@ int main(int argc, char** argv)
             // every seconds check if there are some work to do or not
             std::this_thread::sleep_for(std::chrono::seconds(1));
             if(!fw.isRunning()) return;
-            action_on_server();
+            action_on_server("on thread");
         }
     });
     t1.join();
@@ -187,7 +193,7 @@ void connect_to_remote_server(){
     s = Socket();
     s.setTimeoutSecs(20);
     s.setTimeoutUsecs(0);
-    s.inizialize_and_connect(PORT,AF_INET,"127.0.0.1");
+    s.inizialize_and_connect(port,AF_INET,"127.0.0.1");
     // sync with the server
     int cont = 0;
     std::string server_digest;
@@ -225,19 +231,20 @@ void connect_to_remote_server(){
     }
 }
 
-void action_on_server(){
+void action_on_server(std::string str){ // this function is used in a loop to check the state of the FileWatcher
+    std::unique_lock<std::mutex>lg(action_server_mutex);
+    if(!fw.isRunning()) return;
     FileWatcher_state last, cur;
     fw.getAllState(last,cur);
-    if(cur == FileWatcher_state::in_progress) { // nothing to do
-        std::cout<<">> action -> nothing\n";
-        return;
+
+    if(!s.is_open() && cur == FileWatcher_state::mod_found && last == FileWatcher_state::ready){ // first modification found, open the socket
+        lg.unlock();
+        connect_to_remote_server(); // this function can call 'action_on_server', deadlock without unlock
+        lg.lock();
     }
-    if(cur == FileWatcher_state::mod_found && last == FileWatcher_state::in_progress){ // first modification found, open the socket
-        std::cout<<">> action -> open\n";
-        connect_to_remote_server();
-    }
-    if(cur == FileWatcher_state::ended || cur == FileWatcher_state::ready && last == FileWatcher_state::ended){
+    if(s.is_open() && (cur == FileWatcher_state::ended || cur == FileWatcher_state::ready && last == FileWatcher_state::ended)){
         //std::cout<<">> action -> close\n";
+        sendMsg(s,"update completed");
         s.close();
     }
 }

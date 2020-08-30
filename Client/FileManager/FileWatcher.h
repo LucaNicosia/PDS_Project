@@ -16,7 +16,14 @@
 // Define available file changes
 enum class FileStatus {created, modified, erased, none};
 enum class FileType {file, directory};
-enum class FileWatcher_state {ready, in_progress, mod_found, ended};
+enum class FileWatcher_state {ready, mod_found, ended};
+
+struct action_data {
+    std::string file;
+    std::string filePath;
+    FileStatus fs;
+    FileType ft;
+};
 
 class FileWatcher {
     class FileStruct{
@@ -53,19 +60,12 @@ public:
     }
 
     void start(const std::function<void (std::string, std::string, FileStatus, FileType)> &action) {
-        struct tmp {
-            std::string file;
-            std::string filePath;
-            FileStatus fs;
-            FileType ft;
-        };
-        std::vector<struct tmp> t;
+        std::vector<struct action_data> t;
         while(isRunning()) {
             setCurState(FileWatcher_state::ready);
             // Wait for "delay" milliseconds
             std::this_thread::sleep_for(delay);
             if(!isRunning()) return; // if when i wake up 'running' is 'false', don't do the 'action' function
-            setCurState(FileWatcher_state::in_progress);
             auto it = paths.begin();
             // check if a file was deleted
             while (it != paths.end() ) {
@@ -78,7 +78,7 @@ public:
                     }
                     else {
                         //preparing directories to send at the end
-                        struct tmp x;
+                        struct action_data x;
                         x.file = it->first;
                         x.filePath = it->first;
                         x.fs = FileStatus::erased;
@@ -97,7 +97,7 @@ public:
                 action(t[i].file, t[i].filePath, t[i].fs, t[i].ft);
             }
             t.clear();
-            std::map<std::string, struct tmp> d;
+            std::map<std::string, struct action_data> d;
             // Check if a file was created or modified
             for(auto &file : std::filesystem::recursive_directory_iterator(path_to_watch)) {
                 auto current_file_last_write_time = std::filesystem::last_write_time(file);
@@ -110,7 +110,7 @@ public:
                         setCurState(FileWatcher_state::mod_found);
                         action(file.path().filename().string(), file.path().string(), FileStatus::created, FileType::directory);
                     }else{
-                        struct tmp x;
+                        struct action_data x;
                         x.file = file.path().filename().string();
                         x.filePath = file.path().string();
                         x.fs = FileStatus::created;

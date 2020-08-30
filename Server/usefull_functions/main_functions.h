@@ -79,14 +79,16 @@ bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dir
 
     db.exec("DELETE FROM DIRECTORY WHERE path = \""+dir->getPath()+"\"");
 
+    db.close();
+
     for (int i = 0; i < dir->getDSons().size(); i++) {
         deleteDirectoryFromDB(db_path, dir->getDSons()[i]);
     }
+
     for (int i = 0; i < dir->getFSons().size(); i++) {
         deleteFileFromDB(db_path, dir->getFSons()[i]);
     }
 
-    db.close();
     return true;
 }
 
@@ -113,14 +115,13 @@ void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::m
 }
 
 void check_user_data(const std::string& username_dir, const std::string& db_path){
-    std::cout<<username_dir<<std::endl;
     if(!std::filesystem::is_directory(username_dir)){
         // username directory doesn't exists, create it
         std::filesystem::create_directories(username_dir);
     }
     std::ifstream db_file(db_path,std::ios::in);
-    Database db(db_path);
     if(!db_file){
+        Database db(db_path);
         // database doesn't exists
         db.open();
         db.exec("CREATE TABLE \"DIRECTORY\" ("
@@ -135,13 +136,24 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
     }
 }
 
-void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory>& root){
+void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory>& root, Socket& s){
     Database db(db_path);
     int nFiles, nDirs;
     std::vector<File> queryFiles;
     std::vector<Directory> queryDirs;
     std::string path = root->getName();
-    std::cout<<path<<std::endl;
+
+    std::mutex m;
+    bool running = true;
+
+    std::thread t([&m,&running,&s](){ // database updating may take lots of time. this trade is like an "heart beat"
+        while(true){
+            std::this_thread::sleep_for(std::chrono::seconds(2));
+            std::lock_guard<std::mutex>lg(m);
+            if(!running) return;
+            sendMsg(s,"updating database");
+        }
+    });
 
     dirs[""] = root;
 
@@ -184,6 +196,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
             path_to_delete.push_back(it.path().string());
         }
     }
+
     for(auto it : path_to_delete){
         std::filesystem::remove_all(it);
     }
@@ -196,6 +209,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
             files.erase(it.first);
         }
     }
+
     for(auto it : dirs){
         if(!std::filesystem::is_directory(path + "/" + it.second->getPath())){
             deleteDirectoryFromDB(db_path,it.second);
@@ -203,6 +217,13 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
             dirs.erase(it.first);
         }
     }
+
+
+    std::unique_lock<std::mutex>lg(m);
+    running = false;
+    lg.unlock();
+    t.join();
+
 }
 
 // server and client may have different order on db, compute the digest manually
@@ -234,7 +255,7 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
         std::string msg = rcvMsg(s);
         if (msg == "SYNC-OK"){
             check_user_data(root->getName(),db_path);
-            initialize_files_and_dirs(files,dirs,db_path,root);
+            initialize_files_and_dirs(files,dirs,db_path,root,s);
             std::string digest = compute_db_digest(files,dirs);
             sendMsg(s,"DIGEST "+digest);
         }else{

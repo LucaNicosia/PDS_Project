@@ -45,6 +45,10 @@ class Socket {
      friend class ServerSocket;
 
     void inizialize_and_connect(in_port_t port, sa_family_t family, const std::string &address);
+
+    void close();
+
+    bool is_open();
 };
 
 

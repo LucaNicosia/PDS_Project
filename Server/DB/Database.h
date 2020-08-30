@@ -63,6 +63,7 @@ public:
     }
 
     int exec(std::string sql){
+        std::cout<<"sql: "<<sql<<std::endl;
         char* zErrMsg;
         int rc = sqlite3_exec(db,sql.c_str(), nullptr, 0, &zErrMsg);
         if( rc != SQLITE_OK ) {

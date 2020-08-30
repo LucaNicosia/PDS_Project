@@ -44,6 +44,8 @@ class Socket {
      friend class ServerSocket;
 
     void close();
+
+    bool is_open();
 };
 
 #endif
