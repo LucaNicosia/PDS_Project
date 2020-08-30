@@ -37,11 +37,12 @@ Directory root;
 std::shared_ptr<Directory> root_ptr;
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
-std::string db_path = "../DB/user.db";
+std::string db_path = "../DB";
+std::string server_db_path = "../DB";
 bool synchronized = false;
 std::string path = "TestPath";
-FileWatcher fw(path,std::chrono::milliseconds(1000));
-std::string username = "user";
+FileWatcher fw;
+std::string username;
 int port;
 std::mutex action_server_mutex;
 
@@ -157,9 +158,16 @@ int main(int argc, char** argv)
 
     std::cout<<"> Inserisci username: ";
     std::cin>>username;
+    db_path += "/" + username + ".db";
+    server_db_path += "/" + username + "_server.db";
+    path += "/" + username;
+    if(!std::filesystem::is_directory(path)){
+        std::filesystem::create_directory(path);
+    }
+    fw.set(path,std::chrono::milliseconds(1000));
 
     //ROOT INITIALIZATION
-    root_ptr = root.makeDirectory(path, std::weak_ptr<Directory>());
+    root_ptr = std::make_shared<Directory>()->makeDirectory(path, std::weak_ptr<Directory>());
 
     // inizialization of data structures
     initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
@@ -217,9 +225,9 @@ void connect_to_remote_server(){
         std::cout<<"server DB is not updated\n";
         // get DB from server
         sendMsg(s,"GET-DB");
-        rcvFile(s,"../DB/server.db");
+        rcvFile(s,server_db_path);
         // check which files and directories aren't updated
-        checkDB(path,"","../DB/server.db",files,dirs,modification_function, root_ptr);
+        checkDB(path,"",server_db_path,files,dirs,modification_function, root_ptr);
         std::cout<<"--- checkDB ended ---\n";
     } else {
         std::cout<<"server DB is updated\n";

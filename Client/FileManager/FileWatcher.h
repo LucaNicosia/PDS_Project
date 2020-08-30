@@ -49,14 +49,26 @@ class FileWatcher {
 
 public:
 
-    FileWatcher(std::string path_to_watch, std::chrono::duration<int, std::milli> delay) : running(true), path_to_watch{path_to_watch}, delay{delay}, cur_state(FileWatcher_state::ready), last_state(FileWatcher_state::ready) {
-        for(auto &file : std::filesystem::recursive_directory_iterator(path_to_watch)) {
-            paths[file.path().string()] = FileStruct(std::filesystem::last_write_time(file),(file.is_directory())?FileType::directory:FileType::file);
-        }
+    FileWatcher(){}
+
+    FileWatcher(std::string path_to_watch, std::chrono::duration<int, std::milli> delay) {
+        this->set(path_to_watch,delay);
     }
 
     ~FileWatcher(){
+        std::cout<<"Distuttore FileWatcher"<<std::endl;
         this->stop();
+    }
+
+    void set(std::string path_to_watch,std::chrono::duration<int, std::milli> delay){
+        this->running = true;
+        this->path_to_watch= path_to_watch;
+        this->delay = delay;
+        this->cur_state = FileWatcher_state::ready;
+        this->last_state = FileWatcher_state::ready;
+        for(auto &file : std::filesystem::recursive_directory_iterator(path_to_watch)) {
+            paths[file.path().string()] = FileStruct(std::filesystem::last_write_time(file),(file.is_directory())?FileType::directory:FileType::file);
+        }
     }
 
     void start(const std::function<void (std::string, std::string, FileStatus, FileType)> &action) {

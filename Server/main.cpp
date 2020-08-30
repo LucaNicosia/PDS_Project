@@ -94,7 +94,7 @@ int main() {
                     msg = rcvMsg(sockets[id]);
                     if(msg == "update completed"){
                         // update completed, close the socket
-                        //sockets.erase(id);
+                        // sockets.erase(id);
                         eraseSocket(sockets,id);
                         return;
                     }
@@ -111,7 +111,6 @@ int main() {
                     name = path.substr(path.find_last_of("/") + 1);
 
                     std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(path)];
-                    std::cout<<"path: "<<Directory::getFatherFromPath(path)<<std::endl;
                     if (type == "FILE") {
                         // file modification handler
                         if (operation == "created") {
