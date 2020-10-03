@@ -126,6 +126,7 @@ auto modification_function = [](const std::string file, const std::string filePa
         default:
             std::cout<<"unknown FileStatus\n"; // exception
     }
+
     sendMsg(s,FT+" "+cleaned_path+" "+FS); // FILE ./xx/yyy/zz.txt created
     res = rcvMsg(s);
     if(res.find("ERROR") == 0){ // example message: "ERROR <error info>"
@@ -156,8 +157,9 @@ int main(int argc, char** argv)
 {
     port = std::atoi(argv[1]);
 
-    std::cout<<"> Inserisci username: ";
-    std::cin>>username;
+    //std::cout<<"> Inserisci username: ";
+    //std::cin>>username;
+    username = std::string(argv[2]);
     db_path += "/" + username + ".db";
     server_db_path += "/" + username + "_server.db";
     path += "/" + username;

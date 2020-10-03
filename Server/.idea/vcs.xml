@@ -2,6 +2,38 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/armando/bbb/prova/ca" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/armando/bbb/prova/ca/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/armando/bbb/prova/ca/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/armando/bbb/prova/ca/prova/via" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/armando/bbb/prova/ca/prova/via/cane" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/armando/bbb/prova/ca/prova/via/cane/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/armando/bbb/prova/ca/prova/via/cane/prova" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/armando/bbb/prova/ca/prova/via/cane/prova/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/filippo/gibbone/cane/cris" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/filippo/gibbone/cane/cris/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/filippo/gibbone/cane/cris/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/filippo/gibbone/cane/cris/prova/via" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/filippo/gibbone/cane/cris/prova/via/cane" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/filippo/gibbone/cane/cris/prova/via/cane/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/filippo/gibbone/cane/cris/prova/via/cane/prova" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/filippo/gibbone/cane/cris/prova/via/cane/prova/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/marci/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/marci/gibbone/cane" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/marci/gibbone/cane/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/marci/gibbone/cane/prova" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/marci/gibbone/cane/prova/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/marci/gibbone/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/marci/gibbone/prova" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/marci/gibbone/prova/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/nima/hela/prova/ca" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/nima/hela/prova/ca/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/nima/hela/prova/ca/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/nima/hela/prova/ca/prova/via" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/nima/hela/prova/ca/prova/via/cane" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/nima/hela/prova/ca/prova/via/cane/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/nima/hela/prova/ca/prova/via/cane/prova" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/nima/hela/prova/ca/prova/via/cane/prova/TestPath/gibbone" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/TestPath/gibbone" vcs="Git" />
@@ -12,5 +44,13 @@
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/prova/via/cane/prova" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/bbb/prova/via/cane/prova/TestPath/gibbone" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone/bbb" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone/bbb/TestPath/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone/bbb/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone/bbb/prova/via" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone/bbb/prova/via/cane" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone/bbb/prova/via/cane/gibbone" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone/bbb/prova/via/cane/prova" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/server_directory/user/gibbone/bbb/prova/via/cane/prova/TestPath/gibbone" vcs="Git" />
   </component>
 </project>
