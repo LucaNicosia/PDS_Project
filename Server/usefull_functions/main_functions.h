@@ -370,35 +370,6 @@ int rcvConnectRequest(Socket& s, std::string& username, std::string& password, s
     }
 
     return 0;
-
-    /*sendMsg(s, "CONNECT-ERROR");
-    return -1;*/
-
-
-    /*username = client;
-    root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
-    std::string db_path = "../DB/"+client+".db";
-
-    std::ifstream input(db_path);
-    if (input.is_open()){
-        sendMsg(s, "SYNC-OK");
-        std::string msg = rcvMsg(s);
-        if (msg == "SYNC-OK"){
-            check_user_data(root->getName(),db_path);
-            initialize_files_and_dirs(files,dirs,db_path,root,s);
-            std::string digest = compute_db_digest(files,dirs);
-            sendMsg(s,"DIGEST "+digest);
-        }else{
-            //ERRORE
-            std::cout<<"ERRORE"<<std::endl;
-            return -1;
-        }
-        return 0;
-    }else{
-        check_user_data(root->getName(),db_path);
-        sendMsg(s, "SYNC-ERROR");
-        return -1;
-    }*/
 }
 
 #endif //PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
