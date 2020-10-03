@@ -14,6 +14,8 @@
 #include <map>
 #include <queue>
 
+namespace fs = std::filesystem;
+
 std::string cleanPath(const std::string & path, const std::string& rubbish);
 void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs);
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file);
@@ -27,7 +29,7 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
 std::string syncRequest(Socket& s, const std::string client);
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
-void restore(Socket& s, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string& path, const std::string& db_path);
+void restore(Socket& s, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string& path, const std::string& db_path, bool dir_is_empty, std::shared_ptr<Directory>& root);
 
 std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
     std::string head = path;
@@ -392,13 +394,20 @@ std::string syncRequest(Socket& s, const std::string client){
 std::string connectRequest(Socket& s, const std::string username, const std::string password, const std::string mode){
     // <- CONNECT 'username' 'password' 'mode'
     sendMsg(s, std::string ("CONNECT "+username+" "+password+" "+mode));
-    std::string msg = rcvMsg(s);
+    std::string msg = rcvMsg(s); // msg = CONNECT-OK
     if (msg == "CONNECT-ERROR"){
         //CONNECT-ERROR
         return std::string("CONNECT-ERROR");
     }else{
         //CONNECT-OK
-        return std::string ("CONNECT-OK");
+        std::cout<<"sono in else"<<std::endl;
+        sendMsg(s,"CONNECT-OK");
+        std::string digest;
+        while((digest = rcvMsg(s)) == "updating database"); // while he receive "updating database" he keeps waiting
+        if(digest.find("DIGEST") == 0) // ok
+            return std::string (digest.substr(digest.find(" ")+1));
+        else
+            return "CONNECT-ERROR";
     }
 }
 
@@ -511,8 +520,24 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
 }
 
 
-void restore(Socket& s, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string& path, const std::string& db_path){
+void restore(Socket& s, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string& path, const std::string& db_path, bool dir_is_empty, std::shared_ptr<Directory>& root){
     sendMsg(s,"restore");
+    if(!dir_is_empty){ //delete content before restoring
+        std::cout<<"not dir_is_empty"<<std::endl;
+        // remove all files and directories
+        for(auto &it : std::filesystem::directory_iterator(path)){
+            fs::remove_all(it.path());
+        }
+        // reset maps
+        files.clear();
+        dirs.clear();
+        // set again root in 'dirs'
+        dirs[""] = root;
+        // delete database
+        fs::remove_all(db_path);
+        // initialize files and dirs (empty) and create again the database
+        initialize_files_and_dirs(files,dirs,path,db_path,root);
+    }
     while(true){
         std::string msg = rcvMsg(s);
         if(msg == "restore completed"){

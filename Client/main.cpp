@@ -191,33 +191,31 @@ int main(int argc, char** argv)
     // connect to server
     // if 'files' and 'dirs' are empty, no file stored -> restore needed
     // 'dirs.empty() == false ' is always true because in 'dirs' is stored 'root'
-    int ret = connect_to_remote_server(files.empty() && (dirs.size() == 1));
+    int ret = connect_to_remote_server((files.empty() && (dirs.size() == 1))||(mode == "RESTORE"));
 
     if(ret == RESTORE){
-        restore(s,files,dirs,path,db_path);
+        restore(s,files,dirs,path,db_path, files.empty() && (dirs.size() == 1),root_ptr);
     }
 
-    if(mode == "FETCH") {
-        // SYN with server completed, starting to monitor client directory
-        synchronized = true;
-        std::thread t1([]() {
-            fw.set(path,std::chrono::milliseconds(1000));
-            fw.start(modification_function); });
-        std::cout << "--- System ready ---\n";
-        //std::this_thread::sleep_for(std::chrono::seconds(5000));
-        //fw.stop();
-        std::thread t2([]() {
-            while (true) {
-                // every seconds check if there are some work to do or not
-                std::this_thread::sleep_for(std::chrono::seconds(1));
-                if (!fw.isRunning()) return;
-                action_on_server("on thread");
-            }
-        });
-        t1.join();
-        t2.join();
-        /**/
-    }
+    // SYN with server completed, starting to monitor client directory
+    synchronized = true;
+    std::thread t1([]() {
+        fw.set(path,std::chrono::milliseconds(1000));
+        fw.start(modification_function); });
+    std::cout << "--- System ready ---\n";
+    //std::this_thread::sleep_for(std::chrono::seconds(5000));
+    //fw.stop();
+    std::thread t2([]() {
+        while (true) {
+            // every seconds check if there are some work to do or not
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+            if (!fw.isRunning()) return;
+            action_on_server("on thread");
+        }
+    });
+    t1.join();
+    t2.join();
+    /**/
     return 0;
 }
 
@@ -234,9 +232,12 @@ int connect_to_remote_server(bool needs_restore){
 
     while(true) {
         try {
-            std::string res = connectRequest(s, username, password, mode);
-            if(res == "CONNECT-ERROR")
+            std::cout<<"entering"<<std::endl;
+            server_digest = connectRequest(s, username, password, mode);
+            std::cout<<server_digest<<std::endl;
+            if(server_digest == "CONNECT-ERROR")
                 throw 20;
+            std::cout<<"exiting"<<std::endl;
             break;
         } catch (int p) {
             if (++cont == 3) {
@@ -248,8 +249,9 @@ int connect_to_remote_server(bool needs_restore){
 
     // CONNECT-OK
     if (!needs_restore){
+        std::cout<<"not needs_restore"<<std::endl;
         // old code for fetch mode
-        std::cout<<"FETCH MODE"<<std::endl;
+        /*std::cout<<"FETCH MODE"<<std::endl;
         while(true) {
             try {
                 server_digest = syncRequest(s, username);
@@ -262,7 +264,7 @@ int connect_to_remote_server(bool needs_restore){
                     exit(-1);
                 }
             }
-        }
+        }*/
         // check if the DB is updated
         if(!compareDigests(server_digest,client_digest)){
             std::cout<<"server DB is not updated\n";
@@ -281,6 +283,7 @@ int connect_to_remote_server(bool needs_restore){
             }
         }
     }else{ // restore
+        std::cout<<"needs_restore"<<std::endl;
         if(compareDigests(server_digest,client_digest)){ // if digest are the same, also the server is empty: no actions
             sendMsg(s, "Database up to date");
         } else {

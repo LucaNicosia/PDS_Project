@@ -71,18 +71,18 @@ int main() {
             // SYNC 'client'
             int cont = 0;
 
-            while(rcvConnectRequest(sockets[id], username, password, mode) != 0){
+            while(rcvConnectRequest(sockets[id], root_path,username, password, mode, root, files, dirs) != 0){
                 std::cout<<"Wrong username and/or password\n"<<std::endl;
             }
 
-            if (mode == "FETCH"){
-                // old code for fetch mode
-                std::cout<<"FETCH MODE"<<std::endl;
-                while(rcvSyncRequest(sockets[id],username, root_path,root,files,dirs) != 0) {
-                    std::cout << "Errore in SYNC\n";
-                }
-                db_path = "../DB/" + username + ".db";
-                userDirPath = root_path + "/" + username;
+            // old code for fetch mode
+            std::cout<<"FETCH MODE"<<std::endl;
+            /*
+            while(rcvSyncRequest(sockets[id],username, root_path,root,files,dirs) != 0) {
+                std::cout << "Errore in SYNC\n";
+            }*/
+            db_path = "../DB/" + username + ".db";
+            userDirPath = root_path + "/" + username;
 
             std::string msg;
             msg = rcvMsg(sockets[id]);
@@ -96,7 +96,6 @@ int main() {
             } else if (msg == "restore") {
                     //restore routine
                     restore(sockets[id],userDirPath,files,dirs);
-                }
             } else {
                 // error
                 std::cout<<"error in main\n";

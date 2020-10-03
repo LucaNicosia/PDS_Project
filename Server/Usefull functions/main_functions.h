@@ -161,6 +161,7 @@ void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::m
 }
 
 void check_user_data(const std::string& username_dir, const std::string& db_path){
+    std::cout<<"\tusername_dir: "<<username_dir<<std::endl;
     if(!std::filesystem::is_directory(username_dir)){
         // username directory doesn't exists, create it
         std::filesystem::create_directories(username_dir);
@@ -457,9 +458,10 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
     }
 }
 
-int rcvConnectRequest(Socket& s, std::string& username, std::string& password, std::string& mode) {
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
 
     std::string msg = rcvMsg(s);
+    sendMsg(s,"CONNECT-OK");
     std::cout<<msg<<std::endl;
     std::string delimiter = " ";
     //std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
@@ -486,13 +488,14 @@ int rcvConnectRequest(Socket& s, std::string& username, std::string& password, s
 
     User user {username, password};
 
-    std::string db_path = "../DB/users/users.db";
-    std::ifstream users(db_path);
+    std::string users_db_path = "../DB/users/users.db";
+    std::string db_path = "../DB/"+username+".db";
+    std::ifstream users(users_db_path);
     if (!users){
-        createUsersDB(db_path);
+        createUsersDB(users_db_path);
     }
 
-    Database db(db_path);
+    Database db(users_db_path);
 
     db.open();
 
@@ -509,13 +512,25 @@ int rcvConnectRequest(Socket& s, std::string& username, std::string& password, s
 
     if (!found){
         // User not present on the db
-        insertUserIntoDB(db_path, user);
-        sendMsg(s, "CONNECT-OK");
+        insertUserIntoDB(users_db_path, user);
+        if(rcvMsg(s) == "CONNECT-OK"){
+            root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
+            check_user_data(root->getName(), db_path);
+            initialize_files_and_dirs(files, dirs, db_path, root, s);
+            std::string digest = compute_db_digest(files, dirs);
+            sendMsg(s, "DIGEST " + digest);
+        }
     }else{
         // User already present on the db
         if (foundUser.getPassword() == computePasswordDigest(password+foundUser.getSalt())){
             // Correct username and password
-            sendMsg(s, "CONNECT-OK");
+            if(rcvMsg(s) == "CONNECT-OK"){
+                root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
+                check_user_data(root->getName(), db_path);
+                initialize_files_and_dirs(files, dirs, db_path, root, s);
+                std::string digest = compute_db_digest(files, dirs);
+                sendMsg(s, "DIGEST " + digest);
+            }
             return 0;
         }else{
             // Wrong username and/or password
