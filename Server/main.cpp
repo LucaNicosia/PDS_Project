@@ -10,21 +10,21 @@
 #include <atomic>
 #include <vector>
 #include <thread>
-#include "./FileManager/File.h"
-#include "./FileManager/Directory.h"
-#include "./TCP_Socket/SocketServer.h"
-#include "./TCP_Socket/Socket.h"
+#include "Entities/File/File.h"
+#include "Entities/Directory/Directory.h"
+#include "Entities/SocketServer/SocketServer.h"
+#include "Entities/Socket/Socket.h"
 
 // Communication
-#include "Communication/Communication.h"
-#include "DB/Database.h"
+#include "Usefull functions/Communication/Communication.h"
+#include "Entities/Database/Database.h"
 
 // DB
 #include <sqlite3.h>
 
 #include <filesystem>
 
-#include "usefull_functions/main_functions.h"
+#include "Usefull functions/main_functions.h"
 
 #define PORT 5110
 
@@ -67,14 +67,22 @@ int main() {
             std::map<std::string, std::shared_ptr<File>> files; // <path,File>
             std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
             std::cout<<"Entered in thread with id: "<<id<<std::endl;
-            std::string  userDirPath,username;
+            std::string  userDirPath, username, password, mode;
             // SYNC 'client'
             int cont = 0;
-            while(rcvSyncRequest(sockets[id],username,root_path,root,files,dirs) != 0) {
-                std::cout << "Errore in SYNC\n";
+
+            while(rcvConnectRequest(sockets[id], username, password, mode) != 0){
+                std::cout<<"Wrong username and/or password\n"<<std::endl;
             }
-            db_path = "../DB/" + username + ".db";
-            userDirPath = root_path + "/" + username;
+
+            if (mode == "FETCH"){
+                // old code for fetch mode
+                std::cout<<"FETCH MODE"<<std::endl;
+                while(rcvSyncRequest(sockets[id],username, root_path,root,files,dirs) != 0) {
+                    std::cout << "Errore in SYNC\n";
+                }
+                db_path = "../DB/" + username + ".db";
+                userDirPath = root_path + "/" + username;
 
             std::string msg;
             msg = rcvMsg(sockets[id]);
@@ -84,10 +92,11 @@ int main() {
                 }
             } else if (msg == "Database up to date") {
                 //OK
-                sendMsg(sockets[id],"server_db_ok");
-            }else if (msg == "restore") {
-                //restore routine
-                restore(sockets[id],userDirPath,files,dirs);
+                sendMsg(sockets[id], "server_db_ok");
+            } else if (msg == "restore") {
+                    //restore routine
+                    restore(sockets[id],userDirPath,files,dirs);
+                }
             } else {
                 // error
                 std::cout<<"error in main\n";

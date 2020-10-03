@@ -5,7 +5,8 @@
 #ifndef PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
 #define PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
 
-#include "../Crypto/MyCryptoLibrary.h"
+#include "Crypto/MyCryptoLibrary.h"
+#include "../Entities/User/User.h"
 
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file);
 int deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& file);
@@ -96,6 +97,7 @@ int insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>
     db.close();
     return 1;
 }
+
 int deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Directory>& dir){
     Database db(db_path);
     std::ifstream db_file(db_path);
@@ -120,6 +122,21 @@ int deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dire
     return 0;
 }
 
+bool insertUserIntoDB(const std::string& db_path, const User user){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("INSERT INTO Users (username,password,salt) VALUES (\""+user.getUsername()+"\",\""+user.getPassword()+"\",\""+user.getSalt()+"\")");
+
+    db.close();
+    return true;
+}
 
 std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
     std::string head = path;
@@ -165,6 +182,18 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
     }
 }
 
+void createUsersDB(const std::string& db_path){
+    Database db(db_path);
+    // database doesn't exists
+    db.open();
+    db.exec("CREATE TABLE \"Users\" ("
+            "\"username\" TEXT PRIMARY KEY NOT NULL UNIQUE,"
+            "\"password\" TEXT NOT NULL,"
+            "\"salt\" TEXT NOT NULL"
+            ")");
+
+}
+
 void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory>& root, Socket& s){
     Database db(db_path);
     int nFiles, nDirs;
@@ -203,6 +232,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         std::shared_ptr<Directory> dir = father.lock()->addDirectory(queryDirs[i].getName(), !std::filesystem::is_directory(server_path)); // if it is already a directory, it is not created
         dirs[dir->getPath()] = dir;
     }
+
     for (int i = 0; i < nFiles; i++){
         std::string server_path = path + "/" + queryFiles[i].getPath();
         std::size_t found = queryFiles[i].getPath().find_last_of("/");
@@ -242,7 +272,6 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     for(auto it : files){
         if(!std::filesystem::exists(std::filesystem::status(path + "/" + it.second->getPath()))){
             deleteFileFromDB(db_path,it.second);
-            std::cout<<"\tFILE "<<it.second->getPath()<<" erased"<<std::endl;
             it.second->getDFather().lock()->removeFile(it.second->getName());
             files.erase(it.first);
         }
@@ -426,6 +455,76 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
         //goto restart;
         throw std::runtime_error("unknown message type");
     }
+}
+
+int rcvConnectRequest(Socket& s, std::string& username, std::string& password, std::string& mode) {
+
+    std::string msg = rcvMsg(s);
+    std::cout<<msg<<std::endl;
+    std::string delimiter = " ";
+    //std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
+    size_t pos = 0;
+    std::string token;
+    int i = 0;
+    int nUsers;
+    std::vector<User> queryUsers;
+    bool found = false;
+    User foundUser;
+
+    while ((pos = msg.find(delimiter)) != std::string::npos) {
+        token = msg.substr(0, pos);
+        if (i == 1){
+            username = token;
+        }else if (i == 2){
+            password = token;
+        }
+        std::cout << token << std::endl;
+        msg.erase(0, pos + delimiter.length());
+        i++;
+    }
+    mode = msg;
+
+    User user {username, password};
+
+    std::string db_path = "../DB/users/users.db";
+    std::ifstream users(db_path);
+    if (!users){
+        createUsersDB(db_path);
+    }
+
+    Database db(db_path);
+
+    db.open();
+
+    db.select("SELECT * FROM Users",nUsers,queryUsers);
+
+    db.close();
+
+    for (User u : queryUsers){
+        if (u.getUsername() == user.getUsername()){
+            found = true;
+            foundUser = u;
+        }
+    }
+
+    if (!found){
+        // User not present on the db
+        insertUserIntoDB(db_path, user);
+        sendMsg(s, "CONNECT-OK");
+    }else{
+        // User already present on the db
+        if (foundUser.getPassword() == computePasswordDigest(password+foundUser.getSalt())){
+            // Correct username and password
+            sendMsg(s, "CONNECT-OK");
+            return 0;
+        }else{
+            // Wrong username and/or password
+            sendMsg(s, "CONNECT-ERROR");
+            return -1;
+        }
+    }
+
+    return 0;
 }
 
 #endif //PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H

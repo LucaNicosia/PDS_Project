@@ -6,11 +6,11 @@
 #define PDS_PROJECT_CLIENT_MAIN_FUNCTIONS_H
 
 #include <iostream>
-#include "../FileManager/File.h"
-#include "../FileManager/Directory.h"
-#include "../Communication/Communication.h"
-#include "../FileManager/FileWatcher.h"
-#include "../DB/Database.h"
+#include "../Entities/File/File.h"
+#include "../Entities/Directory/Directory.h"
+#include "Communication/Communication.h"
+#include "../Entities/FileWatcher/FileWatcher.h"
+#include "../Entities/Database/Database.h"
 #include <map>
 #include <queue>
 
@@ -386,6 +386,19 @@ std::string syncRequest(Socket& s, const std::string client){
             return std::string (digest.substr(digest.find(" ")+1));
         else
             return "SYNC-ERROR";
+    }
+}
+
+std::string connectRequest(Socket& s, const std::string username, const std::string password, const std::string mode){
+    // <- CONNECT 'username' 'password' 'mode'
+    sendMsg(s, std::string ("CONNECT "+username+" "+password+" "+mode));
+    std::string msg = rcvMsg(s);
+    if (msg == "CONNECT-ERROR"){
+        //CONNECT-ERROR
+        return std::string("CONNECT-ERROR");
+    }else{
+        //CONNECT-OK
+        return std::string ("CONNECT-OK");
     }
 }
 

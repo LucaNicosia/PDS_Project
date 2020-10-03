@@ -38,6 +38,19 @@ std::string computeDigest(std::string filePath){
     return encoded;
 }
 
+std::string computePasswordDigest(std::string saltedPassword){
+    std::string digest;
+    CryptoPP::SHA1 hash;
+    hash.Update(reinterpret_cast<const byte*>(saltedPassword.data()), saltedPassword.size());
+    digest.resize(hash.DigestSize());
+    hash.Final(reinterpret_cast<byte*>(&digest[0]));
+    std::string encoded;
+    CryptoPP::StringSource(digest, true, new CryptoPP::Base64Encoder(new CryptoPP::StringSink(encoded)));
+    encoded = encoded.substr(0,encoded.size()-1); // remove "\n" at the end
+
+    return encoded;
+}
+
 void appendDigest(const std::string& str){
     hash_to_append.Update(reinterpret_cast<const byte*>(str.c_str()),str.size());
 }

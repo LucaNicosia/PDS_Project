@@ -15,18 +15,18 @@
 // database mySql libraries
 #include <sqlite3.h>
 
-#include "./DB/Database.h"
+#include "Entities/Database/Database.h"
 
 // Communication
-#include "Communication/Communication.h"
+#include "Usefull functions/Communication/Communication.h"
 
 // Socket
 //#include "./TCP_Socket/Socket.h"
 
-#include "./FileManager/Directory.h"
-#include "./FileManager/File.h"
-#include "./FileManager/FileWatcher.h"
-#include "usefull_functions/main_functions.h"
+#include "Entities/Directory/Directory.h"
+#include "Entities/File/File.h"
+#include "Entities/FileWatcher/FileWatcher.h"
+#include "Usefull functions/main_functions.h"
 
 //#define PORT 5108
 #define MAXFD 50000
@@ -45,6 +45,8 @@ bool synchronized = false;
 std::string path = "TestPath";
 FileWatcher fw;
 std::string username;
+std::string password;
+std::string mode;
 int port;
 std::mutex action_server_mutex;
 
@@ -170,6 +172,8 @@ int main(int argc, char** argv)
     //std::cout<<"> Inserisci username: ";
     //std::cin>>username;
     username = std::string(argv[2]);
+    password = std::string(argv[3]);
+    mode = std::string(argv[4]);
     db_path += "/" + username + ".db";
     server_db_path += "/" + username + "_server.db";
     path += "/" + username;
@@ -193,25 +197,27 @@ int main(int argc, char** argv)
         restore(s,files,dirs,path,db_path);
     }
 
-    // SYN with server completed, starting to monitor client directory
-    synchronized = true;
-    std::thread t1([]() {
-        fw.set(path,std::chrono::milliseconds(1000));
-        fw.start(modification_function);});
-    std::cout<<"--- System ready ---\n";
-    //std::this_thread::sleep_for(std::chrono::seconds(5000));
-    //fw.stop();
-    std::thread t2([](){
-        while(true) {
-            // every seconds check if there are some work to do or not
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-            if(!fw.isRunning()) return;
-            action_on_server("on thread");
-        }
-    });
-    t1.join();
-    t2.join();
-    /**/
+    if(mode == "FETCH") {
+        // SYN with server completed, starting to monitor client directory
+        synchronized = true;
+        std::thread t1([]() {
+            fw.set(path,std::chrono::milliseconds(1000));
+            fw.start(modification_function); });
+        std::cout << "--- System ready ---\n";
+        //std::this_thread::sleep_for(std::chrono::seconds(5000));
+        //fw.stop();
+        std::thread t2([]() {
+            while (true) {
+                // every seconds check if there are some work to do or not
+                std::this_thread::sleep_for(std::chrono::seconds(1));
+                if (!fw.isRunning()) return;
+                action_on_server("on thread");
+            }
+        });
+        t1.join();
+        t2.join();
+        /**/
+    }
     return 0;
 }
 
@@ -228,42 +234,58 @@ int connect_to_remote_server(bool needs_restore){
 
     while(true) {
         try {
-            server_digest = syncRequest(s, username);
-            if(server_digest == "SYNC-ERROR")
+            std::string res = connectRequest(s, username, password, mode);
+            if(res == "CONNECT-ERROR")
                 throw 20;
             break;
         } catch (int p) {
             if (++cont == 3) {
-                std::cout << "stop! some error\n";
+                std::cout << "Wrong username and/or password!\n";
                 exit(-1);
             }
         }
     }
-    if(needs_restore){
+
+    // CONNECT-OK
+    if (!needs_restore){
+        // old code for fetch mode
+        std::cout<<"FETCH MODE"<<std::endl;
+        while(true) {
+            try {
+                server_digest = syncRequest(s, username);
+                if(server_digest == "SYNC-ERROR")
+                    throw 20;
+                break;
+            } catch (int p) {
+                if (++cont == 3) {
+                    std::cout << "stop! some error\n";
+                    exit(-1);
+                }
+            }
+        }
+        // check if the DB is updated
+        if(!compareDigests(server_digest,client_digest)){
+            std::cout<<"server DB is not updated\n";
+            // get DB from server
+            sendMsg(s,"GET-DB");
+            rcvFile(s,server_db_path);
+            // check which files and directories aren't updated
+            checkDB(path,"",server_db_path,files,dirs,modification_function, root_ptr);
+            std::cout<<"--- checkDB ended ---\n";
+        } else {
+            std::cout<<"server DB is updated\n";
+            sendMsg(s,"Database up to date");
+            if(rcvMsg(s) != "server_db_ok"){
+                std::cout<<"error in db response on 'server_db_ok'\n";
+                exit(-1);
+            }
+        }
+    }else{ // restore
         if(compareDigests(server_digest,client_digest)){ // if digest are the same, also the server is empty: no actions
             sendMsg(s, "Database up to date");
         } else {
             // server has some data, needs to restore
             return RESTORE;
-        }
-    }
-    else {
-        // check if the DB is updated
-        if (!compareDigests(server_digest, client_digest)) {
-            std::cout << "server DB is not updated\n";
-            // get DB from server
-            sendMsg(s, "GET-DB");
-            rcvFile(s, server_db_path);
-            // check which files and directories aren't updated
-            checkDB(path, "", server_db_path, files, dirs, modification_function, root_ptr);
-            std::cout << "--- checkDB ended ---\n";
-        } else {
-            std::cout << "server DB is updated\n";
-            sendMsg(s, "Database up to date");
-            if (rcvMsg(s) != "server_db_ok") {
-                std::cout << "error in db response on 'server_db_ok'\n";
-                exit(-1);
-            }
         }
     }
     return UPDATED;
