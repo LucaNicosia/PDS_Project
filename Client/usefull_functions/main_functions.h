@@ -359,6 +359,19 @@ std::string syncRequest(Socket& s, const std::string client){
     }
 }
 
+std::string connectRequest(Socket& s, const std::string username, const std::string password, const std::string mode){
+    // <- CONNECT 'username' 'password' 'mode'
+    sendMsg(s, std::string ("CONNECT "+username+" "+password+" "+mode));
+    std::string msg = rcvMsg(s);
+    if (msg == "CONNECT-ERROR"){
+        //CONNECT-ERROR
+        return std::string("CONNECT-ERROR");
+    }else{
+        //CONNECT-OK
+        return std::string ("CONNECT-OK");
+    }
+}
+
 // server and client may have different order on db, compute the digest manually
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
     // files and dirs contains data of db and also stored in memory

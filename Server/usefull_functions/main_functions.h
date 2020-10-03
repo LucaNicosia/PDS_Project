@@ -6,6 +6,7 @@
 #define PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
 
 #include "../Crypto/MyCryptoLibrary.h"
+#include "../User/User.h"
 
 bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
@@ -67,6 +68,7 @@ bool insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory
     db.close();
     return true;
 }
+
 bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Directory>& dir){
     Database db(db_path);
     std::ifstream db_file(db_path);
@@ -89,6 +91,22 @@ bool deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dir
         deleteFileFromDB(db_path, dir->getFSons()[i]);
     }
 
+    return true;
+}
+
+bool insertUserIntoDB(const std::string& db_path, const User user){
+    Database db(db_path);
+    std::ifstream db_file(db_path);
+
+    if(!db_file){
+        // a file that doesn't exits
+        return false;
+    }
+    db.open();
+
+    db.exec("INSERT INTO Users (username,password,salt) VALUES (\""+user.getUsername()+"\",\""+user.getPassword()+"\",\""+user.getSalt()+"\")");
+
+    db.close();
     return true;
 }
 
@@ -134,6 +152,18 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
                 "\"hash\" TEXT NOT NULL"
                 ")");
     }
+}
+
+void createUsersDB(const std::string& db_path){
+    Database db(db_path);
+    // database doesn't exists
+    db.open();
+    db.exec("CREATE TABLE \"Users\" ("
+            "\"username\" TEXT PRIMARY KEY NOT NULL UNIQUE,"
+            "\"password\" TEXT NOT NULL,"
+            "\"salt\" TEXT NOT NULL"
+            ")");
+
 }
 
 void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory>& root, Socket& s){
@@ -243,6 +273,7 @@ std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& file
 int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
 
     std::string msg = rcvMsg(s);
+    std::cout<<msg<<std::endl;
     std::string delimiter = " ";
     std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
     username = client;
@@ -269,6 +300,105 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
         sendMsg(s, "SYNC-ERROR");
         return -1;
     }
+}
+
+int rcvConnectRequest(Socket& s, std::string& username, std::string& password, std::string& mode) {
+
+    std::string msg = rcvMsg(s);
+    std::cout<<msg<<std::endl;
+    std::string delimiter = " ";
+    //std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
+    size_t pos = 0;
+    std::string token;
+    int i = 0;
+    int nUsers;
+    std::vector<User> queryUsers;
+    bool found = false;
+    User foundUser;
+
+    while ((pos = msg.find(delimiter)) != std::string::npos) {
+        token = msg.substr(0, pos);
+        if (i == 1){
+            username = token;
+        }else if (i == 2){
+            password = token;
+        }
+        std::cout << token << std::endl;
+        msg.erase(0, pos + delimiter.length());
+        i++;
+    }
+    mode = msg;
+
+    User user {username, password};
+
+    std::string db_path = "../DB/users/users.db";
+    std::ifstream users(db_path);
+    if (!users){
+        createUsersDB(db_path);
+    }
+
+    Database db(db_path);
+
+    db.open();
+
+    db.select("SELECT * FROM Users",nUsers,queryUsers);
+
+    db.close();
+
+    for (User u : queryUsers){
+        if (u.getUsername() == user.getUsername()){
+            found = true;
+            foundUser = u;
+        }
+    }
+
+    if (!found){
+        // User not present on the db
+        insertUserIntoDB(db_path, user);
+        sendMsg(s, "CONNECT-OK");
+    }else{
+        // User already present on the db
+        if (foundUser.getPassword() == computePasswordDigest(password+foundUser.getSalt())){
+            // Correct username and password
+            sendMsg(s, "CONNECT-OK");
+            return 0;
+        }else{
+            // Wrong username and/or password
+            sendMsg(s, "CONNECT-ERROR");
+            return -1;
+        }
+    }
+
+    return 0;
+
+    /*sendMsg(s, "CONNECT-ERROR");
+    return -1;*/
+
+
+    /*username = client;
+    root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
+    std::string db_path = "../DB/"+client+".db";
+
+    std::ifstream input(db_path);
+    if (input.is_open()){
+        sendMsg(s, "SYNC-OK");
+        std::string msg = rcvMsg(s);
+        if (msg == "SYNC-OK"){
+            check_user_data(root->getName(),db_path);
+            initialize_files_and_dirs(files,dirs,db_path,root,s);
+            std::string digest = compute_db_digest(files,dirs);
+            sendMsg(s,"DIGEST "+digest);
+        }else{
+            //ERRORE
+            std::cout<<"ERRORE"<<std::endl;
+            return -1;
+        }
+        return 0;
+    }else{
+        check_user_data(root->getName(),db_path);
+        sendMsg(s, "SYNC-ERROR");
+        return -1;
+    }*/
 }
 
 #endif //PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
