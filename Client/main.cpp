@@ -15,18 +15,18 @@
 // database mySql libraries
 #include <sqlite3.h>
 
-#include "./DB/Database.h"
+#include "Entities/Database/Database.h"
 
 // Communication
-#include "Communication/Communication.h"
+#include "Usefull functions/Communication/Communication.h"
 
 // Socket
 //#include "./TCP_Socket/Socket.h"
 
-#include "./FileManager/Directory.h"
-#include "./FileManager/File.h"
-#include "./FileManager/FileWatcher.h"
-#include "usefull_functions/main_functions.h"
+#include "Entities/Directory/Directory.h"
+#include "Entities/File/File.h"
+#include "Entities/FileWatcher/FileWatcher.h"
+#include "Usefull functions/main_functions.h"
 
 //#define PORT 5108
 #define MAXFD 50000

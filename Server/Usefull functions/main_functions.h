@@ -5,8 +5,8 @@
 #ifndef PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
 #define PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
 
-#include "../Crypto/MyCryptoLibrary.h"
-#include "../User/User.h"
+#include "Crypto/MyCryptoLibrary.h"
+#include "../Entities/User/User.h"
 
 bool insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);

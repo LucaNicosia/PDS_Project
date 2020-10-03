@@ -6,11 +6,11 @@
 #define PDS_PROJECT_CLIENT_MAIN_FUNCTIONS_H
 
 #include <iostream>
-#include "../FileManager/File.h"
-#include "../FileManager/Directory.h"
-#include "../Communication/Communication.h"
-#include "../FileManager/FileWatcher.h"
-#include "../DB/Database.h"
+#include "../Entities/File/File.h"
+#include "../Entities/Directory/Directory.h"
+#include "Communication/Communication.h"
+#include "../Entities/FileWatcher/FileWatcher.h"
+#include "../Entities/Database/Database.h"
 #include <map>
 #include <queue>
 

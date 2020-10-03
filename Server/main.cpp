@@ -10,21 +10,21 @@
 #include <atomic>
 #include <vector>
 #include <thread>
-#include "./FileManager/File.h"
-#include "./FileManager/Directory.h"
-#include "./TCP_Socket/SocketServer.h"
-#include "./TCP_Socket/Socket.h"
+#include "Entities/File/File.h"
+#include "Entities/Directory/Directory.h"
+#include "Entities/SocketServer/SocketServer.h"
+#include "Entities/Socket/Socket.h"
 
 // Communication
-#include "Communication/Communication.h"
-#include "DB/Database.h"
+#include "Usefull functions/Communication/Communication.h"
+#include "Entities/Database/Database.h"
 
 // DB
 #include <sqlite3.h>
 
 #include <filesystem>
 
-#include "usefull_functions/main_functions.h"
+#include "Usefull functions/main_functions.h"
 
 #define PORT 5110
 

@@ -5,7 +5,7 @@
 #ifndef PDS_PROJECT_SERVER_COMMUNICATION_H
 #define PDS_PROJECT_SERVER_COMMUNICATION_H
 
-#include "../TCP_Socket/Socket.h"
+#include "../../Entities/Socket/Socket.h"
 #include "../Crypto/MyCryptoLibrary.h"
 #include <fcntl.h>
 #include <sstream>

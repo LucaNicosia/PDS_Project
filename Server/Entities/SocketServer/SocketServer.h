@@ -5,7 +5,7 @@
 #ifndef LAB05_SOCKETSERVER_H
 #define LAB05_SOCKETSERVER_H
 
-#include "Socket.h"
+#include "../Socket/Socket.h"
 
 class ServerSocket: private Socket {
 public:

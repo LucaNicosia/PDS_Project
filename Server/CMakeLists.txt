@@ -8,7 +8,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
 find_library(CryptoPP libcryptopp.so REQUIRED)
 
-add_executable(PDS_Project_Server main.cpp ./TCP_Socket/Socket.cpp ./TCP_Socket/Socket.h ./TCP_Socket/SocketServer.cpp ./TCP_Socket/SocketServer.h ./FileManager/File.cpp ./FileManager/File.h ./FileManager/Directory.cpp ./FileManager/Directory.h DB/Database.h ./Communication/Communication.h User/User.h)
+add_executable(PDS_Project_Server main.cpp Entities/Socket/Socket.cpp Entities/Socket/Socket.h Entities/SocketServer/SocketServer.cpp Entities/SocketServer/SocketServer.h Entities/File/File.cpp Entities/File/File.h Entities/Directory/Directory.cpp Entities/Directory/Directory.h Entities/Database/Database.h "Usefull functions/Communication/Communication.h" Entities/User/User.h)
 target_link_libraries(PDS_Project_Server LINK_PUBLIC sqlite3 ${CryptoPP})
 
 
