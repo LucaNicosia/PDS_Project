@@ -320,8 +320,11 @@ void restore(Socket& s, const std::string& userPath, std::map<std::string, std::
     for (const auto& it : files) {
         sendMsg(s,"FILE "+it.second->getPath()+" created");
         if(rcvMsg(s) == "READY"){
-            sendFile(s,userPath+"/"+it.second->getPath(),it.second->getPath());
-            if(rcvMsg(s) == "DONE"){
+            int ret = sendFile(s,userPath+"/"+it.second->getPath(),it.second->getPath());
+            if(ret == 1){
+                continue;
+            }
+            if(ret == 0 && rcvMsg(s) == "DONE"){
                 continue;
             }
         }
