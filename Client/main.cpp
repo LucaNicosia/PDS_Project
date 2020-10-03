@@ -30,6 +30,8 @@
 
 //#define PORT 5108
 #define MAXFD 50000
+#define RESTORE 1
+#define UPDATED 0
 
 
 Socket s;
@@ -46,7 +48,7 @@ std::string username;
 int port;
 std::mutex action_server_mutex;
 
-void connect_to_remote_server();
+int connect_to_remote_server(bool needs_restore);
 void action_on_server(std::string str);
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
@@ -65,14 +67,22 @@ auto modification_function = [](const std::string file, const std::string filePa
             if (ft == FileType::directory) {
                 dirs[cleaned_path] = father.lock()->addDirectory(file, false);
                 if (synchronized) {
-                    if (!insertDirectoryIntoDB(db_path, dirs[cleaned_path]))
+                    int ret;
+                    if ((ret = insertDirectoryIntoDB(db_path, dirs[cleaned_path])) < 0)
                         std::cout << "Problema nell'inserire la directory sul DB" << std::endl;
+                    else if(ret == 1) // directory already present
+                        //return; //nothing to signal to server
+                        int n;
                 }
             } else {// file
                 files[cleaned_path] = std::make_shared<File>(file,computeDigest(filePath), father);
                 if (synchronized) {
-                    if (!insertFileIntoDB(db_path, files[cleaned_path]))
+                    int ret;
+                    if ((ret = insertFileIntoDB(db_path, files[cleaned_path])) < 0)
                         std::cout << "Problema nell'inserire il file sul DB" << std::endl;
+                    else if(ret == 1) // insertFileIntoDB find that the record was already present
+                        //return; // nothing to signal to server
+                        int n;
                 }
             }
             break;
@@ -166,7 +176,6 @@ int main(int argc, char** argv)
     if(!std::filesystem::is_directory(path)){
         std::filesystem::create_directory(path);
     }
-    fw.set(path,std::chrono::milliseconds(1000));
 
     //ROOT INITIALIZATION
     root_ptr = std::make_shared<Directory>()->makeDirectory(path, std::weak_ptr<Directory>());
@@ -176,11 +185,19 @@ int main(int argc, char** argv)
     updateDB(db_path,files,dirs, root_ptr);
 
     // connect to server
-    connect_to_remote_server();
+    // if 'files' and 'dirs' are empty, no file stored -> restore needed
+    // 'dirs.empty() == false ' is always true because in 'dirs' is stored 'root'
+    int ret = connect_to_remote_server(files.empty() && (dirs.size() == 1));
+
+    if(ret == RESTORE){
+        restore(s,files,dirs,path,db_path);
+    }
 
     // SYN with server completed, starting to monitor client directory
     synchronized = true;
-    std::thread t1([]() { fw.start(modification_function);});
+    std::thread t1([]() {
+        fw.set(path,std::chrono::milliseconds(1000));
+        fw.start(modification_function);});
     std::cout<<"--- System ready ---\n";
     //std::this_thread::sleep_for(std::chrono::seconds(5000));
     //fw.stop();
@@ -198,7 +215,7 @@ int main(int argc, char** argv)
     return 0;
 }
 
-void connect_to_remote_server(){
+int connect_to_remote_server(bool needs_restore){
     // connect to the remote server
     s = Socket();
     s.setTimeoutSecs(20);
@@ -222,23 +239,34 @@ void connect_to_remote_server(){
             }
         }
     }
-    // check if the DB is updated
-    if(!compareDigests(server_digest,client_digest)){
-        std::cout<<"server DB is not updated\n";
-        // get DB from server
-        sendMsg(s,"GET-DB");
-        rcvFile(s,server_db_path);
-        // check which files and directories aren't updated
-        checkDB(path,"",server_db_path,files,dirs,modification_function, root_ptr);
-        std::cout<<"--- checkDB ended ---\n";
-    } else {
-        std::cout<<"server DB is updated\n";
-        sendMsg(s,"Database up to date");
-        if(rcvMsg(s) != "server_db_ok"){
-            std::cout<<"error in db response on 'server_db_ok'\n";
-            exit(-1);
+    if(needs_restore){
+        if(compareDigests(server_digest,client_digest)){ // if digest are the same, also the server is empty: no actions
+            sendMsg(s, "Database up to date");
+        } else {
+            // server has some data, needs to restore
+            return RESTORE;
         }
     }
+    else {
+        // check if the DB is updated
+        if (!compareDigests(server_digest, client_digest)) {
+            std::cout << "server DB is not updated\n";
+            // get DB from server
+            sendMsg(s, "GET-DB");
+            rcvFile(s, server_db_path);
+            // check which files and directories aren't updated
+            checkDB(path, "", server_db_path, files, dirs, modification_function, root_ptr);
+            std::cout << "--- checkDB ended ---\n";
+        } else {
+            std::cout << "server DB is updated\n";
+            sendMsg(s, "Database up to date");
+            if (rcvMsg(s) != "server_db_ok") {
+                std::cout << "error in db response on 'server_db_ok'\n";
+                exit(-1);
+            }
+        }
+    }
+    return UPDATED;
 }
 
 void action_on_server(std::string str){ // this function is used in a loop to check the state of the FileWatcher
@@ -249,7 +277,7 @@ void action_on_server(std::string str){ // this function is used in a loop to ch
 
     if(!s.is_open() && cur == FileWatcher_state::mod_found && last == FileWatcher_state::ready){ // first modification found, open the socket
         lg.unlock();
-        connect_to_remote_server(); // this function can call 'action_on_server', deadlock without unlock
+        connect_to_remote_server(false); // this function can call 'action_on_server', deadlock without unlock
         lg.lock();
     }
     if(s.is_open() && (cur == FileWatcher_state::ended || cur == FileWatcher_state::ready && last == FileWatcher_state::ended)){

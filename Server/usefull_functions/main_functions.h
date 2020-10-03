@@ -165,28 +165,38 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     db.close();
     for (int i = 0; i < nDirs; i++){
         std::string server_path = path + "/" + queryDirs[i].getPath();
+        if(!std::filesystem::is_directory(server_path)){ // if directory is not in memory, remove it from DB
+            deleteDirectoryFromDB(db_path,std::make_shared<Directory>(queryDirs[i]));
+            continue;
+        }
         std::weak_ptr<Directory> father;
         father = dirs[Directory::getFatherFromPath(queryDirs[i].getPath())]->getSelf();
         std::shared_ptr<Directory> dir = father.lock()->addDirectory(queryDirs[i].getName(), !std::filesystem::is_directory(server_path)); // if it is already a directory, it is not created
         dirs[dir->getPath()] = dir;
     }
-
     for (int i = 0; i < nFiles; i++){
         std::string server_path = path + "/" + queryFiles[i].getPath();
         std::size_t found = queryFiles[i].getPath().find_last_of("/");
         queryFiles[i].setName(queryFiles[i].getPath().substr(found+1));
-        std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
-        std::shared_ptr<File> file;
         if(!std::filesystem::exists(std::filesystem::status(server_path))){
-            // file doesn't exists, create it empty
+            // file doesn't exists, remove it from DB
+            /*
+            std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
+            std::shared_ptr<File> file;
             file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(),true);
             file->setHash(computeDigest(server_path));
             updateFileDB(db_path,file);
+            files[file->getPath()] = file;
+            */
+            deleteFileFromDB(db_path,std::make_shared<File>(queryFiles[i]));
+            continue;
         }
         else{
+            std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
+            std::shared_ptr<File> file;
             file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(),false);
+            files[file->getPath()] = file;
         }
-        files[file->getPath()] = file;
     }
     // until now, files and dirs contains only db data. Check if data actually stored is right
     // if in memory but not on db, delete from memory
@@ -196,20 +206,18 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
             path_to_delete.push_back(it.path().string());
         }
     }
-
     for(auto it : path_to_delete){
         std::filesystem::remove_all(it);
     }
-
     // if they are on db but not in memory, delete from db
     for(auto it : files){
         if(!std::filesystem::exists(std::filesystem::status(path + "/" + it.second->getPath()))){
             deleteFileFromDB(db_path,it.second);
+            std::cout<<"\tFILE "<<it.second->getPath()<<" erased"<<std::endl;
             it.second->getDFather().lock()->removeFile(it.second->getName());
             files.erase(it.first);
         }
     }
-
     for(auto it : dirs){
         if(!std::filesystem::is_directory(path + "/" + it.second->getPath())){
             deleteDirectoryFromDB(db_path,it.second);
@@ -223,7 +231,6 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     running = false;
     lg.unlock();
     t.join();
-
 }
 
 // server and client may have different order on db, compute the digest manually
@@ -268,6 +275,124 @@ int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path
         check_user_data(root->getName(),db_path);
         sendMsg(s, "SYNC-ERROR");
         return -1;
+    }
+}
+
+void restore(Socket& s, const std::string& userPath, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
+    for (const auto& it : dirs){
+        if(it.second->getPath() == "")
+            continue; // root is not sent
+        sendMsg(s,"DIR "+it.second->getPath()+" created");
+        if(rcvMsg(s) == "DONE")
+            continue;
+        throw "error in directories restoring";
+    }
+
+    for (const auto& it : files) {
+        sendMsg(s,"FILE "+it.second->getPath()+" created");
+        if(rcvMsg(s) == "READY"){
+            sendFile(s,userPath+"/"+it.second->getPath(),it.second->getPath());
+            if(rcvMsg(s) == "DONE"){
+                continue;
+            }
+        }
+        throw "error in files restoring";
+    }
+
+    sendMsg(s,"restore completed");
+}
+
+void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
+    std::string path;
+    std::string name;
+    std::string type;
+    std::string operation;
+    // get data from message 'msg'
+    operation = msg.substr(msg.find_last_of(" ") + 1);
+    msg = msg.substr(0, msg.find_last_of(" "));
+    type = msg.substr(0, msg.find_first_of(" "));
+    msg = msg.substr(msg.find_first_of(" ") + 1);
+    path = msg;
+    name = path.substr(path.find_last_of("/") + 1);
+
+    std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(path)];
+    if (type == "FILE") {
+        // file modification handler
+        if (operation == "created") {
+            sendMsg(s, "READY");
+            rcvFile(s, userDirPath + "/" + path);
+            sendMsg(s, "DONE");
+            std::shared_ptr<File> file = father.lock()->addFile(name,
+                                                                computeDigest(userDirPath + "/" + path),
+                                                                false);
+            files[file->getPath()] = file;
+            if (!insertFileIntoDB(db_path, file)) {
+                std::cout << "Problema nell'inserire il file sul DB" << std::endl;
+            }
+        } else if (operation == "erased") {
+            if (!deleteFileFromDB(db_path, files[path])) {
+                std::cout << "Problema nel cancellare il file sul DB" << std::endl;
+            }
+            father.lock()->removeFile(name);
+            files.erase(path);
+            sendMsg(s, "DONE");
+        } else if (operation == "modified") {
+            if (!deleteFileFromDB(db_path, files[path])) {
+                std::cout << "Problema nel cancellare il file sul DB" << std::endl;
+            }
+            father.lock()->removeFile(name);
+            files.erase(path);
+            sendMsg(s, "READY");
+            rcvFile(s, userDirPath + "/" + path);
+            sendMsg(s, "DONE");
+            std::shared_ptr<File> file = father.lock()->addFile(name,
+                                                                computeDigest(userDirPath + "/" + path),
+                                                                false);
+            files[file->getPath()] = file;
+            if (!insertFileIntoDB(db_path, file)) {
+                std::cout << "Problema nell'inserire il file sul DB" << std::endl;
+            }
+        } else {
+            //errore
+            std::cout << "Stringa non ricevuta correttamente (" << type << " " << path << " "
+                      << operation << ")" << std::endl;
+            sendMsg(s, "ERROR");
+        }
+    } else if (type == "DIR") {
+        //dirs modification handler
+        if (operation == "created") {
+            std::shared_ptr<Directory> dir = father.lock()->addDirectory(name, true);
+            dirs[dir->getPath()] = dir;
+            if (!insertDirectoryIntoDB(db_path, dir)) {
+                std::cout << "Problema nell'inserire la directory sul DB" << std::endl;
+            }
+            sendMsg(s, "DONE");
+        } else if (operation == "erased") {
+            if (!deleteDirectoryFromDB(db_path, dirs[path])) {
+                std::cout << "Problema nel cancellare la directory sul DB" << std::endl;
+            }
+            std::cout<<"fuori da erased"<<std::endl;
+            //std::cout<<"father: "<<dirs[Directory::getFatherFromPath(path)]->toString()<<std::endl; // TODO: questo non funziona in hard start
+            father.lock()->removeDir(name);
+            std::cout<<"dopo removeDir"<<std::endl;
+            dirs.erase(path);
+            std::cout<<"dopo dirs.erase"<<std::endl;
+            sendMsg(s, "DONE");
+        } else if (operation == "modified") {
+            // nothing to do
+        } else {
+            //errore
+            std::cout << "Stringa non ricevuta correttamente (" << type << " " << path << " "
+                      << operation << ")" << std::endl;
+            sendMsg(s, "ERROR");
+        }
+    } else {
+        std::cout << "unknown message type" << std::endl;
+        //error
+        //sendMsg(s, "ERROR");
+        //return;
+        //goto restart;
+        throw std::runtime_error("unknown message type");
     }
 }
 
