@@ -10,6 +10,7 @@
 #include <vector>
 #include <memory>
 #include "../Directory/Directory.h"
+#include "../Exceptions/MyExceptions.h"
 
 
 class Directory;

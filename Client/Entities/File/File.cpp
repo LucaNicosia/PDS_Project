@@ -66,7 +66,7 @@ void File::set(const std::string& field, const std::string& value) {
     }else if(field == "name"){
         name = value;
     }else{
-        std::cout<<"File: Invalid field! ("<<field<<")\n"; // QUI CI VUOLE UNA ECCEZIONE
+        throw general_exception("File: invalid field");
     }
 }
 

@@ -9,7 +9,7 @@
 #include <iostream>
 #include <vector>
 #include <memory>
-
+#include "../Exceptions/MyExceptions.h"
 #include <typeinfo>
 
 class File;

@@ -65,8 +65,11 @@ std::shared_ptr<File> Directory::addFile (const std::string name, const std::str
 
         std::shared_ptr<File> file = std::make_shared<File>(name, hash, std::weak_ptr<Directory>(self));
         fSons.push_back(file);
-        if(create_flag) // only when 'create_flag == true' the file is actually created
-            std::ofstream(root.lock()->getName()+"/"+file->getPath());
+        if(create_flag) { // only when 'create_flag == true' the file is actually created
+            std::ofstream myfile(root.lock()->getName() + "/" + file->getPath());
+            if(!myfile.is_open())
+                throw filesystem_exception("error creating file");
+        }
         return file;
     }else
         return nullptr;
@@ -132,7 +135,7 @@ void Directory::set(std::string field, std::string value){
     }else if(field == "name"){
         name = value;
     }else{
-        std::cout<<"Directory: Invalid field! ("<<field<<")\n"; // QUI CI VUOLE UNA ECCEZIONE
+        throw general_exception("Directory: invalid field");
     }
 }
 

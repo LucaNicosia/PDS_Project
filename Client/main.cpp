@@ -11,6 +11,7 @@
 #include <vector>
 #include <thread>
 #include <filesystem>
+#include <exception>
 
 // database mySql libraries
 #include <sqlite3.h>
@@ -27,22 +28,24 @@
 #include "Entities/File/File.h"
 #include "Entities/FileWatcher/FileWatcher.h"
 #include "Usefull functions/main_functions.h"
+#include "Entities/Exceptions/MyExceptions.h"
+
 
 //#define PORT 5108
 #define MAXFD 50000
 #define RESTORE 1
 #define UPDATED 0
-
+#define PATH_TO_DB "../DB"
+#define INITIAL_PATH "TestPath"
 
 Socket s;
-Directory root;
 std::shared_ptr<Directory> root_ptr;
 std::map<std::string, std::shared_ptr<File>> files; // <path,File>
 std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
-std::string db_path = "../DB";
-std::string server_db_path = "../DB";
+std::string db_path = PATH_TO_DB;
+std::string server_db_path = PATH_TO_DB;
 bool synchronized = false;
-std::string path = "TestPath";
+std::string path = INITIAL_PATH;
 FileWatcher fw;
 std::string username;
 std::string password;
@@ -69,36 +72,24 @@ auto modification_function = [](const std::string file, const std::string filePa
             if (ft == FileType::directory) {
                 dirs[cleaned_path] = father.lock()->addDirectory(file, false);
                 if (synchronized) {
-                    int ret;
-                    if ((ret = insertDirectoryIntoDB(db_path, dirs[cleaned_path])) < 0)
-                        std::cout << "Problema nell'inserire la directory sul DB" << std::endl;
-                    else if(ret == 1) // directory already present
-                        //return; //nothing to signal to server
-                        int n;
+                    insertDirectoryIntoDB(db_path, dirs[cleaned_path]);
                 }
             } else {// file
                 files[cleaned_path] = std::make_shared<File>(file,computeDigest(filePath), father);
                 if (synchronized) {
-                    int ret;
-                    if ((ret = insertFileIntoDB(db_path, files[cleaned_path])) < 0)
-                        std::cout << "Problema nell'inserire il file sul DB" << std::endl;
-                    else if(ret == 1) // insertFileIntoDB find that the record was already present
-                        //return; // nothing to signal to server
-                        int n;
+                    insertFileIntoDB(db_path, files[cleaned_path]);
                 }
             }
             break;
         case FileStatus::erased:
             if (ft == FileType::directory) {
                 if (synchronized) {
-                    if (!deleteDirectoryFromDB(db_path, dirs[cleaned_path]))
-                        std::cout << "Problema nel cancellare la directory sul DB" << std::endl;
+                    deleteDirectoryFromDB(db_path, dirs[cleaned_path]);
                 }
                 dirs.erase(cleaned_path);
             } else { // file
                 if (synchronized) {
-                    if (!deleteFileFromDB(db_path, files[cleaned_path]))
-                        std::cout << "Problema nel cancellare il file sul DB" << std::endl;
+                    deleteFileFromDB(db_path, files[cleaned_path]);
                 }
                 files.erase(cleaned_path);
             }
@@ -108,8 +99,7 @@ auto modification_function = [](const std::string file, const std::string filePa
             if(ft == FileType::file){
                 files[cleaned_path]->setHash(computeDigest(filePath));
                 if (synchronized) {
-                    if (!updateFileDB(db_path, files[cleaned_path]))
-                        std::cout << "Problema nell'aggiornare il file sul DB" << std::endl;
+                    updateFileDB(db_path, files[cleaned_path]);
                 }
             }
             break;
@@ -123,7 +113,7 @@ auto modification_function = [](const std::string file, const std::string filePa
             FT = "DIR";
             break;
         default:
-            std::cout<<"unknown FileType\n"; // exception
+            throw general_exception("unknown FileType");
     }
     switch(fs){
         case FileStatus::created:
@@ -136,13 +126,14 @@ auto modification_function = [](const std::string file, const std::string filePa
             FS = "modified";
             break;
         default:
-            std::cout<<"unknown FileStatus\n"; // exception
+            throw general_exception("unknown FileStatus");
     }
 
     sendMsg(s,FT+" "+cleaned_path+" "+FS); // FILE ./xx/yyy/zz.txt created
     res = rcvMsg(s);
     if(res.find("ERROR") == 0){ // example message: "ERROR <error info>"
         //error routine
+        throw general_exception("ERROR message: "+res);
     }
     if(res == "DONE" && ft == FileType::directory) // directory created/modified successfully on server. Job completed
         return;
@@ -150,73 +141,109 @@ auto modification_function = [](const std::string file, const std::string filePa
         return;
     if(res == "READY" && ft == FileType::file){
         int ret = sendFile(s,filePath,cleaned_path);
-        if(ret < 0){
-            // error handling
-        }
         if(ret == 0) {
             res = rcvMsg(s);
             if (res != "DONE") { // file sended correctly
                 //error handling
+                throw general_exception("unknown-message");
             }
         }
         return;
     }
     // if all went good, the code is already returned
-    // error routine
+    // error
+    throw general_exception("code reached forbidden line");
 };
 
 int main(int argc, char** argv)
 {
-    port = std::atoi(argv[1]);
+    int round_count = 0;
+    while(round_count++ < 3) { // try 3 times to recover from a problem
+        try {
+            port = std::atoi(argv[1]);
+            username = std::string(argv[2]);
+            password = std::string(argv[3]);
+            mode = std::string(argv[4]);
+            db_path += "/" + username + ".db";
+            server_db_path += "/" + username + "_server.db";
+            path += "/" + username;
+            if (!std::filesystem::is_directory(path)) {
+                std::filesystem::create_directory(path);
+            }
 
-    //std::cout<<"> Inserisci username: ";
-    //std::cin>>username;
-    username = std::string(argv[2]);
-    password = std::string(argv[3]);
-    mode = std::string(argv[4]);
-    db_path += "/" + username + ".db";
-    server_db_path += "/" + username + "_server.db";
-    path += "/" + username;
-    if(!std::filesystem::is_directory(path)){
-        std::filesystem::create_directory(path);
-    }
+            //ROOT INITIALIZATION
+            root_ptr = std::make_shared<Directory>()->makeDirectory(path, std::weak_ptr<Directory>());
 
-    //ROOT INITIALIZATION
-    root_ptr = std::make_shared<Directory>()->makeDirectory(path, std::weak_ptr<Directory>());
+            // inizialization of data structures
+            initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
+            updateDB(db_path, files, dirs, root_ptr);
 
-    // inizialization of data structures
-    initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
-    updateDB(db_path,files,dirs, root_ptr);
+            // connect to server
+            // if 'files' and 'dirs' are empty, no file stored -> restore needed
+            // 'dirs.empty() == false ' is always true because in 'dirs' is stored 'root'
+            int ret = connect_to_remote_server((files.empty() && (dirs.size() == 1)) || (mode == "RESTORE"));
 
-    // connect to server
-    // if 'files' and 'dirs' are empty, no file stored -> restore needed
-    // 'dirs.empty() == false ' is always true because in 'dirs' is stored 'root'
-    int ret = connect_to_remote_server((files.empty() && (dirs.size() == 1))||(mode == "RESTORE"));
+            if (ret == RESTORE) {
+                restore(s, files, dirs, path, db_path, files.empty() && (dirs.size() == 1), root_ptr);
+            }
 
-    if(ret == RESTORE){
-        restore(s,files,dirs,path,db_path, files.empty() && (dirs.size() == 1),root_ptr);
-    }
-
-    // SYN with server completed, starting to monitor client directory
-    synchronized = true;
-    std::thread t1([]() {
-        fw.set(path,std::chrono::milliseconds(1000));
-        fw.start(modification_function); });
-    std::cout << "--- System ready ---\n";
-    //std::this_thread::sleep_for(std::chrono::seconds(5000));
-    //fw.stop();
-    std::thread t2([]() {
-        while (true) {
-            // every seconds check if there are some work to do or not
-            std::this_thread::sleep_for(std::chrono::seconds(1));
-            if (!fw.isRunning()) return;
-            action_on_server("on thread");
+            // SYN with server completed, starting to monitor client directory
+            synchronized = true;
+            std::thread t1([]() {
+                fw.set(path, std::chrono::milliseconds(1000));
+                fw.start(modification_function);
+            });
+            std::cout << "--- System ready ---\n";
+            std::thread t2([]() {
+                while (true) {
+                    // every seconds check if there are some work to do or not
+                    std::this_thread::sleep_for(std::chrono::seconds(1));
+                    if (!fw.isRunning()) return;
+                    action_on_server("on thread");
+                }
+            });
+            t1.join();
+            t2.join();
+            return 0;
+        }catch(socket_exception& se){
+            // reset variable and retry
+            std::cout<<"socket_exc: "<<se.what()<<std::endl;
+            s.close();
+            root_ptr = nullptr;
+            dirs.clear();
+            files.clear();
+            path = INITIAL_PATH;
+            db_path = PATH_TO_DB;
+            server_db_path = PATH_TO_DB;
+            synchronized = false;
+            std::this_thread::sleep_for(std::chrono::seconds(3)); // wait 3 seconds before reconnection
+        }catch(filesystem_exception& fe){
+            std::cout<<"filesystem_exc: "<<fe.what()<<std::endl;
+            s.close();
+            dirs.clear();
+            files.clear();
+            return -1; // critical problem, redo the same thing doesn't resolve the problem
+        }catch(database_exception& de){
+            std::cout<<"database_exc: "<<de.what()<<std::endl;
+            s.close();
+            dirs.clear();
+            files.clear();
+            return -1; // critical problem, redo the same thing doesn't resolve the problem
+        }catch(general_exception& ge){
+            std::cout<<"general_exc: "<<ge.what()<<std::endl;
+            s.close();
+            dirs.clear();
+            files.clear();
+            return -1; // critical problem, redo the same thing doesn't resolve the problem
+        }catch(std::exception& e){
+            std::cout<<"exc: "<<e.what()<<std::endl;
+            s.close();
+            dirs.clear();
+            files.clear();
+            return -1; // critical problem, redo the same thing doesn't resolve the problem
         }
-    });
-    t1.join();
-    t2.join();
-    /**/
-    return 0;
+    }
+    return -1;
 }
 
 int connect_to_remote_server(bool needs_restore){
@@ -224,7 +251,11 @@ int connect_to_remote_server(bool needs_restore){
     s = Socket();
     s.setTimeoutSecs(20);
     s.setTimeoutUsecs(0);
-    s.inizialize_and_connect(port,AF_INET,"127.0.0.1");
+    try {
+        s.inizialize_and_connect(port, AF_INET, "127.0.0.1");
+    } catch(std::runtime_error& e){
+        throw socket_exception(e.what());
+    }
     // sync with the server
     int cont = 0;
     std::string server_digest;
@@ -232,14 +263,12 @@ int connect_to_remote_server(bool needs_restore){
 
     while(true) {
         try {
-            std::cout<<"entering"<<std::endl;
             server_digest = connectRequest(s, username, password, mode);
             std::cout<<server_digest<<std::endl;
             if(server_digest == "CONNECT-ERROR")
-                throw 20;
-            std::cout<<"exiting"<<std::endl;
+                throw general_exception("connect-error");
             break;
-        } catch (int p) {
+        } catch (general_exception& ge) {
             if (++cont == 3) {
                 std::cout << "Wrong username and/or password!\n";
                 exit(-1);
@@ -249,22 +278,6 @@ int connect_to_remote_server(bool needs_restore){
 
     // CONNECT-OK
     if (!needs_restore){
-        std::cout<<"not needs_restore"<<std::endl;
-        // old code for fetch mode
-        /*std::cout<<"FETCH MODE"<<std::endl;
-        while(true) {
-            try {
-                server_digest = syncRequest(s, username);
-                if(server_digest == "SYNC-ERROR")
-                    throw 20;
-                break;
-            } catch (int p) {
-                if (++cont == 3) {
-                    std::cout << "stop! some error\n";
-                    exit(-1);
-                }
-            }
-        }*/
         // check if the DB is updated
         if(!compareDigests(server_digest,client_digest)){
             std::cout<<"server DB is not updated\n";
@@ -283,7 +296,6 @@ int connect_to_remote_server(bool needs_restore){
             }
         }
     }else{ // restore
-        std::cout<<"needs_restore"<<std::endl;
         if(compareDigests(server_digest,client_digest)){ // if digest are the same, also the server is empty: no actions
             sendMsg(s, "Database up to date");
         } else {

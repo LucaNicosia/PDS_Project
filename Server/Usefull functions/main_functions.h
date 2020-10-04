@@ -18,17 +18,12 @@ void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::m
 void check_user_data(const std::string& username_dir, const std::string& db_path);
 void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory>& root, Socket& s);
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
-int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void restore(Socket& s, const std::string& userPath, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
-    std::ifstream db_file(db_path);
-    if(!db_file){
-        // a file that doesn't exits
-        return -1;
-    }
+
     db.open();
     std::vector<File> v;
     int n;
@@ -47,12 +42,7 @@ int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
 }
 int deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& file){
     Database db(db_path);
-    std::ifstream db_file(db_path);
 
-    if(!db_file){
-        // a file that doesn't exits
-        return -1;
-    }
     db.open();
 
     db.exec("DELETE FROM FILE WHERE path = \""+file->getPath()+"\"");
@@ -62,12 +52,7 @@ int deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& fi
 }
 int updateFileDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
-    std::ifstream db_file(db_path);
 
-    if(!db_file){
-        // a file that doesn't exits
-        return -1;
-    }
     db.open();
 
     db.exec("UPDATE FILE SET hash = \""+file->getHash()+"\" WHERE path = \""+file->getPath()+"\"");
@@ -78,12 +63,7 @@ int updateFileDB(const std::string& db_path, std::shared_ptr<File>& file){
 
 int insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
     Database db(db_path);
-    std::ifstream db_file(db_path);
 
-    if(!db_file){
-        // a file that doesn't exits
-        return -1;
-    }
     db.open();
     std::vector<Directory> v;
     int n;
@@ -97,15 +77,8 @@ int insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>
     db.close();
     return 1;
 }
-
 int deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Directory>& dir){
     Database db(db_path);
-    std::ifstream db_file(db_path);
-
-    if(!db_file){
-        // a file that doesn't exits
-        return -1;
-    }
     db.open();
 
     db.exec("DELETE FROM DIRECTORY WHERE path = \""+dir->getPath()+"\"");
@@ -124,12 +97,7 @@ int deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dire
 
 bool insertUserIntoDB(const std::string& db_path, const User user){
     Database db(db_path);
-    std::ifstream db_file(db_path);
 
-    if(!db_file){
-        // a file that doesn't exits
-        return false;
-    }
     db.open();
 
     db.exec("INSERT INTO Users (username,password,salt) VALUES (\""+user.getUsername()+"\",\""+user.getPassword()+"\",\""+user.getSalt()+"\")");
@@ -161,7 +129,6 @@ void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::m
 }
 
 void check_user_data(const std::string& username_dir, const std::string& db_path){
-    std::cout<<"\tusername_dir: "<<username_dir<<std::endl;
     if(!std::filesystem::is_directory(username_dir)){
         // username directory doesn't exists, create it
         std::filesystem::create_directories(username_dir);
@@ -304,37 +271,6 @@ std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& file
         appendDigest(it.second->toString());
     }
     return getAppendedDigest();
-}
-
-int rcvSyncRequest(Socket& s, std::string& username,const std::string& root_path, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
-
-    std::string msg = rcvMsg(s);
-    std::string delimiter = " ";
-    std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
-    username = client;
-    root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
-    std::string db_path = "../DB/"+client+".db";
-
-    std::ifstream input(db_path);
-    if (input.is_open()){
-        sendMsg(s, "SYNC-OK");
-        std::string msg = rcvMsg(s);
-        if (msg == "SYNC-OK"){
-            check_user_data(root->getName(),db_path);
-            initialize_files_and_dirs(files,dirs,db_path,root,s);
-            std::string digest = compute_db_digest(files,dirs);
-            sendMsg(s,"DIGEST "+digest);
-        }else{
-            //ERRORE
-            std::cout<<"ERRORE"<<std::endl;
-            return -1;
-        }
-        return 0;
-    }else{
-        check_user_data(root->getName(),db_path);
-        sendMsg(s, "SYNC-ERROR");
-        return -1;
-    }
 }
 
 void restore(Socket& s, const std::string& userPath, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
