@@ -76,9 +76,7 @@ int deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& fi
     Database db(db_path);
 
     db.open();
-
     db.exec("DELETE FROM FILE WHERE path = \""+file->getPath()+"\"");
-
     db.close();
     return 0;
 }
@@ -278,6 +276,8 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
     db.select("SELECT * FROM FILE",n_record,db_Files);
     db.select("SELECT * FROM DIRECTORY",n_record,db_Dirs);
 
+    db.close();
+
     for(auto it = files.begin(); it != files.end(); ++it){
         bool found = false;
         auto it2 = db_Files.begin();
@@ -289,11 +289,9 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
         }
         if(!found){
             insertFileIntoDB(db_path,it->second);
-            //db.exec("INSERT INTO FILE (path,hash,name) VALUES (\""+it->second->getPath()+"\",\""+it->second->getHash()+"\",\""+it->second->getName()+"\")");
 2;      } else {
             if(!compareDigests(it2->getHash(),it->second->getHash())){
                 updateFileDB(db_path,it->second);
-                //db.exec("UPDATE FILE SET hash = \""+it->second->getHash()+"\" WHERE path = \""+it->second->getPath()+"\"");
             }
             db_Files.erase(it2); // delete from the vector
         }
@@ -450,8 +448,12 @@ void restore(Socket& s, std::map<std::string, std::shared_ptr<File>>& files, std
         dirs.clear();
         // set again root in 'dirs'
         dirs[""] = root;
-        // delete database
-        fs::remove_all(db_path);
+        // reset database
+        Database db(db_path);
+        db.open();
+        db.exec("DELETE FROM FILE");
+        db.exec("DELETE FROM DIRECTORY");
+        db.close();
         // initialize files and dirs (empty) and create again the database
         initialize_files_and_dirs(files,dirs,path,db_path,root);
     }

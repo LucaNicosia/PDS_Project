@@ -16,13 +16,15 @@ static int num_rec;
 
 class Database {
     sqlite3 *db;
+    sqlite3_stmt* stmt;
     std::string db_name;
     int status;
 
 public:
 
-    Database(std::string db_name):db_name(db_name),status(-1){}
+    Database(std::string db_name):db_name(db_name),status(-1),stmt(nullptr){}
     ~Database(){
+        std::cout<<"Distruttore: ";
         close();
     }
 
@@ -48,6 +50,9 @@ public:
     int close(){
         if(status == SQLITE_OK) {
             status = -1;
+            if(stmt)
+                sqlite3_finalize(stmt);
+            stmt = nullptr;
             sqlite3_close(db);
             std::cout<<"Database "<<db_name<<" closed"<<std::endl;
         }
@@ -69,12 +74,11 @@ public:
     int select(std::string sql, int &n_record, std::vector<record_type>& records){ // 'select' funtion needs a class that contains 'set' function
         n_record = 0;
         records.clear();
-        sqlite3_stmt* stmt;
         int ret_code = 0;
         if(sqlite3_prepare_v2(db, sql.c_str(), -1, &stmt, NULL) != SQLITE_OK) {
             std::string sErr = sqlite3_errmsg(db);
-            sqlite3_close(db);
             sqlite3_finalize(stmt);
+            sqlite3_close(db);
             throw database_exception("ERROR: while compiling sql: "+sErr);
         }
         std::string value;

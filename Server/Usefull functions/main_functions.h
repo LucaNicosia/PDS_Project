@@ -135,6 +135,7 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
     }
     std::ifstream db_file(db_path,std::ios::in);
     if(!db_file){
+        std::ofstream file(db_path);
         Database db(db_path);
         // database doesn't exists
         db.open();
@@ -207,14 +208,6 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         queryFiles[i].setName(queryFiles[i].getPath().substr(found+1));
         if(!std::filesystem::exists(std::filesystem::status(server_path))){
             // file doesn't exists, remove it from DB
-            /*
-            std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(queryFiles[i].getPath())]->getSelf();
-            std::shared_ptr<File> file;
-            file = father.lock()->addFile(queryFiles[i].getName(), queryFiles[i].getHash(),true);
-            file->setHash(computeDigest(server_path));
-            updateFileDB(db_path,file);
-            files[file->getPath()] = file;
-            */
             deleteFileFromDB(db_path,std::make_shared<File>(queryFiles[i]));
             continue;
         }

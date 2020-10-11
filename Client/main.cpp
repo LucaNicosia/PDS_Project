@@ -160,6 +160,9 @@ int main(int argc, char** argv)
     int round_count = 0;
     while(round_count++ < 3) { // try 3 times to recover from a problem
         try {
+            if(argc != 5){
+                throw std::runtime_error("not enough arguments - usage PORT USERNAME PASSWORD MODE");
+            }
             port = std::atoi(argv[1]);
             username = std::string(argv[2]);
             password = std::string(argv[3]);
@@ -194,6 +197,7 @@ int main(int argc, char** argv)
                 fw.start(modification_function);
             });
             std::cout << "--- System ready ---\n";
+            round_count = 0; // when the syncrosization is ended, reset the "try to connect" counter
             std::thread t2([]() {
                 while (true) {
                     // every seconds check if there are some work to do or not
