@@ -157,17 +157,23 @@ auto modification_function = [](const std::string file, const std::string filePa
 
 int main(int argc, char** argv)
 {
+    int p[2];
+    if(pipe(p) < 0)
+        throw std::runtime_error("cannot create pipe");
     pid_t pid = fork();
     switch(pid) {
         case -1: {
             throw std::runtime_error("cannot fork");
         }
         case 0: {
+            close(p[0]);
             int round_count = 0;
             while (round_count++ < 3) { // try 3 times to recover from a problem
                 try {
                     if (argc != 5) {
-                        throw std::runtime_error("not enough arguments - usage PORT USERNAME PASSWORD MODE");
+                        std::string error = "not enough arguments - usage PORT USERNAME PASSWORD MODE";
+                        write(p[1],error.c_str(),error.length());
+                        throw std::runtime_error(error);
                     }
                     port = std::atoi(argv[1]);
                     username = std::string(argv[2]);
@@ -182,7 +188,6 @@ int main(int argc, char** argv)
 
                     //ROOT INITIALIZATION
                     root_ptr = std::make_shared<Directory>()->makeDirectory(path, std::weak_ptr<Directory>());
-
                     // inizialization of data structures
                     initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
                     updateDB(db_path, files, dirs, root_ptr);
@@ -191,7 +196,24 @@ int main(int argc, char** argv)
                     // if 'files' and 'dirs' are empty, no file stored -> restore needed
                     // 'dirs.empty() == false ' is always true because in 'dirs' is stored 'root'
                     int ret = connect_to_remote_server((files.empty() && (dirs.size() == 1)) || (mode == "RESTORE"));
-
+                    if (ret < 0){
+                        std::string error;
+                        switch(ret){
+                            case -1:
+                                error = "database response error";
+                                break;
+                            case -2:
+                                error = "wrong username or password";
+                                break;
+                            default:
+                                error = "unknown error type";
+                                break;
+                        }
+                        ::write(p[1],error.c_str(),error.length());
+                        throw general_exception(error);
+                    }
+                    std::string str = "connection successed";
+                    ::write(p[1],str.c_str(),str.length());
                     if (ret == RESTORE) {
                         restore(s, files, dirs, path, db_path, files.empty() && (dirs.size() == 1), root_ptr);
                     }
@@ -256,7 +278,12 @@ int main(int argc, char** argv)
             return -1;
         }
         default: {
+            close(p[1]);
+            char auth_message[50] = "..";
             std::cout<<"child pid: "<<pid<<std::endl;
+            int rc;
+            if((rc = ::read(p[0],auth_message,50)) < 0)
+                throw std::runtime_error("error during pipe reading");
             break;
         }
     }
@@ -288,8 +315,8 @@ int connect_to_remote_server(bool needs_restore){
             break;
         } catch (general_exception& ge) {
             if (++cont == 3) {
-                std::cout << "Wrong username and/or password!\n";
-                exit(-1);
+                //std::cout << "Wrong username and/or password!\n";
+                return -2;
             }
         }
     }
@@ -309,8 +336,7 @@ int connect_to_remote_server(bool needs_restore){
             std::cout<<"server DB is updated\n";
             sendMsg(s,"Database up to date");
             if(rcvMsg(s) != "server_db_ok"){
-                std::cout<<"error in db response on 'server_db_ok'\n";
-                exit(-1);
+                return -1; // error in db response on 'server_db_ok'
             }
         }
     }else{ // restore
