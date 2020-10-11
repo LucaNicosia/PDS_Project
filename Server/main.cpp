@@ -35,16 +35,6 @@
 ServerSocket ss(PORT);
 std::mutex m;
 
-void eraseSocket(std::map<int,Socket>& sockets, int id){
-    std::lock_guard<std::mutex>lg(m);
-    sockets.erase(id);
-}
-
-void addSocket(std::map<int,Socket>& sockets, int id, Socket& s){
-    std::lock_guard<std::mutex>lg(m);
-    sockets[id] = std::move(s);
-}
-
 int main() {
 
     pid_t pid;
@@ -56,7 +46,9 @@ int main() {
         case 0: {
             std::freopen("../Log/log.txt","w+",stdout); // redirect stdout to file
             int id = 0;
-            std::map<int, Socket> sockets;
+            std::map<int, Socket> sockets; // <socket_id, Socket>
+            // users_connected: mainly used for checking users already connected and maybe usefull for future usage
+            std::map<std::string,int> users_connected; //<username, socket_id>
             std::string root_path = "server_directory";
 
             while (true) {
@@ -72,9 +64,9 @@ int main() {
                 std::cout << "Got a connection from " << name << ":" << ntohs(addr.sin_port) << "\n";
 
                 //sockets.insert(std::pair<int,Socket>(id,std::move(s)));
-                addSocket(sockets,id,s);
+                addSocket(sockets,id,s,m);
 
-                std::thread t([&root_path, &sockets, id](){
+                std::thread t([&root_path, &sockets, id, &users_connected](){
                     try {
                         std::shared_ptr<Directory> root;
                         std::string db_path;
@@ -82,8 +74,26 @@ int main() {
                         std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
                         std::string userDirPath, username, password, mode;
                         // SYNC 'client'
-                        while (rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs) != 0) {
-                            std::cout << "Wrong username and/or password" << std::endl;
+                        int rc;
+                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, m)) < 0) {
+                            std::string error;
+                            switch(rc){
+                                case -1:
+                                    error = "Wrong username and/or password";
+                                    break;
+                                case -2:
+                                    error = "User "+username+" already connected";
+                                    break;
+                                default:
+                                    error = "unknown error type";
+                            }
+                            std::cout<<getTimestamp().str()<<error<<std::endl;
+                        }
+
+                        users_connected[username] = id; // add user to the map associated with his socket_id
+
+                        for(auto it:users_connected){
+                            std::cout<<it.first<<":"<<it.second<<std::endl;
                         }
 
                         db_path = PATH_TO_DB + username + ".db";
@@ -106,14 +116,21 @@ int main() {
                             msg = rcvMsg(sockets[id]);
                             if (msg == "update completed") {
                                 // update completed, close the socket
-                                eraseSocket(sockets, id);
+                                eraseSocket(sockets, id, m);
+                                eraseUser(users_connected,username,m);
                                 return;
                             }
                             manageModification(sockets[id], msg, db_path, userDirPath, files, dirs);
                         }
                     }catch(std::exception& e){
                         std::cout<<e.what()<<std::endl;
-                        eraseSocket(sockets,id);
+                        eraseSocket(sockets,id,m);
+                        std::lock_guard<std::mutex>lg(m);
+                        for(auto it=users_connected.begin();it!=users_connected.end();++it){
+                            if(it->second == id){ // find username by socket id
+                                users_connected.erase(it->first);
+                            }
+                        }
                     }
                 });
                 t.detach();

@@ -20,6 +20,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void restore(Socket& s, const std::string& userPath, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& m);
 
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
@@ -378,22 +379,15 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
             sendMsg(s, "ERROR");
         }
     } else {
-        std::cout << "unknown message type" << std::endl;
-        //error
-        //sendMsg(s, "ERROR");
-        //return;
-        //goto restart;
         throw std::runtime_error("unknown message type");
     }
 }
 
-int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs) {
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& m) {
 
     std::string msg = rcvMsg(s);
     sendMsg(s,"CONNECT-OK");
-    std::cout<<msg<<std::endl;
     std::string delimiter = " ";
-    //std::string client = msg.substr(msg.find(delimiter)+1, msg.size());
     size_t pos = 0;
     std::string token;
     int i = 0;
@@ -414,7 +408,13 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
         i++;
     }
     mode = msg;
-
+    std::unique_lock<std::mutex> ul(m);
+    ul.lock();
+    if(users_connected.count(username) == 1){ // this user is already connected, refuse the connection
+        sendMsg(s, "user already connected");
+        return -2;
+    }
+    ul.unlock();
     User user {username, password};
 
     std::string users_db_path = "../DB/users/users.db";
@@ -469,6 +469,21 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
     }
 
     return 0;
+}
+
+void eraseSocket(std::map<int,Socket>& sockets, int id, std::mutex& m){
+    std::lock_guard<std::mutex>lg(m);
+    sockets.erase(id);
+}
+
+void eraseUser(std::map<std::string, int>& users_connected, std::string user, std::mutex& m){
+    std::lock_guard<std::mutex>lg(m);
+    users_connected.erase(user);
+}
+
+void addSocket(std::map<int,Socket>& sockets, int id, Socket& s, std::mutex& m){
+    std::lock_guard<std::mutex>lg(m);
+    sockets[id] = std::move(s);
 }
 
 #endif //PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H

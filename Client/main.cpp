@@ -309,9 +309,10 @@ int connect_to_remote_server(bool needs_restore){
     while(true) {
         try {
             server_digest = connectRequest(s, username, password, mode);
-            std::cout<<server_digest<<std::endl;
             if(server_digest == "CONNECT-ERROR")
                 throw general_exception("connect-error");
+            if(server_digest == "user already connected")
+                throw general_exception("user already connected");
             break;
         } catch (general_exception& ge) {
             if (++cont == 3) {

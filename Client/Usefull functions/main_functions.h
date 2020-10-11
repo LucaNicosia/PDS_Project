@@ -344,7 +344,7 @@ std::string connectRequest(Socket& s, const std::string username, const std::str
         if(digest.find("DIGEST") == 0) // ok
             return std::string (digest.substr(digest.find(" ")+1));
         else
-            return "CONNECT-ERROR";
+            return digest; // digest contains error message
     }
 }
 

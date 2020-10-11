@@ -1,323 +1,11 @@
-20201011-17:34:25 Waiting for incoming connections at port 5110...
+20201011-18:47:52 Waiting for incoming connections at port 5110...
 Socket 4 created
-Got a connection from 127.0.0.1:54138
+Got a connection from 127.0.0.1:55158
 Socket 5 created with empty constructor
 Socket 5 closed
-20201011-17:34:54 Waiting for incoming connections at port 5110...
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Cannot write to socket
-Socket 4 closed
-Socket 5 created
-Got a connection from 127.0.0.1:54164
-Socket 4 created with empty constructor
-Socket 4 closed
-20201011-17:37:18 Waiting for incoming connections at port 5110...
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCHCONNECT-OK msg-size: 37 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT filippo passw FETCHCONNECT-OK
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Cannot write to socket
-Socket 5 closed
-Socket 4 created
-Got a connection from 127.0.0.1:54318
-Socket 5 created with empty constructor
-Socket 5 closed
-20201011-17:41:05 Waiting for incoming connections at port 5110...
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCHCONNECT-OK msg-size: 37 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCHCONNECT-OK
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Cannot read from socket
-Socket 4 closed
-Socket 5 created
-Got a connection from 127.0.0.1:54440
-Socket 4 created with empty constructor
-Socket 4 closed
-20201011-17:47:54 Waiting for incoming connections at port 5110...
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OKCONNECT filippo passw FETCH msg-size: 37 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT-OKCONNECT filippo passw FETCH
-CONNECT-OKCONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-empty message received
-Socket 5 closed
-Socket 4 created
-Got a connection from 127.0.0.1:54472
-Socket 5 created with empty constructor
-Socket 5 closed
-20201011-17:49:60 Waiting for incoming connections at port 5110...
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 4
-Wrong username and/or password
-empty message received
-Socket 4 closed
-Socket 5 created
-Got a connection from 127.0.0.1:54514
-Socket 4 created with empty constructor
-Socket 4 closed
-20201011-17:53:51 Waiting for incoming connections at port 5110...
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT filippo passw FETCH msg-size: 27 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT filippo passw FETCH
-CONNECT
-filippo
-passw
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
-Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
-CONNECT-OK
-Opened Database ../DB/users/users.db Successfully!
-Database ../DB/users/users.db closed
-Stringa Mandata: CONNECT-ERROR msg-size: 13 sul socket 5
-Wrong username and/or password
-empty message received
-Socket 5 closed
-Socket 4 created
-Got a connection from 127.0.0.1:54520
-Socket 5 created with empty constructor
-Socket 5 closed
-20201011-17:54:32 Waiting for incoming connections at port 5110...
+20201011-18:48:52 Waiting for incoming connections at port 5110...
 Stringa ricevuta: CONNECT filippo pass FETCH msg-size: 26 sul socket 4
 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
-CONNECT filippo pass FETCH
 CONNECT
 filippo
 pass
@@ -326,8 +14,114 @@ Database ../DB/users/users.db closed
 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
 Opened Database ../DB/filippo.db Successfully!
 Database ../DB/filippo.db closed
-Stringa Mandata: DIGEST 2jmj7l5rSw0yVb/vlWAYkK/YBwk= msg-size: 35 sul socket 4
+Stringa Mandata: DIGEST Lr32CbwjgsCFqPfYc/gB/vRG+lI= msg-size: 35 sul socket 4
+filippo:0
 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
 Stringa ricevuta: update completed msg-size: 16 sul socket 4
 Socket 4 closed
+Socket 5 created
+Got a connection from 127.0.0.1:55160
+Socket 4 created with empty constructor
+Socket 4 closed
+20201011-18:49:01 Waiting for incoming connections at port 5110...
+Stringa ricevuta: CONNECT filippo pass FETCH msg-size: 26 sul socket 5
+Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+CONNECT
+filippo
+pass
+Opened Database ../DB/users/users.db Successfully!
+Database ../DB/users/users.db closed
+Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+Opened Database ../DB/filippo.db Successfully!
+Database ../DB/filippo.db closed
+Stringa Mandata: DIGEST Lr32CbwjgsCFqPfYc/gB/vRG+lI= msg-size: 35 sul socket 5
+filippo:1
+Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+Stringa ricevuta: update completed msg-size: 16 sul socket 5
+Socket 5 closed
+Socket 4 created
+Got a connection from 127.0.0.1:55166
+Socket 5 created with empty constructor
+Socket 5 closed
+20201011-18:49:27 Waiting for incoming connections at port 5110...
+Stringa ricevuta: CONNECT filippo pass FETCH msg-size: 26 sul socket 4
+Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+CONNECT
+filippo
+pass
+Opened Database ../DB/users/users.db Successfully!
+Database ../DB/users/users.db closed
+Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+Opened Database ../DB/filippo.db Successfully!
+Database ../DB/filippo.db closed
+Socket 5 created
+Got a connection from 127.0.0.1:55168
+Socket 7 created with empty constructor
+Socket 7 closed
+20201011-18:49:28 Waiting for incoming connections at port 5110...
+Stringa ricevuta: CONNECT filippo pass FETCH msg-size: 26 sul socket 5
+Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+CONNECT
+filippo
+pass
+Opened Database ../DB/users/users.db Successfully!
+Database ../DB/users/users.db closed
+Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+Opened Database ../DB/filippo.db Successfully!
+Database ../DB/filippo.db closed
+Socket 7 created
+Got a connection from 127.0.0.1:55170
+Socket 12 created with empty constructor
+Socket 12 closed
+20201011-18:49:28 Waiting for incoming connections at port 5110...
+Stringa ricevuta: CONNECT filippo pass FETCH msg-size: 26 sul socket 7
+Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 7
+CONNECT
+filippo
+pass
+Opened Database ../DB/users/users.db Successfully!
+Database ../DB/users/users.db closed
+Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 7
+Opened Database ../DB/filippo.db Successfully!
+Database ../DB/filippo.db closed
+Stringa Mandata: DIGEST Lr32CbwjgsCFqPfYc/gB/vRG+lI= msg-size: 35 sul socket 4
+filippo:2
+Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+Stringa ricevuta: FILE aa.txt created msg-size: 19 sul socket 4
+Stringa Mandata: READY msg-size: 5 sul socket 4
+Stringa ricevuta: FILE aa.txt 0 msg-size: 13 sul socket 4
+Stringa Mandata: OK msg-size: 2 sul socket 4
+Stringa Mandata: DONE msg-size: 4 sul socket 4
+Opened Database ../DB/filippo.db Successfully!
+Database ../DB/filippo.db closed
+Stringa Mandata: DIGEST Lr32CbwjgsCFqPfYc/gB/vRG+lI= msg-size: 35 sul socket 5
+filippo:3
+Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+Stringa ricevuta: FILE aa.txt created msg-size: 19 sul socket 5
+Stringa Mandata: READY msg-size: 5 sul socket 5
+Stringa ricevuta: FILE aa.txt 0 msg-size: 13 sul socket 5
+Stringa Mandata: OK msg-size: 2 sul socket 5
+Stringa Mandata: DONE msg-size: 4 sul socket 5
+Opened Database ../DB/filippo.db Successfully!
+Database ../DB/filippo.db closed
+Stringa Mandata: DIGEST Lr32CbwjgsCFqPfYc/gB/vRG+lI= msg-size: 35 sul socket 7
+filippo:4
+Stringa ricevuta: Database up to date msg-size: 19 sul socket 7
+Stringa Mandata: server_db_ok msg-size: 12 sul socket 7
+Stringa ricevuta: FILE aa.txt created msg-size: 19 sul socket 7
+Stringa Mandata: READY msg-size: 5 sul socket 7
+Stringa ricevuta: FILE aa.txt 0 msg-size: 13 sul socket 7
+Stringa Mandata: OK msg-size: 2 sul socket 7
+Stringa Mandata: DONE msg-size: 4 sul socket 7
+Opened Database ../DB/filippo.db Successfully!
+Database ../DB/filippo.db closed
+Stringa ricevuta: update completed msg-size: 16 sul socket 4
+Socket 4 closed
+Stringa ricevuta: update completed msg-size: 16 sul socket 5
+Socket 5 closed
+Stringa ricevuta: update completed msg-size: 16 sul socket 7
+Socket 7 closed
