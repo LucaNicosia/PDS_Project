@@ -24,7 +24,6 @@ public:
 
     Database(std::string db_name):db_name(db_name),status(-1),stmt(nullptr){}
     ~Database(){
-        std::cout<<"Distruttore: ";
         close();
     }
 
