@@ -1,6 +1,12 @@
 # PDS_Project
 - Tutti i pacchetti vanno mandati con TCP
 
+## PROBLEMS!!
+- mutex lock su scrittura del log file del server
+- controllo accesso in mutex a "users_connected"
+- fix dell'accesso di un utente alla volta con lo stesso username
+- pulizia generale e timestamp al log
+
 ## entrambi
 - 1 classe Database per eseguire le funzioni sui DB
 
