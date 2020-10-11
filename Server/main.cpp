@@ -83,7 +83,7 @@ int main() {
                         std::string userDirPath, username, password, mode;
                         // SYNC 'client'
                         while (rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs) != 0) {
-                            std::cout << "Wrong username and/or password\n" << std::endl;
+                            std::cout << "Wrong username and/or password" << std::endl;
                         }
 
                         db_path = PATH_TO_DB + username + ".db";
@@ -106,7 +106,6 @@ int main() {
                             msg = rcvMsg(sockets[id]);
                             if (msg == "update completed") {
                                 // update completed, close the socket
-                                // sockets.erase(id);
                                 eraseSocket(sockets, id);
                                 return;
                             }
