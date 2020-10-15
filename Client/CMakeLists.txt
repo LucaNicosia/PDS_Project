@@ -3,7 +3,7 @@ project(PDS_Project_Client)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(GCC_COVERAGE_COMPILE_FLAGS "-pthread")
+set(GCC_COVERAGE_COMPILE_FLAGS "-pthread -lcryptopp")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
 
 find_library(CryptoPP libcryptopp.so REQUIRED)
