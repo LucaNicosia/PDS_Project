@@ -58,6 +58,7 @@ SHA: https://www.cryptopp.com/wiki/SHA
 
 ## Comandi
 sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
+sudo apt-get install libsqlite3-dev
  
 ## Client - Server protocol
 ```
