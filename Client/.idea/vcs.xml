@@ -3,6 +3,7 @@
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$/.." vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/TestPath/provaaaaaa" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/cmake-build-debug/client_directory/user1" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/cmake-build-debug/user1" vcs="Git" />
   </component>
 </project>

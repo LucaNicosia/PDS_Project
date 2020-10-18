@@ -19,6 +19,17 @@ public:
     }
 };
 
+class soft_exception : public std::exception{
+private:
+    std::string error_msg;
+public:
+    soft_exception(const std::string &errorMsg) : error_msg(errorMsg){}
+
+    const char* what() const throw() {
+        return error_msg.c_str();
+    }
+};
+
 class filesystem_exception : public std::exception{
 private:
     std::string error_msg;

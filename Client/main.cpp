@@ -51,7 +51,7 @@ std::string mode;
 int port;
 std::mutex action_server_mutex;
 
-int connect_to_remote_server(bool needs_restore);
+int connect_to_remote_server(bool needs_restore, int* p);
 void action_on_server(std::string str);
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
@@ -167,7 +167,8 @@ int main(int argc, char** argv)
             close(p[0]);
             int round_count = 0;
             while (round_count++ < 3) { // try 3 times to recover from a problem
-                try {
+                try
+                {
                     if (argc != 5) {
                         std::string error = "not enough arguments - usage PORT USERNAME PASSWORD MODE";
                         write(p[1],error.c_str(),error.length());
@@ -193,7 +194,7 @@ int main(int argc, char** argv)
                     // connect to server
                     // if 'files' and 'dirs' are empty, no file stored -> restore needed
                     // 'dirs.empty() == false ' is always true because in 'dirs' is stored 'root'
-                    int ret = connect_to_remote_server((files.empty() && (dirs.size() == 1)) || (mode == "RESTORE"));
+                    int ret = connect_to_remote_server((files.empty() && (dirs.size() == 1)) || (mode == "RESTORE"), p);
                     if (ret < 0){
                         std::string error;
                         switch(ret){
@@ -207,11 +208,11 @@ int main(int argc, char** argv)
                                 error = "unknown error type";
                                 break;
                         }
-                        ::write(p[1],error.c_str(),error.length());
+                        ::write(p[1],error.c_str(),error.length()+1);
                         throw general_exception(error);
                     }
                     std::string str = "connection successed";
-                    ::write(p[1],str.c_str(),str.length());
+                    ::write(p[1],str.c_str(),str.length()+1);
                     if (ret == RESTORE) {
                         restore(s, files, dirs, path, db_path, files.empty() && (dirs.size() == 1), root_ptr);
                     }
@@ -247,6 +248,19 @@ int main(int argc, char** argv)
                     server_db_path = PATH_TO_DB;
                     synchronized = false;
                     std::this_thread::sleep_for(std::chrono::seconds(3)); // wait 3 seconds before reconnection
+                } catch (soft_exception &se) {
+                    // reset variable and retry
+                    std::cout << "socket_exc: " << se.what() << std::endl;
+                    s.close();
+                    root_ptr = nullptr;
+                    dirs.clear();
+                    files.clear();
+                    path = INITIAL_PATH;
+                    db_path = PATH_TO_DB;
+                    server_db_path = PATH_TO_DB;
+                    synchronized = false;
+                    round_count=0; // reset the counter and retry until the server can accept the client
+                    std::this_thread::sleep_for(std::chrono::seconds(3)); // wait 3 seconds before reconnection
                 } catch (filesystem_exception &fe) {
                     std::cout << "filesystem_exc: " << fe.what() << std::endl;
                     s.close();
@@ -277,11 +291,12 @@ int main(int argc, char** argv)
         }
         default: {
             close(p[1]);
-            char auth_message[50] = "..";
+            char auth_message[50];
             std::cout<<"child pid: "<<pid<<std::endl;
             int rc;
             if((rc = ::read(p[0],auth_message,50)) < 0)
                 throw std::runtime_error("error during pipe reading");
+            std::cout<<auth_message<<std::endl;
             break;
         }
     }
@@ -289,7 +304,7 @@ int main(int argc, char** argv)
     return 0;
 }
 
-int connect_to_remote_server(bool needs_restore){
+int connect_to_remote_server(bool needs_restore, int* p){
     // connect to the remote server
     s = Socket();
     s.setTimeoutSecs(20);
@@ -304,20 +319,16 @@ int connect_to_remote_server(bool needs_restore){
     std::string server_digest;
     std::string client_digest = compute_db_digest(files,dirs);
 
-    while(true) {
-        try {
-            server_digest = connectRequest(s, username, password, mode);
-            if(server_digest == "CONNECT-ERROR")
-                throw general_exception("connect-error");
-            if(server_digest == "user already connected")
-                throw general_exception("user already connected");
-            break;
-        } catch (general_exception& ge) {
-            if (++cont == 3) {
-                //std::cout << "Wrong username and/or password!\n";
-                return -2;
-            }
-        }
+    server_digest = connectRequest(s, username, password, mode);
+    if(server_digest == "CONNECT-ERROR" || server_digest == "wrong username or password") {
+        if(p != nullptr)
+            ::write(p[1],server_digest.c_str(),server_digest.length()+1); // send to father the error result
+        throw general_exception(server_digest); // stop the program
+    }
+    if(server_digest == "user already connected") {
+        if(p != nullptr)
+            ::write(p[1],server_digest.c_str(),server_digest.length()+1); // send to father the error result
+        throw soft_exception(server_digest); // retry to connect
     }
 
     // CONNECT-OK
@@ -357,7 +368,7 @@ void action_on_server(std::string str){ // this function is used in a loop to ch
 
     if(!s.is_open() && cur == FileWatcher_state::mod_found && last == FileWatcher_state::ready){ // first modification found, open the socket
         lg.unlock();
-        connect_to_remote_server(false); // this function can call 'action_on_server', deadlock without unlock
+        connect_to_remote_server(false, nullptr); // this function can call 'action_on_server', deadlock without unlock
         lg.lock();
     }
     if(s.is_open() && (cur == FileWatcher_state::ended || cur == FileWatcher_state::ready && last == FileWatcher_state::ended)){

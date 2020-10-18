@@ -71,26 +71,29 @@ int main() {
                 addSocket(sockets,id,s,socket_mutex);
 
                 std::thread t([&root_path, &sockets, id, &users_connected, &os](){
-                    try {
+                    try
+                    {
                         std::shared_ptr<Directory> root;
                         std::string db_path;
                         std::map<std::string, std::shared_ptr<File>> files; // <path,File>
                         std::map<std::string, std::shared_ptr<Directory>> dirs; // <path, Directory>
                         std::string userDirPath, username, password, mode;
                         // SYNC 'client'
-                        int rc;
+                        int rc,count_error=0;
                         while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex, log_mutex)) < 0) {
                             switch(rc){
                                 case -1:
-                                    os << "Wrong username and/or password";
+                                    os << "Wrong username and/or password"<<std::endl;
                                     break;
                                 case -2:
-                                    os << "User "+username+" already connected";
+                                    os << "User "+username+" already connected"<<std::endl;
                                     break;
                                 default:
-                                    os << "unknown error type";
+                                    os << "unknown error type"<<std::endl;
                             }
                             writeLogAndClear(os,LOG_PATH,log_mutex);
+                            //if(count_error++ > 2) // try 3 times before closing
+                            throw general_exception(os.str());
                         }
 
                         users_connected[username] = id; // add user to the map associated with his socket_id
@@ -115,7 +118,8 @@ int main() {
                         } else {
                             // error
                             throw general_exception("unknown-message");
-                        }while (true) {
+                        }
+                        while (true) {
                             msg = rcvMsg(sockets[id]);
                             if (msg == "update completed") {
                                 // update completed, close the socket
@@ -135,6 +139,7 @@ int main() {
                         for(auto it=users_connected.begin();it!=users_connected.end();++it){
                             if(it->second == id){ // find username by socket id
                                 users_connected.erase(it->first);
+                                break;
                             }
                         }
                     }

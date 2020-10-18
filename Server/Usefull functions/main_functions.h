@@ -478,7 +478,8 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
             return 0;
         }else{
             // Wrong username and/or password
-            sendMsg(s, "CONNECT-ERROR");
+            rcvMsg(s); // discard this message
+            sendMsg(s, "wrong username or password");
             return -1;
         }
     }
