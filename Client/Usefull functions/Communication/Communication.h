@@ -59,7 +59,7 @@ std::string rcvMsg(Socket& s){
 
 int rcvFile(Socket& s, const std::string path){
     std::string fileData = rcvMsg(s); // FILE <path> <length>
-    int length = std::stoi(fileData.substr(fileData.find_last_of(" ")));
+    unsigned long long int length = std::stoll(fileData.substr(fileData.find_last_of(" ")));
     sendMsg(s, "OK");
     int rec;
     char buf [SIZE];
@@ -82,7 +82,7 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
     // <- FILE 'path'
     std::ifstream myFile(path,std::ios::in);
     myFile.seekg(0,myFile.end);
-    int length = myFile.tellg();
+    unsigned long long int length = myFile.tellg();
     myFile.close();
     sendMsg(s, std::string ("FILE "+path_to_send+" "+std::to_string(length)));
     std::string msg = rcvMsg(s);
