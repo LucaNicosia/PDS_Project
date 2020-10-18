@@ -1209,3 +1209,392 @@
 20201018 17:54:60 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
 20201018 17:55:06 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
 20201018 17:55:11 140287341471488 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201018 17:58:52 140287349890304 Got a connection from 127.0.0.1:34124
+20201018 17:58:52 140287349890304 Waiting for incoming connections at port 5111...
+20201018 17:58:52 140287341471488 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 5
+20201018 17:58:52 140287341471488 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201018 17:58:52 140287341471488 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201018 17:58:54 140287341471488 Stringa Mandata: DIGEST dg6PHqvAVPOfSdLeejom6QCte1Y= msg-size: 35 sul socket 5
+20201018 17:58:54 140287341471488 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201018 17:58:54 140287341471488 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201018 17:58:54 140287349890304 Got a connection from 127.0.0.1:34126
+20201018 17:58:54 140287349890304 Waiting for incoming connections at port 5111...
+20201018 17:58:54 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 17:58:54 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 17:58:54 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 17:58:54 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 17:58:54 140287349864192 User user2 already connected
+20201018 17:58:56 140287341471488 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201018 17:59:03 140287349890304 Got a connection from 127.0.0.1:34130
+20201018 17:59:03 140287349890304 Waiting for incoming connections at port 5111...
+20201018 17:59:03 140287341471488 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 6
+20201018 17:59:03 140287341471488 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 17:59:03 140287341471488 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 17:59:05 140287341471488 Stringa Mandata: DIGEST dg6PHqvAVPOfSdLeejom6QCte1Y= msg-size: 35 sul socket 6
+20201018 17:59:05 140287341471488 Stringa ricevuta: Database up to date msg-size: 19 sul socket 6
+20201018 17:59:05 140287341471488 Stringa Mandata: server_db_ok msg-size: 12 sul socket 6
+20201018 17:59:07 140287341471488 Stringa ricevuta: update completed msg-size: 16 sul socket 6
+20201018 17:59:35 140287349890304 Got a connection from 127.0.0.1:34132
+20201018 17:59:35 140287349890304 Waiting for incoming connections at port 5111...
+20201018 17:59:35 140287341471488 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 4
+20201018 17:59:35 140287341471488 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 17:59:35 140287341471488 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 17:59:36 140287349890304 Got a connection from 127.0.0.1:34134
+20201018 17:59:36 140287349890304 Waiting for incoming connections at port 5111...
+20201018 17:59:36 140287333078784 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201018 17:59:36 140287333078784 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201018 17:59:36 140287333078784 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201018 17:59:36 140287333078784 Stringa Mandata: user already connected msg-size: 22 sul socket 5
+20201018 17:59:36 140287333078784 User user2 already connected
+20201018 17:59:37 140287349890304 Got a connection from 127.0.0.1:34136
+20201018 17:59:37 140287349890304 Waiting for incoming connections at port 5111...
+20201018 17:59:37 140287333078784 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 28
+20201018 17:59:37 140287333078784 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 28
+20201018 17:59:37 140287333078784 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 28
+20201018 17:59:37 140287333078784 Stringa Mandata: user already connected msg-size: 22 sul socket 28
+20201018 17:59:37 140287333078784 User user2 already connected
+20201018 17:59:37 140287341471488 Stringa Mandata: DIGEST dg6PHqvAVPOfSdLeejom6QCte1Y= msg-size: 35 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: FILE BIG_DIR5/Setup.exe erased msg-size: 30 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe erased msg-size: 45 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/installscript.vdf erased msg-size: 50 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe erased msg-size: 49 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe erased msg-size: 49 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: FILE BIG_DIR5/crack.bin erased msg-size: 30 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: FILE BIG_DIR5/data-1.bin erased msg-size: 31 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: FILE BIG_DIR5/data-steam.bin erased msg-size: 35 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: DIR BIG_DIR5/Soft/Redist erased msg-size: 31 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: DIR BIG_DIR5/Soft/DirectX erased msg-size: 32 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:37 140287341471488 Stringa ricevuta: DIR BIG_DIR5/Soft erased msg-size: 24 sul socket 4
+20201018 17:59:37 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: DIR BIG_DIR5 erased msg-size: 19 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: DIR BIG_DIR4 created msg-size: 20 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: DIR BIG_DIR4/Soft created msg-size: 25 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: DIR BIG_DIR4/Soft/DirectX created msg-size: 33 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: DIR BIG_DIR4/Soft/Redist created msg-size: 32 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/data-steam.bin created msg-size: 36 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/data-steam.bin 4183273 msg-size: 36 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/DirectX/DXSETUP.exe created msg-size: 46 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/vcredist_x86.exe created msg-size: 50 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/vcredist_x64.exe created msg-size: 50 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/installscript.vdf created msg-size: 51 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/installscript.vdf 919 msg-size: 47 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/crack.bin created msg-size: 31 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/crack.bin 6635723 msg-size: 31 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Setup.exe created msg-size: 31 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 17:59:38 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Setup.exe 8534316 msg-size: 31 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 17:59:38 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:44 140287341471488 Stringa ricevuta: FILE BIG_DIR4/data-1.bin created msg-size: 32 sul socket 4
+20201018 17:59:44 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 17:59:44 140287341471488 Stringa ricevuta: FILE BIG_DIR4/data-1.bin 879889784 msg-size: 34 sul socket 4
+20201018 17:59:44 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 17:59:51 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 17:59:57 140287341471488 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201018 18:04:35 140287349890304 Got a connection from 127.0.0.1:34154
+20201018 18:04:35 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:04:35 140287341471488 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 5
+20201018 18:04:35 140287341471488 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:04:35 140287341471488 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:04:36 140287349890304 Got a connection from 127.0.0.1:34156
+20201018 18:04:36 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:04:36 140287333078784 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:04:36 140287333078784 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:04:36 140287333078784 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:04:36 140287333078784 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 18:04:36 140287333078784 User user2 already connected
+20201018 18:04:37 140287341471488 Stringa Mandata: DIGEST G+UaxgwODp44X33orOl73uywq64= msg-size: 35 sul socket 5
+20201018 18:04:37 140287341471488 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201018 18:04:37 140287341471488 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201018 18:04:39 140287341471488 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201018 18:04:44 140287349890304 Got a connection from 127.0.0.1:34158
+20201018 18:04:44 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:04:44 140287341471488 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 28
+20201018 18:04:44 140287341471488 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 28
+20201018 18:04:45 140287341471488 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 28
+20201018 18:04:47 140287341471488 Stringa Mandata: DIGEST G+UaxgwODp44X33orOl73uywq64= msg-size: 35 sul socket 28
+20201018 18:04:47 140287341471488 Stringa ricevuta: Database up to date msg-size: 19 sul socket 28
+20201018 18:04:47 140287341471488 Stringa Mandata: server_db_ok msg-size: 12 sul socket 28
+20201018 18:04:49 140287341471488 Stringa ricevuta: update completed msg-size: 16 sul socket 28
+20201018 18:04:59 140287349890304 Got a connection from 127.0.0.1:34160
+20201018 18:04:59 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:04:59 140287341471488 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:04:59 140287341471488 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:04:59 140287341471488 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:04:59 140287349890304 Got a connection from 127.0.0.1:34162
+20201018 18:04:59 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:04:59 140287333078784 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 5
+20201018 18:04:59 140287333078784 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:04:59 140287333078784 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:04:59 140287333078784 Stringa Mandata: user already connected msg-size: 22 sul socket 5
+20201018 18:04:59 140287333078784 User user2 already connected
+20201018 18:05:01 140287341471488 Stringa Mandata: DIGEST G+UaxgwODp44X33orOl73uywq64= msg-size: 35 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Setup.exe erased msg-size: 30 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/DirectX/DXSETUP.exe erased msg-size: 45 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/installscript.vdf erased msg-size: 50 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/vcredist_x64.exe erased msg-size: 49 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR4/Soft/Redist/vcredist_x86.exe erased msg-size: 49 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR4/crack.bin erased msg-size: 30 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR4/data-1.bin erased msg-size: 31 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR4/data-steam.bin erased msg-size: 35 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: DIR BIG_DIR4/Soft/Redist erased msg-size: 31 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: DIR BIG_DIR4/Soft/DirectX erased msg-size: 32 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: DIR BIG_DIR4/Soft erased msg-size: 24 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: DIR BIG_DIR4 erased msg-size: 19 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: DIR BIG_DIR1 created msg-size: 20 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: DIR BIG_DIR1/Soft created msg-size: 25 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: DIR BIG_DIR1/Soft/DirectX created msg-size: 33 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: DIR BIG_DIR1/Soft/Redist created msg-size: 32 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR1/data-steam.bin created msg-size: 36 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR1/data-steam.bin 4183273 msg-size: 36 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Soft/DirectX/DXSETUP.exe created msg-size: 46 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/vcredist_x86.exe created msg-size: 50 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 18:05:01 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 sul socket 4
+20201018 18:05:01 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:02 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/vcredist_x64.exe created msg-size: 50 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 18:05:02 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 18:05:02 140287349890304 Got a connection from 127.0.0.1:34164
+20201018 18:05:02 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:05:02 140287349864192 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 28
+20201018 18:05:02 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 28
+20201018 18:05:02 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 28
+20201018 18:05:02 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 28
+20201018 18:05:02 140287349864192 User user2 already connected
+20201018 18:05:02 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:02 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/installscript.vdf created msg-size: 51 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 18:05:02 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/installscript.vdf 919 msg-size: 47 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:02 140287341471488 Stringa ricevuta: FILE BIG_DIR1/crack.bin created msg-size: 31 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 18:05:02 140287341471488 Stringa ricevuta: FILE BIG_DIR1/crack.bin 6635723 msg-size: 31 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:02 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Setup.exe created msg-size: 31 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 18:05:02 140287341471488 Stringa ricevuta: FILE BIG_DIR1/Setup.exe 8534316 msg-size: 31 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 18:05:02 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:05 140287349890304 Got a connection from 127.0.0.1:34166
+20201018 18:05:05 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:05:05 140287349864192 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 6
+20201018 18:05:05 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:05:05 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:05:05 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
+20201018 18:05:05 140287349864192 User user2 already connected
+20201018 18:05:07 140287341471488 Stringa ricevuta: FILE BIG_DIR1/data-1.bin created msg-size: 32 sul socket 4
+20201018 18:05:07 140287341471488 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201018 18:05:07 140287341471488 Stringa ricevuta: FILE BIG_DIR1/data-1.bin 879889784 msg-size: 34 sul socket 4
+20201018 18:05:07 140287341471488 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201018 18:05:08 140287349890304 Got a connection from 127.0.0.1:34168
+20201018 18:05:08 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:05:08 140287349864192 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 5
+20201018 18:05:08 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:05:08 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:05:08 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 5
+20201018 18:05:08 140287349864192 User user2 already connected
+20201018 18:05:11 140287349890304 Got a connection from 127.0.0.1:34170
+20201018 18:05:11 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:05:11 140287349864192 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 28
+20201018 18:05:11 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 28
+20201018 18:05:11 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 28
+20201018 18:05:11 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 28
+20201018 18:05:11 140287349864192 User user2 already connected
+20201018 18:05:14 140287349890304 Got a connection from 127.0.0.1:34172
+20201018 18:05:14 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:05:14 140287349864192 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 44
+20201018 18:05:14 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 44
+20201018 18:05:14 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 44
+20201018 18:05:14 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 44
+20201018 18:05:14 140287349864192 User user2 already connected
+20201018 18:05:14 140287341471488 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201018 18:05:17 140287349890304 Got a connection from 127.0.0.1:34174
+20201018 18:05:17 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:05:17 140287349864192 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 5
+20201018 18:05:17 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:05:17 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:05:17 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 5
+20201018 18:05:17 140287349864192 User user2 already connected
+20201018 18:05:20 140287349890304 Got a connection from 127.0.0.1:34176
+20201018 18:05:20 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:05:20 140287349864192 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 28
+20201018 18:05:20 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 28
+20201018 18:05:20 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 28
+20201018 18:05:20 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 28
+20201018 18:05:20 140287349864192 User user2 already connected
+20201018 18:05:20 140287341471488 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201018 18:05:23 140287349890304 Got a connection from 127.0.0.1:34178
+20201018 18:05:23 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:05:23 140287341471488 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 5
+20201018 18:05:23 140287341471488 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:05:23 140287341471488 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:05:25 140287341471488 Stringa Mandata: DIGEST xf+qmkZbzcpJNkIgsA3TiuVxKmA= msg-size: 35 sul socket 5
+20201018 18:05:25 140287341471488 Stringa ricevuta: GET-DB msg-size: 6 sul socket 5
+20201018 18:05:25 140287341471488 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 5
+20201018 18:05:25 140287341471488 Stringa ricevuta: OK msg-size: 2 sul socket 5
+20201018 18:08:17 140287349890304 Got a connection from 127.0.0.1:34180
+20201018 18:08:17 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:17 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:08:17 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:17 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:17 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 18:08:17 140287349864192 User user2 already connected
+20201018 18:08:20 140287349890304 Got a connection from 127.0.0.1:34182
+20201018 18:08:20 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:20 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 6
+20201018 18:08:20 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:20 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:20 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
+20201018 18:08:20 140287349864192 User user2 already connected
+20201018 18:08:23 140287349890304 Got a connection from 127.0.0.1:34184
+20201018 18:08:23 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:23 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:08:23 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:23 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:23 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 18:08:23 140287349864192 User user2 already connected
+20201018 18:08:26 140287349890304 Got a connection from 127.0.0.1:34186
+20201018 18:08:26 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:26 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 6
+20201018 18:08:26 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:26 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:26 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
+20201018 18:08:26 140287349864192 User user2 already connected
+20201018 18:08:29 140287349890304 Got a connection from 127.0.0.1:34188
+20201018 18:08:29 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:29 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:08:29 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:29 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:29 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 18:08:29 140287349864192 User user2 already connected
+20201018 18:08:32 140287349890304 Got a connection from 127.0.0.1:34190
+20201018 18:08:32 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:32 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 6
+20201018 18:08:32 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:32 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:32 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
+20201018 18:08:32 140287349864192 User user2 already connected
+20201018 18:08:35 140287349890304 Got a connection from 127.0.0.1:34192
+20201018 18:08:35 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:35 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:08:35 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:35 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:35 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 18:08:35 140287349864192 User user2 already connected
+20201018 18:08:38 140287349890304 Got a connection from 127.0.0.1:34194
+20201018 18:08:38 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:38 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 6
+20201018 18:08:38 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:38 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:38 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
+20201018 18:08:38 140287349864192 User user2 already connected
+20201018 18:08:41 140287349890304 Got a connection from 127.0.0.1:34196
+20201018 18:08:41 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:41 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:08:41 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:41 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:41 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 18:08:41 140287349864192 User user2 already connected
+20201018 18:08:44 140287349890304 Got a connection from 127.0.0.1:34198
+20201018 18:08:44 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:45 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 6
+20201018 18:08:45 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:45 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:45 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
+20201018 18:08:45 140287349864192 User user2 already connected
+20201018 18:08:48 140287349890304 Got a connection from 127.0.0.1:34200
+20201018 18:08:48 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:48 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:08:48 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:48 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:48 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 18:08:48 140287349864192 User user2 already connected
+20201018 18:08:51 140287349890304 Got a connection from 127.0.0.1:34202
+20201018 18:08:51 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:51 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 6
+20201018 18:08:51 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:51 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:51 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
+20201018 18:08:51 140287349864192 User user2 already connected
+20201018 18:08:54 140287349890304 Got a connection from 127.0.0.1:34204
+20201018 18:08:54 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:54 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201018 18:08:54 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:54 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:08:54 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201018 18:08:54 140287349864192 User user2 already connected
+20201018 18:08:57 140287349890304 Got a connection from 127.0.0.1:34206
+20201018 18:08:57 140287349890304 Waiting for incoming connections at port 5111...
+20201018 18:08:57 140287349864192 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 6
+20201018 18:08:57 140287349864192 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:57 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201018 18:08:57 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
+20201018 18:08:57 140287349864192 User user2 already connected

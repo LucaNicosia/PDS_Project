@@ -49,7 +49,7 @@ std::string username;
 std::string password;
 std::string mode;
 int port;
-std::mutex action_server_mutex;
+std::mutex action_server_mutex, action_server_exec;
 
 int connect_to_remote_server(bool needs_restore, int* p);
 void action_on_server(std::string str);
@@ -367,10 +367,11 @@ int connect_to_remote_server(bool needs_restore, int* p){
 }
 
 void action_on_server(std::string str){ // this function is used in a loop to check the state of the FileWatcher
-    std::unique_lock<std::mutex> lg(action_server_mutex);
+    std::unique_lock<std::mutex> lg(action_server_exec); // only 1 execution at a time
     while(true){
         try
         {
+            std::unique_lock<std::mutex> lg(action_server_mutex);
             if (!fw.isRunning()) return;
             FileWatcher_state last, cur;
             fw.getAllState(last, cur);
