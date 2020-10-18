@@ -1598,3 +1598,142 @@
 20201018 18:08:57 140287349864192 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
 20201018 18:08:57 140287349864192 Stringa Mandata: user already connected msg-size: 22 sul socket 6
 20201018 18:08:57 140287349864192 User user2 already connected
+20201018 18:12:27 140054336097536 Waiting for incoming connections at port 5111...
+20201018 18:12:37 140054336097536 Got a connection from 127.0.0.1:34220
+20201018 18:12:37 140054336097536 Waiting for incoming connections at port 5111...
+20201018 18:12:37 140054336071424 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 4
+20201018 18:12:37 140054336071424 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:12:37 140054336071424 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: DIGEST xf+qmkZbzcpJNkIgsA3TiuVxKmA= msg-size: 35 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: restore msg-size: 7 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: DIR BIG_DIR1 created msg-size: 20 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: DIR BIG_DIR1/Soft created msg-size: 25 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: DIR BIG_DIR1/Soft/DirectX created msg-size: 33 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: DIR BIG_DIR1/Soft/Redist created msg-size: 32 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: FILE BIG_DIR1/Setup.exe created msg-size: 31 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: READY msg-size: 5 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: FILE BIG_DIR1/Setup.exe 8534316 msg-size: 31 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: FILE BIG_DIR1/Soft/DirectX/DXSETUP.exe created msg-size: 46 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: READY msg-size: 5 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: FILE BIG_DIR1/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201018 18:12:39 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:39 140054336071424 Stringa Mandata: FILE BIG_DIR1/Soft/Redist/installscript.vdf created msg-size: 51 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: READY msg-size: 5 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/Soft/Redist/installscript.vdf 919 msg-size: 47 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/Soft/Redist/vcredist_x64.exe created msg-size: 50 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: READY msg-size: 5 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/Soft/Redist/vcredist_x86.exe created msg-size: 50 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: READY msg-size: 5 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/crack.bin created msg-size: 31 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: READY msg-size: 5 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/crack.bin 6635723 msg-size: 31 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/data-1.bin created msg-size: 32 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: READY msg-size: 5 sul socket 4
+20201018 18:12:40 140054336071424 Stringa Mandata: FILE BIG_DIR1/data-1.bin 879889784 msg-size: 34 sul socket 4
+20201018 18:12:40 140054336071424 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201018 18:12:47 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:47 140054336071424 Stringa Mandata: FILE BIG_DIR1/data-steam.bin created msg-size: 36 sul socket 4
+20201018 18:12:53 140054336071424 Stringa ricevuta: READY msg-size: 5 sul socket 4
+20201018 18:12:53 140054336071424 Stringa Mandata: FILE BIG_DIR1/data-steam.bin 4183273 msg-size: 36 sul socket 4
+20201018 18:12:53 140054336071424 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201018 18:12:53 140054336071424 Stringa ricevuta: DONE msg-size: 4 sul socket 4
+20201018 18:12:53 140054336071424 Stringa Mandata: restore completed msg-size: 17 sul socket 4
+20201018 18:12:55 140054336071424 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201018 18:13:03 140054336097536 Got a connection from 127.0.0.1:34222
+20201018 18:13:03 140054336097536 Waiting for incoming connections at port 5111...
+20201018 18:13:03 140054336071424 Stringa ricevuta: CONNECT user2 pass RESTORE msg-size: 26 sul socket 5
+20201018 18:13:03 140054336071424 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:13:03 140054336071424 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DIGEST xf+qmkZbzcpJNkIgsA3TiuVxKmA= msg-size: 35 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR1/Setup.exe erased msg-size: 30 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR1/Soft/DirectX/DXSETUP.exe erased msg-size: 45 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/installscript.vdf erased msg-size: 50 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/vcredist_x64.exe erased msg-size: 49 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR1/Soft/Redist/vcredist_x86.exe erased msg-size: 49 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR1/crack.bin erased msg-size: 30 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR1/data-1.bin erased msg-size: 31 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR1/data-steam.bin erased msg-size: 35 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: DIR BIG_DIR1/Soft/Redist erased msg-size: 31 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: DIR BIG_DIR1/Soft/DirectX erased msg-size: 32 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: DIR BIG_DIR1/Soft erased msg-size: 24 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: DIR BIG_DIR1 erased msg-size: 19 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: DIR BIG_DIR5 created msg-size: 20 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: DIR BIG_DIR5/Soft created msg-size: 25 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: DIR BIG_DIR5/Soft/DirectX created msg-size: 33 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: DIR BIG_DIR5/Soft/Redist created msg-size: 32 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR5/data-steam.bin created msg-size: 36 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR5/data-steam.bin 4183273 msg-size: 36 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe created msg-size: 46 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201018 18:13:05 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201018 18:13:05 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe created msg-size: 50 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe created msg-size: 50 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/installscript.vdf created msg-size: 51 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Soft/Redist/installscript.vdf 919 msg-size: 47 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/crack.bin created msg-size: 31 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/crack.bin 6635723 msg-size: 31 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Setup.exe created msg-size: 31 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201018 18:13:06 140054336071424 Stringa ricevuta: FILE BIG_DIR5/Setup.exe 8534316 msg-size: 31 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201018 18:13:06 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:12 140054336071424 Stringa ricevuta: FILE BIG_DIR5/data-1.bin created msg-size: 32 sul socket 5
+20201018 18:13:12 140054336071424 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201018 18:13:12 140054336071424 Stringa ricevuta: FILE BIG_DIR5/data-1.bin 879889784 msg-size: 34 sul socket 5
+20201018 18:13:12 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201018 18:13:19 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201018 18:13:28 140054336071424 Stringa ricevuta: update completed msg-size: 16 sul socket 5

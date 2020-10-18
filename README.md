@@ -3,6 +3,7 @@
 
 ## PROBLEMS!!
 - 2 user che mettono roba sul server in contemporanea fanno si che 1 dei 2 crashino. Gestire "user already connected" mentre sto mandando dati
+- Accesso a database "User" lato server in mutex
 
 ## entrambi
 - 1 classe Database per eseguire le funzioni sui DB
