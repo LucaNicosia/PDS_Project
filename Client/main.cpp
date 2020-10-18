@@ -211,7 +211,7 @@ int main(int argc, char** argv)
                         ::write(p[1],error.c_str(),error.length()+1);
                         throw general_exception(error);
                     }
-                    std::string str = "connection successed";
+                    std::string str = "connection succeed";
                     ::write(p[1],str.c_str(),str.length()+1);
                     if (ret == RESTORE) {
                         restore(s, files, dirs, path, db_path, files.empty() && (dirs.size() == 1), root_ptr);
@@ -250,7 +250,7 @@ int main(int argc, char** argv)
                     std::this_thread::sleep_for(std::chrono::seconds(3)); // wait 3 seconds before reconnection
                 } catch (soft_exception &se) {
                     // reset variable and retry
-                    std::cout << "socket_exc: " << se.what() << std::endl;
+                    std::cout << "soft_exc: " << se.what() << std::endl;
                     s.close();
                     root_ptr = nullptr;
                     dirs.clear();

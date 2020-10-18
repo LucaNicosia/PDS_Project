@@ -10,6 +10,8 @@
 #include <fcntl.h>
 #include <sstream>
 #include "../../Entities/Exceptions/MyExceptions.h"
+#include "../utilities.h"
+#include "../constants.h"
 
 #define SIZE 2048
 #define DEBUG 1
@@ -24,8 +26,11 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send);
 //COMMUNICATION BETWEEN CLIENT AND SERVER
 int sendMsg(Socket& s, const std::string msg){
     try {
+        std::ostringstream os;
+        os << "Stringa Mandata: " << std::string(msg) << " msg-size: " << msg.size() << " sul socket "<< s.__sock_fd() << std::endl;
         if(DEBUG)
-            std::cout << "Stringa Mandata: " << std::string(msg) << " msg-size: " << msg.size() << " sul socket "<< s.__sock_fd() << std::endl;
+            std::cout << os.str();
+        Log_Writer.writeLog(os);
         int ret = s.write(msg.c_str(), msg.size(), 0);
         if (ret == 0)
             throw socket_exception("sending empty message");
@@ -41,13 +46,16 @@ int sendMsg(Socket& s, const std::string msg){
 
 std::string rcvMsg(Socket& s){
     try {
+        std::ostringstream os;
         char msg[SIZE];
         int size = s.read(msg, SIZE, 0);
         if (size == 0)
             throw socket_exception("empty message received");
         msg[size] = '\0';
+        os << "Stringa ricevuta: " << std::string(msg) << " msg-size: " << size << " sul socket "<< s.__sock_fd() << std::endl;
         if(DEBUG)
-            std::cout << "Stringa ricevuta: " << std::string(msg) << " msg-size: " << size << " sul socket "<< s.__sock_fd() << std::endl;
+            std::cout<<os.str();
+        Log_Writer.writeLog(os);
         return std::string(msg);
     }catch(socket_exception& e){
         throw e;

@@ -28,13 +28,13 @@
 
 #include "Usefull functions/main_functions.h"
 #include "Entities/Exceptions/MyExceptions.h"
+#include "Usefull functions/utilities.h"
 
 #define PORT 5111
 
 ServerSocket ss(PORT);
 std::mutex socket_mutex;
 std::mutex users_mutex;
-std::mutex log_mutex;
 
 int main() {
 
@@ -45,6 +45,8 @@ int main() {
             throw std::runtime_error("cannot fork");
         }
         case 0: {
+            Log_Writer.setLogFilePath(LOG_PATH);
+            Log_Writer.setUseMutex(true);
             //std::freopen(TMP_LOG_FILE,"w+",stdout); // redirect stdout to file
             std::ostringstream os;
             //std::streambuf *oldbuf = std::cout.rdbuf(os.rdbuf());
@@ -58,14 +60,14 @@ int main() {
                 struct sockaddr_in addr;
                 socklen_t len = sizeof(addr);
                 os << "Waiting for incoming connections at port " << PORT << "..." << std::endl;
-                writeLogAndClear(os,LOG_PATH,log_mutex);
+                Log_Writer.writeLogAndClear(os);
                 Socket s = ss.accept(&addr, len);
                 char name[16];
                 if (inet_ntop(AF_INET, &addr.sin_addr, name, sizeof(name)) == nullptr) {
                     throw std::runtime_error("Cannot convert");
                 }
                 os << "Got a connection from " << name << ":" << ntohs(addr.sin_port) << std::endl;
-                writeLogAndClear(os,LOG_PATH,log_mutex);
+                Log_Writer.writeLogAndClear(os);
 
                 //sockets.insert(std::pair<int,Socket>(id,std::move(s)));
                 addSocket(sockets,id,s,socket_mutex);
@@ -80,7 +82,7 @@ int main() {
                         std::string userDirPath, username, password, mode;
                         // SYNC 'client'
                         int rc,count_error=0;
-                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex, log_mutex)) < 0) {
+                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex)) < 0) {
                             switch(rc){
                                 case -1:
                                     os << "Wrong username and/or password"<<std::endl;
@@ -91,7 +93,7 @@ int main() {
                                 default:
                                     os << "unknown error type"<<std::endl;
                             }
-                            writeLogAndClear(os,LOG_PATH,log_mutex);
+                            Log_Writer.writeLogAndClear(os);
                             //if(count_error++ > 2) // try 3 times before closing
                             throw general_exception(os.str());
                         }
@@ -127,13 +129,13 @@ int main() {
                                 eraseUser(users_connected,username,users_mutex);
                                 return;
                             }
-                            manageModification(sockets[id], msg, db_path, userDirPath, files, dirs, log_mutex);
+                            manageModification(sockets[id], msg, db_path, userDirPath, files, dirs);
                         }
                     }catch(std::exception& e){
                         //std::cout<<e.what()<<std::endl;
                         std::ostringstream error;
                         error << e.what();
-                        writeLog(error,LOG_PATH,log_mutex);
+                        Log_Writer.writeLog(error);
                         eraseSocket(sockets,id,socket_mutex);
                         std::lock_guard<std::mutex>lg(users_mutex);
                         for(auto it=users_connected.begin();it!=users_connected.end();++it){
