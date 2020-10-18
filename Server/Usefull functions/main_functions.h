@@ -22,7 +22,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void restore(Socket& s, const std::string& userPath, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
-int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex);
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex, const int& id);
 
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
@@ -394,7 +394,7 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
     }
 }
 
-int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex) {
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex, const int& id) {
     std::ostringstream os;
     std::string msg = rcvMsg(s);
     sendMsg(s,"CONNECT-OK");
@@ -419,9 +419,17 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
     }
     mode = msg;
     std::unique_lock<std::mutex> ul(users_mutex);
-    if(users_connected.count(username) == 1){ // this user is already connected, refuse the connection
+    std::cout<<"in print"<<std::endl;
+    for(auto it:users_connected){
+        std::cout<<it.first<<":"<<it.second<<std::endl;
+    }
+    std::cout<<"end print"<<std::endl;
+    if(users_connected.count(username) >= 1){ // this user is already connected, refuse the connection
+        rcvMsg(s); // only to sync
         sendMsg(s, "user already connected");
         return -2;
+    }else{
+        users_connected[username] = id; // add user to the map associated with his socket_id
     }
     ul.unlock();
 
@@ -490,6 +498,12 @@ void eraseSocket(std::map<int,Socket>& sockets, int id, std::mutex& m){
 
 void eraseUser(std::map<std::string, int>& users_connected, std::string user, std::mutex& m){
     std::lock_guard<std::mutex>lg(m);
+    std::cout<<"\t"<<user<<":"<<users_connected[user]<<std::endl;
+    std::cout<<"in del"<<std::endl;
+    for(auto it:users_connected){
+        std::cout<<it.first<<":"<<it.second<<std::endl;
+    }
+    std::cout<<"end del"<<std::endl;
     users_connected.erase(user);
 }
 

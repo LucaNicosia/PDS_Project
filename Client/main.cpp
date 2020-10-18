@@ -229,7 +229,9 @@ int main(int argc, char** argv)
                         while (true) {
                             // every seconds check if there are some work to do or not
                             std::this_thread::sleep_for(std::chrono::seconds(1));
+                            std::unique_lock<std::mutex> ul(action_server_mutex);
                             if (!fw.isRunning()) return;
+                            ul.unlock();
                             action_on_server("on thread");
                         }
                     });
@@ -294,9 +296,13 @@ int main(int argc, char** argv)
             char auth_message[50];
             std::cout<<"child pid: "<<pid<<std::endl;
             int rc;
-            if((rc = ::read(p[0],auth_message,50)) < 0)
-                throw std::runtime_error("error during pipe reading");
-            std::cout<<auth_message<<std::endl;
+            while(true) {
+                if ((rc = ::read(p[0], auth_message, 50)) < 0)
+                    throw std::runtime_error("error during pipe reading");
+                std::cout<<auth_message<<std::endl;
+                if(strcmp(auth_message,"user already connected") != 0)
+                    break;
+            }
             break;
         }
     }
@@ -361,19 +367,36 @@ int connect_to_remote_server(bool needs_restore, int* p){
 }
 
 void action_on_server(std::string str){ // this function is used in a loop to check the state of the FileWatcher
-    std::unique_lock<std::mutex>lg(action_server_mutex);
-    if(!fw.isRunning()) return;
-    FileWatcher_state last, cur;
-    fw.getAllState(last,cur);
+    std::unique_lock<std::mutex> lg(action_server_mutex);
+    while(true){
+        try
+        {
+            if (!fw.isRunning()) return;
+            FileWatcher_state last, cur;
+            fw.getAllState(last, cur);
 
-    if(!s.is_open() && cur == FileWatcher_state::mod_found && last == FileWatcher_state::ready){ // first modification found, open the socket
-        lg.unlock();
-        connect_to_remote_server(false, nullptr); // this function can call 'action_on_server', deadlock without unlock
-        lg.lock();
-    }
-    if(s.is_open() && (cur == FileWatcher_state::ended || cur == FileWatcher_state::ready && last == FileWatcher_state::ended)){
-        //std::cout<<">> action -> close\n";
-        sendMsg(s,"update completed");
-        s.close();
+            if (!s.is_open() && cur == FileWatcher_state::mod_found &&
+                last == FileWatcher_state::ready) { // first modification found, open the socket
+                std::cout << "action_on_server opening" << std::endl;
+                lg.unlock();
+                connect_to_remote_server(false,
+                                         nullptr); // this function can call 'action_on_server', deadlock without unlock
+                lg.lock();
+            }
+            if (s.is_open() &&
+                (cur == FileWatcher_state::ended ||
+                 cur == FileWatcher_state::ready && last == FileWatcher_state::ended)) {
+                //std::cout<<">> action -> close\n";
+                sendMsg(s, "update completed");
+                s.close();
+            }
+            return;
+        }catch(soft_exception& se){
+            if(s.is_open())
+                s.close();
+            std::this_thread::sleep_for(std::chrono::seconds(3));
+        }catch(std::exception& e){
+            throw std::runtime_error(e.what());
+        }
     }
 }

@@ -32,10 +32,6 @@
 
 #define PORT 5111
 
-ServerSocket ss(PORT);
-std::mutex socket_mutex;
-std::mutex users_mutex;
-
 int main() {
 
     pid_t pid;
@@ -45,6 +41,9 @@ int main() {
             throw std::runtime_error("cannot fork");
         }
         case 0: {
+            ServerSocket ss(PORT);
+            std::mutex socket_mutex;
+            std::mutex users_mutex;
             Log_Writer.setLogFilePath(LOG_PATH);
             Log_Writer.setUseMutex(true);
             //std::freopen(TMP_LOG_FILE,"w+",stdout); // redirect stdout to file
@@ -72,9 +71,10 @@ int main() {
                 //sockets.insert(std::pair<int,Socket>(id,std::move(s)));
                 addSocket(sockets,id,s,socket_mutex);
 
-                std::thread t([&root_path, &sockets, id, &users_connected, &os](){
+                std::thread t([&root_path, &sockets, id, &users_connected, &os, &users_mutex, &socket_mutex](){
                     try
                     {
+                        std::cout<<"\tuserMap: "<<&users_connected<<std::endl;
                         std::shared_ptr<Directory> root;
                         std::string db_path;
                         std::map<std::string, std::shared_ptr<File>> files; // <path,File>
@@ -82,7 +82,7 @@ int main() {
                         std::string userDirPath, username, password, mode;
                         // SYNC 'client'
                         int rc,count_error=0;
-                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex)) < 0) {
+                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex, id)) < 0) {
                             switch(rc){
                                 case -1:
                                     os << "Wrong username and/or password"<<std::endl;
@@ -96,12 +96,6 @@ int main() {
                             Log_Writer.writeLogAndClear(os);
                             //if(count_error++ > 2) // try 3 times before closing
                             throw general_exception(os.str());
-                        }
-
-                        users_connected[username] = id; // add user to the map associated with his socket_id
-
-                        for(auto it:users_connected){
-                            std::cout<<it.first<<":"<<it.second<<std::endl;
                         }
 
                         db_path = PATH_TO_DB + username + ".db";
