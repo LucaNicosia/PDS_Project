@@ -35,8 +35,6 @@
 #define MAXFD 50000
 #define RESTORE 1
 #define UPDATED 0
-#define PATH_TO_DB "../DB"
-#define INITIAL_PATH "TestPath"
 
 Socket s;
 std::shared_ptr<Directory> root_ptr;

@@ -7,6 +7,12 @@
 
 #include "Crypto/MyCryptoLibrary.h"
 #include "../Entities/User/User.h"
+#include "utilities.h"
+
+#define PATH_TO_DB "../DB/"
+#define LOG_PATH "../Log/log.txt"
+#define TMP_LOG_FILE "../Log/tmp_log.txt" // not used for now
+#define SERVER_DIRECTORY "server_directory"
 
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file);
 int deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& file);
@@ -19,8 +25,8 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
 void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory>& root, Socket& s);
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void restore(Socket& s, const std::string& userPath, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
-void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
-int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& m);
+void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::mutex& log_mutex);
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex, std::mutex& log_mutex);
 
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
@@ -153,6 +159,10 @@ void check_user_data(const std::string& username_dir, const std::string& db_path
 }
 
 void createUsersDB(const std::string& db_path){
+    std::ofstream db_file(db_path);
+    if(!db_file.is_open())
+        throw std::runtime_error("unable to create file");
+    db_file.close();
     Database db(db_path);
     // database doesn't exists
     db.open();
@@ -294,7 +304,8 @@ void restore(Socket& s, const std::string& userPath, std::map<std::string, std::
     sendMsg(s,"restore completed");
 }
 
-void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
+void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::mutex& log_mutex){
+    std::ostringstream os;
     std::string path;
     std::string name;
     std::string type;
@@ -319,18 +330,21 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
                                                                 false);
             files[file->getPath()] = file;
             if (insertFileIntoDB(db_path, file) < 0) {
-                std::cout << "Problema nell'inserire il file sul DB" << std::endl;
+                os << "Problema nell'inserire il file sul DB" << std::endl;
+                writeLogAndClear(os,LOG_PATH,log_mutex);
             }
         } else if (operation == "erased") {
             if (deleteFileFromDB(db_path, files[path]) < 0) {
-                std::cout << "Problema nel cancellare il file sul DB" << std::endl;
+                os << "Problema nel cancellare il file sul DB" << std::endl;
+                writeLogAndClear(os,LOG_PATH,log_mutex);
             }
             father.lock()->removeFile(name);
             files.erase(path);
             sendMsg(s, "DONE");
         } else if (operation == "modified") {
             if (deleteFileFromDB(db_path, files[path]) < 0) {
-                std::cout << "Problema nel cancellare il file sul DB" << std::endl;
+                os << "Problema nel cancellare il file sul DB" << std::endl;
+                writeLogAndClear(os,LOG_PATH,log_mutex);
             }
             father.lock()->removeFile(name);
             files.erase(path);
@@ -342,12 +356,14 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
                                                                 false);
             files[file->getPath()] = file;
             if (insertFileIntoDB(db_path, file)<0) {
-                std::cout << "Problema nell'inserire il file sul DB" << std::endl;
+                os << "Problema nell'inserire il file sul DB" << std::endl;
+                writeLogAndClear(os,LOG_PATH,log_mutex);
             }
         } else {
             //errore
-            std::cout << "Stringa non ricevuta correttamente (" << type << " " << path << " "
+            os << "Stringa non ricevuta correttamente (" << type << " " << path << " "
                       << operation << ")" << std::endl;
+            writeLogAndClear(os,LOG_PATH,log_mutex);
             sendMsg(s, "ERROR");
         }
     } else if (type == "DIR") {
@@ -356,26 +372,25 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
             std::shared_ptr<Directory> dir = father.lock()->addDirectory(name, true);
             dirs[dir->getPath()] = dir;
             if (insertDirectoryIntoDB(db_path, dir) < 0) {
-                std::cout << "Problema nell'inserire la directory sul DB" << std::endl;
+                os << "Problema nell'inserire la directory sul DB" << std::endl;
+                writeLogAndClear(os,LOG_PATH,log_mutex);
             }
             sendMsg(s, "DONE");
         } else if (operation == "erased") {
             if (deleteDirectoryFromDB(db_path, dirs[path])<0) {
-                std::cout << "Problema nel cancellare la directory sul DB" << std::endl;
+                os << "Problema nel cancellare la directory sul DB" << std::endl;
+                writeLogAndClear(os,LOG_PATH,log_mutex);
             }
-            std::cout<<"fuori da erased"<<std::endl;
-            //std::cout<<"father: "<<dirs[Directory::getFatherFromPath(path)]->toString()<<std::endl; // TODO: questo non funziona in hard start
             father.lock()->removeDir(name);
-            std::cout<<"dopo removeDir"<<std::endl;
             dirs.erase(path);
-            std::cout<<"dopo dirs.erase"<<std::endl;
             sendMsg(s, "DONE");
         } else if (operation == "modified") {
             // nothing to do
         } else {
             //errore
-            std::cout << "Stringa non ricevuta correttamente (" << type << " " << path << " "
+            os << "Stringa non ricevuta correttamente (" << type << " " << path << " "
                       << operation << ")" << std::endl;
+            writeLogAndClear(os,LOG_PATH,log_mutex);
             sendMsg(s, "ERROR");
         }
     } else {
@@ -383,8 +398,8 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
     }
 }
 
-int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& m) {
-
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex, std::mutex& log_mutex) {
+    std::ostringstream os;
     std::string msg = rcvMsg(s);
     sendMsg(s,"CONNECT-OK");
     std::string delimiter = " ";
@@ -403,39 +418,39 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
         }else if (i == 2){
             password = token;
         }
-        std::cout << token << std::endl;
         msg.erase(0, pos + delimiter.length());
         i++;
     }
     mode = msg;
-    std::unique_lock<std::mutex> ul(m);
-    ul.lock();
+    std::unique_lock<std::mutex> ul(users_mutex);
     if(users_connected.count(username) == 1){ // this user is already connected, refuse the connection
         sendMsg(s, "user already connected");
         return -2;
     }
     ul.unlock();
+
     User user {username, password};
 
-    std::string users_db_path = "../DB/users/users.db";
-    std::string db_path = "../DB/"+username+".db";
+    std::string users_db_path = std::string(PATH_TO_DB)+"users/users.db";
+    std::string db_path = std::string(PATH_TO_DB)+username+".db";
     std::ifstream users(users_db_path);
     if (!users){
+        os<<"creating user DB"<<std::endl;
+        writeLogAndClear(os,LOG_PATH,log_mutex);
         createUsersDB(users_db_path);
     }
 
     Database db(users_db_path);
 
     db.open();
-
     db.select("SELECT * FROM Users",nUsers,queryUsers);
-
     db.close();
 
     for (User u : queryUsers){
         if (u.getUsername() == user.getUsername()){
             found = true;
             foundUser = u;
+            break;
         }
     }
 

@@ -9,10 +9,12 @@
 
 #define SIZE 2048
 #define MAXFD 50000
+#define DEBUG 1
 
 Socket::Socket(int sockfd): sockfd(sockfd), maxfd(MAXFD), timeout_secs(-1){
     // default timeout = -1 -> unlimited
-    std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
+    if(DEBUG)
+        std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
 }
 
 Socket::Socket(){
@@ -20,7 +22,8 @@ Socket::Socket(){
     maxfd = MAXFD;
     timeout_secs = -1;
     if (sockfd < 0) throw std::runtime_error("Cannot create socket");
-    std::cout<<"Socket "<<sockfd<<" created"<<std::endl;
+    if(DEBUG)
+        std::cout<<"Socket "<<sockfd<<" created with empty constructor"<<std::endl;
 }
 
 Socket::~Socket(){
@@ -107,8 +110,7 @@ void Socket::inizialize_and_connect(in_port_t port, sa_family_t family, const st
 
     // Convert IPv4 and IPv6 addresses from text to binary form
     if(inet_pton(family, address.c_str(), &addr.sin_addr)<=0){
-        printf("\nInvalid address/ Address not supported \n");
-        //return -1; // Exception
+        throw std::runtime_error("\nInvalid address/ Address not supported \n");
     }
 
     this->connect(&addr, len);
@@ -128,7 +130,8 @@ void Socket::setTimeoutUsecs(int timeoutUsecs) {
 
 void Socket::close(){
     if (sockfd != 0){
-        std::cout<<"Socket "<<sockfd<<" closed"<<std::endl;
+        if(DEBUG)
+            std::cout<<"Socket "<<sockfd<<" closed"<<std::endl;
         ::close(sockfd);
         sockfd = 0;
     }

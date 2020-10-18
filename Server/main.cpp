@@ -29,11 +29,12 @@
 #include "Usefull functions/main_functions.h"
 #include "Entities/Exceptions/MyExceptions.h"
 
-#define PORT 5110
-#define PATH_TO_DB "../DB/"
+#define PORT 5111
 
 ServerSocket ss(PORT);
-std::mutex m;
+std::mutex socket_mutex;
+std::mutex users_mutex;
+std::mutex log_mutex;
 
 int main() {
 
@@ -44,29 +45,32 @@ int main() {
             throw std::runtime_error("cannot fork");
         }
         case 0: {
-            std::freopen("../Log/log.txt","w+",stdout); // redirect stdout to file
+            //std::freopen(TMP_LOG_FILE,"w+",stdout); // redirect stdout to file
+            std::ostringstream os;
+            //std::streambuf *oldbuf = std::cout.rdbuf(os.rdbuf());
             int id = 0;
             std::map<int, Socket> sockets; // <socket_id, Socket>
             // users_connected: mainly used for checking users already connected and maybe usefull for future usage
             std::map<std::string,int> users_connected; //<username, socket_id>
-            std::string root_path = "server_directory";
+            std::string root_path = SERVER_DIRECTORY;
 
             while (true) {
                 struct sockaddr_in addr;
                 socklen_t len = sizeof(addr);
-                std::cout << getTimestamp().str()<<" Waiting for incoming connections at port " << PORT << "..." << std::endl;
+                os << "Waiting for incoming connections at port " << PORT << "..." << std::endl;
+                writeLogAndClear(os,LOG_PATH,log_mutex);
                 Socket s = ss.accept(&addr, len);
-
                 char name[16];
                 if (inet_ntop(AF_INET, &addr.sin_addr, name, sizeof(name)) == nullptr) {
                     throw std::runtime_error("Cannot convert");
                 }
-                std::cout << "Got a connection from " << name << ":" << ntohs(addr.sin_port) << "\n";
+                os << "Got a connection from " << name << ":" << ntohs(addr.sin_port) << std::endl;
+                writeLogAndClear(os,LOG_PATH,log_mutex);
 
                 //sockets.insert(std::pair<int,Socket>(id,std::move(s)));
-                addSocket(sockets,id,s,m);
+                addSocket(sockets,id,s,socket_mutex);
 
-                std::thread t([&root_path, &sockets, id, &users_connected](){
+                std::thread t([&root_path, &sockets, id, &users_connected, &os](){
                     try {
                         std::shared_ptr<Directory> root;
                         std::string db_path;
@@ -75,19 +79,18 @@ int main() {
                         std::string userDirPath, username, password, mode;
                         // SYNC 'client'
                         int rc;
-                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, m)) < 0) {
-                            std::string error;
+                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex, log_mutex)) < 0) {
                             switch(rc){
                                 case -1:
-                                    error = "Wrong username and/or password";
+                                    os << "Wrong username and/or password";
                                     break;
                                 case -2:
-                                    error = "User "+username+" already connected";
+                                    os << "User "+username+" already connected";
                                     break;
                                 default:
-                                    error = "unknown error type";
+                                    os << "unknown error type";
                             }
-                            std::cout<<getTimestamp().str()<<error<<std::endl;
+                            writeLogAndClear(os,LOG_PATH,log_mutex);
                         }
 
                         users_connected[username] = id; // add user to the map associated with his socket_id
@@ -116,16 +119,19 @@ int main() {
                             msg = rcvMsg(sockets[id]);
                             if (msg == "update completed") {
                                 // update completed, close the socket
-                                eraseSocket(sockets, id, m);
-                                eraseUser(users_connected,username,m);
+                                eraseSocket(sockets, id, socket_mutex);
+                                eraseUser(users_connected,username,users_mutex);
                                 return;
                             }
-                            manageModification(sockets[id], msg, db_path, userDirPath, files, dirs);
+                            manageModification(sockets[id], msg, db_path, userDirPath, files, dirs, log_mutex);
                         }
                     }catch(std::exception& e){
-                        std::cout<<e.what()<<std::endl;
-                        eraseSocket(sockets,id,m);
-                        std::lock_guard<std::mutex>lg(m);
+                        //std::cout<<e.what()<<std::endl;
+                        std::ostringstream error;
+                        error << e.what();
+                        writeLog(error,LOG_PATH,log_mutex);
+                        eraseSocket(sockets,id,socket_mutex);
+                        std::lock_guard<std::mutex>lg(users_mutex);
                         for(auto it=users_connected.begin();it!=users_connected.end();++it){
                             if(it->second == id){ // find username by socket id
                                 users_connected.erase(it->first);

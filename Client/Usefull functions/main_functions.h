@@ -15,6 +15,9 @@
 #include <map>
 #include <queue>
 
+#define PATH_TO_DB "../DB"
+#define INITIAL_PATH "client_directory"
+
 namespace fs = std::filesystem;
 
 std::string cleanPath(const std::string & path, const std::string& rubbish);
