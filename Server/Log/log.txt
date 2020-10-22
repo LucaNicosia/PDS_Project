@@ -1737,3 +1737,654 @@
 20201018 18:13:12 140054336071424 Stringa Mandata: OK msg-size: 2 sul socket 5
 20201018 18:13:19 140054336071424 Stringa Mandata: DONE msg-size: 4 sul socket 5
 20201018 18:13:28 140054336071424 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201019 16:45:35 140524150553856 Waiting for incoming connections at port 5111...
+20201019 16:46:25 140524150553856 Got a connection from 127.0.0.1:35012
+20201019 16:46:25 140524150553856 Waiting for incoming connections at port 5111...
+20201019 16:46:25 140524150527744 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 4
+20201019 16:46:25 140524150527744 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201019 16:46:25 140524150527744 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DIGEST tZYvOvgREL8qWSd8rPtzvwN6PCs= msg-size: 35 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: FILE user1.db 28672 msg-size: 19 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: DIR BIG_DIR2 created msg-size: 20 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: DIR BIG_DIR2/Soft created msg-size: 25 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: DIR BIG_DIR2/Soft/DirectX created msg-size: 33 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: DIR BIG_DIR2/Soft/Redist created msg-size: 32 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR/data-steam.bin erased msg-size: 34 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR/Soft/DirectX/DXSETUP.exe erased msg-size: 44 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR/Soft/Redist/vcredist_x86.exe erased msg-size: 48 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR/Soft/Redist/vcredist_x64.exe erased msg-size: 48 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR/Soft/Redist/installscript.vdf erased msg-size: 49 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR/crack.bin erased msg-size: 29 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR/Setup.exe erased msg-size: 29 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR/data-1.bin erased msg-size: 30 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Setup.exe created msg-size: 31 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Setup.exe 8534316 msg-size: 31 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Soft/DirectX/DXSETUP.exe created msg-size: 46 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Soft/Redist/installscript.vdf created msg-size: 51 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Soft/Redist/installscript.vdf 919 msg-size: 47 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Soft/Redist/vcredist_x64.exe created msg-size: 50 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:46:27 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 sul socket 4
+20201019 16:46:27 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:46:28 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:28 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Soft/Redist/vcredist_x86.exe created msg-size: 50 sul socket 4
+20201019 16:46:28 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:46:28 140524150527744 Stringa ricevuta: FILE BIG_DIR2/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 sul socket 4
+20201019 16:46:28 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:46:28 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:28 140524150527744 Stringa ricevuta: FILE BIG_DIR2/crack.bin created msg-size: 31 sul socket 4
+20201019 16:46:28 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:46:28 140524150527744 Stringa ricevuta: FILE BIG_DIR2/crack.bin 6635723 msg-size: 31 sul socket 4
+20201019 16:46:28 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:46:28 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:32 140524150527744 Stringa ricevuta: FILE BIG_DIR2/data-1.bin created msg-size: 32 sul socket 4
+20201019 16:46:32 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:46:32 140524150527744 Stringa ricevuta: FILE BIG_DIR2/data-1.bin 879889784 msg-size: 34 sul socket 4
+20201019 16:46:32 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:46:35 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:38 140524150527744 Stringa ricevuta: FILE BIG_DIR2/data-steam.bin created msg-size: 36 sul socket 4
+20201019 16:46:38 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:46:38 140524150527744 Stringa ricevuta: FILE BIG_DIR2/data-steam.bin 4183273 msg-size: 36 sul socket 4
+20201019 16:46:38 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:46:38 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:38 140524150527744 Stringa ricevuta: DIR BIG_DIR/Soft/Redist erased msg-size: 30 sul socket 4
+20201019 16:46:38 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:38 140524150527744 Stringa ricevuta: DIR BIG_DIR/Soft/DirectX erased msg-size: 31 sul socket 4
+20201019 16:46:38 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:38 140524150527744 Stringa ricevuta: DIR BIG_DIR/Soft erased msg-size: 23 sul socket 4
+20201019 16:46:38 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:38 140524150527744 Stringa ricevuta: DIR BIG_DIR erased msg-size: 18 sul socket 4
+20201019 16:46:38 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:46:40 140524150527744 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201019 16:47:06 140524150553856 Got a connection from 127.0.0.1:35018
+20201019 16:47:06 140524150553856 Waiting for incoming connections at port 5111...
+20201019 16:47:06 140524150527744 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 5
+20201019 16:47:06 140524150527744 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201019 16:47:06 140524150527744 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DIGEST AepH975MSRB4TqzpRvVcm39Adsg= msg-size: 35 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/COMMIT_EDITMSG erased msg-size: 31 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/HEAD erased msg-size: 21 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/ORIG_HEAD erased msg-size: 26 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/config erased msg-size: 23 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/description erased msg-size: 28 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/hooks/applypatch-msg.sample erased msg-size: 44 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/hooks/commit-msg.sample erased msg-size: 40 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/hooks/fsmonitor-watchman.sample erased msg-size: 48 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/hooks/post-update.sample erased msg-size: 41 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/hooks/pre-applypatch.sample erased msg-size: 44 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/hooks/pre-commit.sample erased msg-size: 40 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/hooks/pre-merge-commit.sample erased msg-size: 46 sul socket 5
+20201019 16:47:08 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:08 140524150527744 Stringa ricevuta: FILE .git/hooks/pre-push.sample erased msg-size: 38 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/hooks/pre-rebase.sample erased msg-size: 40 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/hooks/pre-receive.sample erased msg-size: 41 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/hooks/prepare-commit-msg.sample erased msg-size: 48 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/hooks/update.sample erased msg-size: 36 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/index erased msg-size: 22 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/info/exclude erased msg-size: 29 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/logs/HEAD erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/logs/refs/heads/NicosiaBranch erased msg-size: 46 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/logs/refs/heads/master erased msg-size: 39 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/logs/refs/remotes/origin/HEAD erased msg-size: 46 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/logs/refs/remotes/origin/NicosiaBranch erased msg-size: 55 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/logs/refs/remotes/origin/master erased msg-size: 48 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/49/5c650467db7a5f2642607ded684f183ebafa96 erased msg-size: 66 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/6b/9e7ef9112ead3d965db1bf09d6e4c22ef14414 erased msg-size: 66 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/bf/7a0fd3ad66ad8cb25c2a787d2800cf7588bd75 erased msg-size: 66 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/c8/d88f115a63f3a85c30345b0a6b14c1f652f525 erased msg-size: 66 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/cc/2e7d54f2466871054b622792e6d18c04eeab98 erased msg-size: 66 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/e8/1d4fa1f490f0b1f39cc2f2773bed6ac30caa20 erased msg-size: 66 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/f2/695c8842b4e4ee26291898794f0d45639807f8 erased msg-size: 66 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.idx erased msg-size: 79 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.pack erased msg-size: 80 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/packed-refs erased msg-size: 28 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/refs/heads/NicosiaBranch erased msg-size: 41 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/refs/heads/master erased msg-size: 34 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/refs/remotes/origin/HEAD erased msg-size: 41 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/refs/remotes/origin/NicosiaBranch erased msg-size: 50 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: FILE .git/refs/remotes/origin/master erased msg-size: 43 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/refs/tags erased msg-size: 25 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/refs/remotes/origin erased msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/refs/remotes erased msg-size: 28 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/refs/heads erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/refs erased msg-size: 20 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/pack erased msg-size: 28 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/info erased msg-size: 28 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/f2 erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/e8 erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/cc erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/c8 erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/bf erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/6b erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects/49 erased msg-size: 26 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/objects erased msg-size: 23 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/logs/refs/remotes/origin erased msg-size: 40 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/logs/refs/remotes erased msg-size: 33 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/logs/refs/heads erased msg-size: 31 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/logs/refs erased msg-size: 25 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/logs erased msg-size: 20 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/info erased msg-size: 20 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/hooks erased msg-size: 21 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git/branches erased msg-size: 24 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR .git erased msg-size: 15 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi created msg-size: 24 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/info created msg-size: 29 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/branches created msg-size: 33 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/refs created msg-size: 29 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/refs/remotes created msg-size: 37 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/refs/remotes/origin created msg-size: 44 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/refs/heads created msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/refs/tags created msg-size: 34 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects created msg-size: 32 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/info created msg-size: 37 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/pack created msg-size: 37 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/e8 created msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/49 created msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/c8 created msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/6b created msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/bf created msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/f2 created msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/objects/cc created msg-size: 35 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/logs created msg-size: 29 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/logs/refs created msg-size: 34 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/logs/refs/remotes created msg-size: 42 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/logs/refs/remotes/origin created msg-size: 49 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/logs/refs/heads created msg-size: 40 sul socket 5
+20201019 16:47:09 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:09 140524150527744 Stringa ricevuta: DIR pene di albi/hooks created msg-size: 30 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/info/exclude created msg-size: 38 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/info/exclude 240 msg-size: 34 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/ORIG_HEAD created msg-size: 35 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/ORIG_HEAD 41 msg-size: 30 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/config created msg-size: 32 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/config 381 msg-size: 28 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/remotes/origin/HEAD created msg-size: 50 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/remotes/origin/HEAD 32 msg-size: 45 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/remotes/origin/master created msg-size: 52 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/remotes/origin/master 41 msg-size: 47 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/remotes/origin/NicosiaBranch created msg-size: 59 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/remotes/origin/NicosiaBranch 41 msg-size: 54 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/heads/master created msg-size: 43 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/heads/master 41 msg-size: 38 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/heads/NicosiaBranch created msg-size: 50 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/refs/heads/NicosiaBranch 41 msg-size: 45 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/COMMIT_EDITMSG created msg-size: 40 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/COMMIT_EDITMSG 15 msg-size: 35 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/index created msg-size: 31 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/index 5915 msg-size: 28 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.idx created msg-size: 88 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.idx 44668 msg-size: 86 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.pack created msg-size: 89 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.pack 2083142 msg-size: 89 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/e8/1d4fa1f490f0b1f39cc2f2773bed6ac30caa20 created msg-size: 75 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/e8/1d4fa1f490f0b1f39cc2f2773bed6ac30caa20 226 msg-size: 71 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/49/5c650467db7a5f2642607ded684f183ebafa96 created msg-size: 75 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/49/5c650467db7a5f2642607ded684f183ebafa96 162 msg-size: 71 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/c8/d88f115a63f3a85c30345b0a6b14c1f652f525 created msg-size: 75 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/c8/d88f115a63f3a85c30345b0a6b14c1f652f525 2397 msg-size: 72 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/6b/9e7ef9112ead3d965db1bf09d6e4c22ef14414 created msg-size: 75 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/6b/9e7ef9112ead3d965db1bf09d6e4c22ef14414 358 msg-size: 71 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/bf/7a0fd3ad66ad8cb25c2a787d2800cf7588bd75 created msg-size: 75 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/bf/7a0fd3ad66ad8cb25c2a787d2800cf7588bd75 164 msg-size: 71 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/f2/695c8842b4e4ee26291898794f0d45639807f8 created msg-size: 75 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/f2/695c8842b4e4ee26291898794f0d45639807f8 197 msg-size: 71 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/cc/2e7d54f2466871054b622792e6d18c04eeab98 created msg-size: 75 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/objects/cc/2e7d54f2466871054b622792e6d18c04eeab98 226 msg-size: 71 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/HEAD created msg-size: 30 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/HEAD 30 msg-size: 25 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/packed-refs created msg-size: 37 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/packed-refs 264 msg-size: 33 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/remotes/origin/HEAD created msg-size: 55 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/remotes/origin/HEAD 205 msg-size: 51 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/remotes/origin/master created msg-size: 57 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/remotes/origin/master 292 msg-size: 53 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/remotes/origin/NicosiaBranch created msg-size: 64 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/remotes/origin/NicosiaBranch 146 msg-size: 60 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/heads/master created msg-size: 48 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/heads/master 514 msg-size: 44 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/heads/NicosiaBranch created msg-size: 55 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/refs/heads/NicosiaBranch 344 msg-size: 51 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/HEAD created msg-size: 35 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/logs/HEAD 849 msg-size: 31 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/fsmonitor-watchman.sample created msg-size: 57 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/fsmonitor-watchman.sample 3079 msg-size: 54 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-merge-commit.sample created msg-size: 55 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-merge-commit.sample 416 msg-size: 51 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-push.sample created msg-size: 47 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-push.sample 1348 msg-size: 44 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-rebase.sample created msg-size: 49 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-rebase.sample 4898 msg-size: 46 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/commit-msg.sample created msg-size: 49 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/commit-msg.sample 896 msg-size: 45 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-receive.sample created msg-size: 50 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-receive.sample 544 msg-size: 46 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-applypatch.sample created msg-size: 53 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-applypatch.sample 424 msg-size: 49 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/post-update.sample created msg-size: 50 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/post-update.sample 189 msg-size: 46 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/applypatch-msg.sample created msg-size: 53 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/applypatch-msg.sample 478 msg-size: 49 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/prepare-commit-msg.sample created msg-size: 57 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/prepare-commit-msg.sample 1492 msg-size: 54 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-commit.sample created msg-size: 49 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/pre-commit.sample 1638 msg-size: 46 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/update.sample created msg-size: 45 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/hooks/update.sample 3610 msg-size: 42 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/description created msg-size: 37 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: FILE pene di albi/description 73 msg-size: 32 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201019 16:47:10 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201019 16:47:10 140524150527744 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201019 16:47:24 140524150553856 Got a connection from 127.0.0.1:35020
+20201019 16:47:24 140524150553856 Waiting for incoming connections at port 5111...
+20201019 16:47:24 140524150527744 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 4
+20201019 16:47:24 140524150527744 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201019 16:47:24 140524150527744 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201019 16:47:26 140524150527744 Stringa Mandata: DIGEST DptYu7zXw3r83kHtB2g37Rh3ZR0= msg-size: 35 sul socket 4
+20201019 16:47:26 140524150527744 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201019 16:47:26 140524150527744 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201019 16:47:26 140524150527744 Stringa ricevuta: FILE kali-linux-2020.3-live-amd64.iso erased msg-size: 44 sul socket 4
+20201019 16:47:26 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:47:40 140524150527744 Stringa ricevuta: FILE iso del pene di albi.iso created msg-size: 37 sul socket 4
+20201019 16:47:40 140524150527744 Stringa Mandata: READY msg-size: 5 sul socket 4
+20201019 16:47:40 140524150527744 Stringa ricevuta: FILE iso del pene di albi.iso 3138400256 msg-size: 40 sul socket 4
+20201019 16:47:40 140524150527744 Stringa Mandata: OK msg-size: 2 sul socket 4
+20201019 16:47:50 140524150527744 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201019 16:48:04 140524150527744 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201021 12:35:04 140177626270976 Waiting for incoming connections at port 5111...
+20201021 12:36:31 140177626270976 Got a connection from 127.0.0.1:52112
+20201021 12:36:31 140177626270976 Waiting for incoming connections at port 5111...
+20201021 12:36:31 140177626244864 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 4
+20201021 12:36:31 140177626244864 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201021 12:36:31 140177626244864 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201021 12:36:33 140177626244864 Stringa Mandata: DIGEST FCRwKy3ALfG2rhBoLkivjl1Fp3c= msg-size: 35 sul socket 4
+20201021 12:36:33 140177626244864 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201021 12:36:33 140177626244864 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201021 12:36:35 140177626244864 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201021 12:37:17 140177626270976 Got a connection from 127.0.0.1:52118
+20201021 12:37:17 140177626270976 Waiting for incoming connections at port 5111...
+20201021 12:37:17 140177626244864 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 5
+20201021 12:37:17 140177626244864 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201021 12:37:17 140177626244864 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DIGEST FCRwKy3ALfG2rhBoLkivjl1Fp3c= msg-size: 35 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/BIG_DIR/Setup.exe erased msg-size: 36 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/BIG_DIR/Soft/DirectX/DXSETUP.exe erased msg-size: 51 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/BIG_DIR/Soft/Redist/installscript.vdf erased msg-size: 56 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/BIG_DIR/Soft/Redist/vcredist_x64.exe erased msg-size: 55 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/BIG_DIR/Soft/Redist/vcredist_x86.exe erased msg-size: 55 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/BIG_DIR/crack.bin erased msg-size: 36 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/BIG_DIR/data-1.bin erased msg-size: 37 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/BIG_DIR/data-steam.bin erased msg-size: 41 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova1/zoom_amd64.deb erased msg-size: 33 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova1/BIG_DIR/Soft/Redist erased msg-size: 37 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova1/BIG_DIR/Soft/DirectX erased msg-size: 38 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova1/BIG_DIR/Soft erased msg-size: 30 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova1/BIG_DIR erased msg-size: 25 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova1 erased msg-size: 17 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova2 created msg-size: 18 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova2/BIG_DIR created msg-size: 26 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova2/BIG_DIR/Soft created msg-size: 31 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova2/BIG_DIR/Soft/DirectX created msg-size: 39 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: DIR prova2/BIG_DIR/Soft/Redist created msg-size: 38 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/data-steam.bin created msg-size: 42 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/data-steam.bin 4183273 msg-size: 42 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Soft/DirectX/DXSETUP.exe created msg-size: 52 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Soft/DirectX/DXSETUP.exe 299864 msg-size: 51 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Soft/Redist/vcredist_x86.exe created msg-size: 56 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 56 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Soft/Redist/vcredist_x64.exe created msg-size: 56 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 57 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Soft/Redist/installscript.vdf created msg-size: 57 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Soft/Redist/installscript.vdf 919 msg-size: 53 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/crack.bin created msg-size: 37 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/crack.bin 6635723 msg-size: 37 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Setup.exe created msg-size: 37 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:19 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/Setup.exe 8534316 msg-size: 37 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:19 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:23 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/data-1.bin created msg-size: 38 sul socket 5
+20201021 12:37:23 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:23 140177626244864 Stringa ricevuta: FILE prova2/BIG_DIR/data-1.bin 879889784 msg-size: 40 sul socket 5
+20201021 12:37:23 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:25 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:28 140177626244864 Stringa ricevuta: FILE prova2/zoom_amd64.deb created msg-size: 34 sul socket 5
+20201021 12:37:28 140177626244864 Stringa Mandata: READY msg-size: 5 sul socket 5
+20201021 12:37:28 140177626244864 Stringa ricevuta: FILE prova2/zoom_amd64.deb 40142808 msg-size: 35 sul socket 5
+20201021 12:37:28 140177626244864 Stringa Mandata: OK msg-size: 2 sul socket 5
+20201021 12:37:28 140177626244864 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201021 12:37:29 140177626244864 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 16:23:60 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:25:02 139797049834752 Got a connection from 127.0.0.1:32966
+20201022 16:25:02 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:25:02 139797049834752 Got a connection from 127.0.0.1:32968
+20201022 16:25:02 139797049808640 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 4
+20201022 16:25:02 139797049808640 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 16:25:02 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:25:02 139797041415936 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 5
+20201022 16:25:02 139797041415936 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 16:25:02 139797041415936 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 16:25:02 139797041415936 Stringa Mandata: user already connected msg-size: 22 sul socket 5
+20201022 16:25:02 139797041415936 User user1 already connected
+20201022 16:25:02 139797049808640 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 16:25:04 139797049808640 Stringa Mandata: DIGEST yHyUvL86+XXZm4f6aKG5qGOrJb4= msg-size: 35 sul socket 4
+20201022 16:25:04 139797049808640 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 16:25:04 139797049808640 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 16:25:06 139797049808640 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 16:30:06 139797049834752 Got a connection from 127.0.0.1:32982
+20201022 16:30:06 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:30:06 139797049834752 Got a connection from 127.0.0.1:32984
+20201022 16:30:06 139797049808640 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 6
+20201022 16:30:06 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:30:06 139797049808640 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201022 16:30:06 139797041415936 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 4
+20201022 16:30:06 139797041415936 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 16:30:06 139797041415936 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 16:30:06 139797041415936 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201022 16:30:06 139797041415936 User user1 already connected
+20201022 16:30:06 139797049808640 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201022 16:30:08 139797049808640 Stringa Mandata: DIGEST yHyUvL86+XXZm4f6aKG5qGOrJb4= msg-size: 35 sul socket 6
+20201022 16:30:08 139797049808640 Stringa ricevuta: Database up to date msg-size: 19 sul socket 6
+20201022 16:30:08 139797049808640 Stringa Mandata: server_db_ok msg-size: 12 sul socket 6
+20201022 16:30:10 139797049808640 Stringa ricevuta: update completed msg-size: 16 sul socket 6
+20201022 16:36:09 139797049834752 Got a connection from 127.0.0.1:32996
+20201022 16:36:09 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:36:09 139797049834752 Got a connection from 127.0.0.1:32994
+20201022 16:36:09 139797049808640 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 5
+20201022 16:36:09 139797049808640 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 16:36:09 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:36:09 139797041415936 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 4
+20201022 16:36:09 139797041415936 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 16:36:09 139797041415936 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 16:36:09 139797041415936 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201022 16:36:09 139797041415936 User user1 already connected
+20201022 16:36:09 139797049808640 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 16:36:11 139797049808640 Stringa Mandata: DIGEST yHyUvL86+XXZm4f6aKG5qGOrJb4= msg-size: 35 sul socket 5
+20201022 16:36:11 139797049808640 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 16:36:11 139797049808640 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 16:36:13 139797049808640 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 16:39:21 139797049834752 Got a connection from 127.0.0.1:33002
+20201022 16:39:21 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:39:21 139797049834752 Got a connection from 127.0.0.1:33004
+20201022 16:39:21 139797049808640 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 6
+20201022 16:39:21 139797049808640 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 6
+20201022 16:39:21 139797049834752 Waiting for incoming connections at port 5111...
+20201022 16:39:21 139796957624064 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 4
+20201022 16:39:21 139796957624064 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 16:39:21 139796957624064 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 16:39:21 139796957624064 Stringa Mandata: user already connected msg-size: 22 sul socket 4
+20201022 16:39:21 139796957624064 User user1 already connected
+20201022 16:39:21 139797049808640 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 6
+20201022 16:39:23 139797049808640 Stringa Mandata: DIGEST yHyUvL86+XXZm4f6aKG5qGOrJb4= msg-size: 35 sul socket 6
+20201022 16:39:23 139797049808640 Stringa ricevuta: Database up to date msg-size: 19 sul socket 6
+20201022 16:39:23 139797049808640 Stringa Mandata: server_db_ok msg-size: 12 sul socket 6
+20201022 16:39:25 139797049808640 Stringa ricevuta: update completed msg-size: 16 sul socket 6

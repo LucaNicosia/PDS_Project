@@ -30,7 +30,7 @@ int sendMsg(Socket& s, const std::string msg){
         os << "Stringa Mandata: " << std::string(msg) << " msg-size: " << msg.size() << " sul socket "<< s.__sock_fd() << std::endl;
         if(DEBUG)
             std::cout << os.str();
-        writeLog(os,LOG_PATH);
+        Log_Writer.writeLog(os);
         int ret = s.write(msg.c_str(), msg.size(), 0);
         if (ret == 0)
             throw socket_exception("sending empty message");
@@ -55,7 +55,7 @@ std::string rcvMsg(Socket& s){
         os << "Stringa ricevuta: " << std::string(msg) << " msg-size: " << size << " sul socket "<< s.__sock_fd() << std::endl;
         if(DEBUG)
             std::cout<<os.str();
-        writeLog(os,LOG_PATH);
+        Log_Writer.writeLog(os);
         return std::string(msg);
     }catch(socket_exception& e){
         throw e;
@@ -74,7 +74,7 @@ int rcvFile(Socket& s, const std::string path){
     int to;
     to=creat(path.c_str(),0777);
     if(to<0){
-        throw filesystem_exception("Error creating destination file at "+path);
+        throw filesystem_exception("Error creating destination file at " + path);
     }
     while(length > 0){
         rec = s.read(buf,sizeof(buf),0);

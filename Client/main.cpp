@@ -165,6 +165,8 @@ int main(int argc, char** argv)
         }
         case 0: {
             close(p[0]);
+            Log_Writer.setLogFilePath(LOG_PATH);
+            Log_Writer.setUseMutex(false);
             int round_count = 0;
             while (round_count++ < 3) { // try 3 times to recover from a problem
                 try
@@ -223,7 +225,7 @@ int main(int argc, char** argv)
                         fw.set(path, std::chrono::milliseconds(1000));
                         fw.start(modification_function);
                     });
-                    std::cout << "--- System ready ---\n";
+                    //std::cout << "--- System ready ---\n";
                     round_count = 0; // when the syncrosization is ended, reset the "try to connect" counter
                     std::thread t2([]() {
                         while (true) {
@@ -240,7 +242,9 @@ int main(int argc, char** argv)
                     return 0;
                 } catch (socket_exception &se) {
                     // reset variable and retry
-                    std::cout << "socket_exc: " << se.what() << std::endl;
+                    std::ostringstream os;
+                    os << "socket_exc: " << se.what() << std::endl;
+                    Log_Writer.writeLogAndClear(os);
                     s.close();
                     root_ptr = nullptr;
                     dirs.clear();
@@ -250,33 +254,10 @@ int main(int argc, char** argv)
                     server_db_path = PATH_TO_DB;
                     synchronized = false;
                     std::this_thread::sleep_for(std::chrono::seconds(3)); // wait 3 seconds before reconnection
-                } catch (soft_exception &se) {
-                    // reset variable and retry
-                    std::cout << "soft_exc: " << se.what() << std::endl;
-                    s.close();
-                    root_ptr = nullptr;
-                    dirs.clear();
-                    files.clear();
-                    path = INITIAL_PATH;
-                    db_path = PATH_TO_DB;
-                    server_db_path = PATH_TO_DB;
-                    synchronized = false;
-                    round_count=0; // reset the counter and retry until the server can accept the client
-                    std::this_thread::sleep_for(std::chrono::seconds(3)); // wait 3 seconds before reconnection
-                } catch (filesystem_exception &fe) {
-                    std::cout << "filesystem_exc: " << fe.what() << std::endl;
-                    s.close();
-                    dirs.clear();
-                    files.clear();
-                    return -1; // critical problem, redo the same thing doesn't resolve the problem
-                } catch (database_exception &de) {
-                    std::cout << "database_exc: " << de.what() << std::endl;
-                    s.close();
-                    dirs.clear();
-                    files.clear();
-                    return -1; // critical problem, redo the same thing doesn't resolve the problem
                 } catch (general_exception &ge) {
-                    std::cout << "general_exc: " << ge.what() << std::endl;
+                    std::ostringstream os;
+                    os << "general_exc: " << ge.what() << std::endl;
+                    Log_Writer.writeLogAndClear(os);
                     s.close();
                     dirs.clear();
                     files.clear();
@@ -296,13 +277,11 @@ int main(int argc, char** argv)
             char auth_message[50];
             std::cout<<"child pid: "<<pid<<std::endl;
             int rc;
-            while(true) {
-                if ((rc = ::read(p[0], auth_message, 50)) < 0)
-                    throw std::runtime_error("error during pipe reading");
-                std::cout<<auth_message<<std::endl;
-                if(strcmp(auth_message,"user already connected") != 0)
-                    break;
-            }
+            if ((rc = ::read(p[0], auth_message, 50)) < 0)
+                throw std::runtime_error("error during pipe reading");
+            std::cout<<auth_message<<std::endl;
+            if(strcmp(auth_message,"user already connected") == 0)
+                return -1;
             break;
         }
     }
@@ -321,20 +300,14 @@ int connect_to_remote_server(bool needs_restore, int* p){
         throw socket_exception(e.what());
     }
     // sync with the server
-    int cont = 0;
     std::string server_digest;
     std::string client_digest = compute_db_digest(files,dirs);
 
     server_digest = connectRequest(s, username, password, mode);
-    if(server_digest == "CONNECT-ERROR" || server_digest == "wrong username or password") {
+    if(server_digest == "CONNECT-ERROR" || server_digest == "wrong username or password" || server_digest == "user already connected") {
         if(p != nullptr)
             ::write(p[1],server_digest.c_str(),server_digest.length()+1); // send to father the error result
         throw general_exception(server_digest); // stop the program
-    }
-    if(server_digest == "user already connected") {
-        if(p != nullptr)
-            ::write(p[1],server_digest.c_str(),server_digest.length()+1); // send to father the error result
-        throw soft_exception(server_digest); // retry to connect
     }
 
     // CONNECT-OK
@@ -367,37 +340,24 @@ int connect_to_remote_server(bool needs_restore, int* p){
 }
 
 void action_on_server(std::string str){ // this function is used in a loop to check the state of the FileWatcher
-    std::unique_lock<std::mutex> lg(action_server_exec); // only 1 execution at a time
-    while(true){
-        try
-        {
-            std::unique_lock<std::mutex> lg(action_server_mutex);
-            if (!fw.isRunning()) return;
-            FileWatcher_state last, cur;
-            fw.getAllState(last, cur);
+    std::unique_lock<std::mutex> lg(action_server_mutex);
+    if (!fw.isRunning()) return;
+    FileWatcher_state last, cur;
+    fw.getAllState(last, cur);
 
-            if (!s.is_open() && cur == FileWatcher_state::mod_found &&
-                last == FileWatcher_state::ready) { // first modification found, open the socket
-                std::cout << "action_on_server opening" << std::endl;
-                lg.unlock();
-                connect_to_remote_server(false,
-                                         nullptr); // this function can call 'action_on_server', deadlock without unlock
-                lg.lock();
-            }
-            if (s.is_open() &&
-                (cur == FileWatcher_state::ended ||
-                 cur == FileWatcher_state::ready && last == FileWatcher_state::ended)) {
-                //std::cout<<">> action -> close\n";
-                sendMsg(s, "update completed");
-                s.close();
-            }
-            return;
-        }catch(soft_exception& se){
-            if(s.is_open())
-                s.close();
-            std::this_thread::sleep_for(std::chrono::seconds(3));
-        }catch(std::exception& e){
-            throw std::runtime_error(e.what());
-        }
+    if (!s.is_open() && cur == FileWatcher_state::mod_found &&
+        last == FileWatcher_state::ready) { // first modification found, open the socket
+        std::cout << "action_on_server opening" << std::endl;
+        lg.unlock();
+        connect_to_remote_server(false,
+                                 nullptr); // this function can call 'action_on_server', deadlock without unlock
+        lg.lock();
+    }
+    if (s.is_open() &&
+        (cur == FileWatcher_state::ended ||
+         cur == FileWatcher_state::ready && last == FileWatcher_state::ended)) {
+        //std::cout<<">> action -> close\n";
+        sendMsg(s, "update completed");
+        s.close();
     }
 }

@@ -39,7 +39,7 @@ public:
 
 
         if (rc) {
-            throw filesystem_exception("database: "+std::string(sqlite3_errmsg(db)));
+            throw filesystem_exception("database: " + std::string(sqlite3_errmsg(db)));
         }
         else
             std::cout << "Opened Database "<<db_name<<" Successfully!" << std::endl;

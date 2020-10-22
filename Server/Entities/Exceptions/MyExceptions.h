@@ -19,30 +19,8 @@ public:
     }
 };
 
-class soft_exception : public std::exception{
-private:
-    std::string error_msg;
-public:
-    soft_exception(const std::string &errorMsg) : error_msg(errorMsg){}
-
-    const char* what() const throw() {
-        return error_msg.c_str();
-    }
-};
-
-class filesystem_exception : public std::exception{
-private:
-    std::string error_msg;
-public:
-    filesystem_exception(const std::string &errorMsg) : error_msg(errorMsg){}
-
-    const char* what() const throw() {
-        return error_msg.c_str();
-    }
-};
-
 class general_exception : public std::exception{
-private:
+protected:
     std::string error_msg;
 public:
     general_exception(const std::string &errorMsg) : error_msg(errorMsg){}
@@ -52,15 +30,14 @@ public:
     }
 };
 
-class database_exception : public std::exception{
-private:
-    std::string error_msg;
+class filesystem_exception : public general_exception{
 public:
-    database_exception(const std::string &errorMsg) : error_msg(errorMsg){}
+    filesystem_exception(const std::string &errorMsg) : general_exception(errorMsg){}
+};
 
-    const char* what() const throw() {
-        return error_msg.c_str();
-    }
+class database_exception : public general_exception{
+public:
+    database_exception(const std::string &errorMsg) : general_exception(errorMsg){}
 };
 
 
