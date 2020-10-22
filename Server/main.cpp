@@ -32,7 +32,11 @@
 
 #define PORT 5111
 
-int main() {
+int main(int argc, char** argv){
+
+    if(argc != 2)
+        throw std::runtime_error("WRONG USAGE: server PORT");
+    int port = atoi(argv[1]);
 
     pid_t pid;
     pid = fork();
@@ -41,7 +45,7 @@ int main() {
             throw std::runtime_error("cannot fork");
         }
         case 0: {
-            ServerSocket ss(PORT);
+            ServerSocket ss(port);
             std::mutex socket_mutex;
             std::mutex users_mutex;
             Log_Writer.setLogFilePath(LOG_PATH);

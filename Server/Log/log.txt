@@ -2388,3 +2388,389 @@
 20201022 16:39:23 139797049808640 Stringa ricevuta: Database up to date msg-size: 19 sul socket 6
 20201022 16:39:23 139797049808640 Stringa Mandata: server_db_ok msg-size: 12 sul socket 6
 20201022 16:39:25 139797049808640 Stringa ricevuta: update completed msg-size: 16 sul socket 6
+20201022 17:51:20 139801880902912 Waiting for incoming connections at port 5111...
+20201022 17:51:47 139801880902912 Got a connection from 127.0.0.1:33720
+20201022 17:51:47 139801880902912 Waiting for incoming connections at port 5111...
+20201022 17:51:47 139801880876800 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 4
+20201022 17:51:47 139801880876800 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:51:47 139801880876800 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:51:49 139801880876800 Stringa Mandata: DIGEST yHyUvL86+XXZm4f6aKG5qGOrJb4= msg-size: 35 sul socket 4
+20201022 17:51:49 139801880876800 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 17:51:49 139801880876800 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 17:51:51 139801880876800 empty message received20201022 17:53:53 139801880902912 Got a connection from 127.0.0.1:33726
+20201022 17:53:53 139801880902912 Waiting for incoming connections at port 5111...
+20201022 17:53:53 139801880876800 Stringa ricevuta: CONNECT user1 pass FETCH msg-size: 24 sul socket 5
+20201022 17:53:53 139801880876800 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:53:53 139801880876800 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:53:55 139801880876800 Stringa Mandata: DIGEST yHyUvL86+XXZm4f6aKG5qGOrJb4= msg-size: 35 sul socket 5
+20201022 17:53:55 139801880876800 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 17:53:55 139801880876800 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 17:53:56 139801880876800 empty message received20201022 17:58:56 139734734933248 Waiting for incoming connections at port 5111...
+20201022 17:60:43 139734734933248 Got a connection from 127.0.0.1:33760
+20201022 17:60:43 139734734933248 Waiting for incoming connections at port 5111...
+20201022 17:60:43 139734734907136 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:60:43 139734734907136 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:60:43 139734734907136 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:60:45 139734734907136 Stringa Mandata: DIGEST dg6PHqvAVPOfSdLeejom6QCte1Y= msg-size: 35 sul socket 4
+20201022 17:60:45 139734734907136 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 17:60:45 139734734907136 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 17:60:45 139734734907136 empty message received20201022 18:01:16 139734734933248 Got a connection from 127.0.0.1:33762
+20201022 18:01:16 139734734933248 Waiting for incoming connections at port 5111...
+20201022 18:01:16 139734734907136 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 18:01:16 139734734907136 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 18:01:16 139734734907136 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 18:01:18 139734734907136 Stringa Mandata: DIGEST dg6PHqvAVPOfSdLeejom6QCte1Y= msg-size: 35 sul socket 5
+20201022 18:01:18 139734734907136 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 18:01:18 139734734907136 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 18:01:19 139734734907136 empty message received20201022 18:03:03 139734734933248 Got a connection from 127.0.0.1:33764
+20201022 18:03:03 139734734933248 Waiting for incoming connections at port 5111...
+20201022 18:03:03 139734734907136 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:03:03 139734734907136 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:03:03 139734734907136 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:03:05 139734734907136 Stringa Mandata: DIGEST dg6PHqvAVPOfSdLeejom6QCte1Y= msg-size: 35 sul socket 4
+20201022 18:03:05 139734734907136 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 18:03:05 139734734907136 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 18:03:08 139734734907136 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:05:12 140595937422592 Waiting for incoming connections at port 5111...
+20201022 18:07:26 140029185277184 Waiting for incoming connections at port 5111...
+20201022 18:07:34 140029185277184 Got a connection from 127.0.0.1:33804
+20201022 18:07:34 140029185277184 Waiting for incoming connections at port 5111...
+20201022 18:07:34 140029185251072 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:07:34 140029185251072 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:07:34 140029185251072 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:07:36 140029185251072 Stringa Mandata: DIGEST dg6PHqvAVPOfSdLeejom6QCte1Y= msg-size: 35 sul socket 4
+20201022 18:07:36 140029185251072 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:07:36 140029185251072 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:07:36 140029185251072 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:07:36 140029185251072 Stringa ricevuta: DIR ciao created msg-size: 16 sul socket 4
+20201022 18:07:36 140029185251072 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:07:39 140029185251072 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:09:25 140033916415232 Waiting for incoming connections at port 5111...
+20201022 18:09:36 140033916415232 Got a connection from 127.0.0.1:33810
+20201022 18:09:36 140033916415232 Waiting for incoming connections at port 5111...
+20201022 18:09:36 140033916389120 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:09:36 140033916389120 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:09:36 140033916389120 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:09:38 140033916389120 Stringa Mandata: DIGEST gbr8hYYJLpAm0VWicuHBG0eXiqY= msg-size: 35 sul socket 4
+20201022 18:09:38 140033916389120 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:09:38 140033916389120 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:09:38 140033916389120 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:09:38 140033916389120 Stringa ricevuta: DIR ciao2 created msg-size: 17 sul socket 4
+20201022 18:09:38 140033916389120 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:09:38 140033916389120 Stringa ricevuta: DIR ciao erased msg-size: 15 sul socket 4
+20201022 18:09:38 140033916389120 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:09:41 140033916389120 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:21:32 140277212609792 Waiting for incoming connections at port 5111...
+20201022 18:21:41 140277212609792 Got a connection from 127.0.0.1:33838
+20201022 18:21:41 140277212609792 Waiting for incoming connections at port 5111...
+20201022 18:21:41 140277212583680 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:21:41 140277212583680 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:21:41 140277212583680 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:21:43 140277212583680 Stringa Mandata: DIGEST dNZqiU1ssspj/UrYuKlZYJd/FGY= msg-size: 35 sul socket 4
+20201022 18:21:43 140277212583680 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:21:43 140277212583680 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:21:43 140277212583680 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:21:43 140277212583680 Stringa ricevuta: DIR ciao3 created msg-size: 17 sul socket 4
+20201022 18:21:43 140277212583680 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:21:43 140277212583680 Stringa ricevuta: DIR ciao2 erased msg-size: 16 sul socket 4
+20201022 18:21:43 140277212583680 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:21:46 140277212583680 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:26:12 140181963967744 Waiting for incoming connections at port 5111...
+20201022 18:26:14 140181963967744 Got a connection from 127.0.0.1:33872
+20201022 18:26:14 140181963967744 Waiting for incoming connections at port 5111...
+20201022 18:26:14 140181963941632 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:26:14 140181963941632 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:26:14 140181963941632 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:26:16 140181963941632 Stringa Mandata: DIGEST G2WzlxodrQtQXgG5I1Jl2G8P00E= msg-size: 35 sul socket 4
+20201022 18:26:16 140181963941632 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:26:16 140181963941632 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:26:16 140181963941632 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:26:16 140181963941632 Stringa ricevuta: DIR ciao4 created msg-size: 17 sul socket 4
+20201022 18:26:16 140181963941632 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:26:16 140181963941632 Stringa ricevuta: DIR ciao3 erased msg-size: 16 sul socket 4
+20201022 18:26:16 140181963941632 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:26:19 140181963941632 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:26:48 139834245065984 Waiting for incoming connections at port 5111...
+20201022 18:26:51 139834245065984 Got a connection from 127.0.0.1:33878
+20201022 18:26:51 139834245065984 Waiting for incoming connections at port 5111...
+20201022 18:26:51 139834245039872 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:26:51 139834245039872 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:26:51 139834245039872 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:26:53 139834245039872 Stringa Mandata: DIGEST eWV/msJgDnLufe4fuIywOfzTEqA= msg-size: 35 sul socket 4
+20201022 18:26:53 139834245039872 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:26:53 139834245039872 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:26:53 139834245039872 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:26:53 139834245039872 Stringa ricevuta: DIR ciao5 created msg-size: 17 sul socket 4
+20201022 18:26:53 139834245039872 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:26:53 139834245039872 Stringa ricevuta: DIR ciao4 erased msg-size: 16 sul socket 4
+20201022 18:26:53 139834245039872 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:26:53 139834245039872 empty message received20201022 18:27:59 139834245065984 Got a connection from 127.0.0.1:33882
+20201022 18:27:59 139834245065984 Waiting for incoming connections at port 5111...
+20201022 18:27:59 139834245039872 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 18:27:59 139834245039872 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 18:27:59 139834245039872 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 18:28:01 139834245039872 Stringa Mandata: DIGEST PJCZXDanRRO/jLBHXojfo8NIPxE= msg-size: 35 sul socket 5
+20201022 18:28:01 139834245039872 Stringa ricevuta: GET-DB msg-size: 6 sul socket 5
+20201022 18:28:01 139834245039872 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 5
+20201022 18:28:01 139834245039872 Stringa ricevuta: OK msg-size: 2 sul socket 5
+20201022 18:28:01 139834245039872 Stringa ricevuta: DIR ciao6 created msg-size: 17 sul socket 5
+20201022 18:28:01 139834245039872 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201022 18:28:01 139834245039872 Stringa ricevuta: DIR ciao5 erased msg-size: 16 sul socket 5
+20201022 18:28:01 139834245039872 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201022 18:28:04 139834245039872 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 18:28:19 139834245065984 Got a connection from 127.0.0.1:33884
+20201022 18:28:19 139834245065984 Waiting for incoming connections at port 5111...
+20201022 18:28:19 139834245039872 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:28:19 139834245039872 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:28:19 139834245039872 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:28:21 139834245039872 Stringa Mandata: DIGEST TS9KPiT57K9MPjKh22PyXjS5vMU= msg-size: 35 sul socket 4
+20201022 18:28:21 139834245039872 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 18:28:21 139834245039872 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 18:28:22 139834245039872 Stringa ricevuta: DIR ciao6 erased msg-size: 16 sul socket 4
+20201022 18:28:22 139834245039872 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:28:22 139834245039872 Stringa ricevuta: DIR ciao7 created msg-size: 17 sul socket 4
+20201022 18:28:22 139834245039872 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:28:22 139834245039872 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:28:51 139866164030720 Waiting for incoming connections at port 5111...
+20201022 18:28:54 139866164030720 Got a connection from 127.0.0.1:33888
+20201022 18:28:54 139866164030720 Waiting for incoming connections at port 5111...
+20201022 18:28:54 139866164004608 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:28:54 139866164004608 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:28:54 139866164004608 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:28:56 139866164004608 Stringa Mandata: DIGEST HR2BCyPk9x4aq3yAebQOIQO726w= msg-size: 35 sul socket 4
+20201022 18:28:56 139866164004608 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:28:56 139866164004608 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:28:56 139866164004608 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:28:56 139866164004608 Stringa ricevuta: DIR ciao8 created msg-size: 17 sul socket 4
+20201022 18:28:56 139866164004608 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:28:56 139866164004608 Stringa ricevuta: DIR ciao7 erased msg-size: 16 sul socket 4
+20201022 18:28:56 139866164004608 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:28:56 139866164004608 empty message received20201022 18:32:16 139866164030720 Got a connection from 127.0.0.1:33898
+20201022 18:32:16 139866164030720 Waiting for incoming connections at port 5111...
+20201022 18:32:16 139866164004608 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 18:32:16 139866164004608 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 18:32:16 139866164004608 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 18:32:18 139866164004608 Stringa Mandata: DIGEST UUgw9lUAXbD9kVfKHVHLd8nou/A= msg-size: 35 sul socket 5
+20201022 18:32:18 139866164004608 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 18:32:18 139866164004608 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 18:32:21 139866164004608 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 18:32:45 140611762838784 Waiting for incoming connections at port 5111...
+20201022 18:32:50 140611762838784 Got a connection from 127.0.0.1:33904
+20201022 18:32:50 140611762838784 Waiting for incoming connections at port 5111...
+20201022 18:32:50 140611762812672 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:32:50 140611762812672 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:32:50 140611762812672 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:32:52 140611762812672 Stringa Mandata: DIGEST UUgw9lUAXbD9kVfKHVHLd8nou/A= msg-size: 35 sul socket 4
+20201022 18:32:52 140611762812672 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:32:52 140611762812672 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:32:52 140611762812672 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:32:52 140611762812672 Stringa ricevuta: DIR ciao9 created msg-size: 17 sul socket 4
+20201022 18:32:52 140611762812672 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:32:52 140611762812672 Stringa ricevuta: DIR ciao8 erased msg-size: 16 sul socket 4
+20201022 18:32:52 140611762812672 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:32:52 140611762812672 empty message received20201022 18:35:30 140611762838784 Got a connection from 127.0.0.1:33912
+20201022 18:35:30 140611762838784 Waiting for incoming connections at port 5111...
+20201022 18:35:30 140611762812672 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 18:35:30 140611762812672 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 18:35:30 140611762812672 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 18:35:32 140611762812672 Stringa Mandata: DIGEST 5k2PUQaCPuWvclHSfLutdO0ODXo= msg-size: 35 sul socket 5
+20201022 18:35:32 140611762812672 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 18:35:32 140611762812672 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 18:35:35 140611762812672 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 18:35:56 140697900670208 Waiting for incoming connections at port 5111...
+20201022 18:36:01 140697900670208 Got a connection from 127.0.0.1:33922
+20201022 18:36:01 140697900670208 Waiting for incoming connections at port 5111...
+20201022 18:36:01 140697900644096 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:36:01 140697900644096 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:36:01 140697900644096 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:36:03 140697900644096 Stringa Mandata: DIGEST 5k2PUQaCPuWvclHSfLutdO0ODXo= msg-size: 35 sul socket 4
+20201022 18:36:03 140697900644096 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:36:03 140697900644096 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:36:03 140697900644096 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:36:03 140697900644096 Stringa ricevuta: DIR ciao0 created msg-size: 17 sul socket 4
+20201022 18:36:03 140697900644096 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:36:03 140697900644096 Stringa ricevuta: DIR ciao9 erased msg-size: 16 sul socket 4
+20201022 18:36:03 140697900644096 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:36:03 140697900644096 empty message received20201022 17:39:17 140291988258048 Waiting for incoming connections at port 5111...
+20201022 17:39:27 140291988258048 Got a connection from 127.0.0.1:53596
+20201022 17:39:27 140291988258048 Waiting for incoming connections at port 5111...
+20201022 17:39:27 140291988231936 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:39:27 140291988231936 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:39:27 140291988231936 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:39:29 140291988231936 Stringa Mandata: DIGEST pXB1THzQp9GKfmIb6pS+OmvLL8Q= msg-size: 35 sul socket 4
+20201022 17:39:29 140291988231936 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 17:39:29 140291988231936 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 17:39:32 140291988231936 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 17:40:15 140718930013440 Waiting for incoming connections at port 5111...
+20201022 17:40:17 140718930013440 Got a connection from 127.0.0.1:53604
+20201022 17:40:17 140718930013440 Waiting for incoming connections at port 5111...
+20201022 17:40:17 140718929987328 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:40:17 140718929987328 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:40:17 140718929987328 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:40:19 140718929987328 Stringa Mandata: DIGEST pXB1THzQp9GKfmIb6pS+OmvLL8Q= msg-size: 35 sul socket 4
+20201022 17:40:19 140718929987328 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 17:40:19 140718929987328 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 17:40:19 140718929987328 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 17:40:19 140718929987328 Stringa ricevuta: DIR ciao1 created msg-size: 17 sul socket 4
+20201022 17:40:19 140718929987328 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:40:19 140718929987328 Stringa ricevuta: DIR ciao0 erased msg-size: 16 sul socket 4
+20201022 17:40:19 140718929987328 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:40:19 140718929987328 empty message received20201022 17:43:30 140718930013440 Got a connection from 127.0.0.1:53792
+20201022 17:43:30 140718930013440 Waiting for incoming connections at port 5111...
+20201022 17:43:30 140718929987328 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 17:43:30 140718929987328 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:43:30 140718929987328 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:43:32 140718929987328 Stringa Mandata: DIGEST 7ZbA3WsojBa4czTcvwHM2JhV1RQ= msg-size: 35 sul socket 5
+20201022 17:43:32 140718929987328 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 17:43:32 140718929987328 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 17:43:35 140718929987328 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 17:43:56 140411624586496 Waiting for incoming connections at port 5111...
+20201022 17:43:59 140411624586496 Got a connection from 127.0.0.1:53798
+20201022 17:43:59 140411624586496 Waiting for incoming connections at port 5111...
+20201022 17:43:59 140411624560384 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:43:59 140411624560384 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:43:59 140411624560384 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:44:01 140411624560384 Stringa Mandata: DIGEST 7ZbA3WsojBa4czTcvwHM2JhV1RQ= msg-size: 35 sul socket 4
+20201022 17:44:01 140411624560384 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 17:44:01 140411624560384 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 17:44:01 140411624560384 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 17:44:01 140411624560384 Stringa ricevuta: DIR ciao2 created msg-size: 17 sul socket 4
+20201022 17:44:01 140411624560384 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:44:01 140411624560384 Stringa ricevuta: DIR ciao1 erased msg-size: 16 sul socket 4
+20201022 17:44:01 140411624560384 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:44:01 140411624560384 empty message received20201022 17:45:03 140411624586496 Got a connection from 127.0.0.1:53832
+20201022 17:45:03 140411624586496 Waiting for incoming connections at port 5111...
+20201022 17:45:03 140411624560384 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 17:45:03 140411624560384 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:45:03 140411624560384 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:45:05 140411624560384 Stringa Mandata: DIGEST dNZqiU1ssspj/UrYuKlZYJd/FGY= msg-size: 35 sul socket 5
+20201022 17:45:05 140411624560384 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 17:45:05 140411624560384 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 17:45:08 140411624560384 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 17:45:44 140158032043264 Waiting for incoming connections at port 5111...
+20201022 17:45:49 140158032043264 Got a connection from 127.0.0.1:53836
+20201022 17:45:49 140158032043264 Waiting for incoming connections at port 5111...
+20201022 17:45:49 140158032017152 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:45:49 140158032017152 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:45:49 140158032017152 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:45:51 140158032017152 Stringa Mandata: DIGEST dNZqiU1ssspj/UrYuKlZYJd/FGY= msg-size: 35 sul socket 4
+20201022 17:45:51 140158032017152 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 17:45:51 140158032017152 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 17:45:51 140158032017152 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 17:45:51 140158032017152 Stringa ricevuta: DIR ciao3 created msg-size: 17 sul socket 4
+20201022 17:45:51 140158032017152 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:45:51 140158032017152 Stringa ricevuta: DIR ciao2 erased msg-size: 16 sul socket 4
+20201022 17:45:51 140158032017152 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:45:51 140158032017152 empty message received20201022 17:47:14 140158032043264 Got a connection from 127.0.0.1:53838
+20201022 17:47:14 140158032043264 Waiting for incoming connections at port 5111...
+20201022 17:47:14 140158032017152 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 17:47:14 140158032017152 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:47:14 140158032017152 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:47:16 140158032017152 Stringa Mandata: DIGEST G2WzlxodrQtQXgG5I1Jl2G8P00E= msg-size: 35 sul socket 5
+20201022 17:47:16 140158032017152 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 17:47:16 140158032017152 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 17:47:19 140158032017152 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 17:48:33 140158032043264 Got a connection from 127.0.0.1:53842
+20201022 17:48:33 140158032043264 Waiting for incoming connections at port 5111...
+20201022 17:48:33 140158032017152 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:48:33 140158032017152 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:48:33 140158032017152 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:48:35 140158032017152 Stringa Mandata: DIGEST G2WzlxodrQtQXgG5I1Jl2G8P00E= msg-size: 35 sul socket 4
+20201022 17:48:35 140158032017152 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 17:48:35 140158032017152 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 17:48:35 140158032017152 empty message received20201022 17:55:54 140158032043264 Got a connection from 127.0.0.1:53956
+20201022 17:55:54 140158032043264 Waiting for incoming connections at port 5111...
+20201022 17:55:54 140158032017152 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 17:55:54 140158032017152 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:55:54 140158032017152 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:55:56 140158032017152 Stringa Mandata: DIGEST G2WzlxodrQtQXgG5I1Jl2G8P00E= msg-size: 35 sul socket 5
+20201022 17:55:56 140158032017152 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 17:55:56 140158032017152 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 17:55:59 140158032017152 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 17:56:49 140158032043264 Got a connection from 127.0.0.1:53958
+20201022 17:56:49 140158032043264 Waiting for incoming connections at port 5111...
+20201022 17:56:49 140158032017152 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:56:49 140158032017152 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:56:49 140158032017152 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:56:51 140158032017152 Stringa Mandata: DIGEST G2WzlxodrQtQXgG5I1Jl2G8P00E= msg-size: 35 sul socket 4
+20201022 17:56:51 140158032017152 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 17:56:51 140158032017152 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 17:56:54 140158032017152 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 17:57:13 140484019215616 Waiting for incoming connections at port 5111...
+20201022 17:57:16 140484019215616 Got a connection from 127.0.0.1:53962
+20201022 17:57:16 140484019215616 Waiting for incoming connections at port 5111...
+20201022 17:57:16 140484019189504 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:57:16 140484019189504 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:57:16 140484019189504 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:57:18 140484019189504 Stringa Mandata: DIGEST G2WzlxodrQtQXgG5I1Jl2G8P00E= msg-size: 35 sul socket 4
+20201022 17:57:18 140484019189504 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 17:57:18 140484019189504 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 17:57:18 140484019189504 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 17:57:18 140484019189504 Stringa ricevuta: DIR ciao4 created msg-size: 17 sul socket 4
+20201022 17:57:18 140484019189504 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:57:18 140484019189504 Stringa ricevuta: DIR ciao3 erased msg-size: 16 sul socket 4
+20201022 17:57:18 140484019189504 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:57:21 140484019189504 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 17:57:24 140484019215616 Got a connection from 127.0.0.1:53964
+20201022 17:57:24 140484019215616 Waiting for incoming connections at port 5111...
+20201022 17:57:24 140484019189504 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 5
+20201022 17:57:24 140484019189504 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:57:24 140484019189504 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 5
+20201022 17:57:26 140484019189504 Stringa Mandata: DIGEST eWV/msJgDnLufe4fuIywOfzTEqA= msg-size: 35 sul socket 5
+20201022 17:57:26 140484019189504 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
+20201022 17:57:26 140484019189504 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
+20201022 17:57:26 140484019189504 Stringa ricevuta: DIR ciao4 erased msg-size: 16 sul socket 5
+20201022 17:57:26 140484019189504 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201022 17:57:26 140484019189504 Stringa ricevuta: DIR ciao created msg-size: 16 sul socket 5
+20201022 17:57:27 140484019189504 Stringa Mandata: DONE msg-size: 4 sul socket 5
+20201022 17:57:27 140484019189504 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201022 17:57:56 140716437097728 Waiting for incoming connections at port 5111...
+20201022 17:58:02 140716437097728 Got a connection from 127.0.0.1:53970
+20201022 17:58:02 140716437097728 Waiting for incoming connections at port 5111...
+20201022 17:58:02 140716437071616 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 17:58:02 140716437071616 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:58:02 140716437071616 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 17:58:04 140716437071616 Stringa Mandata: DIGEST gbr8hYYJLpAm0VWicuHBG0eXiqY= msg-size: 35 sul socket 4
+20201022 17:58:04 140716437071616 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 17:58:04 140716437071616 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 17:58:04 140716437071616 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 17:58:04 140716437071616 Stringa ricevuta: DIR ciao7 created msg-size: 17 sul socket 4
+20201022 17:58:04 140716437071616 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:58:04 140716437071616 Stringa ricevuta: DIR ciao erased msg-size: 15 sul socket 4
+20201022 17:58:04 140716437071616 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 17:58:07 140716437071616 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:00:30 140589307092224 Waiting for incoming connections at port 5111...
+20201022 18:00:39 140589307092224 Got a connection from 127.0.0.1:53982
+20201022 18:00:39 140589307092224 Waiting for incoming connections at port 5111...
+20201022 18:00:39 140589307066112 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:00:39 140589307066112 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:00:39 140589307066112 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:00:41 140589307066112 Stringa Mandata: DIGEST HR2BCyPk9x4aq3yAebQOIQO726w= msg-size: 35 sul socket 4
+20201022 18:00:41 140589307066112 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 18:00:41 140589307066112 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 18:00:44 140589307066112 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:01:55 140367757466880 Waiting for incoming connections at port 5111...
+20201022 18:01:58 140367757466880 Got a connection from 127.0.0.1:53986
+20201022 18:01:58 140367757466880 Waiting for incoming connections at port 5111...
+20201022 18:01:58 140367757440768 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:01:58 140367757440768 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:01:58 140367757440768 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:02:00 140367757440768 Stringa Mandata: DIGEST HR2BCyPk9x4aq3yAebQOIQO726w= msg-size: 35 sul socket 4
+20201022 18:02:00 140367757440768 Stringa ricevuta: GET-DB msg-size: 6 sul socket 4
+20201022 18:02:00 140367757440768 Stringa Mandata: FILE user2.db 20480 msg-size: 19 sul socket 4
+20201022 18:02:00 140367757440768 Stringa ricevuta: OK msg-size: 2 sul socket 4
+20201022 18:02:00 140367757440768 Stringa ricevuta: DIR ciao8 created msg-size: 17 sul socket 4
+20201022 18:02:00 140367757440768 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:02:00 140367757440768 Stringa ricevuta: DIR ciao7 erased msg-size: 16 sul socket 4
+20201022 18:02:00 140367757440768 Stringa Mandata: DONE msg-size: 4 sul socket 4
+20201022 18:02:03 140367757440768 Stringa ricevuta: update completed msg-size: 16 sul socket 4
+20201022 18:05:46 139985595702528 Waiting for incoming connections at port 5111...
+20201022 18:05:53 139985595702528 Got a connection from 127.0.0.1:54008
+20201022 18:05:53 139985595702528 Waiting for incoming connections at port 5111...
+20201022 18:05:53 139985595676416 Stringa ricevuta: CONNECT user2 pass FETCH msg-size: 24 sul socket 4
+20201022 18:05:53 139985595676416 Stringa Mandata: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:05:53 139985595676416 Stringa ricevuta: CONNECT-OK msg-size: 10 sul socket 4
+20201022 18:05:55 139985595676416 Stringa Mandata: DIGEST UUgw9lUAXbD9kVfKHVHLd8nou/A= msg-size: 35 sul socket 4
+20201022 18:05:55 139985595676416 Stringa ricevuta: Database up to date msg-size: 19 sul socket 4
+20201022 18:05:55 139985595676416 Stringa Mandata: server_db_ok msg-size: 12 sul socket 4
+20201022 18:05:58 139985595676416 Stringa ricevuta: update completed msg-size: 16 sul socket 4

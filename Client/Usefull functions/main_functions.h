@@ -33,6 +33,8 @@ int updateDB(const std::string& db_path, std::map<std::string, std::shared_ptr<F
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void restore(Socket& s, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string& path, const std::string& db_path, bool dir_is_empty, std::shared_ptr<Directory>& root);
+void changeRunningState(bool& var, const bool value, std::mutex& m);
+bool checkRunnigState(bool& var, std::mutex& m);
 
 std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
     std::string head = path;
@@ -467,6 +469,16 @@ void restore(Socket& s, std::map<std::string, std::shared_ptr<File>>& files, std
         }
         manageModification(s,msg,db_path,path,files,dirs);
     }
+}
+
+void changeRunningState(bool& var, const bool value, std::mutex& m){
+    std::lock_guard<std::mutex> lg(m);
+    var = value;
+}
+
+bool checkRunnigState(bool& var, std::mutex& m){
+    std::lock_guard<std::mutex> lg(m);
+    return var;
 }
 
 #endif //PDS_PROJECT_CLIENT_MAIN_FUNCTIONS_H

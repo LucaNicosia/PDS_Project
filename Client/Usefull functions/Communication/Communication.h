@@ -74,7 +74,7 @@ int rcvFile(Socket& s, const std::string path){
     int to;
     to=creat(path.c_str(),0777);
     if(to<0){
-        throw filesystem_exception("Error creating destination file at " + path);
+        throw filesystem_exception("Error creating destination file at "+path);
     }
     while(length > 0){
         rec = s.read(buf,sizeof(buf),0);

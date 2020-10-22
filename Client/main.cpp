@@ -12,6 +12,7 @@
 #include <thread>
 #include <filesystem>
 #include <exception>
+#include <signal.h>
 
 // database mySql libraries
 #include <sqlite3.h>
@@ -49,7 +50,7 @@ std::string username;
 std::string password;
 std::string mode;
 int port;
-std::mutex action_server_mutex, action_server_exec;
+std::mutex action_server_mutex;
 
 int connect_to_remote_server(bool needs_restore, int* p);
 void action_on_server(std::string str);
@@ -155,6 +156,8 @@ auto modification_function = [](const std::string file, const std::string filePa
 
 int main(int argc, char** argv)
 {
+    std::mutex thread_checker;
+    bool all_threads_running = true;
     int p[2];
     if(pipe(p) < 0)
         throw std::runtime_error("cannot create pipe");
@@ -165,12 +168,15 @@ int main(int argc, char** argv)
         }
         case 0: {
             close(p[0]);
+            if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) // ignore SIGPIPE to check if pipe is broken
+                throw std::runtime_error("cannot ignore SIGPIPE");
             Log_Writer.setLogFilePath(LOG_PATH);
-            Log_Writer.setUseMutex(false);
+            Log_Writer.setUseMutex(true);
             int round_count = 0;
             while (round_count++ < 3) { // try 3 times to recover from a problem
                 try
                 {
+                    changeRunningState(all_threads_running,true,thread_checker);
                     if (argc != 5) {
                         std::string error = "not enough arguments - usage PORT USERNAME PASSWORD MODE";
                         write(p[1],error.c_str(),error.length());
@@ -180,9 +186,9 @@ int main(int argc, char** argv)
                     username = std::string(argv[2]);
                     password = std::string(argv[3]);
                     mode = std::string(argv[4]);
-                    db_path += "/" + username + ".db";
-                    server_db_path += "/" + username + "_server.db";
-                    path += "/" + username;
+                    db_path =  std::string(PATH_TO_DB) + "/" + username + ".db";
+                    server_db_path = std::string(PATH_TO_DB) + "/" + username + "_server.db";
+                    path = std::string(INITIAL_PATH) + "/" + username;
                     if (!std::filesystem::is_directory(path)) {
                         std::filesystem::create_directory(path);
                     }
@@ -214,34 +220,71 @@ int main(int argc, char** argv)
                         throw general_exception(error);
                     }
                     std::string str = "connection succeed";
-                    ::write(p[1],str.c_str(),str.length()+1);
+                    if((::write(p[1],str.c_str(),str.length()+1)) == -1){
+                        if(errno != EPIPE){
+                            throw std::runtime_error("cannot write on pipe");
+                        }
+                        // else the pipe has been already closed, no problem
+                        std::ostringstream error;
+                        error << "minor problem in pipe writing: probably father already returned"<<std::endl;
+                        Log_Writer.writeLogAndClear(error);
+                    }
                     if (ret == RESTORE) {
                         restore(s, files, dirs, path, db_path, files.empty() && (dirs.size() == 1), root_ptr);
                     }
 
                     // SYN with server completed, starting to monitor client directory
                     synchronized = true;
-                    std::thread t1([]() {
-                        fw.set(path, std::chrono::milliseconds(1000));
-                        fw.start(modification_function);
-                    });
-                    //std::cout << "--- System ready ---\n";
-                    round_count = 0; // when the syncrosization is ended, reset the "try to connect" counter
-                    std::thread t2([]() {
-                        while (true) {
-                            // every seconds check if there are some work to do or not
+                    std::thread t1([&thread_checker, &all_threads_running]() {
+                        try {
+                            fw.set(path, std::chrono::milliseconds(1000));
+                            fw.setRunning(true);
                             std::this_thread::sleep_for(std::chrono::seconds(1));
-                            std::unique_lock<std::mutex> ul(action_server_mutex);
-                            if (!fw.isRunning()) return;
-                            ul.unlock();
-                            action_on_server("on thread");
+                            fw.start(modification_function);
+                        } catch (std::exception& e) {
+                            changeRunningState(all_threads_running,false,thread_checker);
+                            std::ostringstream os;
+                            os << e.what() << std::endl;
+                            Log_Writer.writeLogAndClear(os);
+                            fw.stop();
+                        }
+                    });
+                    std::cout << "--- System ready ---\n";
+                    round_count = 0; // when the syncrosization is ended, reset the "try to connect" counter
+                    std::thread t2([&thread_checker, &all_threads_running]() {
+                        while (true) {
+                            try {
+                                if (!checkRunnigState(all_threads_running, thread_checker)) {
+                                    fw.stop();
+                                    return;
+                                }
+                                // every seconds check if there are some work to do or not
+                                std::this_thread::sleep_for(std::chrono::seconds(1));
+                                std::unique_lock<std::mutex> ul(action_server_mutex);
+                                if (!fw.isRunning()) return;
+                                ul.unlock();
+                                action_on_server("on thread");
+                            }
+                            catch (std::exception& e) {
+                                changeRunningState(all_threads_running,false,thread_checker);
+                                std::ostringstream os;
+                                os << e.what() << std::endl;
+                                Log_Writer.writeLogAndClear(os);
+                                fw.stop();
+                                break;
+                            }
                         }
                     });
                     t1.join();
                     t2.join();
-                    return 0;
+                    if(checkRunnigState(all_threads_running,thread_checker))
+                        return 0; // no errors, user asks to shutdown application
+                    // if code arrives here it means that some error accours
+                    throw socket_exception("no socket error, just retry"); // it's not a socket exception, but retry to restart application
                 } catch (socket_exception &se) {
                     // reset variable and retry
+                    changeRunningState(all_threads_running,false,thread_checker);
+                    fw.stop();
                     std::ostringstream os;
                     os << "socket_exc: " << se.what() << std::endl;
                     Log_Writer.writeLogAndClear(os);
@@ -249,12 +292,16 @@ int main(int argc, char** argv)
                     root_ptr = nullptr;
                     dirs.clear();
                     files.clear();
+                    /*
                     path = INITIAL_PATH;
                     db_path = PATH_TO_DB;
                     server_db_path = PATH_TO_DB;
+                    */
                     synchronized = false;
                     std::this_thread::sleep_for(std::chrono::seconds(3)); // wait 3 seconds before reconnection
                 } catch (general_exception &ge) {
+                    changeRunningState(all_threads_running,false,thread_checker);
+                    fw.stop();
                     std::ostringstream os;
                     os << "general_exc: " << ge.what() << std::endl;
                     Log_Writer.writeLogAndClear(os);
@@ -263,7 +310,11 @@ int main(int argc, char** argv)
                     files.clear();
                     return -1; // critical problem, redo the same thing doesn't resolve the problem
                 } catch (std::exception &e) {
-                    std::cout << "exc: " << e.what() << std::endl;
+                    changeRunningState(all_threads_running,false,thread_checker);
+                    fw.stop();
+                    std::ostringstream os;
+                    os << "exc: " << e.what() << std::endl;
+                    Log_Writer.writeLogAndClear(os);
                     s.close();
                     dirs.clear();
                     files.clear();
