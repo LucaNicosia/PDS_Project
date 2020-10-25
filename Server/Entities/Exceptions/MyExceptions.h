@@ -1,9 +1,5 @@
-//
-// Created by root on 04/10/20.
-//
-
-#ifndef PDS_PROJECT_CLIENT_MYEXCEPTIONS_H
-#define PDS_PROJECT_CLIENT_MYEXCEPTIONS_H
+#ifndef MYEXCEPTIONS_H
+#define MYEXCEPTIONS_H
 
 #include <iostream>
 #include <exception>
@@ -41,4 +37,4 @@ public:
 };
 
 
-#endif //PDS_PROJECT_CLIENT_MYEXCEPTIONS_H
+#endif //MYEXCEPTIONS_H

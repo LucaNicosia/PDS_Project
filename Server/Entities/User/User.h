@@ -1,9 +1,5 @@
-//
-// Created by giuseppetoscano on 03/10/20.
-//
-
-#ifndef PDS_PROJECT_SERVER_USER_H
-#define PDS_PROJECT_SERVER_USER_H
+#ifndef USER_H
+#define USER_H
 
 #include <string>
 #include <iostream>
@@ -54,9 +50,9 @@ public:
         }else if(field == "salt"){
             salt = value;
         }else{
-            std::cout<<"Directory: Invalid field! ("<<field<<")\n"; // QUI CI VUOLE UNA ECCEZIONE
+            throw std::runtime_error("Directory: Invalid field! ("+field+")");
         }
     }
 };
 
-#endif //PDS_PROJECT_SERVER_USER_H
+#endif //USER_H

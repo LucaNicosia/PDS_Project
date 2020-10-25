@@ -1,16 +1,7 @@
-//
-// Created by giuse on 27/04/2020.
-//
-
 #include "Directory.h"
 #include "../File/File.h"
-#include <typeinfo>
 #include <filesystem>
 #include <fstream>
-
-#define DIR 0
-#define FILE 1
-
 
 namespace fs = std::filesystem;
 

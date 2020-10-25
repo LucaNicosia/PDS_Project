@@ -1,7 +1,3 @@
-//
-// Created by giuseppetoscano on 13/06/20.
-//
-
 #include <fcntl.h>
 #include "Socket.h"
 #include <errno.h>

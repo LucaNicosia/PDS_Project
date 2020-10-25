@@ -1,9 +1,5 @@
-//
-// Created by root on 07/08/20.
-//
-
-#ifndef PDS_PROGETTO_DATABASE_H
-#define PDS_PROGETTO_DATABASE_H
+#ifndef DATABASE_H
+#define DATABASE_H
 
 // database mySql libraries
 #include <sqlite3.h>
@@ -103,4 +99,4 @@ public:
 };
 
 
-#endif //PDS_PROGETTO_DATABASE_H
+#endif //DATABASE_H

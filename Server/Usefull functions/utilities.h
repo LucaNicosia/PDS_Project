@@ -1,9 +1,5 @@
-//
-// Created by root on 11/10/20.
-//
-
-#ifndef PDS_PROJECT_SERVER_UTILITIES_H
-#define PDS_PROJECT_SERVER_UTILITIES_H
+#ifndef UTILITIES_H
+#define UTILITIES_H
 
 #include <iostream>
 #include <chrono>
@@ -79,4 +75,4 @@ public:
 static Logger Log_Writer;
 
 
-#endif //PDS_PROJECT_SERVER_UTILITIES_H
+#endif //UTILITIES_H

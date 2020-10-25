@@ -1,9 +1,5 @@
-//
-// Created by giuseppetoscano on 13/06/20.
-//
-
-#ifndef LAB05_SOCKETSERVER_H
-#define LAB05_SOCKETSERVER_H
+#ifndef SOCKETSERVER_H
+#define SOCKETSERVER_H
 
 #include "../Socket/Socket.h"
 
@@ -14,4 +10,4 @@ public:
 };
 
 
-#endif //LAB05_SOCKETSERVER_H
+#endif //SOCKETSERVER_H

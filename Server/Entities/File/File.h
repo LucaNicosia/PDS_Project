@@ -1,9 +1,5 @@
-//
-// Created by giuse on 27/04/2020.
-//
-
-#ifndef LAB02_FILE_H
-#define LAB02_FILE_H
+#ifndef FILE_H
+#define FILE_H
 
 #include <string>
 #include <iostream>
@@ -11,7 +7,6 @@
 #include <memory>
 #include "../Directory/Directory.h"
 #include "../Exceptions/MyExceptions.h"
-
 
 class Directory;
 
@@ -56,4 +51,4 @@ public:
 };
 
 
-#endif //LAB02_FILE_H
+#endif //FILE_H

@@ -1,9 +1,3 @@
-//
-// Created by giuseppetoscano on 13/06/20.
-//
-
-
-
 #include <stdexcept>
 #include <sys/socket.h>
 #include <iostream>

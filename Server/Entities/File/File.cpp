@@ -1,11 +1,4 @@
-//
-// Created by giuse on 27/04/2020.
-//
-
 #include "File.h"
-
-
-//Costruttore
 
 File::File() {
     path = "";

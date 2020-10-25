@@ -2908,3 +2908,18 @@
 20201025 16:21:55 140674496567040 Stringa ricevuta: Database up to date msg-size: 19 sul socket 5
 20201025 16:21:55 140674496567040 Stringa Mandata: server_db_ok msg-size: 12 sul socket 5
 20201025 16:21:57 140674496567040 Stringa ricevuta: update completed msg-size: 16 sul socket 5
+20201025 17:06:45 139634294463744 Waiting for incoming connections at port 5110...
+20201025 17:06:55 139634294463744 Got a connection from 127.0.0.1:38926
+20201025 17:06:55 139634294463744 sent string: CONNECT-ERROR msg-size: 13 on socket 4
+20201025 17:06:55 139634294463744 max threads number reached: try again
+20201025 17:06:55 139634294463744 Waiting for incoming connections at port 5110...
+20201025 17:26:35 140346327940352 Waiting for incoming connections at port 5110...
+20201025 17:26:39 140346327940352 Got a connection from 127.0.0.1:38968
+20201025 17:26:39 140346327940352 Waiting for incoming connections at port 5110...
+20201025 17:26:39 140346327914240 received string: CONNECT user3 pass FETCH msg-size: 24 on socket 4
+20201025 17:26:39 140346327914240 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201025 17:26:39 140346327914240 received string: CONNECT-OK msg-size: 10 on socket 4
+20201025 17:26:41 140346327914240 sent string: DIGEST Mmp9o4nPRWSs6E3NdSVKlg8+Y6g= msg-size: 35 on socket 4
+20201025 17:26:41 140346327914240 received string: Database up to date msg-size: 19 on socket 4
+20201025 17:26:41 140346327914240 sent string: server_db_ok msg-size: 12 on socket 4
+20201025 17:26:44 140346327914240 received string: update completed msg-size: 16 on socket 4
