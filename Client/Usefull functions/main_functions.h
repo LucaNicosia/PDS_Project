@@ -69,7 +69,7 @@ int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
         db.exec("INSERT INTO FILE (path,hash,name) VALUES (\"" + file->getPath() + "\",\"" + file->getHash() + "\",\"" +file->getName() + "\")");
         return 0;
     }
-    else if(!compareDigests(v[0].getPath(),file->getPath())) { // if present, update hash only
+    else if(!compareDigests(v[0].getHash(),file->getHash())) { // if present, update hash only
         updateFileDB(db_path,file);
         return 1;
     }
@@ -357,12 +357,12 @@ std::string connectRequest(Socket& s, const std::string username, const std::str
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
     // files and dirs contains data of db and also stored in memory
     for(auto it : files){
-        appendDigest(it.second->toString());
+        appendDigest(it.second->toString().c_str(),it.second->toString().length());
     }
     for(auto it : dirs){
         if(it.second->getPath() == "") // root is not included in db
             continue;
-        appendDigest(it.second->toString());
+        appendDigest(it.second->toString().c_str(),it.second->toString().length());
     }
     return getAppendedDigest();
 }
@@ -385,10 +385,11 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
         // file modification handler
         if (operation == "created") {
             sendMsg(s, "READY");
-            rcvFile(s, userDirPath + "/" + path);
+            std::string digest = rcvFile(s, userDirPath + "/" + path);
             sendMsg(s, "DONE");
+            //digest = computeDigest(userDirPath + "/" + path);
             std::shared_ptr<File> file = father.lock()->addFile(name,
-                                                                computeDigest(userDirPath + "/" + path),
+                                                                digest,
                                                                 false);
             files[file->getPath()] = file;
             insertFileIntoDB(db_path, file);
@@ -402,10 +403,10 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
             father.lock()->removeFile(name);
             files.erase(path);
             sendMsg(s, "READY");
-            rcvFile(s, userDirPath + "/" + path);
+            std::string digest = rcvFile(s, userDirPath + "/" + path);
             sendMsg(s, "DONE");
             std::shared_ptr<File> file = father.lock()->addFile(name,
-                                                                computeDigest(userDirPath + "/" + path),
+                                                                digest,
                                                                 false);
             files[file->getPath()] = file;
             insertFileIntoDB(db_path, file);

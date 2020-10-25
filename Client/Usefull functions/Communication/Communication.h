@@ -18,7 +18,7 @@
 
 int sendMsg(Socket& s, const std::string msg);
 std::string rcvMsg(Socket& s);
-int rcvFile(Socket& s, const std::string path);
+std::string rcvFile(Socket& s, const std::string path);
 int sendFile(Socket& s, const std::string path, const std::string path_to_send);
 
 
@@ -33,7 +33,7 @@ int sendMsg(Socket& s, const std::string msg){
         Log_Writer.writeLog(os);
         int ret = s.write(msg.c_str(), msg.size(), 0);
         if (ret == 0)
-            throw socket_exception("sending empty message");
+            throw socket_exception("sending empty message\n");
         return ret;
     }
     catch(std::exception& e){
@@ -47,7 +47,7 @@ std::string rcvMsg(Socket& s){
         char msg[SIZE];
         int size = s.read(msg, SIZE, 0);
         if (size == 0)
-            throw socket_exception("empty message received");
+            throw socket_exception("empty message received\n");
         msg[size] = '\0';
         os << "Stringa ricevuta: " << std::string(msg) << " msg-size: " << size << " sul socket " << s.__sock_fd()
            << std::endl;
@@ -55,17 +55,18 @@ std::string rcvMsg(Socket& s){
             std::cout << os.str();
         Log_Writer.writeLog(os);
         return std::string(msg);
-    } catch(std::exception& e){
+    }
+    catch(std::exception& e){
         throw socket_exception(e.what());
     }
 };
 
-int rcvFile(Socket& s, const std::string path){
+std::string rcvFile(Socket& s, const std::string path){
     std::string fileData = rcvMsg(s); // FILE <path> <length>
     unsigned long long int length = std::stoll(fileData.substr(fileData.find_last_of(" ")));
     sendMsg(s, "OK");
     int rec;
-    char buf [SIZE];
+    char buf [SIZE]="";
     int to;
     to=creat(path.c_str(),0777);
     if(to<0){
@@ -75,9 +76,10 @@ int rcvFile(Socket& s, const std::string path){
         rec = s.read(buf,sizeof(buf),0);
         length -= rec;
         ::write(to,buf,rec);
+        appendDigest(buf,rec);
     }
     close(to);
-    return 0;
+    return getAppendedDigest();
 };
 
 

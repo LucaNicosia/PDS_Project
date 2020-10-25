@@ -62,7 +62,8 @@ int main(int argc, char** argv){
             while (true) {
                 struct sockaddr_in addr;
                 socklen_t len = sizeof(addr);
-                os << "Waiting for incoming connections at port " << PORT << "..." << std::endl;
+                std::mutex user_db_mutex;
+                os << "Waiting for incoming connections at port " << port << "..." << std::endl;
                 Log_Writer.writeLogAndClear(os);
                 Socket s = ss.accept(&addr, len);
                 char name[16];
@@ -75,7 +76,7 @@ int main(int argc, char** argv){
                 //sockets.insert(std::pair<int,Socket>(id,std::move(s)));
                 addSocket(sockets,id,s,socket_mutex);
 
-                std::thread t([&root_path, &sockets, id, &users_connected, &os, &users_mutex, &socket_mutex](){
+                std::thread t([&root_path, &sockets, id, &users_connected, &os, &users_mutex, &socket_mutex, &user_db_mutex](){
                     try
                     {
                         sockets[id].setTimeoutSecs(60); // set timeout on socket
@@ -88,7 +89,7 @@ int main(int argc, char** argv){
                         std::string userDirPath, username, password, mode;
                         // SYNC 'client'
                         int rc,count_error=0;
-                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex, id)) < 0) {
+                        while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex, id, user_db_mutex)) < 0) {
                             switch(rc){
                                 case -1:
                                     os << "Wrong username and/or password"<<std::endl;

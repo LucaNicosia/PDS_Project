@@ -22,7 +22,9 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void restore(Socket& s, const std::string& userPath, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
 void manageModification(Socket& s, std::string msg,const std::string& db_path, const std::string& userDirPath ,std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
-int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex, const int& id);
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex, const int& id, std::mutex& db_mutex);
+std::vector<User> selectUsers(const std::string& db_path, const std::string query, std::mutex& db_mutex);
+bool insertUserIntoDB(const std::string& db_path, const User user, std::mutex& db_mutex);
 
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
@@ -35,7 +37,7 @@ int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
         db.exec("INSERT INTO FILE (path,hash,name) VALUES (\"" + file->getPath() + "\",\"" + file->getHash() + "\",\"" +file->getName() + "\")");
         return 0;
     }
-    else if(!compareDigests(v[0].getPath(),file->getPath())) { // if present, update hash only
+    else if(!compareDigests(v[0].getHash(),file->getHash())) { // if present, update hash only
         updateFileDB(db_path,file);
         return 1;
     }
@@ -98,7 +100,8 @@ int deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Dire
     return 0;
 }
 
-bool insertUserIntoDB(const std::string& db_path, const User user){
+bool insertUserIntoDB(const std::string& db_path, const User user, std::mutex& db_mutex){
+    std::lock_guard<std::mutex> lg(db_mutex);
     Database db(db_path);
 
     db.open();
@@ -107,6 +110,17 @@ bool insertUserIntoDB(const std::string& db_path, const User user){
 
     db.close();
     return true;
+}
+
+std::vector<User> selectUsers(const std::string& db_path, const std::string query, std::mutex& db_mutex){
+    std::lock_guard<std::mutex> lg(db_mutex);
+    std::vector<User> queryUsers;
+    int nUsers;
+    Database db(db_path);
+    db.open();
+    db.select(query,nUsers,queryUsers);
+    db.close();
+    return queryUsers;
 }
 
 std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
@@ -263,12 +277,12 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
     // files and dirs contains data of db and also stored in memory
     for(auto it : files){
-        appendDigest(it.second->toString());
+        appendDigest(it.second->toString().c_str(),it.second->toString().length());
     }
     for(auto it : dirs){
         if(it.second->getPath() == "") // root is not included in db
             continue;
-        appendDigest(it.second->toString());
+        appendDigest(it.second->toString().c_str(),it.second->toString().length());
     }
     return getAppendedDigest();
 }
@@ -319,10 +333,11 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
         // file modification handler
         if (operation == "created") {
             sendMsg(s, "READY");
-            rcvFile(s, userDirPath + "/" + path);
+            std::string digest = rcvFile(s, userDirPath + "/" + path);
             sendMsg(s, "DONE");
+            //std::string digest = computeDigest(userDirPath + "/" + path);
             std::shared_ptr<File> file = father.lock()->addFile(name,
-                                                                computeDigest(userDirPath + "/" + path),
+                                                                digest,
                                                                 false);
             files[file->getPath()] = file;
             if (insertFileIntoDB(db_path, file) < 0) {
@@ -345,10 +360,10 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
             father.lock()->removeFile(name);
             files.erase(path);
             sendMsg(s, "READY");
-            rcvFile(s, userDirPath + "/" + path);
+            std::string digest = rcvFile(s, userDirPath + "/" + path);
             sendMsg(s, "DONE");
             std::shared_ptr<File> file = father.lock()->addFile(name,
-                                                                computeDigest(userDirPath + "/" + path),
+                                                                digest,
                                                                 false);
             files[file->getPath()] = file;
             if (insertFileIntoDB(db_path, file)<0) {
@@ -394,7 +409,7 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
     }
 }
 
-int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex, const int& id) {
+int rcvConnectRequest(Socket& s, const std::string root_path, std::string& username, std::string& password, std::string& mode, std::shared_ptr<Directory>& root, std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::map<std::string, int>& users_connected, std::mutex& users_mutex, const int& id, std::mutex& db_mutex){
     std::ostringstream os;
     std::string msg = rcvMsg(s);
     sendMsg(s,"CONNECT-OK");
@@ -444,11 +459,7 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
         createUsersDB(users_db_path);
     }
 
-    Database db(users_db_path);
-
-    db.open();
-    db.select("SELECT * FROM Users",nUsers,queryUsers);
-    db.close();
+    queryUsers = selectUsers(users_db_path,"SELECT * FROM Users",db_mutex);
 
     for (User u : queryUsers){
         if (u.getUsername() == user.getUsername()){
@@ -460,7 +471,7 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
 
     if (!found){
         // User not present on the db
-        insertUserIntoDB(users_db_path, user);
+        insertUserIntoDB(users_db_path, user,db_mutex);
         if(rcvMsg(s) == "CONNECT-OK"){
             root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
             check_user_data(root->getName(), db_path);

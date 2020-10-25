@@ -369,7 +369,6 @@ int connect_to_remote_server(bool needs_restore, int* p){
             std::cout<<"--- checkDB ended ---\n";
         } else {
             std::cout<<"server DB is updated\n";
-            while(true);
             sendMsg(s,"Database up to date");
             if(rcvMsg(s) != "server_db_ok"){
                 return -1; // error in db response on 'server_db_ok'

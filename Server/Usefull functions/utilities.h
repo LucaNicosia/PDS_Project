@@ -63,10 +63,10 @@ public:
         ofs.open (log_file_path, std::ofstream::out | std::ofstream::app);
         if(use_mutex) {
             std::lock_guard<std::mutex> lg(m);
-            ofs << getTimestamp().str() << " " << std::this_thread::get_id() << " " << str.str(); // TIMESTAMP tid <message>
+            ofs << getTimestamp().str() << " " << std::this_thread::get_id() << " " << str.str()<<std::endl; // TIMESTAMP tid <message>
         }
         else{
-            ofs << getTimestamp().str() << " " << std::this_thread::get_id() << " " << str.str(); // TIMESTAMP tid <message>
+            ofs << getTimestamp().str() << " " << std::this_thread::get_id() << " " << str.str()<<std::endl; // TIMESTAMP tid <message>
         }
     }
 
