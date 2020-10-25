@@ -78,6 +78,8 @@ int main(int argc, char** argv){
                 std::thread t([&root_path, &sockets, id, &users_connected, &os, &users_mutex, &socket_mutex](){
                     try
                     {
+                        sockets[id].setTimeoutSecs(60); // set timeout on socket
+                        sockets[id].setTimeoutUsecs(0);
                         std::cout<<"\tuserMap: "<<&users_connected<<std::endl;
                         std::shared_ptr<Directory> root;
                         std::string db_path;

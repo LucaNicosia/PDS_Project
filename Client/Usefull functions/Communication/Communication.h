@@ -36,9 +36,6 @@ int sendMsg(Socket& s, const std::string msg){
             throw socket_exception("sending empty message");
         return ret;
     }
-    catch(socket_exception& e){
-        throw e;
-    }
     catch(std::exception& e){
         throw socket_exception(e.what());
     }
@@ -52,15 +49,13 @@ std::string rcvMsg(Socket& s){
         if (size == 0)
             throw socket_exception("empty message received");
         msg[size] = '\0';
-        os << "Stringa ricevuta: " << std::string(msg) << " msg-size: " << size << " sul socket "<< s.__sock_fd() << std::endl;
-        if(DEBUG)
-            std::cout<<os.str();
+        os << "Stringa ricevuta: " << std::string(msg) << " msg-size: " << size << " sul socket " << s.__sock_fd()
+           << std::endl;
+        if (DEBUG)
+            std::cout << os.str();
         Log_Writer.writeLog(os);
         return std::string(msg);
-    }catch(socket_exception& e){
-        throw e;
-    }
-    catch(std::exception& e){
+    } catch(std::exception& e){
         throw socket_exception(e.what());
     }
 };

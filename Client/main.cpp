@@ -54,6 +54,7 @@ std::mutex action_server_mutex;
 
 int connect_to_remote_server(bool needs_restore, int* p);
 void action_on_server(std::string str);
+void resetVariables(const std::string exc_type, const std::exception& e, std::mutex& m, bool& all_threads_running);
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
     std::string FT,FS,res;
@@ -216,7 +217,15 @@ int main(int argc, char** argv)
                                 error = "unknown error type";
                                 break;
                         }
-                        ::write(p[1],error.c_str(),error.length()+1);
+                        if((::write(p[1],error.c_str(),error.length()+1)) == -1){
+                            if(errno != EPIPE){
+                                throw std::runtime_error("cannot write on pipe");
+                            }
+                            // else the pipe has been already closed, no problem
+                            std::ostringstream error;
+                            error << "minor problem in pipe writing: probably father already returned"<<std::endl;
+                            Log_Writer.writeLogAndClear(error);
+                        }
                         throw general_exception(error);
                     }
                     std::string str = "connection succeed";
@@ -283,41 +292,16 @@ int main(int argc, char** argv)
                     throw socket_exception("no socket error, just retry"); // it's not a socket exception, but retry to restart application
                 } catch (socket_exception &se) {
                     // reset variable and retry
-                    changeRunningState(all_threads_running,false,thread_checker);
-                    fw.stop();
-                    std::ostringstream os;
-                    os << "socket_exc: " << se.what() << std::endl;
-                    Log_Writer.writeLogAndClear(os);
-                    s.close();
+                    resetVariables("socket_exc",se,thread_checker,all_threads_running);
                     root_ptr = nullptr;
-                    dirs.clear();
-                    files.clear();
-                    /*
-                    path = INITIAL_PATH;
-                    db_path = PATH_TO_DB;
-                    server_db_path = PATH_TO_DB;
-                    */
                     synchronized = false;
                     std::this_thread::sleep_for(std::chrono::seconds(3)); // wait 3 seconds before reconnection
                 } catch (general_exception &ge) {
-                    changeRunningState(all_threads_running,false,thread_checker);
-                    fw.stop();
-                    std::ostringstream os;
-                    os << "general_exc: " << ge.what() << std::endl;
-                    Log_Writer.writeLogAndClear(os);
-                    s.close();
-                    dirs.clear();
+                    resetVariables("general_exc",ge,thread_checker,all_threads_running);
                     files.clear();
                     return -1; // critical problem, redo the same thing doesn't resolve the problem
                 } catch (std::exception &e) {
-                    changeRunningState(all_threads_running,false,thread_checker);
-                    fw.stop();
-                    std::ostringstream os;
-                    os << "exc: " << e.what() << std::endl;
-                    Log_Writer.writeLogAndClear(os);
-                    s.close();
-                    dirs.clear();
-                    files.clear();
+                    resetVariables("exc",e,thread_checker,all_threads_running);
                     return -1; // critical problem, redo the same thing doesn't resolve the problem
                 }
             }
@@ -338,6 +322,17 @@ int main(int argc, char** argv)
     }
 
     return 0;
+}
+
+void resetVariables(const std::string exc_type, const std::exception& e, std::mutex& m, bool& all_threads_running){
+    changeRunningState(all_threads_running,false,m);
+    fw.stop();
+    std::ostringstream os;
+    os << exc_type <<" "<< e.what() << std::endl;
+    Log_Writer.writeLogAndClear(os);
+    s.close();
+    dirs.clear();
+    files.clear();
 }
 
 int connect_to_remote_server(bool needs_restore, int* p){
@@ -374,6 +369,7 @@ int connect_to_remote_server(bool needs_restore, int* p){
             std::cout<<"--- checkDB ended ---\n";
         } else {
             std::cout<<"server DB is updated\n";
+            while(true);
             sendMsg(s,"Database up to date");
             if(rcvMsg(s) != "server_db_ok"){
                 return -1; // error in db response on 'server_db_ok'
