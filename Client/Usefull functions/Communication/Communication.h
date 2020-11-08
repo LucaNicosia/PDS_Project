@@ -79,6 +79,9 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
     std::ifstream myFile(path,std::ios::in);
     myFile.seekg(0,myFile.end);
     unsigned long long int length = myFile.tellg();
+    if(length == static_cast<unsigned long long int>(-1))
+        length = 0; // length is set to 0, nothing is sent. It means that the file in the meanwhile was erased
+                    // After a while the "erase" of this file will be called
     myFile.close();
     sendMsg(s, std::string ("FILE "+path_to_send+" "+std::to_string(length)));
     std::string msg = rcvMsg(s);
@@ -89,6 +92,8 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
     if(msg != "OK"){
         throw general_exception("error in sendFile");
     }
+    if(length == 0)
+        return 0;
     //...file transfer...
     int from;
     from=open(path.c_str(),O_RDONLY);

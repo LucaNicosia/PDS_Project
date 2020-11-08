@@ -3210,3 +3210,152 @@
 20201108 10:15:31 140399432541952 received string: DONE msg-size: 4 on socket 4
 20201108 10:15:31 140399432541952 sent string: restore completed msg-size: 17 on socket 4
 20201108 10:15:35 140399432541952 received string: update completed msg-size: 16 on socket 4
+20201108 10:52:04 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:52:27 140185125059840 Got a connection from 127.0.0.1:57932
+20201108 10:52:27 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:52:27 140185125033728 received string: CONNECT user4 pass FETCH msg-size: 24 on socket 4
+20201108 10:52:27 140185125033728 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:52:27 140185125033728 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:52:29 140185125033728 sent string: DIGEST 2jmj7l5rSw0yVb/vlWAYkK/YBwk= msg-size: 35 on socket 4
+20201108 10:52:29 140185125033728 received string: Database up to date msg-size: 19 on socket 4
+20201108 10:52:29 140185125033728 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 10:52:31 140185125033728 received string: update completed msg-size: 16 on socket 4
+20201108 10:53:35 140185125059840 Got a connection from 127.0.0.1:57950
+20201108 10:53:35 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:53:35 140185125033728 received string: CONNECT user4 pass FETCH msg-size: 24 on socket 5
+20201108 10:53:35 140185125033728 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:53:35 140185125033728 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:53:37 140185125033728 sent string: DIGEST 2jmj7l5rSw0yVb/vlWAYkK/YBwk= msg-size: 35 on socket 5
+20201108 10:53:37 140185125033728 received string: Database up to date msg-size: 19 on socket 5
+20201108 10:53:37 140185125033728 sent string: server_db_ok msg-size: 12 on socket 5
+20201108 10:53:37 140185125033728 received string: FILE .prova.txt.swp created msg-size: 27 on socket 5
+20201108 10:53:37 140185125033728 sent string: READY msg-size: 5 on socket 5
+20201108 10:53:37 140185125033728 received string: FILE .prova.txt.swp 1024 msg-size: 24 on socket 5
+20201108 10:53:37 140185125033728 sent string: OK msg-size: 2 on socket 5
+20201108 10:53:37 140185125033728 sent string: DONE msg-size: 4 on socket 5
+20201108 10:53:38 140185125033728 received string: update completed msg-size: 16 on socket 5
+20201108 10:53:39 140185125059840 Got a connection from 127.0.0.1:57952
+20201108 10:53:39 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:53:39 140185125033728 received string: CONNECT user4 pass FETCH msg-size: 24 on socket 4
+20201108 10:53:39 140185125033728 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:53:39 140185125033728 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:53:41 140185125033728 sent string: DIGEST 7Yt+3/0Ynpk6ypBnLtUB9FcLJl4= msg-size: 35 on socket 4
+20201108 10:53:41 140185125033728 received string: Database up to date msg-size: 19 on socket 4
+20201108 10:53:41 140185125033728 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 10:53:41 140185125033728 received string: FILE .prova.txt.swp modified msg-size: 28 on socket 4
+20201108 10:53:41 140185125033728 sent string: READY msg-size: 5 on socket 4
+20201108 10:53:41 140185125033728 received string: FILE .prova.txt.swp 1024 msg-size: 24 on socket 4
+20201108 10:53:41 140185125033728 sent string: OK msg-size: 2 on socket 4
+20201108 10:53:41 140185125033728 sent string: DONE msg-size: 4 on socket 4
+20201108 10:53:42 140185125033728 received string: update completed msg-size: 16 on socket 4
+20201108 10:53:44 140185125059840 Got a connection from 127.0.0.1:57954
+20201108 10:53:44 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:53:44 140185125033728 received string: CONNECT user4 pass FETCH msg-size: 24 on socket 5
+20201108 10:53:44 140185125033728 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:53:44 140185125033728 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:53:46 140185125033728 sent string: DIGEST x1RJSFIGSNDPVpegOscXqpgW0SU= msg-size: 35 on socket 5
+20201108 10:53:46 140185125033728 received string: Database up to date msg-size: 19 on socket 5
+20201108 10:53:46 140185125033728 sent string: server_db_ok msg-size: 12 on socket 5
+20201108 10:53:46 140185125033728 received string: FILE prova.txt created msg-size: 22 on socket 5
+20201108 10:53:46 140185125033728 sent string: READY msg-size: 5 on socket 5
+20201108 10:53:46 140185125033728 received string: FILE prova.txt 5 msg-size: 16 on socket 5
+20201108 10:53:46 140185125033728 sent string: OK msg-size: 2 on socket 5
+20201108 10:53:46 140185125033728 sent string: DONE msg-size: 4 on socket 5
+20201108 10:53:47 140185125033728 received string: update completed msg-size: 16 on socket 5
+20201108 10:53:47 140185125059840 Got a connection from 127.0.0.1:57956
+20201108 10:53:47 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:53:47 140185125033728 received string: CONNECT user4 pass FETCH msg-size: 24 on socket 4
+20201108 10:53:47 140185125033728 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:53:47 140185125033728 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:53:49 140185125033728 sent string: DIGEST uCbkl5TBG920XrrcDKpp6NNStpI= msg-size: 35 on socket 4
+20201108 10:53:49 140185125033728 received string: Database up to date msg-size: 19 on socket 4
+20201108 10:53:49 140185125033728 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 10:53:49 140185125033728 received string: FILE .prova.txt.swp erased msg-size: 26 on socket 4
+20201108 10:53:49 140185125033728 sent string: DONE msg-size: 4 on socket 4
+20201108 10:53:50 140185125033728 received string: update completed msg-size: 16 on socket 4
+20201108 10:55:19 140185125059840 Got a connection from 127.0.0.1:57960
+20201108 10:55:19 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:55:19 140185125033728 received string: CONNECT user4 pass FETCH msg-size: 24 on socket 5
+20201108 10:55:19 140185125033728 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:55:19 140185125033728 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:55:21 140185125033728 sent string: DIGEST AciJdw3rNsp03VZhccDzZ41c12A= msg-size: 35 on socket 5
+20201108 10:55:21 140185125033728 received string: Database up to date msg-size: 19 on socket 5
+20201108 10:55:21 140185125033728 sent string: server_db_ok msg-size: 12 on socket 5
+20201108 10:55:21 140185125033728 received string: FILE .prova2.txt.swp created msg-size: 28 on socket 5
+20201108 10:55:21 140185125033728 sent string: READY msg-size: 5 on socket 5
+20201108 10:55:21 140185125033728 received string: FILE .prova2.txt.swp 1024 msg-size: 25 on socket 5
+20201108 10:55:21 140185125033728 sent string: OK msg-size: 2 on socket 5
+20201108 10:55:21 140185125033728 sent string: DONE msg-size: 4 on socket 5
+20201108 10:55:22 140185125033728 received string: update completed msg-size: 16 on socket 5
+20201108 10:55:22 140185125059840 Got a connection from 127.0.0.1:57962
+20201108 10:55:22 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:55:22 140185125033728 received string: CONNECT user4 pass FETCH msg-size: 24 on socket 4
+20201108 10:55:22 140185125033728 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:55:22 140185125033728 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:55:24 140185125033728 sent string: DIGEST l6OxXXfD+sF4Fzg1EfaSbm4gJac= msg-size: 35 on socket 4
+20201108 10:55:24 140185125033728 received string: Database up to date msg-size: 19 on socket 4
+20201108 10:55:24 140185125033728 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 10:55:24 140185125033728 received string: FILE .prova2.txt.swp modified msg-size: 29 on socket 4
+20201108 10:55:24 140185125033728 sent string: READY msg-size: 5 on socket 4
+20201108 10:55:24 140185125033728 received string: FILE .prova2.txt.swp 1024 msg-size: 25 on socket 4
+20201108 10:55:24 140185125033728 sent string: OK msg-size: 2 on socket 4
+20201108 10:55:24 140185125033728 sent string: DONE msg-size: 4 on socket 4
+20201108 10:55:25 140185125033728 received string: update completed msg-size: 16 on socket 4
+20201108 10:55:30 140185125059840 Got a connection from 127.0.0.1:57964
+20201108 10:55:30 140185125059840 Waiting for incoming connections at port 5110...
+20201108 10:55:30 140185125033728 received string: CONNECT user4 pass FETCH msg-size: 24 on socket 6
+20201108 10:55:30 140185125033728 sent string: CONNECT-OK msg-size: 10 on socket 6
+20201108 10:55:30 140185125033728 received string: CONNECT-OK msg-size: 10 on socket 6
+20201108 10:55:32 140185125033728 sent string: DIGEST l6OxXXfD+sF4Fzg1EfaSbm4gJac= msg-size: 35 on socket 6
+20201108 10:55:32 140185125033728 received string: Database up to date msg-size: 19 on socket 6
+20201108 10:55:32 140185125033728 sent string: server_db_ok msg-size: 12 on socket 6
+20201108 10:55:32 140185125033728 received string: FILE .prova2.txt.swp erased msg-size: 27 on socket 6
+20201108 10:55:32 140185125033728 sent string: DONE msg-size: 4 on socket 6
+20201108 10:55:32 140185125033728 received string: FILE prova2.txt created msg-size: 23 on socket 6
+20201108 10:55:32 140185125033728 sent string: READY msg-size: 5 on socket 6
+20201108 10:55:32 140185125033728 received string: FILE prova2.txt 6 msg-size: 17 on socket 6
+20201108 10:55:32 140185125033728 sent string: OK msg-size: 2 on socket 6
+20201108 10:55:32 140185125033728 sent string: DONE msg-size: 4 on socket 6
+20201108 10:55:33 140185125033728 received string: update completed msg-size: 16 on socket 6
+20201108 11:01:20 140448318143744 Waiting for incoming connections at port 5111...
+20201108 11:02:52 139623794363648 Waiting for incoming connections at port 5111...
+20201108 11:15:13 140501998341376 Waiting for incoming connections at port 5111...
+20201108 11:15:49 140501998341376 Got a connection from 127.0.0.1:41194
+20201108 11:15:49 140501998341376 Waiting for incoming connections at port 5111...
+20201108 11:15:49 140501998315264 received string: CONNECT user7 pass FETCH msg-size: 24 on socket 4
+20201108 11:15:49 140501998315264 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 11:15:49 140501998315264 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 11:15:51 140501998315264 sent string: DIGEST 2jmj7l5rSw0yVb/vlWAYkK/YBwk= msg-size: 35 on socket 4
+20201108 11:15:51 140501998315264 received string: Database up to date msg-size: 19 on socket 4
+20201108 11:15:51 140501998315264 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 11:15:54 140501998315264 received string: update completed msg-size: 16 on socket 4
+20201108 11:16:36 140501998341376 Got a connection from 127.0.0.1:41202
+20201108 11:16:36 140501998341376 Waiting for incoming connections at port 5111...
+20201108 11:16:36 140501998315264 received string: CONNECT user7 pass FETCH msg-size: 24 on socket 5
+20201108 11:16:36 140501998315264 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 11:16:36 140501998315264 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 11:16:38 140501998315264 sent string: DIGEST 2jmj7l5rSw0yVb/vlWAYkK/YBwk= msg-size: 35 on socket 5
+20201108 11:16:38 140501998315264 received string: Database up to date msg-size: 19 on socket 5
+20201108 11:16:38 140501998315264 sent string: server_db_ok msg-size: 12 on socket 5
+20201108 11:16:38 140501998315264 received string: FILE .prova.txt.swp created msg-size: 27 on socket 5
+20201108 11:16:38 140501998315264 sent string: READY msg-size: 5 on socket 5
+20201108 11:16:38 140501998315264 received string: FILE .prova.txt.swp 1024 msg-size: 24 on socket 5
+20201108 11:16:38 140501998315264 sent string: OK msg-size: 2 on socket 5
+20201108 11:16:38 140501998315264 sent string: DONE msg-size: 4 on socket 5
+20201108 11:16:39 140501998315264 received string: update completed msg-size: 16 on socket 5
+20201108 11:16:39 140501998341376 Got a connection from 127.0.0.1:41204
+20201108 11:16:39 140501998341376 Waiting for incoming connections at port 5111...
+20201108 11:16:39 140501998315264 received string: CONNECT user7 pass FETCH msg-size: 24 on socket 4
+20201108 11:16:39 140501998315264 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 11:16:39 140501998315264 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 11:16:41 140501998315264 sent string: DIGEST 9I2FEtjV3eqYJOiZFQtDjoL/pwc= msg-size: 35 on socket 4
+20201108 11:16:41 140501998315264 received string: Database up to date msg-size: 19 on socket 4
+20201108 11:16:41 140501998315264 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 11:16:41 140501998315264 received string: FILE .prova.txt.swp erased msg-size: 26 on socket 4
+20201108 11:16:41 140501998315264 sent string: DONE msg-size: 4 on socket 4
+20201108 11:16:41 140501998315264 received string: FILE prova.txt created msg-size: 22 on socket 4
+20201108 11:16:41 140501998315264 sent string: READY msg-size: 5 on socket 4
+20201108 11:16:41 140501998315264 received string: FILE prova.txt 5 msg-size: 16 on socket 4
+20201108 11:16:41 140501998315264 sent string: OK msg-size: 2 on socket 4
+20201108 11:16:41 140501998315264 sent string: DONE msg-size: 4 on socket 4
+20201108 11:16:42 140501998315264 received string: update completed msg-size: 16 on socket 4
