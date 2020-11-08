@@ -372,7 +372,7 @@ int connect_to_remote_server(bool needs_restore, int* p){
             }
         }
     }else{ // restore
-        if(compareDigests(server_digest,client_digest)){ // if digest are the same, also the server is empty: no actions
+        if(compareDigests(server_digest,client_digest)){ // if digest are the same no actions
             sendMsg(s, "Database up to date");
         } else {
             // server has some data, needs to restore
