@@ -1,12 +1,10 @@
-//
-// Created by root on 14/08/20.
-//
+#ifndef MAIN_FUNCTIONS_H
+#define MAIN_FUNCTIONS_H
 
-#ifndef PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
-#define PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
-
+#include <filesystem>
 #include "Crypto/MyCryptoLibrary.h"
 #include "../Entities/User/User.h"
+#include "../Entities/Database/Database.h"
 #include "utilities.h"
 #include "constants.h"
 
@@ -16,7 +14,7 @@ int updateFileDB(const std::string& db_path, std::shared_ptr<File>& file);
 int deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Directory>& dir);
 int insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>& dir);
 std::string cleanPath(const std::string & path, const std::string& rubbish);
-void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs);
+void printFilesAndDirs(std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs);
 void check_user_data(const std::string& username_dir, const std::string& db_path);
 void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs, std::string db_path, std::shared_ptr<Directory>& root, Socket& s);
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs);
@@ -28,86 +26,68 @@ bool insertUserIntoDB(const std::string& db_path, const User user, std::mutex& d
 
 int insertFileIntoDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
-
     db.open();
     std::vector<File> v;
     int n;
     db.select("SELECT * FROM FILE WHERE path = \""+file->getPath()+"\"",n,v);
-    if(n == 0) { // new element
+    if(n == 0) { // New element
         db.exec("INSERT INTO FILE (path,hash,name) VALUES (\"" + file->getPath() + "\",\"" + file->getHash() + "\",\"" +file->getName() + "\")");
         return 0;
     }
-    else if(!compareDigests(v[0].getHash(),file->getHash())) { // if present, update hash only
+    else if(!compareDigests(v[0].getHash(),file->getHash())) { // If present, update hash only
         updateFileDB(db_path,file);
         return 1;
     }
-
     db.close();
     return true;
 }
 int deleteFileFromDB(const std::string& db_path, const std::shared_ptr<File>& file){
     Database db(db_path);
-
     db.open();
-
     db.exec("DELETE FROM FILE WHERE path = \""+file->getPath()+"\"");
-
     db.close();
     return 0;
 }
 int updateFileDB(const std::string& db_path, std::shared_ptr<File>& file){
     Database db(db_path);
-
     db.open();
-
     db.exec("UPDATE FILE SET hash = \""+file->getHash()+"\" WHERE path = \""+file->getPath()+"\"");
-
     db.close();
     return 0;
 }
 
 int insertDirectoryIntoDB(const std::string& db_path, std::shared_ptr<Directory>& dir){
     Database db(db_path);
-
     db.open();
     std::vector<Directory> v;
     int n;
     db.select("SELECT * FROM DIRECTORY WHERE path = \""+dir->getPath()+"\"",n,v);
-
     if(n == 0) {
         db.exec("INSERT INTO DIRECTORY (path,name) VALUES (\"" + dir->getPath() + "\", " + "\"" + dir->getName() +"\")");
         return 0;
     }
-
     db.close();
     return 1;
 }
 int deleteDirectoryFromDB(const std::string& db_path, const std::shared_ptr<Directory>& dir){
     Database db(db_path);
     db.open();
-
     db.exec("DELETE FROM DIRECTORY WHERE path = \""+dir->getPath()+"\"");
-
     db.close();
-
     for (int i = 0; i < dir->getDSons().size(); i++) {
         deleteDirectoryFromDB(db_path, dir->getDSons()[i]);
     }
     for (int i = 0; i < dir->getFSons().size(); i++) {
         deleteFileFromDB(db_path, dir->getFSons()[i]);
     }
-
     return 0;
 }
 
 bool insertUserIntoDB(const std::string& db_path, const User user, std::mutex& db_mutex){
     std::lock_guard<std::mutex> lg(db_mutex);
     Database db(db_path);
-
     db.open();
-
     db.exec("INSERT INTO Users (username,password,salt) VALUES (\""+user.getUsername()+"\",\""+user.getPassword()+"\",\""+user.getSalt()+"\")");
-
     db.close();
     return true;
 }
@@ -123,7 +103,7 @@ std::vector<User> selectUsers(const std::string& db_path, const std::string quer
     return queryUsers;
 }
 
-std::string cleanPath(const std::string & path, const std::string& rubbish){ // es. "TestPath/ciao.txt" -> "ciao.txt"
+std::string cleanPath(const std::string & path, const std::string& rubbish){ // eg. "TestPath/hello.txt" -> "hello.txt"
     std::string head = path;
     std::string tail;
     while(rubbish != head){
@@ -133,12 +113,11 @@ std::string cleanPath(const std::string & path, const std::string& rubbish){ // 
     return tail;
 }
 
-void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs){
+void printFilesAndDirs(std::map<std::string, std::shared_ptr<File>> files, std::map<std::string, std::shared_ptr<Directory>> dirs){
     std::cout<<"***DIRECTORIES***"<<std::endl;
     for (const auto& x : dirs) {
         std::cout << x.first << ": " << x.second->toString()<< std::endl;
     }
-
     std::cout<<"***FILES***"<<std::endl;
     for (const auto& x : files) {
         std::cout << x.first << ": " << x.second->toString()<< std::endl;
@@ -147,14 +126,14 @@ void stampaFilesEDirs(std::map<std::string, std::shared_ptr<File>> files, std::m
 
 void check_user_data(const std::string& username_dir, const std::string& db_path){
     if(!std::filesystem::is_directory(username_dir)){
-        // username directory doesn't exists, create it
+        // Username directory doesn't exists, create it
         std::filesystem::create_directories(username_dir);
     }
     std::ifstream db_file(db_path,std::ios::in);
     if(!db_file){
         std::ofstream file(db_path);
         Database db(db_path);
-        // database doesn't exists
+        // DB doesn't exists
         db.open();
         db.exec("CREATE TABLE \"DIRECTORY\" ("
                 "\"path\" TEXT PRIMARY KEY NOT NULL UNIQUE,"
@@ -174,7 +153,7 @@ void createUsersDB(const std::string& db_path){
         throw std::runtime_error("unable to create file");
     db_file.close();
     Database db(db_path);
-    // database doesn't exists
+    //DB doesn't exists
     db.open();
     db.exec("CREATE TABLE \"Users\" ("
             "\"username\" TEXT PRIMARY KEY NOT NULL UNIQUE,"
@@ -194,7 +173,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     std::mutex m;
     bool running = true;
 
-    std::thread t([&m,&running,&s](){ // database updating may take lots of time. this trade is like an "heart beat"
+    std::thread t([&m,&running,&s](){ // Database updating may take lots of time. this trade is like an "heart beat"
         while(true){
             std::this_thread::sleep_for(std::chrono::seconds(2));
             std::lock_guard<std::mutex>lg(m);
@@ -213,7 +192,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     db.close();
     for (int i = 0; i < nDirs; i++){
         std::string server_path = path + "/" + queryDirs[i].getPath();
-        if(!std::filesystem::is_directory(server_path)){ // if directory is not in memory, remove it from DB
+        if(!std::filesystem::is_directory(server_path)){ // If directory is not in memory, remove it from DB
             deleteDirectoryFromDB(db_path,std::make_shared<Directory>(queryDirs[i]));
             continue;
         }
@@ -228,7 +207,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
         std::size_t found = queryFiles[i].getPath().find_last_of("/");
         queryFiles[i].setName(queryFiles[i].getPath().substr(found+1));
         if(!std::filesystem::exists(std::filesystem::status(server_path))){
-            // file doesn't exists, remove it from DB
+            // File doesn't exists, remove it from DB
             deleteFileFromDB(db_path,std::make_shared<File>(queryFiles[i]));
             continue;
         }
@@ -239,7 +218,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
             files[file->getPath()] = file;
         }
     }
-    // until now, files and dirs contains only db data. Check if data actually stored is right
+    // Until now, files and dirs contains only db data. Check if data actually stored is right
     // if in memory but not on db, delete from memory
     std::vector<std::string> path_to_delete;
     for(auto it : std::filesystem::recursive_directory_iterator(path)){
@@ -250,7 +229,7 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     for(auto it : path_to_delete){
         std::filesystem::remove_all(it);
     }
-    // if they are on db but not in memory, delete from db
+    // If they are on db but not in memory, delete from db
     for(auto it : files){
         if(!std::filesystem::exists(std::filesystem::status(path + "/" + it.second->getPath()))){
             deleteFileFromDB(db_path,it.second);
@@ -273,14 +252,14 @@ void initialize_files_and_dirs(std::map<std::string, std::shared_ptr<File>>& fil
     t.join();
 }
 
-// server and client may have different order on db, compute the digest manually
+// Server and client may have different order on db, compute the digest manually
 std::string compute_db_digest(std::map<std::string, std::shared_ptr<File>>& files, std::map<std::string, std::shared_ptr<Directory>>& dirs){
-    // files and dirs contains data of db and also stored in memory
+    // Files and dirs contains data of db and also stored in memory
     for(auto it : files){
         appendDigest(it.second->toString().c_str(),it.second->toString().length());
     }
     for(auto it : dirs){
-        if(it.second->getPath() == "") // root is not included in db
+        if(it.second->getPath() == "") // Root is not included in db
             continue;
         appendDigest(it.second->toString().c_str(),it.second->toString().length());
     }
@@ -320,7 +299,7 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
     std::string name;
     std::string type;
     std::string operation;
-    // get data from message 'msg'
+
     operation = msg.substr(msg.find_last_of(" ") + 1);
     msg = msg.substr(0, msg.find_last_of(" "));
     type = msg.substr(0, msg.find_first_of(" "));
@@ -330,23 +309,22 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
 
     std::weak_ptr<Directory> father = dirs[Directory::getFatherFromPath(path)];
     if (type == "FILE") {
-        // file modification handler
+        // File modification handler
         if (operation == "created") {
             sendMsg(s, "READY");
             std::string digest = rcvFile(s, userDirPath + "/" + path);
             sendMsg(s, "DONE");
-            //std::string digest = computeDigest(userDirPath + "/" + path);
             std::shared_ptr<File> file = father.lock()->addFile(name,
                                                                 digest,
                                                                 false);
             files[file->getPath()] = file;
             if (insertFileIntoDB(db_path, file) < 0) {
-                os << "Problema nell'inserire il file sul DB" << std::endl;
+                os << "Problem in File insert on DB";
                 Log_Writer.writeLogAndClear(os);
             }
         } else if (operation == "erased") {
             if (deleteFileFromDB(db_path, files[path]) < 0) {
-                os << "Problema nel cancellare il file sul DB" << std::endl;
+                os << "Problem deleting File from DB";
                 Log_Writer.writeLogAndClear(os);
             }
             father.lock()->removeFile(name);
@@ -354,7 +332,7 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
             sendMsg(s, "DONE");
         } else if (operation == "modified") {
             if (deleteFileFromDB(db_path, files[path]) < 0) {
-                os << "Problema nel cancellare il file sul DB" << std::endl;
+                os << "Problem deleting File from DB";
                 Log_Writer.writeLogAndClear(os);
             }
             father.lock()->removeFile(name);
@@ -367,40 +345,38 @@ void manageModification(Socket& s, std::string msg,const std::string& db_path, c
                                                                 false);
             files[file->getPath()] = file;
             if (insertFileIntoDB(db_path, file)<0) {
-                os << "Problema nell'inserire il file sul DB" << std::endl;
+                os << "Problem in File insert on DB";
                 Log_Writer.writeLogAndClear(os);
             }
         } else {
-            //errore
-            os << "Stringa non ricevuta correttamente (" << type << " " << path << " "
-                      << operation << ")" << std::endl;
+            //Error
+            os << "Wrong string format (" << type << " " << path << " "<< operation << ")";
             Log_Writer.writeLogAndClear(os);
             sendMsg(s, "ERROR");
         }
     } else if (type == "DIR") {
-        //dirs modification handler
+        // Dirs modification handler
         if (operation == "created") {
             std::shared_ptr<Directory> dir = father.lock()->addDirectory(name, true);
             dirs[dir->getPath()] = dir;
             if (insertDirectoryIntoDB(db_path, dir) < 0) {
-                os << "Problema nell'inserire la directory sul DB" << std::endl;
+                os << "Problem in Directory insert on DB";
                 Log_Writer.writeLogAndClear(os);
             }
             sendMsg(s, "DONE");
         } else if (operation == "erased") {
             if (deleteDirectoryFromDB(db_path, dirs[path])<0) {
-                os << "Problema nel cancellare la directory sul DB" << std::endl;
+                os << "Problem deleting Directory from DB";
                 Log_Writer.writeLogAndClear(os);
             }
             father.lock()->removeDir(name);
             dirs.erase(path);
             sendMsg(s, "DONE");
         } else if (operation == "modified") {
-            // nothing to do
+            // Nothing to do
         } else {
             //errore
-            os << "Stringa non ricevuta correttamente (" << type << " " << path << " "
-                      << operation << ")" << std::endl;
+            os << "Wrong string format (" << type << " " << path << " "<< operation << ")";
             Log_Writer.writeLogAndClear(os);
             sendMsg(s, "ERROR");
         }
@@ -434,11 +410,9 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
     }
     mode = msg;
     std::unique_lock<std::mutex> ul(users_mutex);
-    std::cout<<"in print"<<std::endl;
     for(auto it:users_connected){
         std::cout<<it.first<<":"<<it.second<<std::endl;
     }
-    std::cout<<"end print"<<std::endl;
     if(users_connected.count(username) >= 1){ // this user is already connected, refuse the connection
         rcvMsg(s); // only to sync
         sendMsg(s, "user already connected");
@@ -454,7 +428,7 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
     std::string db_path = std::string(PATH_TO_DB)+username+".db";
     std::ifstream users(users_db_path);
     if (!users){
-        os<<"creating user DB"<<std::endl;
+        os<<"Creating user into DB"<<std::endl;
         Log_Writer.writeLogAndClear(os);
         createUsersDB(users_db_path);
     }
@@ -470,7 +444,7 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
     }
 
     if (!found){
-        // User not present on the db
+        // User is not present on DB
         insertUserIntoDB(users_db_path, user,db_mutex);
         if(rcvMsg(s) == "CONNECT-OK"){
             root = std::make_shared<Directory>()->makeDirectory(root_path+"/"+username,std::weak_ptr<Directory>());
@@ -480,7 +454,7 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
             sendMsg(s, "DIGEST " + digest);
         }
     }else{
-        // User already present on the db
+        // User already present on DB
         if (foundUser.getPassword() == computePasswordDigest(password+foundUser.getSalt())){
             // Correct username and password
             if(rcvMsg(s) == "CONNECT-OK"){
@@ -493,7 +467,7 @@ int rcvConnectRequest(Socket& s, const std::string root_path, std::string& usern
             return 0;
         }else{
             // Wrong username and/or password
-            rcvMsg(s); // discard this message
+            rcvMsg(s); // Discard this message
             sendMsg(s, "wrong username or password");
             return -1;
         }
@@ -509,12 +483,9 @@ void eraseSocket(std::map<int,Socket>& sockets, int id, std::mutex& m){
 
 void eraseUser(std::map<std::string, int>& users_connected, std::string user, std::mutex& m){
     std::lock_guard<std::mutex>lg(m);
-    std::cout<<"\t"<<user<<":"<<users_connected[user]<<std::endl;
-    std::cout<<"in del"<<std::endl;
     for(auto it:users_connected){
         std::cout<<it.first<<":"<<it.second<<std::endl;
     }
-    std::cout<<"end del"<<std::endl;
     users_connected.erase(user);
 }
 
@@ -523,4 +494,4 @@ void addSocket(std::map<int,Socket>& sockets, int id, Socket& s, std::mutex& m){
     sockets[id] = std::move(s);
 }
 
-#endif //PDS_PROJECT_SERVER_MAIN_FUNCTIONS_H
+#endif //MAIN_FUNCTIONS_H

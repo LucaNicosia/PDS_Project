@@ -1,8 +1,3 @@
-/*
- * Client
- * 
- */
-
 #include <iostream>
 #include <map>
 #include <memory>
@@ -14,28 +9,17 @@
 #include <exception>
 #include <signal.h>
 
-// database mySql libraries
-#include <sqlite3.h>
-
-#include "Entities/Database/Database.h"
-
-// Communication
 #include "Usefull functions/Communication/Communication.h"
-
-// Socket
-//#include "./TCP_Socket/Socket.h"
-
 #include "Entities/Directory/Directory.h"
 #include "Entities/File/File.h"
 #include "Entities/FileWatcher/FileWatcher.h"
 #include "Usefull functions/main_functions.h"
 #include "Entities/Exceptions/MyExceptions.h"
 
-
-//#define PORT 5108
 #define MAXFD 50000
 #define RESTORE 1
 #define UPDATED 0
+#define DEBUG 0
 
 Socket s;
 std::shared_ptr<Directory> root_ptr;
@@ -61,9 +45,9 @@ auto modification_function = [](const std::string file, const std::string filePa
     std::string cleaned_path = cleanPath(filePath,path);
     std::weak_ptr<Directory> father;
 
-    action_on_server("mod func"); // before anything, check connection with server
+    action_on_server("mod func"); // Before anything, check connection with server
 
-    if(ft == FileType::directory && fs == FileStatus::modified) // in this case, nothing to do: dir modification means a creation or cancellation of a sub directory
+    if(ft == FileType::directory && fs == FileStatus::modified) // In this case, nothing to do: dir modification means a creation or cancellation of a sub directory
         return;
 
     switch (fs) {
@@ -74,7 +58,7 @@ auto modification_function = [](const std::string file, const std::string filePa
                 if (synchronized) {
                     insertDirectoryIntoDB(db_path, dirs[cleaned_path]);
                 }
-            } else {// file
+            } else { // File
                 files[cleaned_path] = std::make_shared<File>(file,computeDigest(filePath), father);
                 if (synchronized) {
                     insertFileIntoDB(db_path, files[cleaned_path]);
@@ -95,7 +79,7 @@ auto modification_function = [](const std::string file, const std::string filePa
             }
             break;
         case FileStatus::modified:
-            // file only: directories are modified when its content is modified. No action needed
+            // File only: directories are modified when its content is modified. No action needed
             if(ft == FileType::file){
                 files[cleaned_path]->setHash(computeDigest(filePath));
                 if (synchronized) {
@@ -135,23 +119,23 @@ auto modification_function = [](const std::string file, const std::string filePa
         //error routine
         throw general_exception("ERROR message: "+res);
     }
-    if(res == "DONE" && ft == FileType::directory) // directory created/modified successfully on server. Job completed
+    if(res == "DONE" && ft == FileType::directory) // Directory created/modified successfully on server. Job completed
         return;
-    if(res == "DONE" && fs == FileStatus::erased) // file or directory cancellation needs only a "DONE" message
+    if(res == "DONE" && fs == FileStatus::erased) // File or directory cancellation needs only a "DONE" message
         return;
     if(res == "READY" && ft == FileType::file){
         int ret = sendFile(s,filePath,cleaned_path);
         if(ret == 0) {
             res = rcvMsg(s);
-            if (res != "DONE") { // file sended correctly
-                //error handling
+            if (res != "DONE") { // File sent correctly
+                // Error handling
                 throw general_exception("unknown-message");
             }
         }
         return;
     }
-    // if all went good, the code is already returned
-    // error
+    // If all went good, the code is already returned
+    // Error
     throw general_exception("code reached forbidden line");
 };
 
@@ -169,17 +153,18 @@ int main(int argc, char** argv)
         }
         case 0: {
             close(p[0]);
-            if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) // ignore SIGPIPE to check if pipe is broken
+            if (signal(SIGPIPE, SIG_IGN) == SIG_ERR) // Ignore SIGPIPE to check if pipe is broken
                 throw std::runtime_error("cannot ignore SIGPIPE");
             Log_Writer.setLogFilePath(LOG_PATH);
             Log_Writer.setUseMutex(true);
             int round_count = 0;
-            while (round_count++ < 3) { // try 3 times to recover from a problem
+            while (round_count++ < 3) { // Try 3 times to recover from a problem
                 try
                 {
                     changeRunningState(all_threads_running,true,thread_checker);
                     if (argc != 5) {
-                        std::string error = "not enough arguments - usage PORT USERNAME PASSWORD MODE";
+                        std::string error("not enough arguments - usage PORT USERNAME PASSWORD MODE");
+                        std::cout<<error.length()<<std::endl;
                         write(p[1],error.c_str(),error.length());
                         throw std::runtime_error(error);
                     }
@@ -194,13 +179,13 @@ int main(int argc, char** argv)
                         std::filesystem::create_directory(path);
                     }
 
-                    //ROOT INITIALIZATION
+                    // ROOT INITIALIZATION
                     root_ptr = std::make_shared<Directory>()->makeDirectory(path, std::weak_ptr<Directory>());
-                    // inizialization of data structures
+                    // Inizialization of data structures
                     initialize_files_and_dirs(files, dirs, path, db_path, root_ptr);
                     updateDB(db_path, files, dirs, root_ptr);
 
-                    // connect to server
+                    // Connect to server
                     // if 'files' and 'dirs' are empty, no file stored -> restore needed
                     // 'dirs.empty() == false ' is always true because in 'dirs' is stored 'root'
                     int ret = connect_to_remote_server((files.empty() && (dirs.size() == 1)) || (mode == "RESTORE"), p);
@@ -221,9 +206,9 @@ int main(int argc, char** argv)
                             if(errno != EPIPE){
                                 throw std::runtime_error("cannot write on pipe");
                             }
-                            // else the pipe has been already closed, no problem
+                            // Else the pipe has been already closed, no problem
                             std::ostringstream error;
-                            error << "minor problem in pipe writing: probably father already returned"<<std::endl;
+                            error << "minor problem in pipe writing: probably father already returned";
                             Log_Writer.writeLogAndClear(error);
                         }
                         throw general_exception(error);
@@ -235,7 +220,7 @@ int main(int argc, char** argv)
                         }
                         // else the pipe has been already closed, no problem
                         std::ostringstream error;
-                        error << "minor problem in pipe writing: probably father already returned"<<std::endl;
+                        error << "minor problem in pipe writing: probably father already returned";
                         Log_Writer.writeLogAndClear(error);
                     }
                     if (ret == RESTORE) {
@@ -253,12 +238,13 @@ int main(int argc, char** argv)
                         } catch (std::exception& e) {
                             changeRunningState(all_threads_running,false,thread_checker);
                             std::ostringstream os;
-                            os << e.what() << std::endl;
+                            os << e.what();
                             Log_Writer.writeLogAndClear(os);
                             fw.stop();
                         }
                     });
-                    std::cout << "--- System ready ---\n";
+                    if (DEBUG)
+                        std::cout << "--- System ready ---\n";
                     round_count = 0; // when the syncrosization is ended, reset the "try to connect" counter
                     std::thread t2([&thread_checker, &all_threads_running]() {
                         while (true) {
@@ -277,7 +263,7 @@ int main(int argc, char** argv)
                             catch (std::exception& e) {
                                 changeRunningState(all_threads_running,false,thread_checker);
                                 std::ostringstream os;
-                                os << e.what() << std::endl;
+                                os << e.what();
                                 Log_Writer.writeLogAndClear(os);
                                 fw.stop();
                                 break;
@@ -309,11 +295,12 @@ int main(int argc, char** argv)
         }
         default: {
             close(p[1]);
-            char auth_message[50];
+            char auth_message[100];
             std::cout<<"child pid: "<<pid<<std::endl;
             int rc;
-            if ((rc = ::read(p[0], auth_message, 50)) < 0)
+            if ((rc = ::read(p[0], auth_message, 100)) < 0)
                 throw std::runtime_error("error during pipe reading");
+            auth_message[rc] = '\0';
             std::cout<<auth_message<<std::endl;
             if(strcmp(auth_message,"user already connected") == 0)
                 return -1;
@@ -360,15 +347,18 @@ int connect_to_remote_server(bool needs_restore, int* p){
     if (!needs_restore){
         // check if the DB is updated
         if(!compareDigests(server_digest,client_digest)){
-            std::cout<<"server DB is not updated\n";
+            if (DEBUG)
+                std::cout<<"server DB is not updated\n";
             // get DB from server
             sendMsg(s,"GET-DB");
             rcvFile(s,server_db_path);
             // check which files and directories aren't updated
             checkDB(path,"",server_db_path,files,dirs,modification_function, root_ptr);
-            std::cout<<"--- checkDB ended ---\n";
+            if (DEBUG)
+                std::cout<<"--- checkDB ended ---\n";
         } else {
-            std::cout<<"server DB is updated\n";
+            if (DEBUG)
+                std::cout<<"server DB is updated\n";
             sendMsg(s,"Database up to date");
             if(rcvMsg(s) != "server_db_ok"){
                 return -1; // error in db response on 'server_db_ok'
@@ -393,7 +383,8 @@ void action_on_server(std::string str){ // this function is used in a loop to ch
 
     if (!s.is_open() && cur == FileWatcher_state::mod_found &&
         last == FileWatcher_state::ready) { // first modification found, open the socket
-        std::cout << "action_on_server opening" << std::endl;
+        if (DEBUG)
+            std::cout << "action_on_server opening" << std::endl;
         lg.unlock();
         connect_to_remote_server(false,
                                  nullptr); // this function can call 'action_on_server', deadlock without unlock
@@ -402,7 +393,6 @@ void action_on_server(std::string str){ // this function is used in a loop to ch
     if (s.is_open() &&
         (cur == FileWatcher_state::ended ||
          cur == FileWatcher_state::ready && last == FileWatcher_state::ended)) {
-        //std::cout<<">> action -> close\n";
         sendMsg(s, "update completed");
         s.close();
     }

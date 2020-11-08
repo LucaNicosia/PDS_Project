@@ -1,9 +1,5 @@
-//
-// Created by giuseppetoscano on 10/08/20.
-//
-
-#ifndef PDS_PROJECT_SERVER_COMMUNICATION_H
-#define PDS_PROJECT_SERVER_COMMUNICATION_H
+#ifndef COMMUNICATION_H
+#define COMMUNICATION_H
 
 #include "../../Entities/Socket/Socket.h"
 #include "../Crypto/MyCryptoLibrary.h"
@@ -14,20 +10,18 @@
 #include "../constants.h"
 
 #define SIZE 2048
-#define DEBUG 1
+#define DEBUG 0
 
 int sendMsg(Socket& s, const std::string msg);
 std::string rcvMsg(Socket& s);
 std::string rcvFile(Socket& s, const std::string path);
 int sendFile(Socket& s, const std::string path, const std::string path_to_send);
 
-
-
-//COMMUNICATION BETWEEN CLIENT AND SERVER
+// COMMUNICATION BETWEEN CLIENT AND SERVER
 int sendMsg(Socket& s, const std::string msg){
     try {
         std::ostringstream os;
-        os << "Stringa Mandata: " << std::string(msg) << " msg-size: " << msg.size() << " sul socket "<< s.__sock_fd() << std::endl;
+        os << "Sent string: " << std::string(msg) << " msg-size: " << msg.size() << " on socket "<< s.__sock_fd() << std::endl;
         if(DEBUG)
             std::cout << os.str();
         Log_Writer.writeLog(os);
@@ -49,7 +43,7 @@ std::string rcvMsg(Socket& s){
         if (size == 0)
             throw socket_exception("empty message received\n");
         msg[size] = '\0';
-        os << "Stringa ricevuta: " << std::string(msg) << " msg-size: " << size << " sul socket " << s.__sock_fd()
+        os << "Received string: " << std::string(msg) << " msg-size: " << size << " on socket " << s.__sock_fd()
            << std::endl;
         if (DEBUG)
             std::cout << os.str();
@@ -84,7 +78,6 @@ std::string rcvFile(Socket& s, const std::string path){
 
 
 int sendFile(Socket& s, const std::string path, const std::string path_to_send){
-    // <- FILE 'path'
     std::ifstream myFile(path,std::ios::in);
     myFile.seekg(0,myFile.end);
     unsigned long long int length = myFile.tellg();
@@ -92,7 +85,7 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
     sendMsg(s, std::string ("FILE "+path_to_send+" "+std::to_string(length)));
     std::string msg = rcvMsg(s);
     if(msg == "OKDONE" && length == 0) {
-        // no data to tranfer,return
+        // No data to tranfer, return
         return 1;
     }
     if(msg != "OK"){
@@ -114,4 +107,4 @@ int sendFile(Socket& s, const std::string path, const std::string path_to_send){
     return 0;
 };
 
-#endif //PDS_PROJECT_SERVER_COMMUNICATION_H
+#endif //COMMUNICATION_H

@@ -1,26 +1,13 @@
-//
-// Created by giuse on 27/04/2020.
-//
-
 #include "Directory.h"
 #include "../File/File.h"
-#include <typeinfo>
 #include <filesystem>
 #include <fstream>
 
-#define DIR 0
-#define FILE 1
-
-
 namespace fs = std::filesystem;
 
-Directory::Directory(){
+Directory::Directory(){}
 
-}
-
-Directory::~Directory() {
-
-}
+Directory::~Directory() {}
 
 std::shared_ptr<Directory> Directory::addDirectory(std::string dName, const bool& create_flag){
 
@@ -62,7 +49,6 @@ std::shared_ptr<Directory> Directory::makeDirectory(std::string dName, std::weak
 std::shared_ptr<File> Directory::addFile (const std::string name, const std::string &hash, const bool& create_flag){
 
     if (this != 0){
-
         std::shared_ptr<File> file = std::make_shared<File>(name, hash, std::weak_ptr<Directory>(self));
         fSons.push_back(file);
         if(create_flag) { // only when 'create_flag == true' the file is actually created

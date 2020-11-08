@@ -1,9 +1,5 @@
-//
-// Created by giuseppetoscano on 09/08/20.
-//
-
-#ifndef PDS_PROJECT_CLIENT_CRYPTO_H
-#define PDS_PROJECT_CLIENT_CRYPTO_H
+#ifndef CRYPTO_H
+#define CRYPTO_H
 
 #include "cryptopp/hex.h"
 #include "cryptopp/files.h"
@@ -16,7 +12,6 @@ CryptoPP::SHA1 hash_to_append;
 
 //Hash a file, which path is given.
 std::string computeDigest(std::string filePath){
-    //std::cout<<"computing "<<filePath<<std::endl;
     const int SIZE = 4096;
     std::string digest;
     CryptoPP::SHA1 hash;
@@ -24,26 +19,20 @@ std::string computeDigest(std::string filePath){
     if (input.is_open()) {
         input.seekg(0,input.end);
         unsigned long long int length = input.tellg();
-        //std::cout<<length<<std::endl;
         input.seekg(0,input.beg);
         char line[SIZE]="";
-        //std::cout<<"prima"<<std::endl;
         unsigned long long int ri,rf;
         while (length > 0) {
             ri = input.tellg();
             input.read(line,sizeof(line));
-            //std::cout<<line<<std::endl;
             rf = input.tellg();
             if(rf == static_cast<unsigned long long int>(-1)){
                 rf = length;
                 ri = 0;
             }
             length -= (rf - ri);
-            //std::cout<<rf<<"-"<<ri<<" ";
-            //std::cout<<rf - ri<<std::endl;
             hash.Update(reinterpret_cast<const byte*>(line), rf - ri);
         }
-        //std::cout<<"dopo"<<std::endl;
         input.close();
     }else{
         return std::string("DIGEST-ERROR");
@@ -54,7 +43,6 @@ std::string computeDigest(std::string filePath){
     CryptoPP::StringSource(digest, true, new CryptoPP::Base64Encoder(new CryptoPP::StringSink(encoded)));
     encoded = encoded.substr(0,encoded.size()-1); // remove "\n" at the end
     input.close();
-    //std::cout<<"ending "<<filePath<<std::endl;
     return encoded;
 }
 
@@ -72,7 +60,6 @@ std::string computePasswordDigest(std::string saltedPassword){
 }
 
 void appendDigest(const char* str, const int size){
-    //std::cout<<"append: "<<str<<std::endl;
     hash_to_append.Update(reinterpret_cast<const byte*>(str),size);
 }
 
@@ -91,4 +78,4 @@ bool compareDigests(std::string digest1, std::string digest2){
     return digest1.compare(digest2) == 0;
 }
 
-#endif //PDS_PROJECT_CLIENT_CRYPTO_H
+#endif //CRYPTO_H

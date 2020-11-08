@@ -1,15 +1,12 @@
-//
-// Created by giuseppetoscano on 03/10/20.
-//
-
-#ifndef PDS_PROJECT_SERVER_USER_H
-#define PDS_PROJECT_SERVER_USER_H
+#ifndef USER_H
+#define USER_H
 
 #include <string>
 #include <iostream>
 #include "../../Usefull functions/Crypto/MyCryptoLibrary.h"
 
 #define SIZE_SALT 10
+#define DEBUG 0
 
 class User {
     std::string username;
@@ -54,9 +51,10 @@ public:
         }else if(field == "salt"){
             salt = value;
         }else{
-            std::cout<<"Directory: Invalid field! ("<<field<<")\n"; // QUI CI VUOLE UNA ECCEZIONE
+            if (DEBUG)
+                std::cout<<"Directory: Invalid field! ("<<field<<")\n";
         }
     }
 };
 
-#endif //PDS_PROJECT_SERVER_USER_H
+#endif //USER_H
