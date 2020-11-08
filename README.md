@@ -2,7 +2,7 @@
 ###### Students:  Giuseppe Toscano (280086) - Luca Nicosia (269565)
 ###### GitHub link: https://github.com/LucaNicosia/PDS_Project  
 
-#### 1. Needed packages
+## 1. Needed packages
 - [SQLITE3](https://www.sqlite.org/cintro.html): `sudo apt-get install libsqlite3-dev`
 - [CRYPTOPP](https://www.cryptopp.com/wiki/SHA): `sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils`
 
