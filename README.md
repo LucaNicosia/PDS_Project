@@ -32,9 +32,9 @@
 #### 3. Parameters of the executable files
 - **PDS_Project_Server**: `PORT` (e.g. 5111)
 - **PDS_Project_Client**: `PORT username password FETCH/RESTORE`(e.g. 5111 user1 pass FETCH)
-  >You can execute our program in two different modes:
-    1. FETCH: *replicates all user actions on client directory in server directory*
-    2. RESTORE: *delete all local files and restore  all data contained in the server directory*
+  >The program can be executed in two different modes:
+  > 1. FETCH: *replicates all user actions on client directory in server directory*
+  > 2. RESTORE: *delete all local files and restore  all data contained in the server directory*
 
 
 #### 4. Internal structures
