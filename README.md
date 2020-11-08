@@ -51,6 +51,7 @@ Two db types:
 ##### 4.2 Communication protocol
 
 - **FETCH MODE**:
+
         CLIENT                                                SERVER                                                                                       
         CONNECT username password mode ->
                                                               <- CONNECT-OK
