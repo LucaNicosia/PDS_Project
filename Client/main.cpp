@@ -15,11 +15,11 @@
 #include "Entities/FileWatcher/FileWatcher.h"
 #include "Usefull functions/main_functions.h"
 #include "Entities/Exceptions/MyExceptions.h"
+#include "Usefull functions/constants.h"
 
 #define MAXFD 50000
 #define RESTORE 1
 #define UPDATED 0
-#define DEBUG 0
 
 Socket s;
 std::shared_ptr<Directory> root_ptr;
@@ -37,7 +37,7 @@ int port;
 std::mutex action_server_mutex;
 
 int connect_to_remote_server(bool needs_restore, int* p);
-void action_on_server(std::string str);
+void action_on_server();
 void resetVariables(const std::string exc_type, const std::exception& e, std::mutex& m, bool& all_threads_running);
 
 auto modification_function = [](const std::string file, const std::string filePath, FileStatus fs, FileType ft){ // file is the file name
@@ -45,7 +45,7 @@ auto modification_function = [](const std::string file, const std::string filePa
     std::string cleaned_path = cleanPath(filePath,path);
     std::weak_ptr<Directory> father;
 
-    action_on_server("mod func"); // Before anything, check connection with server
+    action_on_server(); // Before anything, check connection with server
 
     if(ft == FileType::directory && fs == FileStatus::modified) // In this case, nothing to do: dir modification means a creation or cancellation of a sub directory
         return;
@@ -141,6 +141,10 @@ auto modification_function = [](const std::string file, const std::string filePa
 
 int main(int argc, char** argv)
 {
+    if (argc != 5) {
+        std::string error("not enough arguments - usage PORT USERNAME PASSWORD MODE");
+        throw std::runtime_error(error);
+    }
     std::mutex thread_checker;
     bool all_threads_running = true;
     int p[2];
@@ -162,12 +166,6 @@ int main(int argc, char** argv)
                 try
                 {
                     changeRunningState(all_threads_running,true,thread_checker);
-                    if (argc != 5) {
-                        std::string error("not enough arguments - usage PORT USERNAME PASSWORD MODE");
-                        std::cout<<error.length()<<std::endl;
-                        write(p[1],error.c_str(),error.length());
-                        throw std::runtime_error(error);
-                    }
                     port = std::atoi(argv[1]);
                     username = std::string(argv[2]);
                     password = std::string(argv[3]);
@@ -226,6 +224,7 @@ int main(int argc, char** argv)
                     if (ret == RESTORE) {
                         restore(s, files, dirs, path, db_path, files.empty() && (dirs.size() == 1), root_ptr);
                     }
+                    mode = "FETCH"; // set mode to FETCH after a restore
 
                     // SYN with server completed, starting to monitor client directory
                     synchronized = true;
@@ -245,7 +244,7 @@ int main(int argc, char** argv)
                     });
                     if (DEBUG)
                         std::cout << "--- System ready ---\n";
-                    round_count = 0; // when the syncrosization is ended, reset the "try to connect" counter
+                    round_count = 0; // when the syncronisization is ended, reset the "try to connect" counter
                     std::thread t2([&thread_checker, &all_threads_running]() {
                         while (true) {
                             try {
@@ -258,7 +257,7 @@ int main(int argc, char** argv)
                                 std::unique_lock<std::mutex> ul(action_server_mutex);
                                 if (!fw.isRunning()) return;
                                 ul.unlock();
-                                action_on_server("on thread");
+                                action_on_server();
                             }
                             catch (std::exception& e) {
                                 changeRunningState(all_threads_running,false,thread_checker);
@@ -298,12 +297,20 @@ int main(int argc, char** argv)
             char auth_message[100];
             std::cout<<"child pid: "<<pid<<std::endl;
             int rc;
-            if ((rc = ::read(p[0], auth_message, 100)) < 0)
-                throw std::runtime_error("error during pipe reading");
-            auth_message[rc] = '\0';
-            std::cout<<auth_message<<std::endl;
-            if(strcmp(auth_message,"user already connected") == 0)
-                return -1;
+            do {
+                if ((rc = ::read(p[0], auth_message, 100)) < 0)
+                    throw std::runtime_error("error during pipe reading");
+                if(rc == 0){
+                    std::cout<<"general error. Open log.txt for more informations"<<std::endl;
+                    return -1;
+                }
+                auth_message[rc] = '\0';
+                std::cout << auth_message << std::endl;
+                if (strcmp(auth_message, "user already connected") == 0)
+                    return -2;
+                if (strcmp(auth_message, "wrong username or password") == 0)
+                    return -3;
+            }while(strcmp(auth_message,"connection succeed") != 0);
             break;
         }
     }
@@ -315,7 +322,7 @@ void resetVariables(const std::string exc_type, const std::exception& e, std::mu
     changeRunningState(all_threads_running,false,m);
     fw.stop();
     std::ostringstream os;
-    os << exc_type <<" "<< e.what() << std::endl;
+    os << exc_type <<" "<< e.what();
     Log_Writer.writeLogAndClear(os);
     s.close();
     dirs.clear();
@@ -375,7 +382,7 @@ int connect_to_remote_server(bool needs_restore, int* p){
     return UPDATED;
 }
 
-void action_on_server(std::string str){ // this function is used in a loop to check the state of the FileWatcher
+void action_on_server(){ // this function is used in a loop to check the state of the FileWatcher
     std::unique_lock<std::mutex> lg(action_server_mutex);
     if (!fw.isRunning()) return;
     FileWatcher_state last, cur;

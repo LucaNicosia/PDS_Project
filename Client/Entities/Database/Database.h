@@ -8,8 +8,6 @@
 #include <fstream>
 #include "../../Entities/Exceptions/MyExceptions.h"
 
-#define DEBUG 0
-
 
 class Database {
     sqlite3 *db;

@@ -2923,3 +2923,290 @@
 20201025 17:26:41 140346327914240 received string: Database up to date msg-size: 19 on socket 4
 20201025 17:26:41 140346327914240 sent string: server_db_ok msg-size: 12 on socket 4
 20201025 17:26:44 140346327914240 received string: update completed msg-size: 16 on socket 4
+20201108 09:39:27 140405403659520 Waiting for incoming connections at port 5110...
+20201108 09:42:34 140405403659520 Got a connection from 127.0.0.1:57688
+20201108 09:42:34 140405403659520 Waiting for incoming connections at port 5110...
+20201108 09:42:34 140405403633408 received string: CONNECT user1 passw FETCH msg-size: 25 on socket 4
+20201108 09:42:34 140405403633408 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 09:42:34 140405403633408 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 09:42:34 140405403633408 sent string: wrong username or password msg-size: 26 on socket 4
+20201108 09:42:34 140405403633408 Wrong username and/or password
+
+20201108 09:45:14 140405403659520 Got a connection from 127.0.0.1:57700
+20201108 09:45:14 140405403659520 Waiting for incoming connections at port 5110...
+20201108 09:45:14 140405403633408 received string: CONNECT user1 passw FETCH msg-size: 25 on socket 5
+20201108 09:45:14 140405403633408 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 09:45:14 140405403633408 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 09:45:14 140405403633408 sent string: wrong username or password msg-size: 26 on socket 5
+20201108 09:45:14 140405403633408 Wrong username and/or password
+
+20201108 10:02:37 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:02:45 140421780225280 Got a connection from 127.0.0.1:57762
+20201108 10:02:45 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:02:45 140421780199168 received string: CONNECT user2 passw FETCH msg-size: 25 on socket 4
+20201108 10:02:45 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:02:45 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:02:45 140421780199168 sent string: wrong username or password msg-size: 26 on socket 4
+20201108 10:02:45 140421780199168 Wrong username and/or password
+20201108 10:04:15 140421780225280 Got a connection from 127.0.0.1:57764
+20201108 10:04:15 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:04:15 140421780199168 received string: CONNECT user2 passw FETCH msg-size: 25 on socket 5
+20201108 10:04:15 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:04:15 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:04:15 140421780199168 sent string: wrong username or password msg-size: 26 on socket 5
+20201108 10:04:15 140421780199168 Wrong username and/or password
+20201108 10:04:46 140421780225280 Got a connection from 127.0.0.1:57768
+20201108 10:04:46 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:04:46 140421780199168 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 4
+20201108 10:04:46 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:04:46 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:04:48 140421780199168 sent string: DIGEST QHxwSe3H1ZzjnKquQRS2uLwPG0g= msg-size: 35 on socket 4
+20201108 10:04:48 140421780199168 received string: Database up to date msg-size: 19 on socket 4
+20201108 10:04:48 140421780199168 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 10:04:51 140421780199168 received string: update completed msg-size: 16 on socket 4
+20201108 10:06:28 140421780225280 Got a connection from 127.0.0.1:57776
+20201108 10:06:28 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:06:28 140421780199168 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 5
+20201108 10:06:28 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:06:28 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:06:30 140421780199168 sent string: DIGEST QHxwSe3H1ZzjnKquQRS2uLwPG0g= msg-size: 35 on socket 5
+20201108 10:06:30 140421780199168 received string: Database up to date msg-size: 19 on socket 5
+20201108 10:06:30 140421780199168 sent string: server_db_ok msg-size: 12 on socket 5
+20201108 10:06:33 140421780199168 received string: update completed msg-size: 16 on socket 5
+20201108 10:07:01 140421780225280 Got a connection from 127.0.0.1:57778
+20201108 10:07:01 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:07:01 140421780199168 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 4
+20201108 10:07:01 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:07:01 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:07:03 140421780199168 sent string: DIGEST QHxwSe3H1ZzjnKquQRS2uLwPG0g= msg-size: 35 on socket 4
+20201108 10:07:03 140421780199168 received string: Database up to date msg-size: 19 on socket 4
+20201108 10:07:03 140421780199168 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 10:07:06 140421780199168 received string: update completed msg-size: 16 on socket 4
+20201108 10:07:56 140421780225280 Got a connection from 127.0.0.1:57780
+20201108 10:07:56 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:07:56 140421780199168 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 5
+20201108 10:07:56 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:07:56 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:07:58 140421780199168 sent string: DIGEST QHxwSe3H1ZzjnKquQRS2uLwPG0g= msg-size: 35 on socket 5
+20201108 10:07:58 140421780199168 received string: restore msg-size: 7 on socket 5
+20201108 10:07:58 140421780199168 sent string: DIR BIG_DIR5 created msg-size: 20 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: DIR BIG_DIR5/Soft created msg-size: 25 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: DIR BIG_DIR5/Soft/DirectX created msg-size: 33 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: DIR BIG_DIR5/Soft/Redist created msg-size: 32 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: DIR ciao0 created msg-size: 17 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Setup.exe created msg-size: 31 on socket 5
+20201108 10:07:58 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Setup.exe 8534316 msg-size: 31 on socket 5
+20201108 10:07:58 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe created msg-size: 46 on socket 5
+20201108 10:07:58 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 on socket 5
+20201108 10:07:58 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf created msg-size: 51 on socket 5
+20201108 10:07:58 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 919 msg-size: 47 on socket 5
+20201108 10:07:58 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe created msg-size: 50 on socket 5
+20201108 10:07:58 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 on socket 5
+20201108 10:07:58 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe created msg-size: 50 on socket 5
+20201108 10:07:58 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 on socket 5
+20201108 10:07:58 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/crack.bin created msg-size: 31 on socket 5
+20201108 10:07:58 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/crack.bin 6635723 msg-size: 31 on socket 5
+20201108 10:07:58 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:07:58 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/data-1.bin created msg-size: 32 on socket 5
+20201108 10:07:58 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:07:58 140421780199168 sent string: FILE BIG_DIR5/data-1.bin 879889784 msg-size: 34 on socket 5
+20201108 10:07:58 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:08:14 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:08:14 140421780199168 sent string: FILE BIG_DIR5/data-steam.bin created msg-size: 36 on socket 5
+20201108 10:08:14 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:08:14 140421780199168 sent string: FILE BIG_DIR5/data-steam.bin 4183273 msg-size: 36 on socket 5
+20201108 10:08:14 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:08:14 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:08:14 140421780199168 sent string: restore completed msg-size: 17 on socket 5
+20201108 10:08:17 140421780199168 received string: update completed msg-size: 16 on socket 5
+20201108 10:08:30 140421780225280 Got a connection from 127.0.0.1:57782
+20201108 10:08:30 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:08:30 140421780199168 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 4
+20201108 10:08:30 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:08:30 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:08:32 140421780199168 sent string: DIGEST QHxwSe3H1ZzjnKquQRS2uLwPG0g= msg-size: 35 on socket 4
+20201108 10:08:32 140421780199168 received string: Database up to date msg-size: 19 on socket 4
+20201108 10:08:32 140421780199168 sent string: server_db_ok msg-size: 12 on socket 4
+20201108 10:08:32 140421780199168 received string: DIR ciao0 erased msg-size: 16 on socket 4
+20201108 10:08:32 140421780199168 sent string: DONE msg-size: 4 on socket 4
+20201108 10:08:32 140421780199168 received string: DIR ciao1 created msg-size: 17 on socket 4
+20201108 10:08:32 140421780199168 sent string: DONE msg-size: 4 on socket 4
+20201108 10:08:33 140421780199168 received string: update completed msg-size: 16 on socket 4
+20201108 10:11:44 140421780225280 Got a connection from 127.0.0.1:57790
+20201108 10:11:44 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:11:44 140421780199168 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 5
+20201108 10:11:44 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:11:44 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:11:46 140421780199168 sent string: DIGEST Tgf3TLnWChSSKt0ReqkcgUrMDyk= msg-size: 35 on socket 5
+20201108 10:11:46 140421780199168 received string: restore msg-size: 7 on socket 5
+20201108 10:11:46 140421780199168 sent string: DIR BIG_DIR5 created msg-size: 20 on socket 5
+20201108 10:11:46 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:46 140421780199168 sent string: DIR BIG_DIR5/Soft created msg-size: 25 on socket 5
+20201108 10:11:46 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:46 140421780199168 sent string: DIR BIG_DIR5/Soft/DirectX created msg-size: 33 on socket 5
+20201108 10:11:46 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:46 140421780199168 sent string: DIR BIG_DIR5/Soft/Redist created msg-size: 32 on socket 5
+20201108 10:11:46 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:46 140421780199168 sent string: DIR ciao1 created msg-size: 17 on socket 5
+20201108 10:11:46 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:46 140421780199168 sent string: FILE BIG_DIR5/Setup.exe created msg-size: 31 on socket 5
+20201108 10:11:46 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:11:46 140421780199168 sent string: FILE BIG_DIR5/Setup.exe 8534316 msg-size: 31 on socket 5
+20201108 10:11:46 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:11:46 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:46 140421780199168 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe created msg-size: 46 on socket 5
+20201108 10:11:46 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:11:46 140421780199168 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 on socket 5
+20201108 10:11:46 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:11:46 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:46 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf created msg-size: 51 on socket 5
+20201108 10:11:46 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:11:46 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 919 msg-size: 47 on socket 5
+20201108 10:11:46 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:11:46 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:46 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe created msg-size: 50 on socket 5
+20201108 10:11:46 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:11:46 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 on socket 5
+20201108 10:11:46 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:11:47 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:47 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe created msg-size: 50 on socket 5
+20201108 10:11:47 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:11:47 140421780199168 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 on socket 5
+20201108 10:11:47 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:11:47 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:47 140421780199168 sent string: FILE BIG_DIR5/crack.bin created msg-size: 31 on socket 5
+20201108 10:11:47 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:11:47 140421780199168 sent string: FILE BIG_DIR5/crack.bin 6635723 msg-size: 31 on socket 5
+20201108 10:11:47 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:11:47 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:11:47 140421780199168 sent string: FILE BIG_DIR5/data-1.bin created msg-size: 32 on socket 5
+20201108 10:11:47 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:11:47 140421780199168 sent string: FILE BIG_DIR5/data-1.bin 879889784 msg-size: 34 on socket 5
+20201108 10:11:47 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:12:04 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:12:04 140421780199168 sent string: FILE BIG_DIR5/data-steam.bin created msg-size: 36 on socket 5
+20201108 10:12:04 140421780199168 received string: READY msg-size: 5 on socket 5
+20201108 10:12:04 140421780199168 sent string: FILE BIG_DIR5/data-steam.bin 4183273 msg-size: 36 on socket 5
+20201108 10:12:04 140421780199168 received string: OK msg-size: 2 on socket 5
+20201108 10:12:04 140421780199168 received string: DONE msg-size: 4 on socket 5
+20201108 10:12:04 140421780199168 sent string: restore completed msg-size: 17 on socket 5
+20201108 10:12:07 140421780199168 received string: update completed msg-size: 16 on socket 5
+20201108 10:12:16 140421780225280 Got a connection from 127.0.0.1:57792
+20201108 10:12:16 140421780225280 Waiting for incoming connections at port 5110...
+20201108 10:12:16 140421780199168 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 6
+20201108 10:12:16 140421780199168 sent string: CONNECT-OK msg-size: 10 on socket 6
+20201108 10:12:16 140421780199168 received string: CONNECT-OK msg-size: 10 on socket 6
+20201108 10:12:18 140421780199168 sent string: DIGEST Tgf3TLnWChSSKt0ReqkcgUrMDyk= msg-size: 35 on socket 6
+20201108 10:12:18 140421780199168 received string: Database up to date msg-size: 19 on socket 6
+20201108 10:12:18 140421780199168 sent string: server_db_ok msg-size: 12 on socket 6
+20201108 10:12:18 140421780199168 received string: DIR ciao1 erased msg-size: 16 on socket 6
+20201108 10:12:18 140421780199168 sent string: DONE msg-size: 4 on socket 6
+20201108 10:12:18 140421780199168 received string: DIR ciao2 created msg-size: 17 on socket 6
+20201108 10:12:18 140421780199168 sent string: DONE msg-size: 4 on socket 6
+20201108 10:12:19 140421780199168 received string: update completed msg-size: 16 on socket 6
+20201108 10:13:30 139647704894720 Waiting for incoming connections at port 5110...
+20201108 10:13:46 139647704894720 Got a connection from 127.0.0.1:57806
+20201108 10:13:46 139647704894720 Waiting for incoming connections at port 5110...
+20201108 10:13:46 139647704868608 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 4
+20201108 10:13:46 139647704868608 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:13:46 139647704868608 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:13:48 139647704868608 sent string: DIGEST XF9GCwTc3HqsRntX74xUAOTX/js= msg-size: 35 on socket 4
+20201108 10:13:48 139647704868608 received string: GET-DB msg-size: 6 on socket 4
+20201108 10:13:48 139647704868608 sent string: FILE user2.db 20480 msg-size: 19 on socket 4
+20201108 10:13:48 139647704868608 received string: OK msg-size: 2 on socket 4
+20201108 10:13:48 139647704868608 received string: DIR ciao3 created msg-size: 17 on socket 4
+20201108 10:13:48 139647704868608 sent string: DONE msg-size: 4 on socket 4
+20201108 10:13:48 139647704868608 received string: DIR ciao2 erased msg-size: 16 on socket 4
+20201108 10:13:48 139647704868608 sent string: DONE msg-size: 4 on socket 4
+20201108 10:13:51 139647704868608 received string: update completed msg-size: 16 on socket 4
+20201108 10:14:48 139647704894720 Got a connection from 127.0.0.1:57810
+20201108 10:14:48 139647704894720 Waiting for incoming connections at port 5110...
+20201108 10:14:48 139647704868608 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 5
+20201108 10:14:48 139647704868608 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:14:48 139647704868608 received string: CONNECT-OK msg-size: 10 on socket 5
+20201108 10:14:50 139647704868608 sent string: DIGEST Tf8VAFIwFG/khSzFCMoRR682Els= msg-size: 35 on socket 5
+20201108 10:14:50 139647704868608 received string: Database up to date msg-size: 19 on socket 5
+20201108 10:14:50 139647704868608 sent string: server_db_ok msg-size: 12 on socket 5
+20201108 10:14:53 139647704868608 received string: update completed msg-size: 16 on socket 5
+20201108 10:15:12 140399432568064 Waiting for incoming connections at port 5110...
+20201108 10:15:17 140399432568064 Got a connection from 127.0.0.1:57814
+20201108 10:15:17 140399432568064 Waiting for incoming connections at port 5110...
+20201108 10:15:17 140399432541952 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 4
+20201108 10:15:17 140399432541952 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:15:17 140399432541952 received string: CONNECT-OK msg-size: 10 on socket 4
+20201108 10:15:19 140399432541952 sent string: DIGEST Tf8VAFIwFG/khSzFCMoRR682Els= msg-size: 35 on socket 4
+20201108 10:15:19 140399432541952 received string: restore msg-size: 7 on socket 4
+20201108 10:15:19 140399432541952 sent string: DIR BIG_DIR5 created msg-size: 20 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: DIR BIG_DIR5/Soft created msg-size: 25 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: DIR BIG_DIR5/Soft/DirectX created msg-size: 33 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: DIR BIG_DIR5/Soft/Redist created msg-size: 32 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: DIR ciao3 created msg-size: 17 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Setup.exe created msg-size: 31 on socket 4
+20201108 10:15:20 140399432541952 received string: READY msg-size: 5 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Setup.exe 8534316 msg-size: 31 on socket 4
+20201108 10:15:20 140399432541952 received string: OK msg-size: 2 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe created msg-size: 46 on socket 4
+20201108 10:15:20 140399432541952 received string: READY msg-size: 5 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 on socket 4
+20201108 10:15:20 140399432541952 received string: OK msg-size: 2 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf created msg-size: 51 on socket 4
+20201108 10:15:20 140399432541952 received string: READY msg-size: 5 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 919 msg-size: 47 on socket 4
+20201108 10:15:20 140399432541952 received string: OK msg-size: 2 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe created msg-size: 50 on socket 4
+20201108 10:15:20 140399432541952 received string: READY msg-size: 5 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 on socket 4
+20201108 10:15:20 140399432541952 received string: OK msg-size: 2 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe created msg-size: 50 on socket 4
+20201108 10:15:20 140399432541952 received string: READY msg-size: 5 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 on socket 4
+20201108 10:15:20 140399432541952 received string: OK msg-size: 2 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/crack.bin created msg-size: 31 on socket 4
+20201108 10:15:20 140399432541952 received string: READY msg-size: 5 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/crack.bin 6635723 msg-size: 31 on socket 4
+20201108 10:15:20 140399432541952 received string: OK msg-size: 2 on socket 4
+20201108 10:15:20 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/data-1.bin created msg-size: 32 on socket 4
+20201108 10:15:20 140399432541952 received string: READY msg-size: 5 on socket 4
+20201108 10:15:20 140399432541952 sent string: FILE BIG_DIR5/data-1.bin 879889784 msg-size: 34 on socket 4
+20201108 10:15:20 140399432541952 received string: OK msg-size: 2 on socket 4
+20201108 10:15:30 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:30 140399432541952 sent string: FILE BIG_DIR5/data-steam.bin created msg-size: 36 on socket 4
+20201108 10:15:31 140399432541952 received string: READY msg-size: 5 on socket 4
+20201108 10:15:31 140399432541952 sent string: FILE BIG_DIR5/data-steam.bin 4183273 msg-size: 36 on socket 4
+20201108 10:15:31 140399432541952 received string: OK msg-size: 2 on socket 4
+20201108 10:15:31 140399432541952 received string: DONE msg-size: 4 on socket 4
+20201108 10:15:31 140399432541952 sent string: restore completed msg-size: 17 on socket 4
+20201108 10:15:35 140399432541952 received string: update completed msg-size: 16 on socket 4

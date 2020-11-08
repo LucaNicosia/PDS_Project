@@ -84,13 +84,13 @@ int main(int argc, char** argv){
                         while ((rc=rcvConnectRequest(sockets[id], root_path, username, password, mode, root, files, dirs, users_connected, users_mutex, id, user_db_mutex)) < 0) {
                             switch(rc){
                                 case -1:
-                                    os << "Wrong username and/or password"<<std::endl;
+                                    os << "Wrong username and/or password";
                                     break;
                                 case -2:
-                                    os << "User "+username+" already connected"<<std::endl;
+                                    os << "User "+username+" already connected";
                                     break;
                                 default:
-                                    os << "unknown error type"<<std::endl;
+                                    os << "unknown error type";
                             }
                             Log_Writer.writeLogAndClear(os);
                             throw general_exception(os.str());

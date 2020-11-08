@@ -10,7 +10,6 @@
 #include "../constants.h"
 
 #define SIZE 2048
-#define DEBUG 1
 
 int sendMsg(Socket& s, const std::string msg);
 std::string rcvMsg(Socket& s);

@@ -7,8 +7,7 @@
 #include <vector>
 #include <fstream>
 #include "../../Entities/Exceptions/MyExceptions.h"
-
-#define DEBUG 0
+#include "../../Usefull functions/constants.h"
 
 
 class Database {
