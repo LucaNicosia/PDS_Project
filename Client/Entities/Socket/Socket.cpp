@@ -1,7 +1,3 @@
-//
-// Created by giuseppetoscano on 13/06/20.
-//
-
 #include <fcntl.h>
 #include "Socket.h"
 #include <errno.h>
@@ -9,7 +5,7 @@
 
 #define SIZE 2048
 #define MAXFD 50000
-#define DEBUG 1
+#define DEBUG 0
 
 Socket::Socket(int sockfd): sockfd(sockfd), maxfd(MAXFD), timeout_secs(-1){
     // default timeout = -1 -> unlimited

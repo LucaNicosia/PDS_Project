@@ -8,7 +8,8 @@
 #include <fstream>
 #include "../../Entities/Exceptions/MyExceptions.h"
 
-static int num_rec;
+#define DEBUG 0
+
 
 class Database {
     sqlite3 *db;
@@ -38,7 +39,8 @@ public:
             throw filesystem_exception("database: "+std::string(sqlite3_errmsg(db)));
         }
         else
-            std::cout << "Opened Database "<<db_name<<" Successfully!" << std::endl;
+            if (DEBUG)
+                std::cout << "Opened Database "<<db_name<<" Successfully!" << std::endl;
         status = rc;
         return rc;
     }
@@ -49,6 +51,8 @@ public:
                 sqlite3_finalize(stmt);
             stmt = nullptr;
             sqlite3_close(db);
+
+            if (DEBUG)
             std::cout<<"Database "<<db_name<<" closed"<<std::endl;
         }
         return 0;

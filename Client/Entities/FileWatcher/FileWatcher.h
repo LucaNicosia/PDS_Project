@@ -1,9 +1,6 @@
-//
-// Created by root on 09/08/20.
-//
 
-#ifndef PDS_PROJECT_CLIENT_FILEWATCHER_H
-#define PDS_PROJECT_CLIENT_FILEWATCHER_H
+#ifndef FILEWATCHER_H
+#define FILEWATCHER_H
 
 #include <filesystem>
 #include <chrono>
@@ -12,6 +9,8 @@
 #include <string>
 #include <functional>
 #include <mutex>
+
+#define DEBUG 0
 
 // Define available file changes
 enum class FileStatus {created, modified, erased, none};
@@ -56,7 +55,8 @@ public:
     }
 
     ~FileWatcher(){
-        std::cout<<"Distuttore FileWatcher"<<std::endl;
+        if (DEBUG)
+            std::cout<<"Destroying FileWatcher"<<std::endl;
         this->stop();
     }
 
@@ -77,11 +77,11 @@ public:
             setCurState(FileWatcher_state::ready);
             // Wait for "delay" milliseconds
             std::this_thread::sleep_for(delay);
-            if(!isRunning()) return; // if when i wake up 'running' is 'false', don't do the 'action' function
+            if(!isRunning()) return; // If when i wake up 'running' is 'false', don't do the 'action' function
             auto it = paths.begin();
-            // check if a file was deleted
+            // Check if a file was deleted
             while (it != paths.end() ) {
-                //send files
+                // Send files
                 if (!std::filesystem::exists(std::filesystem::status(it->first))){
                     if (paths[it->first].type == FileType::file) {
                         setCurState(FileWatcher_state::mod_found);
@@ -89,7 +89,7 @@ public:
                         it = paths.erase(it);
                     }
                     else {
-                        //preparing directories to send at the end
+                        // Preparing directories to send at the end
                         struct action_data x;
                         x.file = it->first;
                         x.filePath = it->first;
@@ -188,4 +188,4 @@ public:
 };
 
 
-#endif //PDS_PROJECT_CLIENT_FILEWATCHER_H
+#endif //FILEWATCHER_H

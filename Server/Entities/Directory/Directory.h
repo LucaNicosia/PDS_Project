@@ -23,9 +23,7 @@ class Directory {
     std::weak_ptr<Directory> root;
 
 public:
-    //Costruttore
     Directory();
-
     ~Directory();
 
     std::shared_ptr<Directory> addDirectory(std::string dName, const bool& create_flag);
@@ -35,29 +33,20 @@ public:
     bool removeFile (const std::string& nome);
     std::shared_ptr<Directory> getDir (const std::string& name);
     std::shared_ptr<File> getFile (const std::string& name);
-
     void set(std::string field, std::string value);
-
     const std::string &getPath() const;
-
     void setPath(const std::string &path);
-
     const std::string &getName() const;
-
     void setName(const std::string &name);
-
     const std::weak_ptr<Directory> &getDFather() const;
     const std::vector <std::shared_ptr<Directory>> &getDSons() const;
     const std::vector <std::shared_ptr<File>> &getFSons() const;
     const std::weak_ptr<Directory> &getSelf() const;
-
     static std::string getFatherFromPath(std::string path);
     void ls(int indent) const;
-
     std::weak_ptr<Directory> getRoot();
     std::weak_ptr<Directory> setRoot(std::weak_ptr<Directory> root);
-
     std::string toString ();
 };
 
-#endif
+#endif //DIRECTORY_H
