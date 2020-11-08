@@ -36,3 +36,5 @@
 **/workspace.xml
 *.db
 **/Log/*
+**/Server/Log/log.txt
+**/Server/.idea/*
