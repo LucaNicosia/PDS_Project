@@ -87,6 +87,7 @@ Two db types:
                                                               <- DONE
         endif
         endif
+        ... starting folder monitoring ...
 
 - **RESTORE MODE**: like FETCH MODE but the file/directory transfering is in the opposite direction.                                         
 
