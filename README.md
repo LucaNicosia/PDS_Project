@@ -1,135 +1,144 @@
-# PDS_Project
-- Tutti i pacchetti vanno mandati con TCP
+# PDS_Project (m1)
+###### Students:  Giuseppe Toscano (280086) - Luca Nicosia (269565)
+###### GitHub link: https://github.com/LucaNicosia/PDS_Project  
 
-## merge
-Luca: pulito server
-Beppe: pulito client
+## 1. Needed packages
+- [SQLITE3](https://www.sqlite.org/cintro.html): `sudo apt-get install libsqlite3-dev`
+- [CRYPTOPP](https://www.cryptopp.com/wiki/SHA): `sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils`
 
-## entrambi
-- 1 classe Database per eseguire le funzioni sui DB
+## 2. Needed initial folders and files
+      /client_folder
+        /DB
+        /executable_dir
+          /client_directory
+          PDS_Project_Client (executable)
+        /Log
+          log.txt
 
-## Client
-- [x] Monitoraggio ricorsivo cartella in background
-- [ ] Qualsiasi cartella di partenza
-- [x] Salvare in una struttura dati nome e hash di ogni file
-- [x] Struttura ad albero per le directory
-- [ ] Programma deve runnare in background
-- [x] Quando aggiungo un file o una directory modificare le strutture dati
-- [x] Quando old != new c'è stata una modifica nei file (delete o rename o modifica del contenuto o new)
-- [ ] Quando old != new per modifica, bisogna rendere il file invalido e sincronizzarlo con il server per poi rimetterlo a valido
-- [ ] Fare la push delle modifiche sul server
-- [x] Trasferimento file (Compresso ?)
-- [ ] Trasferimento cartelle (es. mandare il messaggio "DIR /path/to/directory")
-- [ ] Gestione errori (se pc o server non online mantenere l'elenco delle modifiche da mandare)
-- [ ] Sincronizzazione all'avvio e creazione DB come su server
-- [ ] Timeout sui socket
-- [ ] Verificare che "../../" non dia errori
+      /server_folder
+        /DB
+          /users
+        /executable_dir
+          /server_directory
+          PDS_Project_Server (executable)
+        /Log
+          log.txt
 
-## Server
-- [ ] Timeout sui socket
-- [x] In ascolto su PORT
-- [ ] In base al messaggio bisogna fare un'azione
-- [ ] Controllo errori e in caso affermativo risincronizzazione
-- [x] Usare DB
-- [x] Trasferimento file (Compresso ?)
-- [ ] Gestione multiclient
+### 2.1 Description of initial folders
+- **DB**: contains all db files (e.g. user1.db, user2.db, ...)
+- **executable_dir**: contains the executable file and **client_directory/server_directory** that contains users data
+- **Log**: contains the log file
 
-DATABASE
-
-DIR(_id_,path)
-FILE(_id_,nome,_idDir_,hash)
-
-## Comments
-All'avvio, il client chiede di sincronizzarsi dopo essersi autenticato: il server manda il server_file.db( contentente DIR e FILE del database del client che fa la richiesta ) e il relativo hash. Se l'hash di client_file.db mantenuto dal client è uguale a server_file.db non fare niente, altrimenti controllare nel client_file.db i record diversi e mandare le relative richieste.
-Una volta terminata la sincronizzazione, il client controlla la cartella vittima ogni 't' secondi, se ci sono modifiche rilevate viene mandata la richiesta al server per mandare la modifica al server.
-
-SERVER                     CLIENT
+## 3. Parameters of the executable files
+- **PDS_Project_Server**: `PORT` (e.g. 5111)
+- **PDS_Project_Client**: `PORT username password FETCH/RESTORE`(e.g. 5111 user1 pass FETCH)
+  >The program can be executed in two different modes:
+  > 1. FETCH: *replicates all user actions on client directory in server directory*
+  > 2. RESTORE: *delete all local files and restore  all data contained in the server directory*
 
 
-    <- chiedere sync (invia id_client)
-    -> server_file.db - hash di file.db (se hash su client è uguale a hash mandato da server tutto ok, altrimenti...)
-    <- request per aggiornare versione client
+## 4. Internal structures
+### 4.1 Database
+Two db types:
+- **_username_.db**
+  - **directory** (path, name)
+  - **file** (path, name, hash)
+- **users.db**
+  - **users** (username, password, salt)
 
-## Link
-SQLITE3: https://www.tutorialspoint.com/sqlite/sqlite_c_cpp.htm
-SHA: https://www.cryptopp.com/wiki/SHA
+> The field *password* of users is not the real password but the salted digest computed with the library *cryptopp*
 
-## Comandi
-sudo apt-get install libcrypto++-dev libcrypto++-doc libcrypto++-utils
-sudo apt-get install libsqlite3-dev
+### 4.2 Communication protocol
 
-## Client - Server protocol
-```
-Client                    Server
---- Syncronization ---
-SYN <username> (Socket::syncRequest) ->
-<- <hash di username.db> (Socket::rcvSyncRequest)
-************ ALTERNATIVA A SOPRA ******************
-SYN <username> (Socket::syncRequest) ->
-<- SYN-OK / SYN-ERROR (se username errato)
-opt
-    SYN-OK ->
-    <- <hash di username.db> (Socket::rcvSyncRequest)
-***************************************************
-alt (if hashServer == hashClient)
-    DONE ->
-    ------
-    <cercare file e directory che non sono giuste>
-    loop
-        opt (file o cartella non aggiornati)
-            <capire se è file o directory e che tipo di operazione bisogna fare>
-            CHANGE [FILE/DIR] <file/directory path> <operation> ->
-            //con directory non sono necessari altri passaggi
-            opt (se è un file ed è stato creato/modificato)
-                <- READY <file path> //
-                <mandare il file (Socket::sendFile)> ->
-            <- DONE <file/directory path>
-----------------------
---- Normal usage -----
-<modifica rilevata>
-CHANGE [FILE/DIR] <file/directory path> <operation> ->
-//con directory non sono necessari altri passaggi
-opt (se è un file ed è stato creato/modificato)
-    <- READY <file path> //
-    <mandare il file (Socket::sendFile)> ->
-<- DONE <file/directory path>
-----------------------
+- **FETCH MODE**:
 
-```
+        CLIENT                                                SERVER                                                                                       
+        CONNECT username password mode ->
+                                                              <- CONNECT-OK
+        CONNECT-OK ->
+                                                              if (!correct password)
+                                                              <- wrong username or password
+        return
+                                                              else
+                                                              <- DIGEST server_db_digest
+                                                              endif
+        if (client_db_digest == server_db_digest)
+        Database up to date ->                                 
+                                                              <- server_db_ok
+        else
+        GET-DB ->   
+                                                              <- sendFile(server_db)
+        ... compare the two databases ...
+        for each different directory:
+        DIR path action ->              
+                                                              <- DONE
 
-***ESEMPIO DI GESTIONE DIRECTORIES E FILES***
+        for each different file:
+        FILE path action ->
+                                                              if (action == 'erased')
+                                                              <- DONE
+                                                              else  
+                                                              <- READY
+                                                              endif
+        if (action != 'erased')
+        FILE path length_file ->                    
+                                                              <- OK
+        sendFile(path) ->             
+                                                              <- DONE
+        endif
+        endif
+        ... starting folder monitoring ...
 
-```
+- **RESTORE MODE**: like FETCH MODE but the file/directory transfering is in the opposite direction.                                         
 
-std::shared_ptr<Directory> my_root = Directory::getRoot();
-my_root->addFile("file.txt", "AAA");
-std::shared_ptr<Directory> dir = my_root->addDirectory("prova5");
-std::shared_ptr<File> file = dir->addFile("file3.txt", "BBB");
-dir->addDirectory("prova7");
-my_root->addDirectory("prova6");
-if (dir->removeDir("prova7"))
-     std::cout<<"Cartella cancellata correttamente"<<std::endl;
-else
-     std::cout<<"Problema nel cancellare la cartella"<<std::endl;
+### 4.3  Communication.h
+This library contains primitives to send and receive messages and files between two hosts.
 
-if (my_root->renameDir("prova5", "provaRename"))
-    std::cout<<"Cartella rinominata correttamente"<<std::endl;
-else
-    std::cout<<"Problema nel rinominare la cartella"<<std::endl;
+### 4.4  File.h, File.cpp, Directory.h and Directory.cpp
+These two classes are used to represent a simplified view of the filesystem with some more addons (e.g. file digest).
 
-if (dir->renameFile("file3.txt", "fileRename.txt"))
-    std::cout<<"File rinominato correttamente"<<std::endl;
-else
-    std::cout<<"Problema nel rinominare il file"<<std::endl;
+### 4.5  Socket.h, Socket.cpp, SocketServer.h and SocketServer.cpp
+These two classes are used to perform a TCP connection between two hosts. There is a customizable timeout for each message.
 
-my_root->ls(4);
+### 4.6  MyCryptoLibrary.h
+This library is used to compute the digest of a file or a string.
 
-----------------------
+### 4.7  Utilities.h
+This library contains the Logger class that is used to write on the log file.
 
-```
+### 4.8  FileWatcher.h
+This library is used to monitor a specific directory in the client space and react to each modification.
 
-- Directory::getRoot() -> ritorna il puntatore alla directory di nome ROOT (costante definita dentro directory.cpp)
-- dir->addDirectory("name")/dir->addFile("name.txt", "Ha$h") -> aggiungono rispettivamente una directory o un file della cartella dir e ne ritornano il puntatore. Entrambe richiamano i relativi costruttori di directory (makeDirectory (...)) e di file (File(...)).
-- dir->removeDir("name")/dir->removeFile("name.txt") -> rimuovono rispettivamente una directory o un file dalla cartella dir e ritornano true se l'operazione è andata con successo, false altrimenti
-- dir->removeDir("name")/dir->removeFile("name.txt") -> rinominano rispettivamente una directory o un file dalla cartella dir e ritornano true se l'operazione è andata con successo, false altrimenti
-- dir->ls(indent) -> stampa ricorsiva (con intendazione indent) a partire dalla cartella dir
+### 4.9  Database.h
+This library is used to perform queries on databases using *SQLITE3*.
+
+### 4.10  Exceptions.h
+This library contains definitions of different types of exception:
+  - *general_exception*
+  - *socket_exception*
+  - *filesystem_exception* (derived from *general_exception*)
+  - *database_exception* (derived from *general_exception*)
+
+## 5. Processes and Threads
+### 5.1 Processes
+
+#### 5.1.1 Client
+At the beginning the client process performs a fork():
+  - *father*: display on console the child status received from the pipe (e.g. 'connection succeed', e.g. 'wrong username or password'). It is used to make the child a zombie process
+  - *child*: executes the main program and sends its status via pipe
+
+#### 5.1.2 Server
+At the beginning the server process performs a fork():
+  - *father*: dies (it is used to make the child a zombie process)
+  - *child*: executes the main program
+
+### 5.2 Threads
+
+#### 5.2.1 Client
+  - *main thread*: executes the main program and creates the below threads
+  - *FileWatcher thread*: setup and starts the FileWatcher
+  - *monitor thread*: monitors the status of the FileWatcher and opens or closes server connection  
+
+#### 5.2.2 Server
+  - *main thread*: listens on socket port and creates the below threads
+  - *user thread*: a thread is instantiated for each user that connects to the server (until the number of connected users reach a threshold). This thread executes the main program.
