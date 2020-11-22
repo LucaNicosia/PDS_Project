@@ -7,7 +7,9 @@
 #include "cryptopp/cryptlib.h"
 #include "cryptopp/filters.h"
 #include "cryptopp/base64.h"
+#include <mutex>
 
+std::mutex hash_mutex;
 CryptoPP::SHA1 hash_to_append;
 
 //Hash a file, which path is given.
@@ -60,10 +62,12 @@ std::string computePasswordDigest(std::string saltedPassword){
 }
 
 void appendDigest(const char* str, const int size){
+    std::lock_guard<std::mutex> lg(hash_mutex);
     hash_to_append.Update(reinterpret_cast<const byte*>(str),size);
 }
 
 std::string getAppendedDigest(){
+    std::lock_guard<std::mutex> lg(hash_mutex);
     std::string digest,encoded;
     digest.resize(hash_to_append.DigestSize());
     hash_to_append.Final(reinterpret_cast<byte*>(&digest[0]));
@@ -72,6 +76,7 @@ std::string getAppendedDigest(){
     encoded = encoded.substr(0,encoded.size()-1); // remove "\n" at the end
     return encoded;
 }
+
 
 bool compareDigests(std::string digest1, std::string digest2){
     return digest1.compare(digest2) == 0;
