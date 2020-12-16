@@ -15,3 +15,805 @@
 20201108 15:33:52 140286575888128 received string: Database up to date msg-size: 19 on socket 5
 20201108 15:33:52 140286575888128 sent string: server_db_ok msg-size: 12 on socket 5
 20201108 15:33:55 140286575888128 received string: update completed msg-size: 16 on socket 5
+20201122 11:00:23 139739346513152 Waiting for incoming connections at port 5111...
+20201122 11:01:08 139739346513152 Got a connection from 127.0.0.1:39948
+20201122 11:01:08 139739346513152 Waiting for incoming connections at port 5111...
+20201122 11:01:08 139739346487040 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 4
+20201122 11:01:08 139739346487040 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201122 11:01:08 139739346487040 received string: CONNECT-OK msg-size: 10 on socket 4
+20201122 11:01:10 139739346487040 sent string: DIGEST DlLdFn9VctWjLGE+3I1shXf/NxI= msg-size: 35 on socket 4
+20201122 11:01:10 139739346487040 received string: Database up to date msg-size: 19 on socket 4
+20201122 11:01:10 139739346487040 sent string: server_db_ok msg-size: 12 on socket 4
+20201122 11:01:13 139739346487040 received string: update completed msg-size: 16 on socket 4
+20201122 11:02:52 140241261796608 Waiting for incoming connections at port 2500...
+20201122 11:03:08 140241261796608 Got a connection from 127.0.0.1:46564
+20201122 11:03:08 140241261796608 Waiting for incoming connections at port 2500...
+20201122 11:03:08 140241261770496 received string: CONNECT user3 pass FETCH msg-size: 24 on socket 4
+20201122 11:03:08 140241261770496 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201122 11:03:08 140241261770496 received string: CONNECT-OK msg-size: 10 on socket 4
+20201122 11:03:10 140241261770496 sent string: DIGEST Mmp9o4nPRWSs6E3NdSVKlg8+Y6g= msg-size: 35 on socket 4
+20201122 11:03:10 140241261770496 received string: Database up to date msg-size: 19 on socket 4
+20201122 11:03:10 140241261770496 sent string: server_db_ok msg-size: 12 on socket 4
+20201122 11:03:12 140241261770496 received string: update completed msg-size: 16 on socket 4
+20201122 11:03:41 140241261796608 Got a connection from 127.0.0.1:46566
+20201122 11:03:41 140241261796608 Waiting for incoming connections at port 2500...
+20201122 11:03:41 140241261770496 received string: CONNECT user3 pass FETCH msg-size: 24 on socket 5
+20201122 11:03:41 140241261770496 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201122 11:03:41 140241261770496 received string: CONNECT-OK msg-size: 10 on socket 5
+20201122 11:03:43 140241261770496 sent string: DIGEST Mmp9o4nPRWSs6E3NdSVKlg8+Y6g= msg-size: 35 on socket 5
+20201122 11:03:43 140241261770496 received string: Database up to date msg-size: 19 on socket 5
+20201122 11:03:43 140241261770496 sent string: server_db_ok msg-size: 12 on socket 5
+20201122 11:03:43 140241261770496 received string: FILE crack.bin erased msg-size: 21 on socket 5
+20201122 11:03:43 140241261770496 sent string: DONE msg-size: 4 on socket 5
+20201122 11:03:43 140241261770496 received string: FILE cro.bin created msg-size: 20 on socket 5
+20201122 11:03:43 140241261770496 sent string: READY msg-size: 5 on socket 5
+20201122 11:03:43 140241261770496 received string: FILE cro.bin 6635723 msg-size: 20 on socket 5
+20201122 11:03:43 140241261770496 sent string: OK msg-size: 2 on socket 5
+20201122 11:03:43 140241261770496 sent string: DONE msg-size: 4 on socket 5
+20201122 11:03:44 140241261770496 received string: update completed msg-size: 16 on socket 5
+20201216 17:22:13 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:22:50 139820347469056 Got a connection from 127.0.0.1:39282
+20201216 17:22:50 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:22:50 139820347442944 received string: CONNECT user3 pass FETCH msg-size: 24 on socket 4
+20201216 17:22:50 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:22:50 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:22:52 139820347442944 sent string: DIGEST 25VxnbhQGkO979hD1N49UrbPLUY= msg-size: 35 on socket 4
+20201216 17:22:52 139820347442944 received string: Database up to date msg-size: 19 on socket 4
+20201216 17:22:52 139820347442944 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 17:22:55 139820347442944 received string: update completed msg-size: 16 on socket 4
+20201216 17:23:21 139820347469056 Got a connection from 127.0.0.1:39286
+20201216 17:23:21 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:23:21 139820347442944 received string: CONNECT user3 pass FETCH msg-size: 24 on socket 5
+20201216 17:23:21 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:23:21 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:23:23 139820347442944 sent string: DIGEST 25VxnbhQGkO979hD1N49UrbPLUY= msg-size: 35 on socket 5
+20201216 17:23:23 139820347442944 received string: Database up to date msg-size: 19 on socket 5
+20201216 17:23:23 139820347442944 sent string: server_db_ok msg-size: 12 on socket 5
+20201216 17:23:26 139820347442944 received string: update completed msg-size: 16 on socket 5
+20201216 17:23:45 139820347469056 Got a connection from 127.0.0.1:39302
+20201216 17:23:45 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:23:45 139820347442944 received string: CONNECT user3 pass FETCH msg-size: 24 on socket 4
+20201216 17:23:45 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:23:45 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:23:45 139820347469056 Got a connection from 127.0.0.1:39304
+20201216 17:23:45 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:23:45 139820330657536 received string: CONNECT user3 pass FETCH msg-size: 24 on socket 5
+20201216 17:23:45 139820330657536 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:23:45 139820330657536 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:23:45 139820330657536 sent string: user already connected msg-size: 22 on socket 5
+20201216 17:23:45 139820330657536 User user3 already connected
+20201216 17:23:47 139820347442944 sent string: DIGEST 25VxnbhQGkO979hD1N49UrbPLUY= msg-size: 35 on socket 4
+20201216 17:23:47 139820347442944 received string: Database up to date msg-size: 19 on socket 4
+20201216 17:23:47 139820347442944 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 17:23:47 139820347442944 received string: DIR ciao created msg-size: 16 on socket 4
+20201216 17:23:47 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:23:48 139820347442944 received string: update completed msg-size: 16 on socket 4
+20201216 17:23:49 139820347469056 Got a connection from 127.0.0.1:39310
+20201216 17:23:49 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:23:49 139820347442944 received string: CONNECT user3 pass FETCH msg-size: 24 on socket 7
+20201216 17:23:49 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 7
+20201216 17:23:49 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 7
+20201216 17:23:51 139820347442944 sent string: DIGEST S/LAe9Zz1f4GMQ0MUdvzGvrqS/4= msg-size: 35 on socket 7
+20201216 17:23:51 139820347442944 received string: Database up to date msg-size: 19 on socket 7
+20201216 17:23:51 139820347442944 sent string: server_db_ok msg-size: 12 on socket 7
+20201216 17:23:54 139820347442944 received string: update completed msg-size: 16 on socket 7
+20201216 17:34:33 139820347469056 Got a connection from 127.0.0.1:39364
+20201216 17:34:33 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:34:33 139820347442944 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 4
+20201216 17:34:33 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:34:33 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:34:33 139820347469056 Got a connection from 127.0.0.1:39366
+20201216 17:34:33 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:34:33 139820330657536 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 5
+20201216 17:34:33 139820330657536 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:34:33 139820330657536 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:34:33 139820330657536 sent string: user already connected msg-size: 22 on socket 5
+20201216 17:34:33 139820330657536 User user1 already connected
+20201216 17:34:35 139820347442944 sent string: DIGEST DlLdFn9VctWjLGE+3I1shXf/NxI= msg-size: 35 on socket 4
+20201216 17:34:35 139820347442944 received string: Database up to date msg-size: 19 on socket 4
+20201216 17:34:35 139820347442944 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 17:34:38 139820347442944 received string: update completed msg-size: 16 on socket 4
+20201216 17:35:30 139820347469056 Got a connection from 127.0.0.1:39370
+20201216 17:35:30 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:35:30 139820347442944 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 7
+20201216 17:35:30 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 7
+20201216 17:35:30 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 7
+20201216 17:35:32 139820347442944 sent string: DIGEST DlLdFn9VctWjLGE+3I1shXf/NxI= msg-size: 35 on socket 7
+20201216 17:35:32 139820347442944 received string: Database up to date msg-size: 19 on socket 7
+20201216 17:35:32 139820347442944 sent string: server_db_ok msg-size: 12 on socket 7
+20201216 17:35:35 139820347442944 received string: update completed msg-size: 16 on socket 7
+20201216 17:36:03 139820347469056 Got a connection from 127.0.0.1:39372
+20201216 17:36:03 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:36:03 139820347442944 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 4
+20201216 17:36:03 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:36:03 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:36:05 139820347442944 sent string: DIGEST DlLdFn9VctWjLGE+3I1shXf/NxI= msg-size: 35 on socket 4
+20201216 17:36:05 139820347442944 received string: Database up to date msg-size: 19 on socket 4
+20201216 17:36:05 139820347442944 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/HEAD erased msg-size: 29 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/ORIG_HEAD erased msg-size: 34 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/branches/COMMIT_EDITMSG erased msg-size: 48 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/config erased msg-size: 31 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/description erased msg-size: 36 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/applypatch-msg.sample erased msg-size: 52 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/commit-msg.sample erased msg-size: 48 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/fsmonitor-watchman.sample erased msg-size: 56 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/post-update.sample erased msg-size: 49 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/pre-applypatch.sample erased msg-size: 52 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/pre-commit.sample erased msg-size: 48 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/pre-merge-commit.sample erased msg-size: 54 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/pre-push.sample erased msg-size: 46 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/pre-rebase.sample erased msg-size: 48 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/pre-receive.sample erased msg-size: 49 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/prepare-commit-msg.sample erased msg-size: 56 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/hooks/update.sample erased msg-size: 44 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/index erased msg-size: 30 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/info/exclude erased msg-size: 37 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/logs/HEAD erased msg-size: 34 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/logs/refs/heads/NicosiaBranch erased msg-size: 54 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/logs/refs/heads/master erased msg-size: 47 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/logs/refs/remotes/origin/HEAD erased msg-size: 54 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:05 139820347442944 received string: FILE pene di albi/logs/refs/remotes/origin/NicosiaBranch erased msg-size: 63 on socket 4
+20201216 17:36:05 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/logs/refs/remotes/origin/master erased msg-size: 56 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/49/5c650467db7a5f2642607ded684f183ebafa96 erased msg-size: 74 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/6b/9e7ef9112ead3d965db1bf09d6e4c22ef14414 erased msg-size: 74 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/bf/7a0fd3ad66ad8cb25c2a787d2800cf7588bd75 erased msg-size: 74 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/c8/d88f115a63f3a85c30345b0a6b14c1f652f525 erased msg-size: 74 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/cc/2e7d54f2466871054b622792e6d18c04eeab98 erased msg-size: 74 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/e8/1d4fa1f490f0b1f39cc2f2773bed6ac30caa20 erased msg-size: 74 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/f2/695c8842b4e4ee26291898794f0d45639807f8 erased msg-size: 74 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.idx erased msg-size: 87 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.pack erased msg-size: 88 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/packed-refs erased msg-size: 36 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/refs/heads/NicosiaBranch erased msg-size: 49 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/refs/heads/master erased msg-size: 42 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/refs/remotes/origin/HEAD erased msg-size: 49 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/refs/remotes/origin/NicosiaBranch erased msg-size: 58 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE pene di albi/refs/remotes/origin/master erased msg-size: 51 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/refs/tags erased msg-size: 33 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/refs/remotes/origin erased msg-size: 43 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/refs/remotes erased msg-size: 36 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/refs/heads erased msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/refs erased msg-size: 28 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/pack erased msg-size: 36 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/info erased msg-size: 36 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/f2 erased msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/e8 erased msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/cc erased msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/c8 erased msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/bf erased msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/6b erased msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects/49 erased msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/objects erased msg-size: 31 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/logs/refs/remotes/origin erased msg-size: 48 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/logs/refs/remotes erased msg-size: 41 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/logs/refs/heads erased msg-size: 39 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/logs/refs erased msg-size: 33 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/logs erased msg-size: 28 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/info erased msg-size: 28 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/hooks erased msg-size: 29 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi/branches erased msg-size: 32 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR pene di albi erased msg-size: 23 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao created msg-size: 16 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/info created msg-size: 21 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/branches created msg-size: 25 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/refs created msg-size: 21 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/refs/remotes created msg-size: 29 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/refs/remotes/origin created msg-size: 36 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/refs/heads created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/refs/tags created msg-size: 26 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects created msg-size: 24 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/info created msg-size: 29 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/pack created msg-size: 29 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/e8 created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/49 created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/c8 created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/6b created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/bf created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/f2 created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/objects/cc created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/logs created msg-size: 21 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/logs/refs created msg-size: 26 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/logs/refs/remotes created msg-size: 34 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/logs/refs/remotes/origin created msg-size: 41 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/logs/refs/heads created msg-size: 32 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: DIR ciao/hooks created msg-size: 22 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/info/exclude created msg-size: 30 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/info/exclude 240 msg-size: 26 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/ORIG_HEAD created msg-size: 27 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/ORIG_HEAD 41 msg-size: 22 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/config created msg-size: 24 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/config 381 msg-size: 20 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/branches/COMMIT_EDITMSG created msg-size: 41 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/branches/COMMIT_EDITMSG 15 msg-size: 36 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/remotes/origin/HEAD created msg-size: 42 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/remotes/origin/HEAD 32 msg-size: 37 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/remotes/origin/master created msg-size: 44 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/remotes/origin/master 41 msg-size: 39 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/remotes/origin/NicosiaBranch created msg-size: 51 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/remotes/origin/NicosiaBranch 41 msg-size: 46 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/heads/master created msg-size: 35 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/heads/master 41 msg-size: 30 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/heads/NicosiaBranch created msg-size: 42 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/refs/heads/NicosiaBranch 41 msg-size: 37 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/index created msg-size: 23 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/index 5915 msg-size: 20 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:06 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.idx created msg-size: 80 on socket 4
+20201216 17:36:06 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:06 139820347442944 received string: FILE ciao/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.idx 44668 msg-size: 78 on socket 4
+20201216 17:36:06 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.pack created msg-size: 81 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/pack/pack-d48f375c97bd842f07d577acf51a6a1e654263b4.pack 2083142 msg-size: 81 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/e8/1d4fa1f490f0b1f39cc2f2773bed6ac30caa20 created msg-size: 67 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/e8/1d4fa1f490f0b1f39cc2f2773bed6ac30caa20 226 msg-size: 63 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/49/5c650467db7a5f2642607ded684f183ebafa96 created msg-size: 67 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/49/5c650467db7a5f2642607ded684f183ebafa96 162 msg-size: 63 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/c8/d88f115a63f3a85c30345b0a6b14c1f652f525 created msg-size: 67 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/c8/d88f115a63f3a85c30345b0a6b14c1f652f525 2397 msg-size: 64 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/6b/9e7ef9112ead3d965db1bf09d6e4c22ef14414 created msg-size: 67 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/6b/9e7ef9112ead3d965db1bf09d6e4c22ef14414 358 msg-size: 63 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/bf/7a0fd3ad66ad8cb25c2a787d2800cf7588bd75 created msg-size: 67 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/bf/7a0fd3ad66ad8cb25c2a787d2800cf7588bd75 164 msg-size: 63 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/f2/695c8842b4e4ee26291898794f0d45639807f8 created msg-size: 67 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/f2/695c8842b4e4ee26291898794f0d45639807f8 197 msg-size: 63 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/cc/2e7d54f2466871054b622792e6d18c04eeab98 created msg-size: 67 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/objects/cc/2e7d54f2466871054b622792e6d18c04eeab98 226 msg-size: 63 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/HEAD created msg-size: 22 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/HEAD 30 msg-size: 17 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/packed-refs created msg-size: 29 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/packed-refs 264 msg-size: 25 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/remotes/origin/HEAD created msg-size: 47 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/remotes/origin/HEAD 205 msg-size: 43 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/remotes/origin/master created msg-size: 49 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/remotes/origin/master 292 msg-size: 45 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/remotes/origin/NicosiaBranch created msg-size: 56 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/remotes/origin/NicosiaBranch 146 msg-size: 52 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/heads/master created msg-size: 40 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/heads/master 514 msg-size: 36 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/heads/NicosiaBranch created msg-size: 47 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/refs/heads/NicosiaBranch 344 msg-size: 43 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/HEAD created msg-size: 27 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/logs/HEAD 849 msg-size: 23 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/fsmonitor-watchman.sample created msg-size: 49 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/fsmonitor-watchman.sample 3079 msg-size: 46 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-merge-commit.sample created msg-size: 47 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-merge-commit.sample 416 msg-size: 43 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-push.sample created msg-size: 39 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-push.sample 1348 msg-size: 36 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-rebase.sample created msg-size: 41 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-rebase.sample 4898 msg-size: 38 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/commit-msg.sample created msg-size: 41 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/commit-msg.sample 896 msg-size: 37 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-receive.sample created msg-size: 42 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-receive.sample 544 msg-size: 38 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-applypatch.sample created msg-size: 45 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-applypatch.sample 424 msg-size: 41 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/post-update.sample created msg-size: 42 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/post-update.sample 189 msg-size: 38 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/applypatch-msg.sample created msg-size: 45 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/applypatch-msg.sample 478 msg-size: 41 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/prepare-commit-msg.sample created msg-size: 49 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/prepare-commit-msg.sample 1492 msg-size: 46 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-commit.sample created msg-size: 41 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/pre-commit.sample 1638 msg-size: 38 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/update.sample created msg-size: 37 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/hooks/update.sample 3610 msg-size: 34 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/description created msg-size: 29 on socket 4
+20201216 17:36:07 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:36:07 139820347442944 received string: FILE ciao/description 73 msg-size: 24 on socket 4
+20201216 17:36:07 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:36:07 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:36:07 139820347442944 received string: update completed msg-size: 16 on socket 4
+20201216 17:44:52 139820347469056 Got a connection from 127.0.0.1:39406
+20201216 17:44:52 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:44:52 139820347442944 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 5
+20201216 17:44:52 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:44:52 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:44:54 139820347442944 sent string: DIGEST cCthskNEANKctRaAQTwUWkjKERU= msg-size: 35 on socket 5
+20201216 17:44:54 139820347442944 received string: Database up to date msg-size: 19 on socket 5
+20201216 17:44:54 139820347442944 sent string: server_db_ok msg-size: 12 on socket 5
+20201216 17:44:57 139820347442944 received string: update completed msg-size: 16 on socket 5
+20201216 17:45:02 139820347469056 Got a connection from 127.0.0.1:39408
+20201216 17:45:02 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:45:02 139820347442944 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 4
+20201216 17:45:02 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:45:02 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:45:03 139820347469056 Got a connection from 127.0.0.1:39410
+20201216 17:45:03 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:45:03 139820330657536 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 5
+20201216 17:45:03 139820330657536 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:45:03 139820330657536 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:45:03 139820330657536 sent string: user already connected msg-size: 22 on socket 5
+20201216 17:45:03 139820330657536 User user1 already connected
+20201216 17:45:04 139820347442944 sent string: DIGEST cCthskNEANKctRaAQTwUWkjKERU= msg-size: 35 on socket 4
+20201216 17:45:04 139820347442944 received string: Database up to date msg-size: 19 on socket 4
+20201216 17:45:04 139820347442944 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 17:45:04 139820347442944 received string: FILE iso del pene di albi.iso erased msg-size: 36 on socket 4
+20201216 17:45:04 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:45:26 139820347442944 received string: FILE ppp.iso created msg-size: 20 on socket 4
+20201216 17:45:26 139820347442944 sent string: READY msg-size: 5 on socket 4
+20201216 17:45:26 139820347442944 received string: FILE ppp.iso 3138400256 msg-size: 23 on socket 4
+20201216 17:45:26 139820347442944 sent string: OK msg-size: 2 on socket 4
+20201216 17:45:48 139820347469056 Got a connection from 127.0.0.1:39412
+20201216 17:45:48 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:45:48 139820339050240 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 7
+20201216 17:45:48 139820339050240 sent string: CONNECT-OK msg-size: 10 on socket 7
+20201216 17:45:48 139820339050240 received string: CONNECT-OK msg-size: 10 on socket 7
+20201216 17:45:48 139820339050240 sent string: user already connected msg-size: 22 on socket 7
+20201216 17:45:48 139820339050240 User user1 already connected
+20201216 17:46:01 139820347442944 sent string: DONE msg-size: 4 on socket 4
+20201216 17:46:02 139820347442944 received string: update completed msg-size: 16 on socket 4
+20201216 17:55:57 139820347469056 Got a connection from 127.0.0.1:39468
+20201216 17:55:57 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:55:57 139820347442944 received string: CONNECT user3 pass RESTORE msg-size: 26 on socket 6
+20201216 17:55:57 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 6
+20201216 17:55:57 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 6
+20201216 17:55:59 139820347442944 sent string: DIGEST S/LAe9Zz1f4GMQ0MUdvzGvrqS/4= msg-size: 35 on socket 6
+20201216 17:55:59 139820347442944 received string: Database up to date msg-size: 19 on socket 6
+20201216 17:55:59 139820347442944 sent string: server_db_ok msg-size: 12 on socket 6
+20201216 17:56:02 139820347442944 received string: update completed msg-size: 16 on socket 6
+20201216 17:56:27 139820347469056 Got a connection from 127.0.0.1:39470
+20201216 17:56:27 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:56:27 139820347442944 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 4
+20201216 17:56:27 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:56:27 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 17:56:29 139820347442944 sent string: DIGEST Tf8VAFIwFG/khSzFCMoRR682Els= msg-size: 35 on socket 4
+20201216 17:56:29 139820347442944 received string: restore msg-size: 7 on socket 4
+20201216 17:56:29 139820347442944 sent string: DIR BIG_DIR5 created msg-size: 20 on socket 4
+20201216 17:56:29 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:29 139820347442944 sent string: DIR BIG_DIR5/Soft created msg-size: 25 on socket 4
+20201216 17:56:29 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:29 139820347442944 sent string: DIR BIG_DIR5/Soft/DirectX created msg-size: 33 on socket 4
+20201216 17:56:29 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:29 139820347442944 sent string: DIR BIG_DIR5/Soft/Redist created msg-size: 32 on socket 4
+20201216 17:56:29 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:29 139820347442944 sent string: DIR ciao3 created msg-size: 17 on socket 4
+20201216 17:56:29 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:29 139820347442944 sent string: FILE BIG_DIR5/Setup.exe created msg-size: 31 on socket 4
+20201216 17:56:29 139820347442944 received string: READY msg-size: 5 on socket 4
+20201216 17:56:29 139820347442944 sent string: FILE BIG_DIR5/Setup.exe 8534316 msg-size: 31 on socket 4
+20201216 17:56:29 139820347442944 received string: OK msg-size: 2 on socket 4
+20201216 17:56:29 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:29 139820347442944 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe created msg-size: 46 on socket 4
+20201216 17:56:29 139820347442944 received string: READY msg-size: 5 on socket 4
+20201216 17:56:29 139820347442944 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 on socket 4
+20201216 17:56:29 139820347442944 received string: OK msg-size: 2 on socket 4
+20201216 17:56:29 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:29 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf created msg-size: 51 on socket 4
+20201216 17:56:29 139820347442944 received string: READY msg-size: 5 on socket 4
+20201216 17:56:29 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 919 msg-size: 47 on socket 4
+20201216 17:56:29 139820347442944 received string: OK msg-size: 2 on socket 4
+20201216 17:56:29 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:29 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe created msg-size: 50 on socket 4
+20201216 17:56:29 139820347442944 received string: READY msg-size: 5 on socket 4
+20201216 17:56:29 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 on socket 4
+20201216 17:56:29 139820347442944 received string: OK msg-size: 2 on socket 4
+20201216 17:56:30 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:30 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe created msg-size: 50 on socket 4
+20201216 17:56:30 139820347442944 received string: READY msg-size: 5 on socket 4
+20201216 17:56:30 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 on socket 4
+20201216 17:56:30 139820347442944 received string: OK msg-size: 2 on socket 4
+20201216 17:56:30 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:30 139820347442944 sent string: FILE BIG_DIR5/crack.bin created msg-size: 31 on socket 4
+20201216 17:56:30 139820347442944 received string: READY msg-size: 5 on socket 4
+20201216 17:56:30 139820347442944 sent string: FILE BIG_DIR5/crack.bin 6635723 msg-size: 31 on socket 4
+20201216 17:56:30 139820347442944 received string: OK msg-size: 2 on socket 4
+20201216 17:56:30 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:30 139820347442944 sent string: FILE BIG_DIR5/data-1.bin created msg-size: 32 on socket 4
+20201216 17:56:30 139820347442944 received string: READY msg-size: 5 on socket 4
+20201216 17:56:30 139820347442944 sent string: FILE BIG_DIR5/data-1.bin 879889784 msg-size: 34 on socket 4
+20201216 17:56:30 139820347442944 received string: OK msg-size: 2 on socket 4
+20201216 17:56:39 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:39 139820347442944 sent string: FILE BIG_DIR5/data-steam.bin created msg-size: 36 on socket 4
+20201216 17:56:39 139820347442944 received string: READY msg-size: 5 on socket 4
+20201216 17:56:39 139820347442944 sent string: FILE BIG_DIR5/data-steam.bin 4183273 msg-size: 36 on socket 4
+20201216 17:56:39 139820347442944 received string: OK msg-size: 2 on socket 4
+20201216 17:56:39 139820347442944 received string: DONE msg-size: 4 on socket 4
+20201216 17:56:39 139820347442944 sent string: restore completed msg-size: 17 on socket 4
+20201216 17:56:42 139820347442944 received string: update completed msg-size: 16 on socket 4
+20201216 17:56:47 139820347469056 Got a connection from 127.0.0.1:39472
+20201216 17:56:47 139820347469056 Waiting for incoming connections at port 5111...
+20201216 17:56:47 139820347442944 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 5
+20201216 17:56:47 139820347442944 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:56:47 139820347442944 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 17:56:49 139820347442944 sent string: DIGEST Tf8VAFIwFG/khSzFCMoRR682Els= msg-size: 35 on socket 5
+20201216 17:56:49 139820347442944 received string: restore msg-size: 7 on socket 5
+20201216 17:56:49 139820347442944 sent string: DIR BIG_DIR5 created msg-size: 20 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: DIR BIG_DIR5/Soft created msg-size: 25 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: DIR BIG_DIR5/Soft/DirectX created msg-size: 33 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: DIR BIG_DIR5/Soft/Redist created msg-size: 32 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: DIR ciao3 created msg-size: 17 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Setup.exe created msg-size: 31 on socket 5
+20201216 17:56:49 139820347442944 received string: READY msg-size: 5 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Setup.exe 8534316 msg-size: 31 on socket 5
+20201216 17:56:49 139820347442944 received string: OK msg-size: 2 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe created msg-size: 46 on socket 5
+20201216 17:56:49 139820347442944 received string: READY msg-size: 5 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 on socket 5
+20201216 17:56:49 139820347442944 received string: OK msg-size: 2 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf created msg-size: 51 on socket 5
+20201216 17:56:49 139820347442944 received string: READY msg-size: 5 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 919 msg-size: 47 on socket 5
+20201216 17:56:49 139820347442944 received string: OK msg-size: 2 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe created msg-size: 50 on socket 5
+20201216 17:56:49 139820347442944 received string: READY msg-size: 5 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 on socket 5
+20201216 17:56:49 139820347442944 received string: OK msg-size: 2 on socket 5
+20201216 17:56:49 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe created msg-size: 50 on socket 5
+20201216 17:56:49 139820347442944 received string: READY msg-size: 5 on socket 5
+20201216 17:56:49 139820347442944 sent string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 on socket 5
+20201216 17:56:49 139820347442944 received string: OK msg-size: 2 on socket 5
+20201216 17:56:50 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:50 139820347442944 sent string: FILE BIG_DIR5/crack.bin created msg-size: 31 on socket 5
+20201216 17:56:50 139820347442944 received string: READY msg-size: 5 on socket 5
+20201216 17:56:50 139820347442944 sent string: FILE BIG_DIR5/crack.bin 6635723 msg-size: 31 on socket 5
+20201216 17:56:50 139820347442944 received string: OK msg-size: 2 on socket 5
+20201216 17:56:50 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:50 139820347442944 sent string: FILE BIG_DIR5/data-1.bin created msg-size: 32 on socket 5
+20201216 17:56:50 139820347442944 received string: READY msg-size: 5 on socket 5
+20201216 17:56:50 139820347442944 sent string: FILE BIG_DIR5/data-1.bin 879889784 msg-size: 34 on socket 5
+20201216 17:56:50 139820347442944 received string: OK msg-size: 2 on socket 5
+20201216 17:56:59 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:59 139820347442944 sent string: FILE BIG_DIR5/data-steam.bin created msg-size: 36 on socket 5
+20201216 17:56:59 139820347442944 received string: READY msg-size: 5 on socket 5
+20201216 17:56:59 139820347442944 sent string: FILE BIG_DIR5/data-steam.bin 4183273 msg-size: 36 on socket 5
+20201216 17:56:59 139820347442944 received string: OK msg-size: 2 on socket 5
+20201216 17:56:59 139820347442944 received string: DONE msg-size: 4 on socket 5
+20201216 17:56:59 139820347442944 sent string: restore completed msg-size: 17 on socket 5
+20201216 17:57:01 139820347442944 received string: update completed msg-size: 16 on socket 5
+20201216 18:06:45 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:07:09 140425805581568 Got a connection from 127.0.0.1:39540
+20201216 18:07:09 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:07:09 140425805555456 received string: CONNECT user2 pass RESTORE msg-size: 26 on socket 4
+20201216 18:07:09 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 18:07:09 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 18:07:11 140425805555456 sent string: DIGEST Tf8VAFIwFG/khSzFCMoRR682Els= msg-size: 35 on socket 4
+20201216 18:07:11 140425805555456 received string: Database up to date msg-size: 19 on socket 4
+20201216 18:07:11 140425805555456 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 18:07:13 140425805555456 received string: update completed msg-size: 16 on socket 4
+20201216 18:07:25 140425805581568 Got a connection from 127.0.0.1:39542
+20201216 18:07:25 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:07:25 140425805555456 received string: CONNECT user1 pass FETCH msg-size: 24 on socket 5
+20201216 18:07:25 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 18:07:25 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 18:07:27 140425805555456 sent string: DIGEST HSd3DXOviIlfOi1+/a4thjVmKLU= msg-size: 35 on socket 5
+20201216 18:07:27 140425805555456 received string: Database up to date msg-size: 19 on socket 5
+20201216 18:07:27 140425805555456 sent string: server_db_ok msg-size: 12 on socket 5
+20201216 18:07:30 140425805555456 received string: update completed msg-size: 16 on socket 5
+20201216 18:08:24 140425805581568 Got a connection from 127.0.0.1:39544
+20201216 18:08:24 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:08:24 140425805555456 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 4
+20201216 18:08:24 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 18:08:24 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 18:08:26 140425805555456 sent string: DIGEST Tf8VAFIwFG/khSzFCMoRR682Els= msg-size: 35 on socket 4
+20201216 18:08:26 140425805555456 received string: Database up to date msg-size: 19 on socket 4
+20201216 18:08:26 140425805555456 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 18:08:26 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf modified msg-size: 52 on socket 4
+20201216 18:08:26 140425805555456 sent string: READY msg-size: 5 on socket 4
+20201216 18:08:26 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 930 msg-size: 47 on socket 4
+20201216 18:08:26 140425805555456 sent string: OK msg-size: 2 on socket 4
+20201216 18:08:26 140425805555456 sent string: DONE msg-size: 4 on socket 4
+20201216 18:08:27 140425805555456 received string: update completed msg-size: 16 on socket 4
+20201216 18:10:17 140425805581568 Got a connection from 127.0.0.1:39548
+20201216 18:10:17 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:10:17 140425805555456 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 5
+20201216 18:10:17 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 18:10:17 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 18:10:19 140425805555456 sent string: DIGEST kzgM4PbwOtxp7R9EoC4G6RD8bFg= msg-size: 35 on socket 5
+20201216 18:10:19 140425805555456 received string: GET-DB msg-size: 6 on socket 5
+20201216 18:10:19 140425805555456 sent string: FILE user2.db 20480 msg-size: 19 on socket 5
+20201216 18:10:19 140425805555456 received string: OK msg-size: 2 on socket 5
+20201216 18:10:19 140425805555456 received string: DIR BIG_DIR5/Soft created msg-size: 25 on socket 5
+20201216 18:10:19 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:10:19 140425805555456 received string: DIR BIG_DIR5/Soft/DirectX created msg-size: 33 on socket 5
+20201216 18:10:19 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:10:19 140425805555456 received string: DIR BIG_DIR5/Soft/Redist created msg-size: 32 on socket 5
+20201216 18:10:19 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:10:19 140425805555456 received string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe created msg-size: 46 on socket 5
+20201216 18:10:19 140425805555456 sent string: READY msg-size: 5 on socket 5
+20201216 18:10:19 140425805555456 received string: FILE BIG_DIR5/Soft/DirectX/DXSETUP.exe 299864 msg-size: 45 on socket 5
+20201216 18:10:19 140425805555456 sent string: OK msg-size: 2 on socket 5
+20201216 18:10:19 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:10:19 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf created msg-size: 51 on socket 5
+20201216 18:10:19 140425805555456 sent string: READY msg-size: 5 on socket 5
+20201216 18:10:19 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 917 msg-size: 47 on socket 5
+20201216 18:10:19 140425805555456 sent string: OK msg-size: 2 on socket 5
+20201216 18:10:19 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:10:19 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe created msg-size: 50 on socket 5
+20201216 18:10:19 140425805555456 sent string: READY msg-size: 5 on socket 5
+20201216 18:10:19 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/vcredist_x64.exe 10274136 msg-size: 51 on socket 5
+20201216 18:10:19 140425805555456 sent string: OK msg-size: 2 on socket 5
+20201216 18:10:19 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:10:20 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe created msg-size: 50 on socket 5
+20201216 18:10:20 140425805555456 sent string: READY msg-size: 5 on socket 5
+20201216 18:10:20 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/vcredist_x86.exe 8990552 msg-size: 50 on socket 5
+20201216 18:10:20 140425805555456 sent string: OK msg-size: 2 on socket 5
+20201216 18:10:20 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:10:20 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf modified msg-size: 52 on socket 5
+20201216 18:10:20 140425805555456 sent string: READY msg-size: 5 on socket 5
+20201216 18:10:20 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 917 msg-size: 47 on socket 5
+20201216 18:10:20 140425805555456 sent string: OK msg-size: 2 on socket 5
+20201216 18:10:20 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:10:20 140425805555456 received string: update completed msg-size: 16 on socket 5
+20201216 18:11:27 140425805581568 Got a connection from 127.0.0.1:39550
+20201216 18:11:27 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:11:27 140425805555456 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 6
+20201216 18:11:27 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 6
+20201216 18:11:27 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 6
+20201216 18:11:29 140425805555456 sent string: DIGEST AxXw/nOg9fk2sDa2lLcQWCFIbDs= msg-size: 35 on socket 6
+20201216 18:11:29 140425805555456 received string: Database up to date msg-size: 19 on socket 6
+20201216 18:11:29 140425805555456 sent string: server_db_ok msg-size: 12 on socket 6
+20201216 18:11:29 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf modified msg-size: 52 on socket 6
+20201216 18:11:29 140425805555456 sent string: READY msg-size: 5 on socket 6
+20201216 18:11:29 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 920 msg-size: 47 on socket 6
+20201216 18:11:29 140425805555456 sent string: OK msg-size: 2 on socket 6
+20201216 18:11:29 140425805555456 sent string: DONE msg-size: 4 on socket 6
+20201216 18:11:29 140425805555456 received string: update completed msg-size: 16 on socket 6
+20201216 18:11:53 140425805581568 Got a connection from 127.0.0.1:39554
+20201216 18:11:53 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:11:53 140425805555456 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 4
+20201216 18:11:53 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 18:11:53 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 18:11:55 140425805555456 sent string: DIGEST XUhFx7qMzXZNp4XkPDsGszKpGg8= msg-size: 35 on socket 4
+20201216 18:11:55 140425805555456 received string: Database up to date msg-size: 19 on socket 4
+20201216 18:11:55 140425805555456 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 18:11:55 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf modified msg-size: 52 on socket 4
+20201216 18:11:55 140425805555456 sent string: READY msg-size: 5 on socket 4
+20201216 18:11:55 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 921 msg-size: 47 on socket 4
+20201216 18:11:55 140425805555456 sent string: OK msg-size: 2 on socket 4
+20201216 18:11:55 140425805555456 sent string: DONE msg-size: 4 on socket 4
+20201216 18:11:55 140425805555456 received string: update completed msg-size: 16 on socket 4
+20201216 18:12:02 140425805581568 Got a connection from 127.0.0.1:39556
+20201216 18:12:02 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:12:02 140425805555456 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 5
+20201216 18:12:02 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 18:12:02 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 18:12:04 140425805555456 sent string: DIGEST NwbDfALqw0/LN76foTKJ5HfFp1Y= msg-size: 35 on socket 5
+20201216 18:12:04 140425805555456 received string: Database up to date msg-size: 19 on socket 5
+20201216 18:12:04 140425805555456 sent string: server_db_ok msg-size: 12 on socket 5
+20201216 18:12:04 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf modified msg-size: 52 on socket 5
+20201216 18:12:04 140425805555456 sent string: READY msg-size: 5 on socket 5
+20201216 18:12:04 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 922 msg-size: 47 on socket 5
+20201216 18:12:04 140425805555456 sent string: OK msg-size: 2 on socket 5
+20201216 18:12:04 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:12:04 140425805555456 received string: update completed msg-size: 16 on socket 5
+20201216 18:12:11 140425805581568 Got a connection from 127.0.0.1:39558
+20201216 18:12:11 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:12:11 140425805555456 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 4
+20201216 18:12:11 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 4
+20201216 18:12:11 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 4
+20201216 18:12:13 140425805555456 sent string: DIGEST a1DxhiWGGxOteNWn8jRs5U7Fg68= msg-size: 35 on socket 4
+20201216 18:12:13 140425805555456 received string: Database up to date msg-size: 19 on socket 4
+20201216 18:12:13 140425805555456 sent string: server_db_ok msg-size: 12 on socket 4
+20201216 18:12:13 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf modified msg-size: 52 on socket 4
+20201216 18:12:13 140425805555456 sent string: READY msg-size: 5 on socket 4
+20201216 18:12:13 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 923 msg-size: 47 on socket 4
+20201216 18:12:13 140425805555456 sent string: OK msg-size: 2 on socket 4
+20201216 18:12:13 140425805555456 sent string: DONE msg-size: 4 on socket 4
+20201216 18:12:13 140425805555456 received string: update completed msg-size: 16 on socket 4
+20201216 18:12:21 140425805581568 Got a connection from 127.0.0.1:39560
+20201216 18:12:21 140425805581568 Waiting for incoming connections at port 5111...
+20201216 18:12:21 140425805555456 received string: CONNECT user2 pass FETCH msg-size: 24 on socket 5
+20201216 18:12:21 140425805555456 sent string: CONNECT-OK msg-size: 10 on socket 5
+20201216 18:12:21 140425805555456 received string: CONNECT-OK msg-size: 10 on socket 5
+20201216 18:12:23 140425805555456 sent string: DIGEST ZMrrappOyHFA7IL4d6ehH4AZ/dQ= msg-size: 35 on socket 5
+20201216 18:12:23 140425805555456 received string: Database up to date msg-size: 19 on socket 5
+20201216 18:12:23 140425805555456 sent string: server_db_ok msg-size: 12 on socket 5
+20201216 18:12:23 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf modified msg-size: 52 on socket 5
+20201216 18:12:23 140425805555456 sent string: READY msg-size: 5 on socket 5
+20201216 18:12:23 140425805555456 received string: FILE BIG_DIR5/Soft/Redist/installscript.vdf 917 msg-size: 47 on socket 5
+20201216 18:12:23 140425805555456 sent string: OK msg-size: 2 on socket 5
+20201216 18:12:23 140425805555456 sent string: DONE msg-size: 4 on socket 5
+20201216 18:12:23 140425805555456 received string: update completed msg-size: 16 on socket 5

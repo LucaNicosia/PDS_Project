@@ -140,8 +140,9 @@ int main(int argc, char** argv){
                     }
                 });
                 t.detach();
-                id++; // increment 'id' for next socket in vector
-                id = id%MAX_THREADS; // do not permit 'int' overflow
+                id++;
+                while(sockets.count(id) != 0)
+                    id = (id + 1)%(2*MAX_THREADS); // id can assume values between 0 and 2*MAX_THREADS - 1 (no oevrflow)
             }
         }
         default: {
