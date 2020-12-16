@@ -142,7 +142,7 @@ int main(int argc, char** argv){
                 t.detach();
                 id++;
                 while(sockets.count(id) != 0)
-                    id = (id + 1)%(2*MAX_THREADS); // id can assume values between 0 and 2*MAX_THREADS - 1 (no oevrflow)
+                    id = (id + 1)%(2*MAX_THREADS); // id can assume values between 0 and 2*MAX_THREADS - 1 (no overflow)
             }
         }
         default: {
